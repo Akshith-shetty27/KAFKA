@@ -1,0 +1,22 @@
+# OS / editors
+.DS_Store
+.idea/
+.vscode/*
+!.vscode/extensions.json
+
+# Secrets — only the *.example files are committed
+.env
+*.env.local
+
+# Python
+__pycache__/
+*.py[cod]
+backend/.venv/
+backend/staticfiles/
+backend/media/
+.coverage
+htmlcov/
+
+# Node (frontend has its own .gitignore too)
+node_modules/
+frontend/dist/

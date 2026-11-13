@@ -1,0 +1,81 @@
+@import 'tailwindcss';
+
+/*
+ * KAFKA design tokens — "Paper & Ink" (see docs/DESIGN.md).
+ * Raw palette + type families are registered with Tailwind so utilities like
+ * `bg-paper-50`, `text-teal-400`, `font-display` exist. Semantic tokens
+ * (--k-bg, --k-text, …) switch between the Paper and Ink surface modes.
+ * Phase 3 extends this file with the full component layer.
+ */
+@theme {
+  --color-paper-50: #fffcf2;
+  --color-paper-100: #f6f2e6;
+  --color-ink-950: #050505;
+  --color-ink-900: #0e0e0e;
+  --color-ink-800: #1a1a1a;
+  --color-ink-600: #3a3a3a;
+  --color-stone-500: #7a776e;
+  --color-stone-400: #8e8b82;
+  --color-teal-400: #22dcc8;
+  --color-teal-500: #14bfac;
+  --color-signal-red: #f0614a;
+  --color-signal-amber: #f2b33d;
+
+  --font-display: 'Inter Tight', ui-sans-serif, system-ui, sans-serif;
+  --font-serif: 'Instrument Serif', ui-serif, Georgia, serif;
+  --font-sans: 'DM Sans', ui-sans-serif, system-ui, sans-serif;
+  --font-mono: 'JetBrains Mono', ui-monospace, SFMono-Regular, Menlo, monospace;
+
+  --radius-none: 0;
+}
+
+@layer base {
+  :root,
+  [data-surface='paper'] {
+    --k-bg: var(--color-paper-50);
+    --k-surface: var(--color-paper-100);
+    --k-text: var(--color-ink-950);
+    --k-text-muted: var(--color-stone-500);
+    --k-rule: var(--color-ink-950);
+    --k-accent: var(--color-teal-400);
+    --k-accent-text: var(--color-teal-500);
+  }
+
+  [data-surface='ink'] {
+    --k-bg: var(--color-ink-950);
+    --k-surface: var(--color-ink-900);
+    --k-text: var(--color-paper-50);
+    --k-text-muted: var(--color-stone-400);
+    --k-rule: var(--color-ink-800);
+    --k-accent: var(--color-teal-400);
+    --k-accent-text: var(--color-teal-400);
+  }
+
+  html {
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+    text-rendering: optimizeLegibility;
+  }
+
+  body {
+    margin: 0;
+    min-height: 100vh;
+    background: var(--k-bg);
+    color: var(--k-text);
+    font-family: var(--font-sans);
+  }
+
+  ::selection {
+    background: var(--color-teal-400);
+    color: var(--color-ink-950);
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    *,
+    *::before,
+    *::after {
+      animation-duration: 0.01ms !important;
+      transition-duration: 0.01ms !important;
+    }
+  }
+}
