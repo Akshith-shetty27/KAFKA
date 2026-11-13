@@ -45,7 +45,7 @@ base URLs, tokens and refresh.
 |---|---|---|
 | `core` | Shared plumbing: timestamp base model, pagination class, exception handler (uniform error JSON), common permissions | `models.py`, `pagination.py`, `exceptions.py`, `permissions.py` |
 | `accounts` | Custom `User` (email login), `UserProfile`, register/login/refresh/logout/me, password change | `services.py`, `cookies.py` (refresh-cookie helpers) |
-| `catalog` | Content: Category → Topic → Question, patterns, coding details, solutions, MCQ options; content seeding command | `selectors.py`, `management/commands/seed_content.py`, `content/*.json` |
+| `catalog` | Content: Category → Topic → Question, patterns, coding details, solutions, MCQ options; content seeding command | `selectors.py`, `management/commands/seed_content.py`, `content/*.py` |
 | `progress` | Per-user question state, MCQ answering, activity log, dashboard/analytics/streak/recommendations | `services.py` (writes), `selectors.py` (aggregations) |
 | `assistant` | ASK KAFKA: conversations, messages, context building, prompts, provider adapters, streaming | `llm/`, `context.py`, `prompts.py`, `services.py` |
 
@@ -99,6 +99,9 @@ Category 1──< Topic 1──< Question ──1 CodingDetail      (coding only
 | `QuestionOption` | question FK, label (A–D), text, order, is_correct | unique (question, label); **partial unique index: at most one `is_correct=True` per question** |
 
 Design notes:
+- Content is authored as Python modules (`apps/catalog/content/*.py`) rather than JSON so code and Markdown
+  can be written as readable multi-line strings. `seed_content` validates everything first, then upserts by
+  slug (options by label) so re-seeding never breaks existing user progress.
 - Category → Topic → Question is a strict FK chain; a question's category is derived via its topic (not stored twice).
 - `CodingDetail` is split out so `Question` doesn't carry a dozen columns that are NULL for aptitude/core questions.
 - `examples` is JSON because examples are an ordered list of value objects that are only ever read together with their question; they are never queried or joined.
@@ -108,13 +111,16 @@ Design notes:
 
 | Model | Fields | Constraints / indexes |
 |---|---|---|
-| `QuestionProgress` | user FK, question FK, status (`attempted`/`completed`), attempts_count, is_correct (nullable; MCQ latest), first_attempt_correct (nullable), selected_option FK (nullable), bookmarked, first_attempted_at, completed_at, updated_at | unique (user, question); index (user, status); index (user, updated_at) |
+| `QuestionProgress` | user FK, question FK, status (`attempted`/`completed`), answer_count (MCQ submissions), is_correct (nullable; MCQ latest), first_attempt_correct (nullable; fixed by first submission), selected_option FK (nullable, SET_NULL), first_attempted_at, completed_at, updated_at | unique (user, question); check: status valid; check: completed ⇒ completed_at set; index (user, status); index (user, -updated_at) |
 | `ActivityEvent` | user FK, question FK (nullable), event_type (`attempted`, `completed`, `answered`, `ai_message`), is_correct (nullable), created_at | index (user, created_at) |
 
 - `QuestionProgress` = **current state** ("is this done?"). `ActivityEvent` = **append-only history** ("what happened when?").
   Daily activity, the weekly bar chart, streaks and accuracy-over-time are aggregations over `ActivityEvent`
   (`TruncDate(created_at, tzinfo=user_tz)`), so no daily counters are stored twice.
 - Streak = number of consecutive local days ending today (or yesterday) with ≥1 event.
+- **When things are recorded:** opening a question → `attempted` (event logged at most once per question per
+  local day). MCQ → every submission logs `answered`; the first *correct* answer sets status `completed`.
+  Coding/concept → the student marks it `completed` themselves. Resetting deletes the progress row but keeps events.
 
 **assistant**
 
@@ -150,23 +156,26 @@ Lists are paginated: `{"count", "next", "previous", "results"}` (page size 20, m
 
 | Method | Path | Notes |
 |---|---|---|
-| GET | `categories/` | with topic count, question count, user's completion % |
-| GET | `categories/{slug}/topics/` | grouped by section, with per-topic progress |
-| GET | `topics/{slug}/questions/` | filters: `difficulty`, `status`, `pattern`, `search`; paginated |
-| GET | `questions/{slug}/` | full detail. MCQ: **correct option + explanation are omitted until the user has answered** |
+| GET | `categories/` | `question_count`, `attempted_count`, `completed_count` (mine) |
+| GET | `topics/?category=` | each topic with its section and my counts; one call serves the analytics page too |
+| GET | `questions/?category=&topic=&difficulty=&status=&pattern=&search=&page=&page_size=` | paginated summaries with my `status` (`null` = not started) |
+| GET | `questions/{slug}/` | full detail + my progress + `navigation {previous, next}`. Solutions ordered by my preferred language. MCQ: **correct option + explanation are omitted until I have answered** |
 | GET | `patterns/` | |
 
 **Progress**
 
 | Method | Path | Notes |
 |---|---|---|
-| POST | `questions/{slug}/answer/` | MCQ: `{option_id}` → `{is_correct, correct_option_id, explanation}`; graded **server-side** |
-| PUT / DELETE | `questions/{slug}/progress/` | mark completed / un-mark; `{bookmarked}` |
-| GET | `progress/summary/` | dashboard: totals, completion %, streak, category breakdown |
-| GET | `progress/topics/` | topic-wise completion |
-| GET | `progress/activity/?days=7\|30\|365` | daily counts (bar chart / heatmap) |
-| GET | `progress/recent/` | recently attempted questions |
-| GET | `progress/plan/` | today's plan + recommended topics (rule-based on weakest topics + daily goal) |
+| POST | `questions/{slug}/attempt/` | I opened this question (idempotent) |
+| POST | `questions/{slug}/answer/` | MCQ: `{option_id}` → `{is_correct, correct_option_id, explanation, progress}`; graded **server-side** |
+| PUT / DELETE | `questions/{slug}/progress/` | PUT `{"status": "completed"}` (coding/concept only) / DELETE resets my progress |
+| GET | `progress/summary/` | `totals`, `answers` (MCQ accuracy), `streak {current, longest, active_today}`, `categories[]` |
+| GET | `progress/activity/?days=7\|14\|30\|90\|365` | zero-filled daily series in my timezone: questions, completed, answered, ai_messages |
+| GET | `progress/recent/?limit=10` | questions I touched most recently |
+| GET | `progress/plan/` | today's plan (`daily_goal` spread round-robin over categories; today's completions shown as done) + one recommended topic per category |
+
+Throttles (`ScopedRateThrottle`): `auth` 20/min (login, register), `auth_refresh` 60/min, `assistant` 40/hour —
+all env-configurable.
 
 **Assistant**
 
@@ -245,10 +254,10 @@ website]/                       ← repo root (see PROGRESS.md: folder name)
 │   │   ├── urls.py             mounts /api/v1/ from each app
 │   │   ├── wsgi.py · asgi.py
 │   └── apps/
-│       ├── core/        models.py · pagination.py · exceptions.py · permissions.py · tests/
-│       ├── accounts/    models.py · serializers.py · services.py · cookies.py · views.py · urls.py · admin.py · tests/
+│       ├── core/        models.py · pagination.py · exceptions.py · views.py (health) · testing.py · tests/
+│       ├── accounts/    models.py · signals.py · serializers.py · services.py · cookies.py · views.py · urls.py · admin.py · tests/
 │       ├── catalog/     models.py · serializers.py · selectors.py · views.py · urls.py · admin.py
-│       │                management/commands/seed_content.py · content/{coding,aptitude,core_cs}/*.json · tests/
+│       │                management/commands/seed_content.py · content/{coding,aptitude,core_cs}.py · tests/
 │       ├── progress/    models.py · serializers.py · services.py · selectors.py · views.py · urls.py · tests/
 │       └── assistant/   models.py · serializers.py · services.py · context.py · prompts.py
 │                        llm/{base,registry,anthropic_provider,fake_provider}.py · views.py · urls.py · tests/

@@ -5,7 +5,7 @@ Details live in [ARCHITECTURE.md](ARCHITECTURE.md) and [DESIGN.md](DESIGN.md); s
 
 ## Current status
 
-**Phase 1 — Project foundation: done (verified 2026-11-13).** Next: Phase 2.
+**Phase 2 — Database & backend APIs: done (verified 2026-11-13).** Next: Phase 3 (design system + auth pages + dashboard).
 
 ## Environment (verified 2026-11-13)
 
@@ -30,9 +30,9 @@ Workspace notes:
 | Phase | Scope | Status |
 |---|---|---|
 | 0 | Architecture, data model, API, folder structure, design direction | Done — approved |
-| 1 | Scaffold Django + Vue, Tailwind, Postgres db/role, env files, verify both servers start | **Done** |
-| 2 | Models + migrations, auth (JWT/cookie), catalog/progress APIs, seed command, API tests | Next |
-| 3 | Design system (tokens, ui components), layouts, routing + guards, landing, auth pages, dashboard | Not started |
+| 1 | Scaffold Django + Vue, Tailwind, Postgres db/role, env files, verify both servers start | Done |
+| 2 | Models + migrations, auth (JWT/cookie), catalog/progress APIs, seed command, API tests | **Done** |
+| 3 | Design system (tokens, ui components), layouts, routing + guards, landing, auth pages, dashboard | Next |
 | 4 | Prepare hub, practice lists, coding / aptitude / core question pages, completion + MCQ grading | Not started |
 | 5 | ASK KAFKA: provider layer, context, hints, streaming, conversation history | Not started |
 | 6 | Analytics page, recommendations/plan, responsiveness pass, error/empty states, integration testing | Not started |
@@ -58,6 +58,36 @@ Frontend (`frontend/`)
 - Verified in the browser: status page shows all OK; with Django stopped it shows OFFLINE + "Could not reach the
   server"; `npm run build` passes.
 
+### Phase 2 — what exists
+
+Backend apps
+- `accounts` — `UserProfile` (college, graduation year, target role, preferred language, daily goal, IANA
+  timezone, theme) auto-created by a `post_save` signal for every user (API, admin, createsuperuser).
+  Endpoints: register, login, refresh (rotating, blacklisted), logout, me (GET/PATCH), change-password
+  (signs out other sessions). Refresh token only ever in the httpOnly cookie (`Path=/api/v1/auth/`, `SameSite=Lax`).
+  Login errors are identical for unknown email / wrong password. Login/register throttled.
+- `catalog` — Category, TopicSection, Topic, Pattern, Question, CodingDetail, Solution, QuestionOption with
+  DB constraints (valid enums, unique slugs, one solution per language, **at most one correct option** via a
+  partial unique index). Read APIs with per-user progress; MCQ answers withheld until answered. Admin with inlines.
+- `progress` — QuestionProgress (state) + ActivityEvent (history). Services: record_attempt, submit_answer
+  (row-locked), mark_completed, reset_progress, log_event. Selectors: summary, streaks (pure function, timezone
+  aware), daily activity (zero-filled), recent, today's plan + recommended topics.
+
+Content (`manage.py seed_content`, idempotent)
+- 67 original questions: Coding 21 (10 topics, 13 patterns, Python solutions), Aptitude 27 MCQs (3 sections,
+  9 topics), Core CS 19 (6 subjects; concept answers, MCQs, SQL solutions).
+- Every coding solution executed against its examples (24 checks); every aptitude answer key re-derived
+  arithmetically; correct-answer letters spread across A–D.
+
+Verification
+- 65 backend tests passing (`manage.py test --settings=config.settings.test`): auth flow incl. rotation/replay,
+  logout blacklist, password-change session revocation, throttling; catalog filters/pagination/answer hiding;
+  progress writes; stats; streak + timezone edge cases; seed idempotency; **cross-user isolation** on every
+  user-owned read and write.
+- Live smoke test through the Vite proxy against Postgres: login → cookie refresh → catalog → answer MCQ →
+  complete coding question → summary/plan/activity/recent → logout → refresh rejected.
+- Query counts flat (question list of 50 = 4 queries; plan = 20, bounded by category count).
+
 ## Decisions log
 
 | # | Decision | Reason |
@@ -76,13 +106,23 @@ Frontend (`frontend/`)
 | D12 | Seed volume v1: ~40 coding, ~60 aptitude, ~60 core CS questions | Enough to make every page real |
 | D13 | DB `kafka_app` (not `kafka`), Vite port 5174 | Avoid colliding with the user's other local projects |
 | D14 | Health endpoint is public and returns only status flags | Needed by the status page; leaks nothing |
+| D15 | Profile created by `post_save` signal | The only hook that sees every user-creation path |
+| D16 | Opening a question = "attempted"; MCQ "completed" = first correct answer; coding/concept completed manually | Makes "attempted" vs "completed" meaningful per question type |
+| D17 | Single `GET /questions/` with filters (and `GET /topics/?category=`) instead of nested routes | One endpoint per resource; no duplicate list logic |
+| D18 | Progress counts merged from the user's own rows instead of a join over all users | Stays fast as the user base grows |
+| D19 | Content as Python modules + validating, idempotent `seed_content` | Readable multi-line code/Markdown; re-seeding keeps option ids so progress survives |
+| D20 | Bookmarks dropped from v1 | Not in the brief; would need a separate table to avoid fake "attempted" rows |
 
 ## Open items
 
 - **LLM API key:** not configured yet. Add `ANTHROPIC_API_KEY` to `backend/.env` and set `LLM_PROVIDER=anthropic` before Phase 5 testing.
 
+- **Content volume:** 67 of the ~160 planned questions (D12). The rest is added in Phase 4 using the same format.
+- **Dev-server note:** Django's autoreloader can die if settings reference an app before its package exists;
+  restart `runserver` if the API suddenly returns 502 through the proxy.
+
 ## Next step
 
-Phase 2 — `UserProfile`, auth endpoints (register/login/refresh cookie/logout/me), catalog models
-(Category → Topic → Question + details/solutions/options/patterns), progress models, serializers/selectors/services,
-`seed_content` command, admin registration, and API tests (including cross-user access checks).
+Phase 3 — design system in Vue (tokens, `components/ui/*`), Public/App layouts, auth store with in-memory access
+token + silent refresh + 401 interceptor, route guards, landing page, login/register pages, and the dashboard
+wired to `progress/summary`, `progress/activity`, `progress/plan`, `progress/recent`.

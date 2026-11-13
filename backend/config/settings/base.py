@@ -35,12 +35,15 @@ DJANGO_APPS = [
 
 THIRD_PARTY_APPS = [
     "rest_framework",
+    "rest_framework_simplejwt.token_blacklist",
     "corsheaders",
 ]
 
 LOCAL_APPS = [
     "apps.core",
     "apps.accounts",
+    "apps.catalog",
+    "apps.progress",
 ]
 
 INSTALLED_APPS = DJANGO_APPS + THIRD_PARTY_APPS + LOCAL_APPS
@@ -126,7 +129,11 @@ REST_FRAMEWORK = {
     "DEFAULT_PAGINATION_CLASS": "apps.core.pagination.StandardPagination",
     "PAGE_SIZE": 20,
     "EXCEPTION_HANDLER": "apps.core.exceptions.api_exception_handler",
+    # Throttling only applies to views that declare a `throttle_scope`.
+    "DEFAULT_THROTTLE_CLASSES": ["rest_framework.throttling.ScopedRateThrottle"],
     "DEFAULT_THROTTLE_RATES": {
+        "auth": env("AUTH_RATE", default="20/min"),  # login / register (brute-force guard)
+        "auth_refresh": env("AUTH_REFRESH_RATE", default="60/min"),
         "assistant": env("ASSISTANT_RATE", default="40/hour"),
     },
 }

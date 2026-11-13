@@ -50,6 +50,18 @@ and the password in `DATABASE_URL`. Then:
 cd backend && .venv/bin/python manage.py migrate
 ```
 
+Load the question bank (safe to re-run after editing `apps/catalog/content/*.py`):
+
+```bash
+cd backend && .venv/bin/python manage.py seed_content
+```
+
+Optional — an admin account for http://localhost:8000/admin/ (manage questions, users, progress):
+
+```bash
+cd backend && .venv/bin/python manage.py createsuperuser
+```
+
 ### 3. Frontend
 
 ```bash

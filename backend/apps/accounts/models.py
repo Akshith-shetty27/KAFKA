@@ -1,5 +1,12 @@
+import zoneinfo
+
+from django.conf import settings
 from django.contrib.auth.models import AbstractUser, BaseUserManager
+from django.core.exceptions import ValidationError
+from django.core.validators import MaxValueValidator, MinValueValidator
 from django.db import models
+
+from apps.core.models import TimeStampedModel
 
 
 class UserManager(BaseUserManager):
@@ -34,8 +41,7 @@ class User(AbstractUser):
     KAFKA user. Email is the login identifier and is stored lower-cased so
     `Asha@x.com` and `asha@x.com` can't become two accounts.
 
-    Profile data (college, goals, theme, timezone) lives in `UserProfile`
-    (added in Phase 2) to keep authentication concerns separate.
+    Everything that isn't about authentication lives on `UserProfile`.
     """
 
     username = None
@@ -52,3 +58,49 @@ class User(AbstractUser):
 
     def __str__(self):
         return self.email
+
+
+def validate_timezone(value):
+    if value not in zoneinfo.available_timezones():
+        raise ValidationError(f"'{value}' is not a valid IANA timezone (e.g. 'Asia/Kolkata').")
+
+
+class UserProfile(TimeStampedModel):
+    """Preparation preferences. Exactly one per user (created by a signal)."""
+
+    class Language(models.TextChoices):
+        PYTHON = "python", "Python"
+        JAVA = "java", "Java"
+        CPP = "cpp", "C++"
+        JAVASCRIPT = "javascript", "JavaScript"
+
+    class Theme(models.TextChoices):
+        INK = "ink", "Ink (dark)"
+        PAPER = "paper", "Paper (light)"
+
+    user = models.OneToOneField(settings.AUTH_USER_MODEL, on_delete=models.CASCADE, related_name="profile")
+    college = models.CharField(max_length=160, blank=True)
+    graduation_year = models.PositiveSmallIntegerField(
+        null=True, blank=True, validators=[MinValueValidator(1990), MaxValueValidator(2100)]
+    )
+    target_role = models.CharField(max_length=120, blank=True)
+    preferred_language = models.CharField(max_length=16, choices=Language.choices, default=Language.PYTHON)
+    daily_goal = models.PositiveSmallIntegerField(
+        default=5,
+        validators=[MinValueValidator(1), MaxValueValidator(50)],
+        help_text="Questions per day the student aims for; drives today's plan.",
+    )
+    timezone = models.CharField(
+        max_length=64,
+        default="UTC",
+        validators=[validate_timezone],
+        help_text="Used to decide what 'today' means for streaks and daily activity.",
+    )
+    theme = models.CharField(max_length=8, choices=Theme.choices, default=Theme.INK)
+
+    def __str__(self):
+        return f"Profile of {self.user}"
+
+    @property
+    def tzinfo(self):
+        return zoneinfo.ZoneInfo(self.timezone)
