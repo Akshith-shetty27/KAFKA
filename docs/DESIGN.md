@@ -1,6 +1,6 @@
 # KAFKA — Design Direction
 
-Status: **Proposed** (awaiting confirmation before any frontend code is written).
+Status: **Approved and implemented** (Phase 3). Tokens live in `frontend/src/assets/styles/main.css`.
 
 Source material: the four reference screenshots (landing hero, "The KAFKA Method",
 feature trio, "Show up. Get sharper. Go further.") plus the written brief.
@@ -114,12 +114,14 @@ used for fills/bars and `teal-500`/ink is used for teal-coloured *text*. On Ink,
 
 Reference nav: `HOME · PREPARE · PRACTICE · INTERVIEW · ASK KAFKA · SETTINGS` + `START PREPARING ↗`
 
+Implemented as: public header = in-page anchors (Method, Prepare, Ask Kafka) + Sign in + Start preparing; app header = only pages that exist (`router/navigation.js`), growing each phase.
+
 | Nav item | Logged out | Logged in |
 |---|---|---|
 | HOME | Landing | Dashboard |
 | PREPARE | → Register | Preparation hub: 3 categories → topics, progress per topic, today's plan |
 | PRACTICE | → Register | Question library with Coding / Aptitude / Core CS tabs, filters, pagination |
-| INTERVIEW | — | **Open decision** (see PROGRESS.md): v1 proposal = rename to PROGRESS (analytics) |
+| INTERVIEW | — | Renamed **PROGRESS** (analytics page, Phase 6) — decision D10 |
 | ASK KAFKA | → Login | AI assistant |
 | SETTINGS | — | Profile & settings (incl. Paper/Ink theme) |
 | START PREPARING ↗ | Register | becomes avatar/account menu |

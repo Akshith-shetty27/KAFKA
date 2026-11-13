@@ -5,7 +5,7 @@ Details live in [ARCHITECTURE.md](ARCHITECTURE.md) and [DESIGN.md](DESIGN.md); s
 
 ## Current status
 
-**Phase 2 — Database & backend APIs: done (verified 2026-11-13).** Next: Phase 3 (design system + auth pages + dashboard).
+**Phase 3 — Frontend foundation: done (verified 2026-11-13).** Next: Phase 4 (preparation modules: hub, practice lists, question pages).
 
 ## Environment (verified 2026-11-13)
 
@@ -31,9 +31,9 @@ Workspace notes:
 |---|---|---|
 | 0 | Architecture, data model, API, folder structure, design direction | Done — approved |
 | 1 | Scaffold Django + Vue, Tailwind, Postgres db/role, env files, verify both servers start | Done |
-| 2 | Models + migrations, auth (JWT/cookie), catalog/progress APIs, seed command, API tests | **Done** |
-| 3 | Design system (tokens, ui components), layouts, routing + guards, landing, auth pages, dashboard | Next |
-| 4 | Prepare hub, practice lists, coding / aptitude / core question pages, completion + MCQ grading | Not started |
+| 2 | Models + migrations, auth (JWT/cookie), catalog/progress APIs, seed command, API tests | Done |
+| 3 | Design system (tokens, ui components), layouts, routing + guards, landing, auth pages, dashboard | **Done** (+ settings page) |
+| 4 | Prepare hub, practice lists, coding / aptitude / core question pages, completion + MCQ grading | Next |
 | 5 | ASK KAFKA: provider layer, context, hints, streaming, conversation history | Not started |
 | 6 | Analytics page, recommendations/plan, responsiveness pass, error/empty states, integration testing | Not started |
 
@@ -57,6 +57,42 @@ Frontend (`frontend/`)
   404 page.
 - Verified in the browser: status page shows all OK; with Django stopped it shows OFFLINE + "Could not reach the
   server"; `npm run build` passes.
+
+### Phase 3 — what exists
+
+Design system (`frontend/src/assets/styles/main.css`, `components/ui/`)
+- Tailwind v4 tokens: raw palette + four type families, and **semantic** utilities (`bg-canvas`, `text-fg`,
+  `text-muted`, `border-rule`, `bg-accent`, `text-accent-text`, …) that resolve per surface. Any element with
+  `data-surface="ink|paper"` flips everything inside it. Type utilities: `k-display`, `k-serif` (keeps case),
+  `k-eyebrow`, `k-label`; layout: `k-container`, `k-grid` texture, `k-rise` entrance animation.
+- Contrast: teal is a fill on Paper; teal *text* on Paper uses `teal-700`. Muted text ≥ 5:1 on both surfaces.
+- Components: KIcon, KLogo, KEyebrow, KArrowLink, KButton, KInput (password reveal, aria-invalid/describedby),
+  KSelect, KCodeWindow, KChecklist, KBarChart (accessible summary), KStat, KStreakBadge, KProgressBar
+  (role=progressbar), KDifficulty, KSkeleton, KEmptyState, KErrorState.
+
+Auth on the frontend
+- `stores/auth.js`: access token **in memory only**; `init()` restores the session once per page load via the
+  refresh cookie. `services/http.js`: interceptors attach the token and, on 401, run **one shared refresh** then
+  retry; if refresh fails → session cleared → `/login?redirect=…&expired=1`. Auth endpoints use `skipAuth`.
+- Router guards (`requiresAuth`, `guestOnly`), `safeRedirect()` blocks open redirects. Route `meta.surface`
+  picks Paper/Ink; inside the app it follows the profile theme.
+
+Pages
+- Landing (from the references: hero, method, three tracks, Ask KAFKA teaser, "Show up" section).
+- Login / Register (split layout; server field errors shown inline; browser timezone sent on register).
+- Dashboard — all numbers from `/progress/*`: greeting, stats, today's plan, 7-day chart, progress by track,
+  recommended topics, recently attempted; per-section loading / error+retry / empty states.
+- Settings — profile & preferences (PATCH /auth/me), Ink/Paper theme (saved to profile), password change.
+- Nav lists only built pages (`router/navigation.js`); Prepare/Practice/Progress/Ask KAFKA are added as built.
+
+Verification (browser, 1440px and 375px)
+- Landing matches the references; no horizontal overflow at 375px; mobile menu (focus, Escape, scroll lock).
+- Guard redirect → login; wrong password message; weak-password field error; register → dashboard.
+- Dashboard empty states (new user) and populated states (seeded activity: streak 4, 75% accuracy, weekly bars).
+- Settings: nested field error (`profile.daily_goal`), save persisted in DB, theme switch persisted across reload.
+- Token expiry: corrupted access token → 4×401 → **1** refresh → 4 retries succeed. Revoked refresh token →
+  redirect to login with "session expired"; sign-in returns to the original page. Logout survives full reload.
+- `safeRedirect` unit-checked (7 cases); `vite build` clean; backend 65 tests still pass. Test user deleted.
 
 ### Phase 2 — what exists
 
@@ -112,17 +148,28 @@ Verification
 | D18 | Progress counts merged from the user's own rows instead of a join over all users | Stays fast as the user base grows |
 | D19 | Content as Python modules + validating, idempotent `seed_content` | Readable multi-line code/Markdown; re-seeding keeps option ids so progress survives |
 | D20 | Bookmarks dropped from v1 | Not in the brief; would need a separate table to avoid fake "attempted" rows |
+| D21 | Semantic colour utilities over per-surface CSS variables | One markup works on Paper and Ink; sections can flip locally |
+| D22 | Axios interceptors receive auth via `installAuth()` instead of importing the store | Avoids a store ↔ http circular import |
+| D23 | Dashboard sections fetch independently (no dashboard store) | Page-specific data; one failure doesn't blank the page |
+| D24 | Question rows on the dashboard aren't links yet | Question pages arrive in Phase 4; no links to unbuilt pages |
+| D25 | Settings page built in Phase 3 | Theme toggle + profile need it; brief lists a profile page |
 
 ## Open items
 
 - **LLM API key:** not configured yet. Add `ANTHROPIC_API_KEY` to `backend/.env` and set `LLM_PROVIDER=anthropic` before Phase 5 testing.
 
 - **Content volume:** 67 of the ~160 planned questions (D12). The rest is added in Phase 4 using the same format.
-- **Dev-server note:** Django's autoreloader can die if settings reference an app before its package exists;
-  restart `runserver` if the API suddenly returns 502 through the proxy.
+- **Dev-server notes:**
+  - Django's autoreloader can die if settings reference an app before its package exists; restart `runserver`
+    if the API suddenly returns 502 through the proxy.
+  - Tailwind (dev server only) doesn't pick up classes from **newly created** `.vue` files until Vite restarts;
+    edits to existing files are fine and production builds always see everything. Likely related to the `]` in
+    the folder name — renaming the folder (e.g. `~/Desktop/kafka`) is worth trying.
 
 ## Next step
 
-Phase 3 — design system in Vue (tokens, `components/ui/*`), Public/App layouts, auth store with in-memory access
-token + silent refresh + 401 interceptor, route guards, landing page, login/register pages, and the dashboard
-wired to `progress/summary`, `progress/activity`, `progress/plan`, `progress/recent`.
+Phase 4 — preparation modules: Prepare hub (categories → topics with progress), Practice library (filters,
+pagination), coding question page (statement, examples, approach, solution reveal, mark complete), aptitude MCQ
+page (answer → server grading → explanation), core CS page; markdown rendering (markdown-it + DOMPurify) and code
+highlighting; record `attempt` on open; link dashboard plan/recent rows to question pages; extend the question bank
+toward the ~160 target.

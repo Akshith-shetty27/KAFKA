@@ -1,23 +1,66 @@
 import { createRouter, createWebHistory } from 'vue-router'
 
-// Views are lazy-loaded so each page ships as its own chunk.
+import { useAuthStore } from '@/stores/auth'
+
+/*
+ * Route meta:
+ *   requiresAuth  – signed-in users only (redirects to /login?redirect=…)
+ *   guestOnly     – signed-out users only (login/register)
+ *   surface       – 'paper' | 'ink' | 'user' (user = the profile's theme)
+ *   title         – document title
+ * Child routes inherit their parent's meta.
+ */
 const routes = [
   {
-    // Until the landing page exists (Phase 3) the root shows system status.
     path: '/',
-    redirect: { name: 'status' },
+    component: () => import('@/components/layout/PublicLayout.vue'),
+    meta: { surface: 'paper' },
+    children: [{ path: '', name: 'landing', component: () => import('@/views/LandingView.vue') }],
+  },
+  {
+    path: '/',
+    component: () => import('@/components/layout/AuthLayout.vue'),
+    meta: { guestOnly: true, surface: 'paper' },
+    children: [
+      { path: 'login', name: 'login', component: () => import('@/views/auth/LoginView.vue'), meta: { title: 'Sign in' } },
+      {
+        path: 'register',
+        name: 'register',
+        component: () => import('@/views/auth/RegisterView.vue'),
+        meta: { title: 'Create account' },
+      },
+    ],
+  },
+  {
+    path: '/',
+    component: () => import('@/components/layout/AppLayout.vue'),
+    meta: { requiresAuth: true, surface: 'user' },
+    children: [
+      {
+        path: 'dashboard',
+        name: 'dashboard',
+        component: () => import('@/views/DashboardView.vue'),
+        meta: { title: 'Dashboard' },
+      },
+      {
+        path: 'settings',
+        name: 'settings',
+        component: () => import('@/views/SettingsView.vue'),
+        meta: { title: 'Settings' },
+      },
+    ],
   },
   {
     path: '/status',
     name: 'status',
     component: () => import('@/views/SystemStatusView.vue'),
-    meta: { title: 'System status' },
+    meta: { title: 'System status', surface: 'ink' },
   },
   {
     path: '/:pathMatch(.*)*',
     name: 'not-found',
     component: () => import('@/views/NotFoundView.vue'),
-    meta: { title: 'Not found' },
+    meta: { title: 'Not found', surface: 'paper' },
   },
 ]
 
@@ -25,8 +68,23 @@ const router = createRouter({
   history: createWebHistory(import.meta.env.BASE_URL),
   routes,
   scrollBehavior(to, from, savedPosition) {
-    return savedPosition ?? { top: 0 }
+    if (savedPosition) return savedPosition
+    if (to.hash) return { el: to.hash, top: 88 }
+    return { top: 0 }
   },
+})
+
+router.beforeEach(async (to) => {
+  const auth = useAuthStore()
+  await auth.init() // restores the session once per page load
+
+  if (to.meta.requiresAuth && !auth.isAuthenticated) {
+    return { name: 'login', query: { redirect: to.fullPath } }
+  }
+  if (to.meta.guestOnly && auth.isAuthenticated) {
+    return { name: 'dashboard' }
+  }
+  return true
 })
 
 router.afterEach((to) => {

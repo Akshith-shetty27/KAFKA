@@ -266,24 +266,26 @@ website]/                       ← repo root (see PROGRESS.md: folder name)
     └── src/
         ├── main.js · App.vue            App.vue = <RouterView/> inside a layout only
         ├── assets/styles/main.css        Tailwind v4 + @theme tokens (Paper/Ink)
-        ├── router/        index.js · guards.js
-        ├── stores/        auth.js · progress.js · assistant.js · ui.js
-        ├── services/      http.js · auth.api.js · catalog.api.js · progress.api.js · assistant.api.js · sse.js
-        ├── composables/   useAsync.js · usePagination.js · useTheme.js · useQuestionFilters.js
+        ├── router/        index.js (routes + guards) · navigation.js
+        ├── stores/        auth.js   (+ assistant.js in Phase 5)
+        ├── services/      http.js · auth.api.js · progress.api.js · system.api.js  (+ catalog, assistant, sse later)
+        ├── composables/   useAsync.js · useForm.js
+        ├── utils/         format.js (dates, percent, greeting, safeRedirect)
         ├── components/
-        │   ├── ui/        KButton · KArrowLink · KEyebrow · KPanel · KGlyph · KCodeWindow · KChecklist
-        │   │              KBarChart · KStat · KDifficulty · KProgressBar · KInput · KSelect · KTabs
-        │   │              KSkeleton · KEmptyState · KErrorState · KMarkdown
-        │   ├── layout/    PublicLayout · AppLayout · AppHeader · MobileMenu · AppFooter
-        │   ├── catalog/   CategoryCard · TopicList · QuestionTable · QuestionFilters
-        │   ├── question/  ProblemStatement · ExampleList · SolutionPanel · McqOptions · ExplanationPanel
-        │   ├── dashboard/ StreakCard · WeeklyActivity · TopicProgress · RecentQuestions · TodayPlan
-        │   └── assistant/ ChatThread · ChatMessage · ChatComposer · ConversationList · AssistantDrawer
+        │   ├── ui/        KIcon · KLogo · KEyebrow · KArrowLink · KButton · KInput · KSelect · KCodeWindow
+        │   │              KChecklist · KBarChart · KStat · KStreakBadge · KProgressBar · KDifficulty
+        │   │              KSkeleton · KEmptyState · KErrorState   (+ KMarkdown in Phase 4)
+        │   ├── layout/    PublicLayout · PublicHeader · AuthLayout · AppLayout · AppHeader · MobileMenu · AppFooter
+        │   ├── dashboard/ DashboardPanel · StatsRow · TodayPlan · WeeklyActivity · CategoryProgress
+        │   │              RecommendedTopics · RecentQuestions
+        │   ├── catalog/   (Phase 4) CategoryCard · TopicList · QuestionTable · QuestionFilters
+        │   ├── question/  (Phase 4) ProblemStatement · ExampleList · SolutionPanel · McqOptions · ExplanationPanel
+        │   └── assistant/ (Phase 5) ChatThread · ChatMessage · ChatComposer · ConversationList · AssistantDrawer
         └── views/
             LandingView · auth/LoginView · auth/RegisterView · DashboardView
             prepare/PrepareView · practice/CodingView · practice/CodingQuestionView
             practice/AptitudeView · practice/AptitudeQuestionView · practice/CoreCsView · practice/CoreQuestionView
-            AskKafkaView · ProfileView · AnalyticsView · NotFoundView
+            AskKafkaView · SettingsView (profile) · AnalyticsView · SystemStatusView · NotFoundView
 ```
 
 ---
