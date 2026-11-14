@@ -83,6 +83,11 @@ cd frontend && npm run dev
 Open http://localhost:5174 — the status page should show Frontend / API / Database all **OK**.
 Vite proxies every `/api/*` request to Django, so the browser only ever talks to one origin.
 
+> **After editing `backend/.env`, stop the Django server (Ctrl+C) and start it again.** Auto-reload only watches
+> `.py` files, and a reloaded worker inherits the old environment — a key added to `.env` while the server is
+> running (e.g. `GROQ_API_KEY`) won't be seen until a full restart. Also make sure only one server is running on
+> port 8000: Vite always proxies there (`VITE_DEV_API_TARGET`), whatever other port you start Django on.
+
 ## Tests & checks
 
 ```bash
