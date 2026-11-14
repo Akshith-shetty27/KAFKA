@@ -62,6 +62,12 @@ const routes = [
         meta: { title: 'Question' },
       },
       {
+        path: 'progress',
+        name: 'progress',
+        component: () => import('@/views/ProgressView.vue'),
+        meta: { title: 'Progress' },
+      },
+      {
         path: 'ask/:id(\\d+)?',
         name: 'ask',
         component: () => import('@/views/AskKafkaView.vue'),
@@ -112,7 +118,29 @@ router.beforeEach(async (to) => {
   return true
 })
 
+/*
+ * After a new deploy, an open tab may ask for an old page chunk that no longer
+ * exists ("Failed to fetch dynamically imported module"). Reload once onto the
+ * target URL to pick up the new build; the session flag prevents reload loops.
+ */
+router.onError((error, to) => {
+  const chunkFailed = /dynamically imported module|Importing a module script failed|Loading chunk/i.test(error?.message ?? '')
+  if (!chunkFailed) return
+  try {
+    if (sessionStorage.getItem('kafka:chunk-reload') === to.fullPath) return
+    sessionStorage.setItem('kafka:chunk-reload', to.fullPath)
+  } catch {
+    /* storage unavailable: still try once */
+  }
+  window.location.assign(to.fullPath)
+})
+
 router.afterEach((to) => {
+  try {
+    sessionStorage.removeItem('kafka:chunk-reload')
+  } catch {
+    /* ignore */
+  }
   document.title = to.meta.title ? `${to.meta.title} · KAFKA` : 'KAFKA — Interview Preparation'
 })
 

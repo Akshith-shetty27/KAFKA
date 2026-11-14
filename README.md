@@ -6,7 +6,7 @@ core CS, and an AI mentor (ASK KAFKA).
 **Stack:** Vue 3 · Vite · Tailwind CSS v4 · Vue Router · Pinia · Axios — Django · Django REST Framework ·
 SimpleJWT — PostgreSQL 16.
 
-Docs: [Architecture](docs/ARCHITECTURE.md) · [Design](docs/DESIGN.md) · [Progress](docs/PROGRESS.md)
+Docs: [Architecture](docs/ARCHITECTURE.md) · [Design](docs/DESIGN.md) · [Progress](docs/PROGRESS.md) · [Deployment](docs/DEPLOYMENT.md)
 
 ```
 backend/    Django project (config/ = settings & urls, apps/ = domain apps)

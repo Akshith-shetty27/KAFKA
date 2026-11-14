@@ -10,4 +10,5 @@ urlpatterns = [
     path("progress/activity/", views.ActivityView.as_view(), name="progress-activity"),
     path("progress/recent/", views.RecentView.as_view(), name="progress-recent"),
     path("progress/plan/", views.PlanView.as_view(), name="progress-plan"),
+    path("progress/insights/", views.InsightsView.as_view(), name="progress-insights"),
 ]

@@ -13,16 +13,28 @@ defineProps({
 })
 
 const open = ref(false)
+const openButton = ref(null)
 const closeButton = ref(null)
 const route = useRoute()
+let navigated = false
 
-watch(() => route.fullPath, () => (open.value = false))
+watch(
+  () => route.fullPath,
+  () => {
+    navigated = open.value
+    open.value = false
+  },
+)
 watch(open, async (isOpen) => {
   document.body.style.overflow = isOpen ? 'hidden' : ''
   if (isOpen) {
     await nextTick()
     closeButton.value?.focus()
+  } else if (!navigated) {
+    // Closed without navigating (× or Escape): return focus to the menu button.
+    openButton.value?.focus()
   }
+  navigated = false
 })
 
 function onKey(event) {
@@ -38,6 +50,7 @@ onBeforeUnmount(() => {
 <template>
   <div class="lg:hidden">
     <button
+      ref="openButton"
       type="button"
       class="-mr-2 flex size-11 items-center justify-center text-fg"
       aria-label="Open menu"

@@ -45,9 +45,21 @@ async function loadForQuestion(slug) {
   }
 }
 
+let returnFocusTo = null
+
 watch(open, async (isOpen) => {
   document.body.style.overflow = isOpen ? 'hidden' : '' // keep the page behind still
-  if (!isOpen) return
+  if (!isOpen) {
+    // Keyboard users land back on the button that opened the drawer. Wait a
+    // render so anything hidden while the drawer was open is visible again
+    // (hidden elements can't take focus).
+    const target = returnFocusTo
+    returnFocusTo = null
+    await nextTick()
+    target?.focus?.()
+    return
+  }
+  returnFocusTo = document.activeElement
   if (loadedFor.value !== props.question.slug) await loadForQuestion(props.question.slug)
   await nextTick()
   composer.value?.focus()

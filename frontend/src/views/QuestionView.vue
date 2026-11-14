@@ -12,6 +12,7 @@ import { useRoute } from 'vue-router'
 import AssistantDrawer from '@/components/assistant/AssistantDrawer.vue'
 import ExampleList from '@/components/question/ExampleList.vue'
 import McqOptions from '@/components/question/McqOptions.vue'
+import QuestionMobileBar from '@/components/question/QuestionMobileBar.vue'
 import QuestionAside from '@/components/question/QuestionAside.vue'
 import RevealPanel from '@/components/question/RevealPanel.vue'
 import KCodeBlock from '@/components/ui/KCodeBlock.vue'
@@ -114,7 +115,8 @@ watch(slug, () => (askOpen.value = false))
 </script>
 
 <template>
-  <div class="k-container py-10 lg:py-14">
+  <!-- pb-28 leaves room for the fixed mobile action bar -->
+  <div class="k-container pt-10 pb-28 lg:py-14">
     <KErrorState
       v-if="detail.error.value && detail.error.value.status !== 404"
       :message="detail.error.value.message"
@@ -268,6 +270,15 @@ watch(slug, () => (askOpen.value = false))
         </aside>
       </div>
 
+      <!-- v-show (not v-if): its "Ask Kafka" button must survive so focus can return to it -->
+      <QuestionMobileBar
+        v-show="!askOpen"
+        :question="question"
+        :progress="progress"
+        :busy="busy"
+        @complete="markComplete"
+        @ask="askOpen = true"
+      />
       <AssistantDrawer v-model:open="askOpen" :question="question" :capabilities="askCapabilities" />
     </template>
   </div>

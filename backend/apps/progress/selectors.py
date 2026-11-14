@@ -263,3 +263,100 @@ def todays_plan(user) -> dict:
         "items": items,
         "recommended_topics": topics,
     }
+
+
+# --- insights (Progress page) ---------------------------------------------------------
+
+DIFFICULTY_ORDER = ["easy", "medium", "hard"]
+FOCUS_ACCURACY_BELOW = 0.7  # first-try MCQ accuracy that flags a topic
+FOCUS_MIN_ANSWERS = 2  # don't judge a topic on a single answer
+FOCUS_LIMIT = 3
+
+
+def _ratio(numerator: int, denominator: int) -> float | None:
+    return round(numerator / denominator, 4) if denominator else None
+
+
+def focus_areas(topics: list[dict]) -> list[dict]:
+    """Up to three topics worth attention, most urgent first.
+
+    1. MCQ topics where first-try accuracy is low (≥2 first tries, < 70%).
+    2. Topics started but less than half done.
+    Pure function over `insights()` topic rows — unit-tested separately.
+    """
+    weak = sorted(
+        (
+            t
+            for t in topics
+            if t["first_attempt_total"] >= FOCUS_MIN_ANSWERS
+            and t["first_attempt_correct"] / t["first_attempt_total"] < FOCUS_ACCURACY_BELOW
+        ),
+        key=lambda t: (t["first_attempt_correct"] / t["first_attempt_total"], -t["first_attempt_total"]),
+    )
+    unfinished = sorted(
+        (
+            t
+            for t in topics
+            if t["attempted_count"] > 0 and t["question_count"] and t["completed_count"] / t["question_count"] < 0.5
+        ),
+        key=lambda t: t["completed_count"] / t["question_count"],
+    )
+    result, seen = [], set()
+    for reason, group in (("low_accuracy", weak), ("unfinished", unfinished)):
+        for t in group:
+            if t["slug"] not in seen and len(result) < FOCUS_LIMIT:
+                seen.add(t["slug"])
+                result.append({"reason": reason, "topic": t})
+    return result
+
+
+def insights(user) -> dict:
+    """Breakdowns for the Progress page: per topic, per difficulty, focus areas."""
+    published = catalog_selectors.published_questions()
+
+    totals_by_difficulty = dict(published.values_list("difficulty").annotate(n=Count("id")))
+    done_by_difficulty = dict(
+        QuestionProgress.objects.filter(user=user, status=Status.COMPLETED, question__is_published=True)
+        .values_list("question__difficulty")
+        .annotate(n=Count("id"))
+    )
+    difficulty = [
+        {"difficulty": d, "question_count": totals_by_difficulty.get(d, 0), "completed_count": done_by_difficulty.get(d, 0)}
+        for d in DIFFICULTY_ORDER
+    ]
+
+    answers = {
+        row["question__topic_id"]: row
+        for row in ActivityEvent.objects.filter(user=user, event_type=Event.ANSWERED)
+        .values("question__topic_id")
+        .annotate(total=Count("id"), correct=Count("id", filter=Q(is_correct=True)))
+    }
+    first_tries = {
+        row["question__topic_id"]: row
+        for row in QuestionProgress.objects.filter(user=user, answer_count__gt=0, question__is_published=True)
+        .values("question__topic_id")
+        .annotate(total=Count("id"), correct=Count("id", filter=Q(first_attempt_correct=True)))
+    }
+
+    topics = []
+    for topic in catalog_selectors.topics_with_progress(user):
+        a = answers.get(topic.pk, {})
+        f = first_tries.get(topic.pk, {})
+        topics.append(
+            {
+                "slug": topic.slug,
+                "name": topic.name,
+                "category": {"slug": topic.category.slug, "name": topic.category.name},
+                "section": topic.section.name if topic.section else None,
+                "question_count": topic.question_count,
+                "attempted_count": topic.attempted_count,
+                "completed_count": topic.completed_count,
+                "answers_total": a.get("total", 0),
+                "answers_correct": a.get("correct", 0),
+                "first_attempt_total": f.get("total", 0),
+                "first_attempt_correct": f.get("correct", 0),
+                "first_attempt_accuracy": _ratio(f.get("correct", 0), f.get("total", 0)),
+            }
+        )
+
+    return {"difficulty": difficulty, "topics": topics, "focus_areas": focus_areas(topics)}

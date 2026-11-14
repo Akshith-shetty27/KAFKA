@@ -94,3 +94,10 @@ class PlanView(APIView):
 
     def get(self, request):
         return Response(PlanSerializer(selectors.todays_plan(request.user)).data)
+
+
+class InsightsView(APIView):
+    """GET /progress/insights/ — per-topic completion and accuracy, difficulty breakdown, focus areas."""
+
+    def get(self, request):
+        return Response(selectors.insights(request.user))

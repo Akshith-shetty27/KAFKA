@@ -5,7 +5,7 @@ Details live in [ARCHITECTURE.md](ARCHITECTURE.md) and [DESIGN.md](DESIGN.md); s
 
 ## Current status
 
-**Phase 5 — ASK KAFKA: done (verified 2026-11-14, offline provider).** Provider switched to **Groq · GPT-OSS 120B (free tier)**; waiting for a `GROQ_API_KEY` to verify live answers. Next: Phase 6.
+**All six phases done (2026-11-14).** KAFKA is feature-complete for v1. Remaining before a public launch: add a `GROQ_API_KEY` and verify live ASK KAFKA answers, then deploy (docs/DEPLOYMENT.md).
 
 ## Environment (verified 2026-11-13)
 
@@ -34,8 +34,8 @@ Workspace notes:
 | 2 | Models + migrations, auth (JWT/cookie), catalog/progress APIs, seed command, API tests | Done |
 | 3 | Design system (tokens, ui components), layouts, routing + guards, landing, auth pages, dashboard | Done (+ settings page) |
 | 4 | Prepare hub, practice lists, coding / aptitude / core question pages, completion + MCQ grading | Done (+ bank grown to 162) |
-| 5 | ASK KAFKA: provider layer, context, hints, streaming, conversation history | **Done** (Groq live answers need a key) |
-| 6 | Analytics page, recommendations/plan, responsiveness pass, error/empty states, integration testing | Next |
+| 5 | ASK KAFKA: provider layer, context, hints, streaming, conversation history | Done (Groq live answers need a key) |
+| 6 | Analytics page, recommendations/plan, responsiveness pass, error/empty states, integration testing | **Done** |
 
 ### Phase 1 — what exists
 
@@ -57,6 +57,38 @@ Frontend (`frontend/`)
   404 page.
 - Verified in the browser: status page shows all OK; with Django stopped it shows OFFLINE + "Could not reach the
   server"; `npm run build` passes.
+
+### Phase 6 — what exists
+
+Progress analytics
+- `GET /progress/insights/`: per-topic completion and first-try MCQ accuracy, completion by difficulty, and up to
+  three focus areas (topics with < 70% first-try accuracy over ≥ 2 tries first, then topics started but < 50%
+  done). `focus_areas()` is a pure, unit-tested function.
+- `/progress` page (nav "Progress", the reference's INTERVIEW slot): headline stats, 12-month activity heatmap
+  (`KHeatmap`, accessible summary, scrolls inside its box on phones), progress by track and by difficulty, focus
+  area cards linking to the filtered practice list, and a per-topic table with track tabs.
+
+Polish
+- Sticky mobile action bar on question pages (status · Ask Kafka · Done); content padded so nothing hides behind it.
+- Focus management: the ASK KAFKA drawer and the mobile menu return focus to the button that opened them.
+- Error-state audit: every data request on every page has a loading, error (with Retry) and empty state; the one
+  gap found (practice topic sidebar) is fixed.
+- Stale-deploy recovery: if a page chunk from an old build fails to load, the router reloads once onto the target.
+
+Production readiness
+- `config/settings/prod.py`: refuses to start without `DJANGO_ALLOWED_HOSTS`; `CSRF_TRUSTED_ORIGINS` (for the
+  admin behind HTTPS), referrer policy, quieter logging. `check --deploy` clean except opt-in HSTS preload (W021).
+- `docs/DEPLOYMENT.md`: one-origin nginx + Gunicorn (gthread workers for SSE) setup, env table, nginx config with
+  buffering off for ASK KAFKA, verify steps, update procedure, backups, security checklist.
+
+Integration
+- `apps/core/tests/test_end_to_end.py`: one student's full journey through the real API — register → cookie
+  restore after "reload" → browse → server-graded wrong answer → complete a coding question → summary / plan /
+  insights / recent agree → ASK KAFKA review stream (offline provider) → activity counts the AI message → logout →
+  refresh rejected.
+- Browser sweep at 375px over all 13 routes: no horizontal overflow, correct titles; Progress page checked with a
+  year of sample data at desktop and phone widths; mobile bar complete flow; focus return; no console errors.
+- 114 backend tests pass; `vite build` clean; no pending migrations. Test account deleted.
 
 ### Phase 5 — what exists
 
@@ -249,6 +281,10 @@ Verification
 | D37 | **Default LLM: Groq, `openai/gpt-oss-120b`, free tier** (user's choice); Claude adapter kept as optional | No pay-as-you-go cost; provider layer still allows switching by env var |
 | D38 | Groq defaults: 3,000-token replies, `include_reasoning=False`, history ≤10 msgs / ~12k chars | Free tier is ~8K tokens/min account-wide; students only see answers, not raw reasoning |
 | D39 | Provider client created lazily; missing key → clear "not configured" message + `configured` flag | A missing secret must not crash the server or confuse students |
+| D40 | Focus areas from first-try accuracy, not overall accuracy | Retrying until correct shouldn't hide a weak topic |
+| D41 | Insights in one endpoint; topic rows reuse the catalog's per-user counts | No duplicate counting logic; one request for the Progress page |
+| D42 | Production serves SPA and API from one origin behind nginx | No CORS; the path-scoped refresh cookie works unchanged |
+| D43 | Gunicorn `gthread` workers in production | Each streaming ASK KAFKA reply holds a thread; sync workers would starve |
 
 ## Open items
 
@@ -271,7 +307,9 @@ Verification
 
 ## Next step
 
-Phase 6 — analytics and polish: Progress page (nav "Progress", replaces the reference's INTERVIEW) with activity
-heatmap (`/progress/activity?days=90|365`), per-track and per-topic completion, MCQ accuracy by category, weakest
-topics; sticky mobile action bar on question pages; focus return after drawers; loading/empty/error audit; a
-production settings/deploy checklist; end-to-end integration pass.
+v1 is complete. Suggested order from here:
+1. **Turn on ASK KAFKA:** add `GROQ_API_KEY` to `backend/.env`, restart Django, try a hint and an explanation.
+2. **Deploy** following `docs/DEPLOYMENT.md`.
+3. Possible v2 work (not started): more questions (same content format + `seed_content`), AI mock interviews (the
+   reference's INTERVIEW idea), frontend unit tests (e.g. Vitest) for composables, email verification and password
+   reset (needs an email provider), and a paid LLM tier or provider if student numbers exceed Groq's free limits.

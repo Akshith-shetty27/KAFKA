@@ -172,6 +172,7 @@ Lists are paginated: `{"count", "next", "previous", "results"}` (page size 20, m
 | GET | `progress/summary/` | `totals`, `answers` (MCQ accuracy), `streak {current, longest, active_today}`, `categories[]` |
 | GET | `progress/activity/?days=7\|14\|30\|90\|365` | zero-filled daily series in my timezone: questions, completed, answered, ai_messages |
 | GET | `progress/recent/?limit=10` | questions I touched most recently |
+| GET | `progress/insights/` | per-topic completion + first-try MCQ accuracy, completion by difficulty, up to 3 focus areas (`low_accuracy` / `unfinished`) |
 | GET | `progress/plan/` | today's plan (`daily_goal` spread round-robin over categories; today's completions shown as done) + one recommended topic per category |
 
 Throttles (`ScopedRateThrottle`): `auth` 20/min (login, register), `auth_refresh` 60/min, `assistant` 40/hour —
@@ -269,7 +270,8 @@ website]/                       ← repo root (see PROGRESS.md: folder name)
 ├── docs/
 │   ├── ARCHITECTURE.md         this file
 │   ├── DESIGN.md               visual direction + tokens
-│   └── PROGRESS.md             phase tracker, decision log
+│   ├── PROGRESS.md             phase tracker, decision log
+│   └── DEPLOYMENT.md           production setup (nginx, Gunicorn, HTTPS, backups)
 ├── backend/
 │   ├── manage.py
 │   ├── requirements.txt
@@ -299,18 +301,18 @@ website]/                       ← repo root (see PROGRESS.md: folder name)
         ├── components/
         │   ├── ui/        KIcon · KLogo · KEyebrow · KArrowLink · KButton · KInput · KSelect · KCodeWindow
         │   │              KChecklist · KBarChart · KStat · KStreakBadge · KProgressBar · KDifficulty
-        │   │              KSkeleton · KEmptyState · KErrorState · KMarkdown · KCodeBlock · KPagination
+        │   │              KSkeleton · KEmptyState · KErrorState · KMarkdown · KCodeBlock · KPagination · KHeatmap
         │   ├── layout/    PublicLayout · PublicHeader · AuthLayout · AppLayout · AppHeader · MobileMenu · AppFooter
         │   ├── dashboard/ DashboardPanel · StatsRow · TodayPlan · WeeklyActivity · CategoryProgress
         │   │              RecommendedTopics · RecentQuestions
         │   ├── catalog/   QuestionTable
-        │   ├── question/  ExampleList · RevealPanel · McqOptions · QuestionAside
+        │   ├── question/  ExampleList · RevealPanel · McqOptions · QuestionAside · QuestionMobileBar
         │   └── assistant/ ChatThread · ChatMessage · ChatComposer · QuickActions · AssistantDrawer · DemoModeNote
         └── views/
             LandingView · auth/LoginView · auth/RegisterView · DashboardView
             PrepareView · PracticeView (/practice/:category = coding · aptitude · core-cs)
             QuestionView (/questions/:slug — coding · mcq · concept layouts)
-            AskKafkaView (/ask, /ask/:id) · SettingsView (profile) · AnalyticsView · SystemStatusView · NotFoundView
+            ProgressView (/progress) · AskKafkaView (/ask, /ask/:id) · SettingsView (profile) · SystemStatusView · NotFoundView
 ```
 
 ---

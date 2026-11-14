@@ -46,6 +46,7 @@ function setFilters(patch, { replace = false } = {}) {
 }
 
 // --- track meta (categories, topics, patterns) ------------------------------------
+// A failed pattern list only empties the pattern filter, so it has no error UI.
 const categories = useAsync(() => catalogApi.categories())
 const topics = useAsync((slug) => catalogApi.topics(slug))
 const patterns = useAsync(() => catalogApi.patterns())
@@ -182,7 +183,8 @@ const patternOptions = computed(() => [
       <div class="mt-12 grid grid-cols-1 gap-10 lg:grid-cols-12">
         <!-- Topic list (desktop) -->
         <aside class="hidden lg:col-span-3 lg:block" aria-label="Topics">
-          <KSkeleton v-if="!topics.data.value" :lines="8" />
+          <KErrorState v-if="topics.error.value" :message="topics.error.value.message" @retry="topics.run(category)" />
+          <KSkeleton v-else-if="!topics.data.value" :lines="8" />
           <nav v-else class="sticky top-28 flex flex-col gap-6">
             <button
               type="button"

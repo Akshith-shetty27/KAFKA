@@ -2,6 +2,7 @@ from datetime import datetime, timedelta
 from datetime import timezone as dt_timezone
 from unittest import mock
 
+from django.test import SimpleTestCase
 from django.urls import reverse
 from django.utils import timezone
 from rest_framework.test import APIClient, APITestCase
@@ -9,6 +10,7 @@ from rest_framework.test import APIClient, APITestCase
 from apps.core.testing import auth_client, make_catalog, make_user
 from apps.progress import services
 from apps.progress.models import ActivityEvent, QuestionProgress
+from apps.progress.selectors import focus_areas
 
 
 class ProgressWriteTests(APITestCase):
@@ -177,3 +179,72 @@ class StatsTests(APITestCase):
     def test_stats_endpoints_require_login(self):
         for name in ["progress-summary", "progress-activity", "progress-recent", "progress-plan"]:
             self.assertEqual(APIClient().get(reverse(name)).status_code, 401, name)
+
+
+class InsightsTests(APITestCase):
+    def setUp(self):
+        self.data = make_catalog()
+        self.q = self.data["questions"]
+        self.opt = self.data["options"]
+        self.user = make_user()
+        self.client = auth_client(self.user)
+
+    def test_requires_login(self):
+        self.assertEqual(APIClient().get(reverse("progress-insights")).status_code, 401)
+
+    def test_breakdowns(self):
+        services.mark_completed(self.user, self.q["two_sum"])
+        services.record_attempt(self.user, self.q["max_sub"])
+        services.submit_answer(self.user, self.q["pct"], self.opt["A"].id)  # wrong first try
+        services.submit_answer(self.user, self.q["pct"], self.opt["B"].id)
+
+        body = self.client.get(reverse("progress-insights")).json()
+        self.assertEqual(
+            body["difficulty"],
+            [
+                {"difficulty": "easy", "question_count": 3, "completed_count": 2},
+                {"difficulty": "medium", "question_count": 1, "completed_count": 0},
+                {"difficulty": "hard", "question_count": 0, "completed_count": 0},  # the hard question is a draft
+            ],
+        )
+        topics = {t["slug"]: t for t in body["topics"]}
+        self.assertEqual((topics["arrays"]["attempted_count"], topics["arrays"]["completed_count"]), (2, 1))
+        pct = topics["percentages"]
+        self.assertEqual((pct["answers_total"], pct["answers_correct"]), (2, 1))
+        self.assertEqual((pct["first_attempt_total"], pct["first_attempt_correct"], pct["first_attempt_accuracy"]), (1, 0, 0.0))
+
+    def test_other_users_activity_is_ignored(self):
+        other = make_user("other@example.com")
+        services.mark_completed(other, self.q["two_sum"])
+        services.submit_answer(other, self.q["pct"], self.opt["A"].id)
+        body = self.client.get(reverse("progress-insights")).json()
+        self.assertTrue(all(t["completed_count"] == 0 and t["answers_total"] == 0 for t in body["topics"]))
+        self.assertEqual(body["focus_areas"], [])
+
+
+class FocusAreaTests(SimpleTestCase):
+    def topic(self, slug, *, questions=10, attempted=0, completed=0, first_total=0, first_correct=0):
+        return {
+            "slug": slug,
+            "question_count": questions,
+            "attempted_count": attempted,
+            "completed_count": completed,
+            "first_attempt_total": first_total,
+            "first_attempt_correct": first_correct,
+        }
+
+    def test_low_accuracy_first_then_unfinished_capped_at_three(self):
+        topics = [
+            self.topic("fine", attempted=5, completed=5, first_total=5, first_correct=5),
+            self.topic("one-answer", attempted=1, completed=1, first_total=1, first_correct=0),  # too little data
+            self.topic("weak", attempted=4, completed=1, first_total=4, first_correct=1),  # 25%
+            self.topic("shaky", attempted=3, completed=2, first_total=3, first_correct=2),  # 67%
+            self.topic("barely-started", attempted=1, completed=0),
+            self.topic("half-way", attempted=6, completed=4),  # 40%
+            self.topic("untouched"),
+        ]
+        result = [(f["reason"], f["topic"]["slug"]) for f in focus_areas(topics)]
+        self.assertEqual(result, [("low_accuracy", "weak"), ("low_accuracy", "shaky"), ("unfinished", "barely-started")])
+
+    def test_nothing_to_flag(self):
+        self.assertEqual(focus_areas([self.topic("untouched")]), [])

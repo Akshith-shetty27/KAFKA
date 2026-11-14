@@ -3,13 +3,13 @@ import { http } from './http'
 const q = (slug) => `/questions/${encodeURIComponent(slug)}`
 
 export const progressApi = {
-  // --- reads (dashboard) -------------------------------------------------------
+  // --- reads (dashboard / progress page) ------------------------------------------
   /** { totals, answers, streak, categories[] } */
   async summary() {
     const { data } = await http.get('/progress/summary/')
     return data
   },
-  /** { days, series: [{ date, questions, completed, answered, ai_messages }] } */
+  /** { days, series: [{ date, questions, completed, answered, ai_messages }] } — days: 7|14|30|90|365 */
   async activity(days = 7) {
     const { data } = await http.get('/progress/activity/', { params: { days } })
     return data
@@ -22,6 +22,11 @@ export const progressApi = {
   /** { date, daily_goal, completed_today, items[], recommended_topics[] } */
   async plan() {
     const { data } = await http.get('/progress/plan/')
+    return data
+  },
+  /** { difficulty[], topics[] (with first-try accuracy), focus_areas[{ reason, topic }] } */
+  async insights() {
+    const { data } = await http.get('/progress/insights/')
     return data
   },
 
