@@ -22,6 +22,7 @@ const items = computed(() => {
       meta: `${question.category.name} · ${question.topic.name} · ${question.difficulty}`,
       done,
       tag,
+      to: { name: 'question', params: { slug: question.slug } },
     }
   })
 })

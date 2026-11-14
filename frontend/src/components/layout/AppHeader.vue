@@ -1,5 +1,5 @@
 <script setup>
-import { useRouter } from 'vue-router'
+import { useRoute, useRouter } from 'vue-router'
 
 import KIcon from '@/components/ui/KIcon.vue'
 import KLogo from '@/components/ui/KLogo.vue'
@@ -10,6 +10,12 @@ import MobileMenu from './MobileMenu.vue'
 
 const auth = useAuthStore()
 const router = useRouter()
+const route = useRoute()
+
+function isActive(item) {
+  if (item.match) return item.match.some((prefix) => route.path.startsWith(prefix))
+  return router.resolve(item.to).path === route.path
+}
 
 async function signOut() {
   await auth.logout()
@@ -27,8 +33,9 @@ async function signOut() {
           v-for="item in appNav"
           :key="item.label"
           :to="item.to"
-          class="k-label inline-flex items-center gap-2 border-b border-transparent pb-1 transition-colors hover:text-fg"
-          active-class="!border-fg"
+          class="k-label inline-flex items-center gap-2 border-b pb-1 transition-colors hover:text-fg"
+          :class="isActive(item) ? 'border-fg' : 'border-transparent'"
+          :aria-current="isActive(item) ? 'page' : undefined"
         >
           <KIcon v-if="item.icon" :name="item.icon" :size="15" />
           {{ item.label }}

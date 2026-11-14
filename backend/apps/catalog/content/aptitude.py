@@ -66,6 +66,34 @@ CATEGORY = {
                         16% of V = 2,560 → V = 2,560 × 100 / 16 = **16,000**.
                     """,
                 },
+                {
+                    "slug": "pct-more-less",
+                    "title": "25% more, how much less?",
+                    "type": "mcq",
+                    "difficulty": "easy",
+                    "statement": "A's salary is 25% more than B's. By what percentage is B's salary less than A's?",
+                    "options": ["25%", "22%", "20%", "15%"],
+                    "answer": "C",
+                    "explanation": """
+                        Let B = 100, so A = 125. B is 25 less than A, and "less than A" is measured on A:
+                        25 / 125 × 100 = **20%**.
+
+                        Rule: if A is r% more than B, B is r / (100 + r) × 100 % less than A.
+                    """,
+                },
+                {
+                    "slug": "pct-population-growth",
+                    "title": "Two years of growth",
+                    "type": "mcq",
+                    "difficulty": "easy",
+                    "statement": "A town's population of 10,000 grows by 10% in the first year and by 20% in the second. What is the population after two years?",
+                    "options": ["13,200", "13,000", "13,300", "12,800"],
+                    "answer": "A",
+                    "explanation": """
+                        Successive growth multiplies: 10,000 × 1.10 × 1.20 = **13,200**.
+                        (Adding 10% + 20% = 30% → 13,000 is the classic trap.)
+                    """,
+                },
             ],
         },
         {
@@ -115,6 +143,32 @@ CATEGORY = {
                         Rule: equal SPs with x% gain and x% loss always give a loss of x²/100 %.
                     """,
                 },
+                {
+                    "slug": "pl-false-weight",
+                    "title": "The 900-gram kilogram",
+                    "type": "mcq",
+                    "difficulty": "medium",
+                    "statement": "A dishonest shopkeeper claims to sell at cost price but uses a 900 g weight in place of 1 kg. What is his profit percentage?",
+                    "options": ["10%", "9.09%", "12.5%", "11.11%"],
+                    "answer": "D",
+                    "explanation": """
+                        He is paid for 1000 g but gives only 900 g. Gain = 100 g on goods costing 900 g:
+                        100 / 900 × 100 = **11.11%** (11 1/9 %).
+                    """,
+                },
+                {
+                    "slug": "pl-loss-to-gain",
+                    "title": "From a loss to a gain",
+                    "type": "mcq",
+                    "difficulty": "easy",
+                    "statement": "By selling an article for ₹450, a trader loses 10%. At what price should he sell it to gain 20%?",
+                    "options": ["₹540", "₹600", "₹580", "₹620"],
+                    "answer": "B",
+                    "explanation": """
+                        A 10% loss means SP = 90% of CP, so CP = 450 / 0.9 = ₹500.
+                        For a 20% gain: 500 × 1.2 = **₹600**.
+                    """,
+                },
             ],
         },
         {
@@ -162,6 +216,32 @@ CATEGORY = {
                         A draining pipe contributes a negative rate.
                     """,
                 },
+                {
+                    "slug": "tw-more-workers",
+                    "title": "More workers, fewer days",
+                    "type": "mcq",
+                    "difficulty": "easy",
+                    "statement": "12 workers can build a wall in 15 days. How many days would 20 workers take, working at the same rate?",
+                    "options": ["8 days", "10 days", "12 days", "9 days"],
+                    "answer": "D",
+                    "explanation": """
+                        Total work = 12 × 15 = 180 worker-days. With 20 workers: 180 / 20 = **9 days**.
+                    """,
+                },
+                {
+                    "slug": "tw-one-leaves",
+                    "title": "One worker leaves midway",
+                    "type": "mcq",
+                    "difficulty": "medium",
+                    "statement": "A can finish a job in 20 days and B in 30 days. They start together, but A leaves after 6 days. In how many days, in total, is the job finished?",
+                    "options": ["18 days", "21 days", "20 days", "24 days"],
+                    "answer": "B",
+                    "explanation": """
+                        Together they do 1/20 + 1/30 = 5/60 = 1/12 of the job per day.
+                        In 6 days: 6/12 = 1/2 of the job. B finishes the other half alone in 1/2 × 30 = 15 days.
+                        Total = 6 + 15 = **21 days**.
+                    """,
+                },
             ],
         },
         {
@@ -206,6 +286,208 @@ CATEGORY = {
                     "explanation": """
                         Average speed = total distance / total time, not the average of the speeds.
                         For equal distances: 2ab / (a + b) = 2 × 40 × 60 / 100 = **48 km/h**.
+                    """,
+                },
+                {
+                    "slug": "std-trains-opposite",
+                    "title": "Two trains crossing",
+                    "type": "mcq",
+                    "difficulty": "medium",
+                    "statement": "Two trains, 120 m and 180 m long, run on parallel tracks in opposite directions at 40 km/h and 50 km/h. How long do they take to cross each other completely?",
+                    "options": ["10 s", "15 s", "12 s", "18 s"],
+                    "answer": "C",
+                    "explanation": """
+                        Opposite directions → speeds add: 90 km/h = 90 × 5/18 = 25 m/s.
+                        They must cover both lengths: 120 + 180 = 300 m. Time = 300 / 25 = **12 s**.
+                    """,
+                },
+                {
+                    "slug": "std-boat-stream",
+                    "title": "Upstream and downstream",
+                    "type": "mcq",
+                    "difficulty": "medium",
+                    "statement": "A boat covers 24 km downstream in 2 hours and the same distance upstream in 3 hours. What is the speed of the stream?",
+                    "options": ["2 km/h", "1 km/h", "3 km/h", "4 km/h"],
+                    "answer": "A",
+                    "explanation": """
+                        Downstream speed = 24 / 2 = 12 km/h; upstream = 24 / 3 = 8 km/h.
+                        Stream speed = (12 − 8) / 2 = **2 km/h** (and the boat's own speed is (12 + 8) / 2 = 10 km/h).
+                    """,
+                },
+            ],
+        },
+        {
+            "slug": "averages",
+            "name": "Averages",
+            "section": "quantitative",
+            "description": "Totals, replacements and consecutive numbers.",
+            "questions": [
+                {
+                    "slug": "avg-removed-number",
+                    "title": "A number is removed",
+                    "type": "mcq",
+                    "difficulty": "easy",
+                    "statement": "The average of 5 numbers is 20. When one number is removed, the average of the rest becomes 18. Which number was removed?",
+                    "options": ["26", "28", "30", "32"],
+                    "answer": "B",
+                    "explanation": """
+                        Work with totals, not averages: 5 × 20 = 100 and 4 × 18 = 72.
+                        Removed number = 100 − 72 = **28**.
+                    """,
+                },
+                {
+                    "slug": "avg-teacher-age",
+                    "title": "The teacher joins",
+                    "type": "mcq",
+                    "difficulty": "easy",
+                    "statement": "The average age of 10 students is 15 years. When the teacher's age is included, the average rises to 17. How old is the teacher?",
+                    "options": ["35", "32", "40", "37"],
+                    "answer": "D",
+                    "explanation": """
+                        Students' total = 10 × 15 = 150. New total = 11 × 17 = 187.
+                        Teacher = 187 − 150 = **37 years**.
+                    """,
+                },
+                {
+                    "slug": "avg-consecutive-odd",
+                    "title": "Seven consecutive odd numbers",
+                    "type": "mcq",
+                    "difficulty": "medium",
+                    "statement": "The average of 7 consecutive odd numbers is 33. What is the largest of them?",
+                    "options": ["39", "37", "41", "45"],
+                    "answer": "A",
+                    "explanation": """
+                        For evenly spaced numbers the average is the middle term: the 4th number is 33.
+                        Three more odd numbers above it: 35, 37, **39**.
+                    """,
+                },
+                {
+                    "slug": "avg-batting",
+                    "title": "Raising a batting average",
+                    "type": "mcq",
+                    "difficulty": "medium",
+                    "statement": "A batsman's average after 16 innings is 40. How many runs must he score in the 17th innings to raise his average to 42?",
+                    "options": ["72", "76", "74", "82"],
+                    "answer": "C",
+                    "explanation": """
+                        Runs so far = 16 × 40 = 640. Needed total after 17 innings = 17 × 42 = 714.
+                        Runs required = 714 − 640 = **74**.
+                    """,
+                },
+            ],
+        },
+        {
+            "slug": "ratio-and-proportion",
+            "name": "Ratio and Proportion",
+            "section": "quantitative",
+            "description": "Sharing, mixtures and age ratios.",
+            "questions": [
+                {
+                    "slug": "rp-share",
+                    "title": "Sharing ₹1,800",
+                    "type": "mcq",
+                    "difficulty": "easy",
+                    "statement": "₹1,800 is divided between A and B in the ratio 4 : 5. What is B's share?",
+                    "options": ["₹800", "₹900", "₹1,100", "₹1,000"],
+                    "answer": "D",
+                    "explanation": """
+                        Total parts = 4 + 5 = 9; one part = 1800 / 9 = ₹200.
+                        B gets 5 parts = **₹1,000**.
+                    """,
+                },
+                {
+                    "slug": "rp-mixture-water",
+                    "title": "Diluting milk",
+                    "type": "mcq",
+                    "difficulty": "medium",
+                    "statement": "A 40-litre mixture contains milk and water in the ratio 3 : 1. How much water must be added to make the ratio 3 : 2?",
+                    "options": ["5 litres", "10 litres", "8 litres", "12 litres"],
+                    "answer": "B",
+                    "explanation": """
+                        Milk = 30 L, water = 10 L. Milk doesn't change, so for 3 : 2 water must be 30 × 2/3 = 20 L.
+                        Add 20 − 10 = **10 litres**.
+                    """,
+                },
+                {
+                    "slug": "rp-ages",
+                    "title": "Ages four years ago",
+                    "type": "mcq",
+                    "difficulty": "medium",
+                    "statement": "The ratio of the present ages of A and B is 5 : 7. Four years ago it was 3 : 5. What is A's present age?",
+                    "options": ["10 years", "8 years", "12 years", "15 years"],
+                    "answer": "A",
+                    "explanation": """
+                        Let the ages be 5x and 7x. Then (5x − 4) / (7x − 4) = 3/5
+                        → 25x − 20 = 21x − 12 → 4x = 8 → x = 2. A is 5 × 2 = **10 years** old.
+                    """,
+                },
+                {
+                    "slug": "rp-fourth-proportional",
+                    "title": "Fourth proportional",
+                    "type": "mcq",
+                    "difficulty": "easy",
+                    "statement": "Find the fourth proportional to 4, 9 and 12.",
+                    "options": ["24", "30", "27", "36"],
+                    "answer": "C",
+                    "explanation": """
+                        4 : 9 = 12 : x → 4x = 9 × 12 = 108 → x = **27**.
+                    """,
+                },
+            ],
+        },
+        {
+            "slug": "simple-and-compound-interest",
+            "name": "Simple and Compound Interest",
+            "section": "quantitative",
+            "description": "Interest on principal versus interest on interest.",
+            "questions": [
+                {
+                    "slug": "si-basic",
+                    "title": "Simple interest for 3 years",
+                    "type": "mcq",
+                    "difficulty": "easy",
+                    "statement": "What is the simple interest on ₹5,000 at 8% per annum for 3 years?",
+                    "options": ["₹1,000", "₹1,250", "₹1,200", "₹1,500"],
+                    "answer": "C",
+                    "explanation": """
+                        SI = P × R × T / 100 = 5000 × 8 × 3 / 100 = **₹1,200**.
+                    """,
+                },
+                {
+                    "slug": "ci-basic",
+                    "title": "Compound interest for 2 years",
+                    "type": "mcq",
+                    "difficulty": "easy",
+                    "statement": "What is the compound interest on ₹10,000 at 10% per annum for 2 years, compounded annually?",
+                    "options": ["₹2,100", "₹2,000", "₹2,050", "₹2,200"],
+                    "answer": "A",
+                    "explanation": """
+                        Amount = 10,000 × 1.1² = ₹12,100, so CI = **₹2,100**.
+                        It exceeds simple interest (₹2,000) by the interest earned on the first year's interest (₹100).
+                    """,
+                },
+                {
+                    "slug": "ci-si-difference",
+                    "title": "CI minus SI",
+                    "type": "mcq",
+                    "difficulty": "medium",
+                    "statement": "What is the difference between compound and simple interest on ₹8,000 at 5% per annum for 2 years?",
+                    "options": ["₹15", "₹25", "₹40", "₹20"],
+                    "answer": "D",
+                    "explanation": """
+                        For 2 years, CI − SI = P × (R/100)² = 8000 × (0.05)² = 8000 × 0.0025 = **₹20**.
+                    """,
+                },
+                {
+                    "slug": "si-doubling",
+                    "title": "When does money double?",
+                    "type": "mcq",
+                    "difficulty": "easy",
+                    "statement": "At what rate of simple interest does a sum of money double itself in 8 years?",
+                    "options": ["10%", "12.5%", "12%", "15%"],
+                    "answer": "B",
+                    "explanation": """
+                        Doubling means interest = principal, i.e. R × T = 100. R = 100 / 8 = **12.5%** per annum.
                     """,
                 },
             ],
@@ -255,6 +537,32 @@ CATEGORY = {
                         Differences: 1, 2, 4, 8 — each doubles. Next difference is 16: 17 + 16 = **33**.
                     """,
                 },
+                {
+                    "slug": "ns-squares-plus-one",
+                    "title": "1, 2, 5, 10, 17, 26, ?",
+                    "type": "mcq",
+                    "difficulty": "easy",
+                    "statement": "Find the next number: **1, 2, 5, 10, 17, 26, ?**",
+                    "options": ["35", "36", "39", "37"],
+                    "answer": "D",
+                    "explanation": """
+                        The terms are n² + 1 for n = 0, 1, 2, …: 0+1, 1+1, 4+1, 9+1, 16+1, 25+1 → next 36 + 1 = **37**.
+                        (Differences 1, 3, 5, 7, 9 → next 11 gives the same answer.)
+                    """,
+                },
+                {
+                    "slug": "ns-squares-minus-one",
+                    "title": "120, 99, 80, 63, 48, ?",
+                    "type": "mcq",
+                    "difficulty": "medium",
+                    "statement": "Find the next number: **120, 99, 80, 63, 48, ?**",
+                    "options": ["35", "33", "36", "38"],
+                    "answer": "A",
+                    "explanation": """
+                        Each term is a square minus one: 11² − 1, 10² − 1, 9² − 1, 8² − 1, 7² − 1 → 6² − 1 = **35**.
+                        Differences −21, −19, −17, −15 → next −13 confirms it.
+                    """,
+                },
             ],
         },
         {
@@ -300,6 +608,32 @@ CATEGORY = {
                     "explanation": """
                         Y and Z are siblings, so X is also Z's father. W is a woman and Z's parent, so W is
                         Z's mother. The mother of X's child is X's **wife**.
+                    """,
+                },
+                {
+                    "slug": "br-mothers-mother",
+                    "title": "My mother's mother's only daughter",
+                    "type": "mcq",
+                    "difficulty": "medium",
+                    "statement": "Introducing a woman, Arjun says: \"She is the only daughter of my mother's mother.\" How is the woman related to Arjun?",
+                    "options": ["Aunt", "Grandmother", "Mother", "Sister"],
+                    "answer": "C",
+                    "explanation": """
+                        Arjun's mother is a daughter of his mother's mother. If that grandmother has only one
+                        daughter, it must be Arjun's mother. The woman is his **mother**.
+                    """,
+                },
+                {
+                    "slug": "br-symbol-code",
+                    "title": "Relations written as symbols",
+                    "type": "mcq",
+                    "difficulty": "medium",
+                    "statement": "If **P + Q** means P is the father of Q, and **P × Q** means P is the sister of Q, what does **A + B × C** mean?",
+                    "options": ["A is the uncle of C", "A is the father of C", "A is the brother of C", "C is the father of A"],
+                    "answer": "B",
+                    "explanation": """
+                        A + B: A is B's father. B × C: B is C's sister, so B and C share parents.
+                        Therefore A is also **C's father**.
                     """,
                 },
             ],
@@ -351,6 +685,89 @@ CATEGORY = {
                         CANDLE: C+2 = E, A+3 = D, N+4 = R, D+5 = I, L+6 = R, E+7 = L → **EDRIRL**.
                     """,
                 },
+                {
+                    "slug": "cd-reverse",
+                    "title": "TRAIN → NIART",
+                    "type": "mcq",
+                    "difficulty": "easy",
+                    "statement": "If TRAIN is written as NIART, how is PLANE written in the same code?",
+                    "options": ["ENLAP", "ELANP", "ENALP", "PENAL"],
+                    "answer": "C",
+                    "explanation": """
+                        The letters are simply reversed. PLANE → **ENALP**.
+                    """,
+                },
+                {
+                    "slug": "cd-letter-values",
+                    "title": "Adding letter positions",
+                    "type": "mcq",
+                    "difficulty": "easy",
+                    "statement": "If A = 1, B = 2, …, Z = 26, what is the value of the word CODE (the sum of its letters)?",
+                    "options": ["25", "29", "31", "27"],
+                    "answer": "D",
+                    "explanation": """
+                        C = 3, O = 15, D = 4, E = 5 → 3 + 15 + 4 + 5 = **27**.
+                    """,
+                },
+            ],
+        },
+        {
+            "slug": "direction-sense",
+            "name": "Direction Sense",
+            "section": "logical",
+            "description": "Turns, distances and shadows.",
+            "questions": [
+                {
+                    "slug": "ds-net-position",
+                    "title": "North, right, right",
+                    "type": "mcq",
+                    "difficulty": "easy",
+                    "statement": "Ravi walks 5 km north, turns right and walks 3 km, then turns right again and walks 5 km. Where is he now relative to his starting point?",
+                    "options": ["3 km West", "5 km North", "3 km East", "13 km East"],
+                    "answer": "C",
+                    "explanation": """
+                        North 5 km, then right (east) 3 km, then right again (south) 5 km. The north and south
+                        legs cancel, leaving him **3 km east** of the start.
+                    """,
+                },
+                {
+                    "slug": "ds-shortest-distance",
+                    "title": "Shortest way back",
+                    "type": "mcq",
+                    "difficulty": "easy",
+                    "statement": "A man walks 6 km east and then 8 km north. What is the shortest distance between him and his starting point?",
+                    "options": ["10 km", "12 km", "14 km", "7 km"],
+                    "answer": "A",
+                    "explanation": """
+                        The two legs are perpendicular, so use Pythagoras: √(6² + 8²) = √100 = **10 km**.
+                    """,
+                },
+                {
+                    "slug": "ds-turns",
+                    "title": "Clockwise, then anticlockwise",
+                    "type": "mcq",
+                    "difficulty": "easy",
+                    "statement": "Meera faces north. She turns 90° clockwise, then 180° anticlockwise. Which direction is she facing now?",
+                    "options": ["East", "South", "North", "West"],
+                    "answer": "D",
+                    "explanation": """
+                        North → 90° clockwise → East → 180° anticlockwise → **West**.
+                        Net effect: 90° anticlockwise from north.
+                    """,
+                },
+                {
+                    "slug": "ds-morning-shadow",
+                    "title": "The morning shadow",
+                    "type": "mcq",
+                    "difficulty": "medium",
+                    "statement": "One morning after sunrise, Kiran stood facing a pole. The pole's shadow fell exactly to his right. Which direction was he facing?",
+                    "options": ["North", "South", "East", "West"],
+                    "answer": "B",
+                    "explanation": """
+                        In the morning the sun is in the east, so shadows point **west**. The shadow is on his
+                        right, so his right hand points west — which means he is facing **south**.
+                    """,
+                },
             ],
         },
         # ============================================================== VERBAL
@@ -397,6 +814,31 @@ CATEGORY = {
                     "explanation": """
                         *Meticulous* means showing great attention to detail — **thorough**. Careless and hasty
                         are opposites.
+                    """,
+                },
+                {
+                    "slug": "voc-obsolete",
+                    "title": "Synonym: Obsolete",
+                    "type": "mcq",
+                    "difficulty": "easy",
+                    "statement": "Choose the word closest in meaning to **OBSOLETE**.",
+                    "options": ["Obvious", "Outdated", "Durable", "Hidden"],
+                    "answer": "B",
+                    "explanation": """
+                        *Obsolete* means no longer in use — **outdated**. "Obvious" is a sound-alike trap.
+                    """,
+                },
+                {
+                    "slug": "voc-benevolent",
+                    "title": "Antonym: Benevolent",
+                    "type": "mcq",
+                    "difficulty": "easy",
+                    "statement": "Choose the word most nearly **opposite** in meaning to **BENEVOLENT**.",
+                    "options": ["Kind", "Generous", "Charitable", "Malevolent"],
+                    "answer": "D",
+                    "explanation": """
+                        *Benevolent* means well-meaning and kind. Its opposite is **malevolent** — wishing harm on
+                        others (*bene* = good, *male* = bad).
                     """,
                 },
             ],
@@ -449,6 +891,32 @@ CATEGORY = {
                     "explanation": """
                         Latin comparatives such as *senior, junior, superior, inferior, prior* take **to**, not
                         *than*.
+                    """,
+                },
+                {
+                    "slug": "sc-each-of",
+                    "title": "Each of the players …",
+                    "type": "mcq",
+                    "difficulty": "easy",
+                    "statement": "Fill in the blank: \"Each of the players ___ given a new jersey.\"",
+                    "options": ["were", "have been", "was", "are"],
+                    "answer": "C",
+                    "explanation": """
+                        The subject is **each** (singular); "of the players" only describes it. So the verb is
+                        singular: **was**.
+                    """,
+                },
+                {
+                    "slug": "sc-since-for",
+                    "title": "Since or for?",
+                    "type": "mcq",
+                    "difficulty": "easy",
+                    "statement": "Fill in the blank: \"She has been working here ___ 2019.\"",
+                    "options": ["since", "for", "from", "by"],
+                    "answer": "A",
+                    "explanation": """
+                        Use **since** with a point in time (2019, Monday) and *for* with a duration (three years,
+                        two weeks) in the perfect tenses.
                     """,
                 },
             ],

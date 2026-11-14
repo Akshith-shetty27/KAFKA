@@ -212,3 +212,142 @@
     transform: none;
   }
 }
+
+/* ------------------------------------------------------------- prose */
+
+/* Rendered Markdown: problem statements, explanations, AI answers. */
+@layer components {
+  .k-prose {
+    font-size: 1rem;
+    line-height: 1.75;
+    color: var(--k-text);
+    overflow-wrap: break-word;
+  }
+  .k-prose-lg {
+    font-size: 1.125rem;
+  }
+  .k-prose > * + * {
+    margin-top: 1em;
+  }
+  .k-prose h1,
+  .k-prose h2,
+  .k-prose h3 {
+    font-family: var(--font-display);
+    font-weight: 600;
+    letter-spacing: -0.02em;
+    line-height: 1.2;
+    margin-top: 1.6em;
+  }
+  .k-prose h2 {
+    font-size: 1.35em;
+  }
+  .k-prose h3 {
+    font-size: 1.15em;
+  }
+  .k-prose strong {
+    font-weight: 600;
+  }
+  .k-prose em {
+    font-family: var(--font-serif);
+    font-size: 1.12em;
+  }
+  .k-prose a {
+    color: var(--k-accent-text);
+    text-decoration: underline;
+    text-underline-offset: 3px;
+  }
+  .k-prose ul,
+  .k-prose ol {
+    padding-left: 1.4em;
+  }
+  .k-prose ul {
+    list-style: square;
+  }
+  .k-prose ol {
+    list-style: decimal;
+  }
+  .k-prose li + li {
+    margin-top: 0.35em;
+  }
+  .k-prose li::marker {
+    color: var(--k-text-muted);
+  }
+  .k-prose blockquote {
+    border-left: 2px solid var(--k-accent);
+    padding-left: 1em;
+    color: var(--k-text-muted);
+  }
+  .k-prose :not(pre) > code {
+    font-family: var(--font-mono);
+    font-size: 0.88em;
+    padding: 0.1em 0.35em;
+    background: var(--k-surface);
+    border: 1px solid var(--k-rule-soft);
+  }
+  .k-prose table {
+    width: 100%;
+    border-collapse: collapse;
+    font-size: 0.92em;
+    display: block;
+    overflow-x: auto;
+  }
+  .k-prose th,
+  .k-prose td {
+    border-bottom: 1px solid var(--k-rule-soft);
+    padding: 0.6em 0.8em 0.6em 0;
+    text-align: left;
+    vertical-align: top;
+  }
+  .k-prose th {
+    font-family: var(--font-mono);
+    font-size: 0.78em;
+    font-weight: 500;
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    color: var(--k-text-muted);
+    border-bottom-color: var(--k-rule);
+  }
+  /* Fenced code blocks are always dark, like the reference code window. */
+  .k-prose pre.k-code {
+    background: var(--color-ink-900);
+    color: var(--color-paper-50);
+    border: 1px solid var(--color-ink-700);
+    padding: 1em 1.2em;
+    overflow-x: auto;
+    font-family: var(--font-mono);
+    font-size: 0.85em;
+    line-height: 1.8;
+  }
+}
+
+/* Syntax colours (highlight.js classes), matching KCodeWindow. */
+@layer components {
+  .hljs-keyword,
+  .hljs-built_in,
+  .hljs-type,
+  .hljs-literal,
+  .hljs-operator {
+    color: var(--color-teal-400);
+  }
+  .hljs-string,
+  .hljs-number,
+  .hljs-regexp {
+    color: #f2b33d;
+  }
+  .hljs-title,
+  .hljs-title.function_,
+  .hljs-title.class_ {
+    color: var(--color-paper-50);
+    font-weight: 500;
+  }
+  .hljs-comment,
+  .hljs-meta {
+    color: rgb(255 252 242 / 0.4);
+    font-style: italic;
+  }
+  .hljs-params,
+  .hljs-variable,
+  .hljs-attr {
+    color: rgb(255 252 242 / 0.85);
+  }
+}

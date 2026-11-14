@@ -1,6 +1,9 @@
 import { http } from './http'
 
+const q = (slug) => `/questions/${encodeURIComponent(slug)}`
+
 export const progressApi = {
+  // --- reads (dashboard) -------------------------------------------------------
   /** { totals, answers, streak, categories[] } */
   async summary() {
     const { data } = await http.get('/progress/summary/')
@@ -20,5 +23,26 @@ export const progressApi = {
   async plan() {
     const { data } = await http.get('/progress/plan/')
     return data
+  },
+
+  // --- writes (question pages) --------------------------------------------------
+  /** I opened this question → progress state */
+  async attempt(slug) {
+    const { data } = await http.post(`${q(slug)}/attempt/`)
+    return data
+  },
+  /** MCQ → { is_correct, correct_option_id, explanation, progress } (graded on the server) */
+  async answer(slug, optionId) {
+    const { data } = await http.post(`${q(slug)}/answer/`, { option_id: optionId })
+    return data
+  },
+  /** Coding/concept → progress state */
+  async complete(slug) {
+    const { data } = await http.put(`${q(slug)}/progress/`, { status: 'completed' })
+    return data
+  },
+  /** Forget my progress on this question (history is kept). */
+  async reset(slug) {
+    await http.delete(`${q(slug)}/progress/`)
   },
 }

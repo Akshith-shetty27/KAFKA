@@ -126,6 +126,94 @@ CATEGORY = {
                         """,
                     },
                 },
+                {
+                    "slug": "move-zeroes-to-end",
+                    "title": "Move Zeroes to the End",
+                    "type": "coding",
+                    "difficulty": "easy",
+                    "patterns": ["two-pointers"],
+                    "statement": """
+                        Given an integer array `nums`, move every `0` to the end while keeping the relative
+                        order of the non-zero elements. Do it **in place** and return the array.
+                    """,
+                    "constraints": """
+                        - `1 <= nums.length <= 10^4`
+                        - `-2^31 <= nums[i] <= 2^31 - 1`
+                    """,
+                    "examples": [
+                        {"input": "nums = [0, 1, 0, 3, 12]", "output": "[1, 3, 12, 0, 0]", "explanation": ""},
+                        {"input": "nums = [0]", "output": "[0]", "explanation": ""},
+                    ],
+                    "approach": """
+                        Keep a `write` pointer for where the next non-zero value belongs. Scan with a `read`
+                        pointer; every non-zero value is swapped into position `write`, then `write` advances.
+                    """,
+                    "explanation": """
+                        Everything left of `write` is exactly the non-zero values seen so far, in their original
+                        order. Swapping (rather than overwriting) pushes the zeros forward, so when the scan ends
+                        all zeros sit after `write`. One pass, no extra array.
+                    """,
+                    "time": "O(n)",
+                    "space": "O(1)",
+                    "solutions": {
+                        "python": """
+                            def move_zeroes(nums: list[int]) -> list[int]:
+                                write = 0
+                                for read in range(len(nums)):
+                                    if nums[read] != 0:
+                                        nums[write], nums[read] = nums[read], nums[write]
+                                        write += 1
+                                return nums
+                        """,
+                    },
+                },
+                {
+                    "slug": "product-except-self",
+                    "title": "Product of Everything Else",
+                    "type": "coding",
+                    "difficulty": "medium",
+                    "patterns": ["prefix-sum"],
+                    "statement": """
+                        Given an integer array `nums`, return an array `answer` where `answer[i]` is the product
+                        of every element of `nums` **except** `nums[i]`. You may not use division, and the
+                        solution must run in O(n).
+                    """,
+                    "constraints": """
+                        - `2 <= nums.length <= 10^5`
+                        - `-30 <= nums[i] <= 30`
+                        - Every prefix and suffix product fits in a 32-bit integer.
+                    """,
+                    "examples": [
+                        {"input": "nums = [1, 2, 3, 4]", "output": "[24, 12, 8, 6]", "explanation": ""},
+                        {"input": "nums = [-1, 1, 0, -3, 3]", "output": "[0, 0, 9, 0, 0]", "explanation": ""},
+                    ],
+                    "approach": """
+                        `answer[i]` = (product of everything left of `i`) × (product of everything right of `i`).
+                        Fill `answer` with left products in one pass, then sweep from the right multiplying in a
+                        running right product.
+                    """,
+                    "explanation": """
+                        This is the prefix-sum idea with multiplication. Division would fail on zeros, and
+                        recomputing products per index is O(n²). Reusing the output array for the left products
+                        keeps extra space at O(1) (the output itself doesn't count).
+                    """,
+                    "time": "O(n)",
+                    "space": "O(1) extra",
+                    "solutions": {
+                        "python": """
+                            def product_except_self(nums: list[int]) -> list[int]:
+                                n = len(nums)
+                                answer = [1] * n
+                                for i in range(1, n):
+                                    answer[i] = answer[i - 1] * nums[i - 1]
+                                right = 1
+                                for i in range(n - 1, -1, -1):
+                                    answer[i] *= right
+                                    right *= nums[i]
+                                return answer
+                        """,
+                    },
+                },
             ],
         },
         # ----------------------------------------------------------------- strings
@@ -216,6 +304,96 @@ CATEGORY = {
                                         counts[ord(ch) - ord("a")] += 1
                                     groups[tuple(counts)].append(word)
                                 return list(groups.values())
+                        """,
+                    },
+                },
+                {
+                    "slug": "first-unique-character",
+                    "title": "First Unique Character",
+                    "type": "coding",
+                    "difficulty": "easy",
+                    "patterns": ["hash-map"],
+                    "statement": """
+                        Given a string `s`, return the index of the first character that appears exactly once.
+                        If there is none, return `-1`.
+                    """,
+                    "constraints": """
+                        - `1 <= s.length <= 10^5`
+                        - Lowercase English letters only.
+                    """,
+                    "examples": [
+                        {"input": 's = "placement"', "output": "0", "explanation": "'p' appears once."},
+                        {"input": 's = "aabbcd"', "output": "4", "explanation": "'c' at index 4 is the first unique character."},
+                        {"input": 's = "aabb"', "output": "-1", "explanation": ""},
+                    ],
+                    "approach": """
+                        Two passes: first count every character, then walk the string again and return the
+                        first index whose count is 1.
+                    """,
+                    "explanation": """
+                        A single pass can't know whether a character repeats later, so the counts must be
+                        complete before deciding. Both passes are linear and the table has at most 26 entries.
+                    """,
+                    "time": "O(n)",
+                    "space": "O(1)",
+                    "solutions": {
+                        "python": """
+                            from collections import Counter
+
+                            def first_unique(s: str) -> int:
+                                counts = Counter(s)
+                                for i, ch in enumerate(s):
+                                    if counts[ch] == 1:
+                                        return i
+                                return -1
+                        """,
+                    },
+                },
+                {
+                    "slug": "longest-palindromic-substring",
+                    "title": "Longest Palindromic Substring",
+                    "type": "coding",
+                    "difficulty": "medium",
+                    "patterns": ["two-pointers"],
+                    "statement": """
+                        Given a string `s`, return the longest contiguous substring that reads the same forwards
+                        and backwards. If several have the same length, return any of them.
+                    """,
+                    "constraints": """
+                        - `1 <= s.length <= 1000`
+                        - Letters and digits only.
+                    """,
+                    "examples": [
+                        {"input": 's = "forgeeksskeegfor"', "output": '"geeksskeeg"', "explanation": ""},
+                        {"input": 's = "cbbd"', "output": '"bb"', "explanation": ""},
+                    ],
+                    "approach": """
+                        Every palindrome has a centre — a single character (odd length) or a gap between two
+                        characters (even length). For each of the `2n - 1` centres, expand outwards while both
+                        ends match, and keep the longest.
+                    """,
+                    "explanation": """
+                        Checking every substring is O(n³). Expanding around centres finds every maximal
+                        palindrome in O(n) per centre, O(n²) overall, with no extra memory. (Manacher's algorithm
+                        does it in O(n), but expand-around-centre is what interviewers expect.)
+                    """,
+                    "time": "O(n²)",
+                    "space": "O(1)",
+                    "solutions": {
+                        "python": """
+                            def longest_palindrome(s: str) -> str:
+                                def expand(left: int, right: int) -> tuple[int, int]:
+                                    while left >= 0 and right < len(s) and s[left] == s[right]:
+                                        left -= 1
+                                        right += 1
+                                    return left + 1, right  # slice bounds of the palindrome
+
+                                best_start, best_end = 0, 1
+                                for centre in range(len(s)):
+                                    for start, end in (expand(centre, centre), expand(centre, centre + 1)):
+                                        if end - start > best_end - best_start:
+                                            best_start, best_end = start, end
+                                return s[best_start:best_end]
                         """,
                     },
                 },
@@ -369,6 +547,107 @@ CATEGORY = {
                         """,
                     },
                 },
+                {
+                    "slug": "pair-sum-sorted",
+                    "title": "Pair Sum in a Sorted Array",
+                    "type": "coding",
+                    "difficulty": "easy",
+                    "patterns": ["two-pointers"],
+                    "statement": """
+                        `numbers` is sorted in non-decreasing order. Return the **1-based** indices `[i, j]`
+                        (`i < j`) of the two numbers that add up to `target`. Exactly one answer exists. Use only
+                        O(1) extra space.
+                    """,
+                    "constraints": """
+                        - `2 <= numbers.length <= 3 * 10^4`
+                        - `numbers` is sorted ascending.
+                    """,
+                    "examples": [
+                        {"input": "numbers = [2, 7, 11, 15], target = 9", "output": "[1, 2]", "explanation": ""},
+                        {"input": "numbers = [-3, -1, 0, 4, 8], target = 5", "output": "[1, 5]", "explanation": "-3 + 8 = 5"},
+                    ],
+                    "approach": """
+                        Start with pointers at both ends. If the sum is too small, move the left pointer right
+                        (to a larger value); if too large, move the right pointer left.
+                    """,
+                    "explanation": """
+                        Sortedness makes each move safe: when the sum is too small, the current left value can't
+                        pair with anything (the right pointer is already at the largest remaining value), so it is
+                        discarded. Compare with the hash-map version, which needs O(n) memory.
+                    """,
+                    "time": "O(n)",
+                    "space": "O(1)",
+                    "solutions": {
+                        "python": """
+                            def pair_sum_sorted(numbers: list[int], target: int) -> list[int]:
+                                left, right = 0, len(numbers) - 1
+                                while left < right:
+                                    total = numbers[left] + numbers[right]
+                                    if total == target:
+                                        return [left + 1, right + 1]
+                                    if total < target:
+                                        left += 1
+                                    else:
+                                        right -= 1
+                                return []
+                        """,
+                    },
+                },
+                {
+                    "slug": "three-sum-zero",
+                    "title": "Triplets Summing to Zero",
+                    "type": "coding",
+                    "difficulty": "medium",
+                    "patterns": ["two-pointers"],
+                    "statement": """
+                        Given an integer array `nums`, return every **unique** triplet `[a, b, c]` of elements at
+                        distinct positions with `a + b + c = 0`. The result must not contain duplicate triplets.
+                    """,
+                    "constraints": """
+                        - `3 <= nums.length <= 3000`
+                        - `-10^5 <= nums[i] <= 10^5`
+                    """,
+                    "examples": [
+                        {"input": "nums = [-1, 0, 1, 2, -1, -4]", "output": "[[-1, -1, 2], [-1, 0, 1]]", "explanation": ""},
+                        {"input": "nums = [0, 0, 0, 0]", "output": "[[0, 0, 0]]", "explanation": "Duplicates collapse into one triplet."},
+                    ],
+                    "approach": """
+                        Sort the array. Fix the first number `nums[i]`, then solve "pair sum = -nums[i]" on the
+                        rest with two pointers. Skip equal neighbours (for `i`, and for the pointers after a match)
+                        so each triplet is produced once.
+                    """,
+                    "explanation": """
+                        Sorting costs O(n log n) but turns the inner search into an O(n) two-pointer sweep, for
+                        O(n²) overall instead of O(n³). Because the array is sorted, duplicates are adjacent, so
+                        skipping repeats is a simple comparison with the previous element.
+                    """,
+                    "time": "O(n²)",
+                    "space": "O(1) besides the output (sorting in place)",
+                    "solutions": {
+                        "python": """
+                            def three_sum(nums: list[int]) -> list[list[int]]:
+                                nums.sort()
+                                result = []
+                                for i in range(len(nums) - 2):
+                                    if i > 0 and nums[i] == nums[i - 1]:
+                                        continue
+                                    left, right = i + 1, len(nums) - 1
+                                    while left < right:
+                                        total = nums[i] + nums[left] + nums[right]
+                                        if total < 0:
+                                            left += 1
+                                        elif total > 0:
+                                            right -= 1
+                                        else:
+                                            result.append([nums[i], nums[left], nums[right]])
+                                            left += 1
+                                            right -= 1
+                                            while left < right and nums[left] == nums[left - 1]:
+                                                left += 1
+                                return result
+                        """,
+                    },
+                },
             ],
         },
         # ---------------------------------------------------------- sliding window
@@ -462,6 +741,106 @@ CATEGORY = {
                         """,
                     },
                 },
+                {
+                    "slug": "shortest-subarray-at-least-target",
+                    "title": "Shortest Subarray With Sum ≥ Target",
+                    "type": "coding",
+                    "difficulty": "medium",
+                    "patterns": ["sliding-window"],
+                    "statement": """
+                        Given an array of **positive** integers `nums` and a positive integer `target`, return the
+                        length of the shortest contiguous subarray whose sum is at least `target`, or `0` if there
+                        is none.
+                    """,
+                    "constraints": """
+                        - `1 <= nums.length <= 10^5`
+                        - `1 <= nums[i] <= 10^4`
+                        - `1 <= target <= 10^9`
+                    """,
+                    "examples": [
+                        {"input": "nums = [2, 3, 1, 2, 4, 3], target = 7", "output": "2", "explanation": "[4, 3]"},
+                        {"input": "nums = [1, 1, 1], target = 11", "output": "0", "explanation": ""},
+                    ],
+                    "approach": """
+                        Grow the window on the right. Whenever its sum reaches `target`, record its length and
+                        shrink from the left while the sum stays ≥ `target`.
+                    """,
+                    "explanation": """
+                        With positive numbers, extending a window only increases its sum and shrinking only
+                        decreases it — that monotonicity is what makes a variable-size window valid. Each index
+                        enters and leaves the window once, so the loop is O(n).
+                    """,
+                    "time": "O(n)",
+                    "space": "O(1)",
+                    "solutions": {
+                        "python": """
+                            def min_subarray_len(target: int, nums: list[int]) -> int:
+                                best = float("inf")
+                                left = window = 0
+                                for right, x in enumerate(nums):
+                                    window += x
+                                    while window >= target:
+                                        best = min(best, right - left + 1)
+                                        window -= nums[left]
+                                        left += 1
+                                return 0 if best == float("inf") else best
+                        """,
+                    },
+                },
+                {
+                    "slug": "minimum-window-substring",
+                    "title": "Minimum Window Containing All Characters",
+                    "type": "coding",
+                    "difficulty": "hard",
+                    "patterns": ["sliding-window", "hash-map"],
+                    "statement": """
+                        Given strings `s` and `t`, return the shortest substring of `s` that contains every
+                        character of `t` (including repeats). Return `""` if no such window exists.
+                    """,
+                    "constraints": """
+                        - `1 <= s.length, t.length <= 10^5`
+                        - Upper- and lowercase English letters.
+                    """,
+                    "examples": [
+                        {"input": 's = "ADOBECODEBANC", t = "ABC"', "output": '"BANC"', "explanation": ""},
+                        {"input": 's = "a", t = "aa"', "output": '""', "explanation": "t needs two 'a's."},
+                    ],
+                    "approach": """
+                        Count what `t` needs. Expand the window to the right, tracking how many required
+                        characters are fully satisfied. Once all are satisfied, shrink from the left as far as
+                        possible, recording the smallest valid window.
+                    """,
+                    "explanation": """
+                        `missing` counts how many characters (with multiplicity) the window still lacks, so the
+                        "is it valid?" check is O(1) instead of comparing two tables. Both pointers only move
+                        forward, so the total work is O(|s| + |t|).
+                    """,
+                    "time": "O(|s| + |t|)",
+                    "space": "O(alphabet)",
+                    "solutions": {
+                        "python": """
+                            from collections import Counter
+
+                            def min_window(s: str, t: str) -> str:
+                                need = Counter(t)
+                                missing = len(t)
+                                left = 0
+                                best = (0, float("inf"))
+                                for right, ch in enumerate(s):
+                                    if need[ch] > 0:
+                                        missing -= 1
+                                    need[ch] -= 1
+                                    while missing == 0:
+                                        if right - left < best[1] - best[0]:
+                                            best = (left, right)
+                                        need[s[left]] += 1
+                                        if need[s[left]] > 0:
+                                            missing += 1
+                                        left += 1
+                                return "" if best[1] == float("inf") else s[best[0]:best[1] + 1]
+                        """,
+                    },
+                },
             ],
         },
         # -------------------------------------------------------------- prefix sum
@@ -552,6 +931,91 @@ CATEGORY = {
                                     count += seen[running - k]
                                     seen[running] += 1
                                 return count
+                        """,
+                    },
+                },
+                {
+                    "slug": "balance-index",
+                    "title": "Balance Index",
+                    "type": "coding",
+                    "difficulty": "easy",
+                    "patterns": ["prefix-sum"],
+                    "statement": """
+                        Return the leftmost index `i` of `nums` where the sum of the elements strictly to its
+                        left equals the sum strictly to its right. Return `-1` if no such index exists.
+                    """,
+                    "constraints": """
+                        - `1 <= nums.length <= 10^4`
+                        - `-1000 <= nums[i] <= 1000`
+                    """,
+                    "examples": [
+                        {"input": "nums = [1, 7, 3, 6, 5, 6]", "output": "3", "explanation": "1 + 7 + 3 = 11 = 5 + 6"},
+                        {"input": "nums = [2, 1, -1]", "output": "0", "explanation": "Left of index 0 is empty (0); right is 1 - 1 = 0."},
+                    ],
+                    "approach": """
+                        Compute the total once. Walking left to right with a running `left_sum`, the right sum at
+                        index `i` is `total - left_sum - nums[i]`.
+                    """,
+                    "explanation": """
+                        One prefix total replaces recomputing both sides for every index (O(n²)). Checking before
+                        adding `nums[i]` to `left_sum` keeps the element itself out of both sides.
+                    """,
+                    "time": "O(n)",
+                    "space": "O(1)",
+                    "solutions": {
+                        "python": """
+                            def balance_index(nums: list[int]) -> int:
+                                total = sum(nums)
+                                left_sum = 0
+                                for i, x in enumerate(nums):
+                                    if left_sum == total - left_sum - x:
+                                        return i
+                                    left_sum += x
+                                return -1
+                        """,
+                    },
+                },
+                {
+                    "slug": "longest-balanced-binary-subarray",
+                    "title": "Longest Subarray With Equal 0s and 1s",
+                    "type": "coding",
+                    "difficulty": "medium",
+                    "patterns": ["prefix-sum", "hash-map"],
+                    "statement": """
+                        Given a binary array `nums`, return the length of the longest contiguous subarray with an
+                        equal number of `0`s and `1`s.
+                    """,
+                    "constraints": """
+                        - `1 <= nums.length <= 10^5`
+                        - `nums[i]` is `0` or `1`.
+                    """,
+                    "examples": [
+                        {"input": "nums = [0, 1, 0]", "output": "2", "explanation": "[0, 1] or [1, 0]"},
+                        {"input": "nums = [0, 0, 1, 0, 1, 1, 0]", "output": "6", "explanation": "nums[1..6] or nums[0..5]"},
+                    ],
+                    "approach": """
+                        Treat `0` as `-1`. A subarray is balanced exactly when its sum is 0, i.e. when the same
+                        running sum appears twice. Store the **first** index where each running sum occurs.
+                    """,
+                    "explanation": """
+                        If the running sum at `j` equals the running sum at an earlier `i`, the elements in
+                        `(i, j]` sum to 0. Keeping only the first occurrence maximises `j - i`. Seeding the map
+                        with `{0: -1}` handles subarrays that start at index 0.
+                    """,
+                    "time": "O(n)",
+                    "space": "O(n)",
+                    "solutions": {
+                        "python": """
+                            def longest_balanced(nums: list[int]) -> int:
+                                first_seen = {0: -1}
+                                running = best = 0
+                                for i, x in enumerate(nums):
+                                    running += 1 if x == 1 else -1
+                                    if running in first_seen:
+                                        best = max(best, i - first_seen[running])
+                                    else:
+                                        first_seen[running] = i
+                                return best
                         """,
                     },
                 },
@@ -654,6 +1118,98 @@ CATEGORY = {
                         """,
                     },
                 },
+                {
+                    "slug": "integer-square-root",
+                    "title": "Integer Square Root",
+                    "type": "coding",
+                    "difficulty": "easy",
+                    "patterns": ["binary-search"],
+                    "statement": """
+                        Given a non-negative integer `x`, return the square root of `x` rounded **down** to the
+                        nearest integer, without using any built-in power or square-root function.
+                    """,
+                    "constraints": """
+                        - `0 <= x <= 2^31 - 1`
+                    """,
+                    "examples": [
+                        {"input": "x = 8", "output": "2", "explanation": "√8 ≈ 2.83 → 2"},
+                        {"input": "x = 49", "output": "7", "explanation": ""},
+                    ],
+                    "approach": """
+                        Binary-search the answer: find the largest `m` with `m * m <= x`. The condition is true
+                        for small `m` and false for large `m`, so it has a single boundary.
+                    """,
+                    "explanation": """
+                        This is "binary search on the answer" — the array isn't stored, it's the range of
+                        candidate integers `[0, x]`. Each step halves the range, so it takes ~31 steps for any
+                        32-bit input.
+                    """,
+                    "time": "O(log x)",
+                    "space": "O(1)",
+                    "solutions": {
+                        "python": """
+                            def int_sqrt(x: int) -> int:
+                                lo, hi = 0, x
+                                while lo < hi:
+                                    mid = (lo + hi + 1) // 2  # round up so the loop always progresses
+                                    if mid * mid <= x:
+                                        lo = mid
+                                    else:
+                                        hi = mid - 1
+                                return lo
+                        """,
+                    },
+                },
+                {
+                    "slug": "first-and-last-position",
+                    "title": "First and Last Position of a Value",
+                    "type": "coding",
+                    "difficulty": "medium",
+                    "patterns": ["binary-search"],
+                    "statement": """
+                        `nums` is sorted ascending and may contain duplicates. Return `[first, last]`, the first
+                        and last index of `target`, or `[-1, -1]` if it's absent. Run in O(log n).
+                    """,
+                    "constraints": """
+                        - `0 <= nums.length <= 10^5`
+                    """,
+                    "examples": [
+                        {"input": "nums = [5, 7, 7, 8, 8, 10], target = 8", "output": "[3, 4]", "explanation": ""},
+                        {"input": "nums = [5, 7, 7, 8, 8, 10], target = 6", "output": "[-1, -1]", "explanation": ""},
+                    ],
+                    "approach": """
+                        Run two binary searches: one for the first index with `nums[i] >= target` (lower bound)
+                        and one for the first index with `nums[i] > target` (upper bound). The answer is
+                        `[lower, upper - 1]` if `target` is present.
+                    """,
+                    "explanation": """
+                        A normal binary search stops at *any* match. Searching for boundaries instead always
+                        converges to the edge of the run of equal values. Python's `bisect_left` /
+                        `bisect_right` implement exactly these two searches.
+                    """,
+                    "time": "O(log n)",
+                    "space": "O(1)",
+                    "solutions": {
+                        "python": """
+                            def search_range(nums: list[int], target: int) -> list[int]:
+                                def first_index_where(predicate) -> int:
+                                    lo, hi = 0, len(nums)
+                                    while lo < hi:
+                                        mid = (lo + hi) // 2
+                                        if predicate(nums[mid]):
+                                            hi = mid
+                                        else:
+                                            lo = mid + 1
+                                    return lo
+
+                                start = first_index_where(lambda v: v >= target)
+                                if start == len(nums) or nums[start] != target:
+                                    return [-1, -1]
+                                end = first_index_where(lambda v: v > target) - 1
+                                return [start, end]
+                        """,
+                    },
+                },
             ],
         },
         # ------------------------------------------------------------ linked lists
@@ -751,6 +1307,105 @@ CATEGORY = {
                         """,
                     },
                 },
+                {
+                    "slug": "merge-two-sorted-lists",
+                    "title": "Merge Two Sorted Lists",
+                    "type": "coding",
+                    "difficulty": "easy",
+                    "patterns": [],
+                    "statement": """
+                        Given the heads of two sorted linked lists, splice their nodes together into one sorted
+                        list and return its head.
+                    """,
+                    "constraints": """
+                        - `0 <= length of each list <= 50`
+                        - Both lists are sorted in non-decreasing order.
+                    """,
+                    "examples": [
+                        {"input": "l1 = 1 → 2 → 4, l2 = 1 → 3 → 4", "output": "1 → 1 → 2 → 3 → 4 → 4", "explanation": ""},
+                        {"input": "l1 = (empty), l2 = 0", "output": "0", "explanation": ""},
+                    ],
+                    "approach": """
+                        Use a dummy head and a `tail` pointer. Repeatedly attach the smaller of the two current
+                        nodes to `tail`, advance that list, and finally attach whatever list is left over.
+                    """,
+                    "explanation": """
+                        The dummy node removes the special case of choosing the first head. No new nodes are
+                        created — existing nodes are re-linked — so extra space is O(1). This is the merge step
+                        of merge sort.
+                    """,
+                    "time": "O(n + m)",
+                    "space": "O(1)",
+                    "solutions": {
+                        "python": """
+                            class ListNode:
+                                def __init__(self, val=0, next=None):
+                                    self.val = val
+                                    self.next = next
+
+                            def merge_lists(l1: ListNode | None, l2: ListNode | None) -> ListNode | None:
+                                dummy = tail = ListNode()
+                                while l1 and l2:
+                                    if l1.val <= l2.val:
+                                        tail.next, l1 = l1, l1.next
+                                    else:
+                                        tail.next, l2 = l2, l2.next
+                                    tail = tail.next
+                                tail.next = l1 or l2
+                                return dummy.next
+                        """,
+                    },
+                },
+                {
+                    "slug": "remove-nth-from-end",
+                    "title": "Remove the N-th Node From the End",
+                    "type": "coding",
+                    "difficulty": "medium",
+                    "patterns": ["fast-slow-pointers"],
+                    "statement": """
+                        Given the `head` of a linked list, remove the `n`-th node counting from the end and return
+                        the head. Do it in a single pass.
+                    """,
+                    "constraints": """
+                        - `1 <= number of nodes <= 30`
+                        - `1 <= n <= number of nodes`
+                    """,
+                    "examples": [
+                        {"input": "head = 1 → 2 → 3 → 4 → 5, n = 2", "output": "1 → 2 → 3 → 5", "explanation": ""},
+                        {"input": "head = 1, n = 1", "output": "(empty)", "explanation": ""},
+                    ],
+                    "approach": """
+                        Move a `fast` pointer `n` nodes ahead of a `slow` pointer (both starting at a dummy node).
+                        Then advance both until `fast` reaches the last node; `slow` now sits just before the node
+                        to delete.
+                    """,
+                    "explanation": """
+                        Keeping a fixed gap of `n` nodes means that when `fast` is at the end, `slow` is exactly
+                        `n + 1` from the end. The dummy node makes deleting the real head (when `n` equals the
+                        length) work without a special case.
+                    """,
+                    "time": "O(length)",
+                    "space": "O(1)",
+                    "solutions": {
+                        "python": """
+                            class ListNode:
+                                def __init__(self, val=0, next=None):
+                                    self.val = val
+                                    self.next = next
+
+                            def remove_nth_from_end(head: ListNode | None, n: int) -> ListNode | None:
+                                dummy = ListNode(0, head)
+                                fast = slow = dummy
+                                for _ in range(n):
+                                    fast = fast.next
+                                while fast.next:
+                                    fast = fast.next
+                                    slow = slow.next
+                                slow.next = slow.next.next
+                                return dummy.next
+                        """,
+                    },
+                },
             ],
         },
         # ---------------------------------------------------------- stack & queue
@@ -840,6 +1495,111 @@ CATEGORY = {
                                         result[stack.pop()] = x
                                     stack.append(i)
                                 return result
+                        """,
+                    },
+                },
+                {
+                    "slug": "min-stack",
+                    "title": "Stack With Constant-Time Minimum",
+                    "type": "coding",
+                    "difficulty": "medium",
+                    "patterns": ["stack"],
+                    "statement": """
+                        Design a stack that supports `push(x)`, `pop()`, `top()` and `get_min()` — the smallest
+                        element currently in the stack — all in O(1) time.
+                    """,
+                    "constraints": """
+                        - `pop`, `top` and `get_min` are only called on a non-empty stack.
+                        - Up to `3 * 10^4` operations.
+                    """,
+                    "examples": [
+                        {
+                            "input": "push(-2), push(0), push(-3), get_min(), pop(), top(), get_min()",
+                            "output": "-3, 0, -2",
+                            "explanation": "After popping -3 the minimum goes back to -2.",
+                        },
+                    ],
+                    "approach": """
+                        Store pairs `(value, minimum so far)` on a single stack. When pushing, the new minimum is
+                        `min(x, current minimum)`. The top pair always carries the minimum of the whole stack.
+                    """,
+                    "explanation": """
+                        Each entry remembers the minimum of everything at or below it, so popping automatically
+                        "restores" the previous minimum — no searching needed. The cost is one extra number per
+                        element.
+                    """,
+                    "time": "O(1) per operation",
+                    "space": "O(n)",
+                    "solutions": {
+                        "python": """
+                            class MinStack:
+                                def __init__(self):
+                                    self._items = []  # (value, min of stack up to here)
+
+                                def push(self, x: int) -> None:
+                                    current_min = min(x, self._items[-1][1]) if self._items else x
+                                    self._items.append((x, current_min))
+
+                                def pop(self) -> None:
+                                    self._items.pop()
+
+                                def top(self) -> int:
+                                    return self._items[-1][0]
+
+                                def get_min(self) -> int:
+                                    return self._items[-1][1]
+                        """,
+                    },
+                },
+                {
+                    "slug": "evaluate-postfix",
+                    "title": "Evaluate a Postfix Expression",
+                    "type": "coding",
+                    "difficulty": "medium",
+                    "patterns": ["stack"],
+                    "statement": """
+                        Evaluate an arithmetic expression given in **postfix** (Reverse Polish) notation as a list
+                        of tokens. Operators are `+`, `-`, `*`, `/`; division truncates toward zero. The expression
+                        is always valid.
+                    """,
+                    "constraints": """
+                        - `1 <= tokens.length <= 10^4`
+                        - Every intermediate result fits in a 32-bit integer.
+                    """,
+                    "examples": [
+                        {"input": 'tokens = ["2", "1", "+", "3", "*"]', "output": "9", "explanation": "(2 + 1) * 3"},
+                        {"input": 'tokens = ["4", "13", "5", "/", "+"]', "output": "6", "explanation": "4 + (13 / 5) = 4 + 2"},
+                    ],
+                    "approach": """
+                        Push numbers onto a stack. On an operator, pop the right operand, then the left operand,
+                        apply the operator and push the result. The final stack holds the answer.
+                    """,
+                    "explanation": """
+                        Postfix puts each operator after its operands, so the two most recent values are always
+                        the ones it applies to — a stack gives exactly those. Note the operand order for `-` and
+                        `/`, and use `int(a / b)` so that negative results truncate toward zero (Python's `//`
+                        floors instead).
+                    """,
+                    "time": "O(n)",
+                    "space": "O(n)",
+                    "solutions": {
+                        "python": """
+                            def eval_postfix(tokens: list[str]) -> int:
+                                stack = []
+                                for tok in tokens:
+                                    if tok in {"+", "-", "*", "/"}:
+                                        right, left = stack.pop(), stack.pop()
+                                        if tok == "+":
+                                            stack.append(left + right)
+                                        elif tok == "-":
+                                            stack.append(left - right)
+                                        elif tok == "*":
+                                            stack.append(left * right)
+                                        else:
+                                            stack.append(int(left / right))
+                                    else:
+                                        stack.append(int(tok))
+                                return stack[-1]
                         """,
                     },
                 },
@@ -951,6 +1711,98 @@ CATEGORY = {
                         """,
                     },
                 },
+                {
+                    "slug": "maximum-tree-depth",
+                    "title": "Maximum Depth of a Binary Tree",
+                    "type": "coding",
+                    "difficulty": "easy",
+                    "patterns": ["dfs"],
+                    "statement": """
+                        Given the `root` of a binary tree, return its maximum depth: the number of nodes on the
+                        longest path from the root down to a leaf.
+                    """,
+                    "constraints": """
+                        - `0 <= number of nodes <= 10^4`
+                    """,
+                    "examples": [
+                        {"input": "root = [3, 9, 20, null, null, 15, 7]", "output": "3", "explanation": ""},
+                        {"input": "root = []", "output": "0", "explanation": ""},
+                    ],
+                    "approach": """
+                        Depth of a tree = 1 + the larger of its two subtrees' depths, and an empty tree has depth
+                        0. That recursive definition is the whole solution.
+                    """,
+                    "explanation": """
+                        Every node is visited once (post-order DFS). The recursion depth equals the tree's height,
+                        so a very skewed tree can hit Python's recursion limit — an iterative BFS counting levels
+                        avoids that.
+                    """,
+                    "time": "O(n)",
+                    "space": "O(h) — h is the tree height",
+                    "solutions": {
+                        "python": """
+                            def max_depth(root) -> int:
+                                if root is None:
+                                    return 0
+                                return 1 + max(max_depth(root.left), max_depth(root.right))
+                        """,
+                    },
+                },
+                {
+                    "slug": "course-order-possible",
+                    "title": "Can All Courses Be Finished?",
+                    "type": "coding",
+                    "difficulty": "medium",
+                    "patterns": ["bfs"],
+                    "statement": """
+                        There are `n` courses labelled `0 … n-1`. `prerequisites[i] = [a, b]` means you must take
+                        course `b` before course `a`. Return `true` if it's possible to finish every course.
+                    """,
+                    "constraints": """
+                        - `1 <= n <= 2000`
+                        - `0 <= prerequisites.length <= 5000`
+                        - All pairs are distinct.
+                    """,
+                    "examples": [
+                        {"input": "n = 2, prerequisites = [[1, 0]]", "output": "true", "explanation": "Take 0, then 1."},
+                        {"input": "n = 2, prerequisites = [[1, 0], [0, 1]]", "output": "false", "explanation": "Each needs the other — a cycle."},
+                    ],
+                    "approach": """
+                        Model courses as a directed graph and run **Kahn's algorithm** (topological sort): start
+                        with every course that has no prerequisites, "take" it, and decrement the in-degree of the
+                        courses that depend on it. If you manage to take all `n` courses, there is no cycle.
+                    """,
+                    "explanation": """
+                        A course can be taken only when all its prerequisites are done, i.e. its in-degree reaches
+                        0. Courses on a cycle never reach in-degree 0, so they are never taken; counting taken
+                        courses therefore detects cycles. Each node and edge is processed once.
+                    """,
+                    "time": "O(n + e)",
+                    "space": "O(n + e)",
+                    "solutions": {
+                        "python": """
+                            from collections import deque
+
+                            def can_finish(n: int, prerequisites: list[list[int]]) -> bool:
+                                graph = [[] for _ in range(n)]
+                                indegree = [0] * n
+                                for course, pre in prerequisites:
+                                    graph[pre].append(course)
+                                    indegree[course] += 1
+
+                                queue = deque(c for c in range(n) if indegree[c] == 0)
+                                taken = 0
+                                while queue:
+                                    course = queue.popleft()
+                                    taken += 1
+                                    for nxt in graph[course]:
+                                        indegree[nxt] -= 1
+                                        if indegree[nxt] == 0:
+                                            queue.append(nxt)
+                                return taken == n
+                        """,
+                    },
+                },
             ],
         },
         # ---------------------------------------------------- dynamic programming
@@ -1038,6 +1890,91 @@ CATEGORY = {
                                         if c <= a and best[a - c] + 1 < best[a]:
                                             best[a] = best[a - c] + 1
                                 return best[amount] if best[amount] != INF else -1
+                        """,
+                    },
+                },
+                {
+                    "slug": "street-robber",
+                    "title": "Maximum Loot Without Adjacent Houses",
+                    "type": "coding",
+                    "difficulty": "medium",
+                    "patterns": ["dynamic-programming"],
+                    "statement": """
+                        Houses along a street hold `amounts[i]` of money. Robbing two **adjacent** houses triggers
+                        an alarm. Return the maximum amount you can collect without robbing adjacent houses.
+                    """,
+                    "constraints": """
+                        - `1 <= amounts.length <= 100`
+                        - `0 <= amounts[i] <= 400`
+                    """,
+                    "examples": [
+                        {"input": "amounts = [2, 7, 9, 3, 1]", "output": "12", "explanation": "2 + 9 + 1"},
+                        {"input": "amounts = [5, 1, 1, 5]", "output": "10", "explanation": "5 + 5 (first and last)"},
+                    ],
+                    "approach": """
+                        At each house choose: skip it (keep the best so far) or rob it (its amount + the best up to
+                        two houses back). `best[i] = max(best[i-1], best[i-2] + amounts[i])`.
+                    """,
+                    "explanation": """
+                        The best plan for the first `i` houses either uses house `i` or it doesn't — those two
+                        cases cover everything, and each reuses an already-solved smaller prefix. Greedily picking
+                        the largest houses fails (e.g. `[5, 1, 1, 5]` vs picking alternate houses).
+                    """,
+                    "time": "O(n)",
+                    "space": "O(1)",
+                    "solutions": {
+                        "python": """
+                            def max_loot(amounts: list[int]) -> int:
+                                prev2 = prev1 = 0  # best up to two houses back, best up to previous house
+                                for amount in amounts:
+                                    prev2, prev1 = prev1, max(prev1, prev2 + amount)
+                                return prev1
+                        """,
+                    },
+                },
+                {
+                    "slug": "longest-common-subsequence",
+                    "title": "Longest Common Subsequence",
+                    "type": "coding",
+                    "difficulty": "medium",
+                    "patterns": ["dynamic-programming"],
+                    "statement": """
+                        Given strings `a` and `b`, return the length of their longest common subsequence — the
+                        longest sequence of characters appearing in both in the same order, not necessarily
+                        contiguously.
+                    """,
+                    "constraints": """
+                        - `1 <= a.length, b.length <= 1000`
+                        - Lowercase English letters.
+                    """,
+                    "examples": [
+                        {"input": 'a = "abcde", b = "ace"', "output": "3", "explanation": '"ace"'},
+                        {"input": 'a = "abc", b = "def"', "output": "0", "explanation": ""},
+                    ],
+                    "approach": """
+                        Let `dp[i][j]` be the LCS length of `a[:i]` and `b[:j]`. If `a[i-1] == b[j-1]` the
+                        characters extend a common subsequence: `dp[i-1][j-1] + 1`. Otherwise drop one character:
+                        `max(dp[i-1][j], dp[i][j-1])`.
+                    """,
+                    "explanation": """
+                        Every pair of prefixes is solved once in an `(n+1) × (m+1)` table, giving O(n·m). Only
+                        the previous row is ever read, so the table can shrink to two rows — O(m) memory.
+                    """,
+                    "time": "O(n · m)",
+                    "space": "O(m)",
+                    "solutions": {
+                        "python": """
+                            def lcs_length(a: str, b: str) -> int:
+                                prev = [0] * (len(b) + 1)
+                                for ch_a in a:
+                                    curr = [0] * (len(b) + 1)
+                                    for j, ch_b in enumerate(b, start=1):
+                                        if ch_a == ch_b:
+                                            curr[j] = prev[j - 1] + 1
+                                        else:
+                                            curr[j] = max(prev[j], curr[j - 1])
+                                    prev = curr
+                                return prev[-1]
                         """,
                     },
                 },

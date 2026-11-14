@@ -5,7 +5,7 @@ Details live in [ARCHITECTURE.md](ARCHITECTURE.md) and [DESIGN.md](DESIGN.md); s
 
 ## Current status
 
-**Phase 3 — Frontend foundation: done (verified 2026-11-13).** Next: Phase 4 (preparation modules: hub, practice lists, question pages).
+**Phase 4 — Preparation modules: done (verified 2026-11-13).** Next: Phase 5 (ASK KAFKA AI assistant).
 
 ## Environment (verified 2026-11-13)
 
@@ -32,9 +32,9 @@ Workspace notes:
 | 0 | Architecture, data model, API, folder structure, design direction | Done — approved |
 | 1 | Scaffold Django + Vue, Tailwind, Postgres db/role, env files, verify both servers start | Done |
 | 2 | Models + migrations, auth (JWT/cookie), catalog/progress APIs, seed command, API tests | Done |
-| 3 | Design system (tokens, ui components), layouts, routing + guards, landing, auth pages, dashboard | **Done** (+ settings page) |
-| 4 | Prepare hub, practice lists, coding / aptitude / core question pages, completion + MCQ grading | Next |
-| 5 | ASK KAFKA: provider layer, context, hints, streaming, conversation history | Not started |
+| 3 | Design system (tokens, ui components), layouts, routing + guards, landing, auth pages, dashboard | Done (+ settings page) |
+| 4 | Prepare hub, practice lists, coding / aptitude / core question pages, completion + MCQ grading | **Done** (+ bank grown to 162) |
+| 5 | ASK KAFKA: provider layer, context, hints, streaming, conversation history | Next |
 | 6 | Analytics page, recommendations/plan, responsiveness pass, error/empty states, integration testing | Not started |
 
 ### Phase 1 — what exists
@@ -57,6 +57,45 @@ Frontend (`frontend/`)
   404 page.
 - Verified in the browser: status page shows all OK; with Django stopped it shows OFFLINE + "Could not reach the
   server"; `npm run build` passes.
+
+### Phase 4 — what exists
+
+Pages (all signed-in, linked from the header: Home · Prepare · Practice · Settings)
+- `/prepare` — Preparation hub: the three tracks with live progress, then every topic (grouped by section for
+  aptitude) linking into the practice library.
+- `/practice/:category` — one view serves the Coding, Aptitude and Core CS practice pages. Topic sidebar
+  (dropdown on mobile), search (debounced), difficulty, status and — for coding — pattern filters, paginated
+  results. All filters live in the URL; clicked filters add history entries (Back undoes them), typing replaces.
+- `/questions/:slug` — question page; opening it records an *attempt*.
+  - Coding: statement, examples, constraints, **Approach** and **Solution** behind deliberate reveals,
+    highlighted code with language tabs + copy, "why it works", complexity, patterns (link to filtered list).
+  - MCQ: real radio inputs → "Check answer" → server grading → correct option teal / wrong pick red (with
+    screen-reader text), verdict + explanation; state restored from the API on reload; "Reset & try again".
+  - Concept: model answer behind a reveal, SQL solution when present, "Mark as understood".
+  - Sticky side rail: my status, complete/reset, facts, previous/next within the topic.
+- Dashboard plan items and recent questions now link to question pages; recommended topics link to the filtered
+  practice list.
+
+Frontend plumbing
+- `services/catalog.api.js`; question write calls (`attempt`, `answer`, `complete`, `reset`) in `progress.api.js`.
+- `utils/markdown.js`: markdown-it with `html: false` + DOMPurify (defence in depth for Phase 5 AI output),
+  external links `noopener`; highlight.js core with Python/Java/C++/JavaScript/SQL only. The question page chunk
+  is lazy-loaded (≈75 kB gzip including these libraries).
+- New UI: `KMarkdown`, `KCodeBlock`, `KPagination`; `.k-prose` typography and highlight colours in `main.css`.
+- Header highlighting uses path prefixes (`match` in `router/navigation.js`).
+
+Question bank — **162 questions** (was 67)
+- Coding 41 (10 topics, 2 hard), Aptitude 61 (13 topics in 3 sections; new: Averages, Ratio & Proportion,
+  Simple & Compound Interest, Direction Sense), Core CS 60 (≈10 per subject; 37 concept / 23 MCQ).
+- Verification: every coding solution executed against its stated examples (44 checks — this caught and fixed one
+  wrong example); every numeric aptitude key re-derived in code (25 checks) and the reasoning/verbal keys checked
+  by hand; each MCQ has exactly one correct option; correct letters spread A 20 · B 22 · C 24 · D 18.
+
+Verification (browser, desktop + 375px, throwaway test account — deleted afterwards)
+- Hub counts and topic grids; practice filters (topic, difficulty, search) with URL + Back behaviour; pagination
+  (20/page); coding page reveals + highlighting + mark solved; MCQ wrong → explanation → reset → correct →
+  persisted after reload; concept page table + SQL highlighting; dashboard links; unknown track / unknown question
+  states; no horizontal overflow on phones; no console errors. Backend 65 tests pass; `vite build` clean.
 
 ### Phase 3 — what exists
 
@@ -153,12 +192,21 @@ Verification
 | D23 | Dashboard sections fetch independently (no dashboard store) | Page-specific data; one failure doesn't blank the page |
 | D24 | Question rows on the dashboard aren't links yet | Question pages arrive in Phase 4; no links to unbuilt pages |
 | D25 | Settings page built in Phase 3 | Theme toggle + profile need it; brief lists a profile page |
+| D26 | One `PracticeView` parameterised by track (`/practice/coding|aptitude|core-cs`) | Three pages, one implementation — no duplicated filter logic |
+| D27 | Filters in the URL; clicks push history, search typing replaces | Shareable/refreshable views without a Back-button trap |
+| D28 | Approach and solution hidden behind explicit reveals | Encourages attempting first — the hint-before-answer philosophy ASK KAFKA will extend |
+| D29 | markdown-it (`html: false`) + DOMPurify, highlight.js core with 5 languages | Safe rendering now and for AI output later; small bundle |
+| D30 | Question bank verified by executing solutions / recomputing answers before seeding | Wrong answers in a prep tool do real harm |
 
 ## Open items
 
 - **LLM API key:** not configured yet. Add `ANTHROPIC_API_KEY` to `backend/.env` and set `LLM_PROVIDER=anthropic` before Phase 5 testing.
 
-- **Content volume:** 67 of the ~160 planned questions (D12). The rest is added in Phase 4 using the same format.
+- **Content volume:** 162 questions — D12 target reached. More can be added with the same format + `seed_content`.
+- **Mobile question page:** the status / "Mark as solved" rail sits below the article on phones. A sticky bottom
+  action bar would be friendlier (Phase 6 polish).
+- **Your account:** you registered your own account during Phase 3 testing; it's untouched. Testing in Phase 4
+  used a throwaway account (deleted). You were signed out of the browser pane for that test — sign in again there.
 - **Dev-server notes:**
   - Django's autoreloader can die if settings reference an app before its package exists; restart `runserver`
     if the API suddenly returns 502 through the proxy.
@@ -168,8 +216,7 @@ Verification
 
 ## Next step
 
-Phase 4 — preparation modules: Prepare hub (categories → topics with progress), Practice library (filters,
-pagination), coding question page (statement, examples, approach, solution reveal, mark complete), aptitude MCQ
-page (answer → server grading → explanation), core CS page; markdown rendering (markdown-it + DOMPurify) and code
-highlighting; record `attempt` on open; link dashboard plan/recent rows to question pages; extend the question bank
-toward the ~160 target.
+Phase 5 — ASK KAFKA: `assistant` app (Conversation, Message), provider interface + Anthropic adapter + fake
+provider, question-aware context builder, hint levels that never send the solution, SSE streaming endpoint with
+rate limit, conversation history API; frontend chat page + "Ask KAFKA" drawer on question pages, rendered with the
+existing `KMarkdown`. Needs `ANTHROPIC_API_KEY` in `backend/.env` for real answers (fake provider otherwise).

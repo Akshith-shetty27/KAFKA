@@ -268,23 +268,23 @@ website]/                       ← repo root (see PROGRESS.md: folder name)
         ├── assets/styles/main.css        Tailwind v4 + @theme tokens (Paper/Ink)
         ├── router/        index.js (routes + guards) · navigation.js
         ├── stores/        auth.js   (+ assistant.js in Phase 5)
-        ├── services/      http.js · auth.api.js · progress.api.js · system.api.js  (+ catalog, assistant, sse later)
+        ├── services/      http.js · auth.api.js · catalog.api.js · progress.api.js · system.api.js  (+ assistant, sse in Phase 5)
         ├── composables/   useAsync.js · useForm.js
-        ├── utils/         format.js (dates, percent, greeting, safeRedirect)
+        ├── utils/         format.js (dates, percent, greeting, safeRedirect) · markdown.js (markdown-it + DOMPurify + highlight.js)
         ├── components/
         │   ├── ui/        KIcon · KLogo · KEyebrow · KArrowLink · KButton · KInput · KSelect · KCodeWindow
         │   │              KChecklist · KBarChart · KStat · KStreakBadge · KProgressBar · KDifficulty
-        │   │              KSkeleton · KEmptyState · KErrorState   (+ KMarkdown in Phase 4)
+        │   │              KSkeleton · KEmptyState · KErrorState · KMarkdown · KCodeBlock · KPagination
         │   ├── layout/    PublicLayout · PublicHeader · AuthLayout · AppLayout · AppHeader · MobileMenu · AppFooter
         │   ├── dashboard/ DashboardPanel · StatsRow · TodayPlan · WeeklyActivity · CategoryProgress
         │   │              RecommendedTopics · RecentQuestions
-        │   ├── catalog/   (Phase 4) CategoryCard · TopicList · QuestionTable · QuestionFilters
-        │   ├── question/  (Phase 4) ProblemStatement · ExampleList · SolutionPanel · McqOptions · ExplanationPanel
+        │   ├── catalog/   QuestionTable
+        │   ├── question/  ExampleList · RevealPanel · McqOptions · QuestionAside
         │   └── assistant/ (Phase 5) ChatThread · ChatMessage · ChatComposer · ConversationList · AssistantDrawer
         └── views/
             LandingView · auth/LoginView · auth/RegisterView · DashboardView
-            prepare/PrepareView · practice/CodingView · practice/CodingQuestionView
-            practice/AptitudeView · practice/AptitudeQuestionView · practice/CoreCsView · practice/CoreQuestionView
+            PrepareView · PracticeView (/practice/:category = coding · aptitude · core-cs)
+            QuestionView (/questions/:slug — coding · mcq · concept layouts)
             AskKafkaView · SettingsView (profile) · AnalyticsView · SystemStatusView · NotFoundView
 ```
 

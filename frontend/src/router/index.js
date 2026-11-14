@@ -43,6 +43,25 @@ const routes = [
         meta: { title: 'Dashboard' },
       },
       {
+        path: 'prepare',
+        name: 'prepare',
+        component: () => import('@/views/PrepareView.vue'),
+        meta: { title: 'Prepare' },
+      },
+      { path: 'practice', redirect: { name: 'practice', params: { category: 'coding' } } },
+      {
+        path: 'practice/:category',
+        name: 'practice',
+        component: () => import('@/views/PracticeView.vue'),
+        meta: { title: 'Practice' },
+      },
+      {
+        path: 'questions/:slug',
+        name: 'question',
+        component: () => import('@/views/QuestionView.vue'),
+        meta: { title: 'Question' },
+      },
+      {
         path: 'settings',
         name: 'settings',
         component: () => import('@/views/SettingsView.vue'),
