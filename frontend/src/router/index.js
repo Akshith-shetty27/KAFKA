@@ -62,6 +62,12 @@ const routes = [
         meta: { title: 'Question' },
       },
       {
+        path: 'ask/:id(\\d+)?',
+        name: 'ask',
+        component: () => import('@/views/AskKafkaView.vue'),
+        meta: { title: 'Ask KAFKA' },
+      },
+      {
         path: 'settings',
         name: 'settings',
         component: () => import('@/views/SettingsView.vue'),

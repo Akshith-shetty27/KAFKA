@@ -9,6 +9,7 @@
 import { computed, reactive, ref, watch } from 'vue'
 import { useRoute } from 'vue-router'
 
+import AssistantDrawer from '@/components/assistant/AssistantDrawer.vue'
 import ExampleList from '@/components/question/ExampleList.vue'
 import McqOptions from '@/components/question/McqOptions.vue'
 import QuestionAside from '@/components/question/QuestionAside.vue'
@@ -99,6 +100,17 @@ const resetProgress = () =>
 
 // Already ordered by the API with my preferred language first.
 const solutions = computed(() => question.value?.solutions ?? [])
+
+// --- ASK KAFKA -------------------------------------------------------------------------
+// Mirrors the server's rules (apps/assistant/context.py); the server re-checks.
+const askOpen = ref(false)
+const askCapabilities = computed(() => {
+  if (!question.value) return { hint: false, explain: false, review: false }
+  const answered = Boolean(progress.value?.answer_count)
+  if (question.value.question_type === 'mcq') return { hint: !answered, explain: answered, review: answered }
+  return { hint: true, explain: true, review: false }
+})
+watch(slug, () => (askOpen.value = false))
 </script>
 
 <template>
@@ -201,13 +213,23 @@ const solutions = computed(() => question.value?.solutions ?? [])
                 <KEyebrow as="h2" tone="muted" class="mb-4">Explanation</KEyebrow>
                 <KMarkdown :source="mcqResult.explanation" />
               </div>
-              <RouterLink
-                v-if="question.navigation.next"
-                :to="{ name: 'question', params: { slug: question.navigation.next } }"
-                class="k-label mt-10 inline-flex items-center gap-3 border-b border-current pb-2 hover:text-accent-text"
-              >
-                Next question →
-              </RouterLink>
+              <div class="mt-10 flex flex-wrap items-center gap-x-10 gap-y-4">
+                <button
+                  v-if="!mcqResult.isCorrect"
+                  type="button"
+                  class="k-label inline-flex items-center gap-3 border-b border-current pb-2 text-accent-text"
+                  @click="askOpen = true"
+                >
+                  Ask Kafka why →
+                </button>
+                <RouterLink
+                  v-if="question.navigation.next"
+                  :to="{ name: 'question', params: { slug: question.navigation.next } }"
+                  class="k-label inline-flex items-center gap-3 border-b border-current pb-2 hover:text-accent-text"
+                >
+                  Next question →
+                </RouterLink>
+              </div>
             </section>
           </template>
 
@@ -240,10 +262,13 @@ const solutions = computed(() => question.value?.solutions ?? [])
               :error="actionError"
               @complete="markComplete"
               @reset="resetProgress"
+              @ask="askOpen = true"
             />
           </div>
         </aside>
       </div>
+
+      <AssistantDrawer v-model:open="askOpen" :question="question" :capabilities="askCapabilities" />
     </template>
   </div>
 </template>

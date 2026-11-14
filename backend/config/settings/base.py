@@ -44,6 +44,7 @@ LOCAL_APPS = [
     "apps.accounts",
     "apps.catalog",
     "apps.progress",
+    "apps.assistant",
 ]
 
 INSTALLED_APPS = DJANGO_APPS + THIRD_PARTY_APPS + LOCAL_APPS
@@ -169,8 +170,16 @@ CORS_ALLOW_CREDENTIALS = True  # the refresh cookie must be sent cross-origin
 # LLM provider (ASK KAFKA). Keys never leave the backend.
 # ---------------------------------------------------------------------------
 
-LLM_PROVIDER = env("LLM_PROVIDER", default="fake")
-LLM_MODEL = env("LLM_MODEL", default="claude-opus-5-5")
+# Provider: "groq" (default; free tier, GPT-OSS 120B) | "anthropic" (paid) | "fake" (offline demo).
+# Credentials: GROQ_API_KEY / ANTHROPIC_API_KEY, read by each SDK from the environment.
+LLM_PROVIDER = env("LLM_PROVIDER", default="groq")
+LLM_MODEL = env("LLM_MODEL", default="")  # empty → provider default (see apps/assistant/llm/registry.py)
+LLM_EFFORT = env("LLM_EFFORT", default="medium")  # reasoning depth: low | medium | high
+LLM_MAX_TOKENS = env.int("LLM_MAX_TOKENS", default=0)  # per reply incl. reasoning; 0 → provider default
+LLM_TIMEOUT = env.float("LLM_TIMEOUT", default=60.0)
+LLM_HISTORY_MESSAGES = env.int("LLM_HISTORY_MESSAGES", default=10)  # recent messages sent with each request
+LLM_HISTORY_CHARS = env.int("LLM_HISTORY_CHARS", default=12000)  # ≈3k tokens; keeps requests within rate limits
+LLM_FAKE_DELAY = env.float("LLM_FAKE_DELAY", default=0.02)  # seconds between fake tokens (shows streaming)
 
 # ---------------------------------------------------------------------------
 # Logging

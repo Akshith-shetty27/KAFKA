@@ -1,6 +1,6 @@
 /**
- * Navigation items for the signed-in app header. Each later phase adds its
- * page here (Progress, Ask KAFKA) when the page exists, so the nav never
+ * Navigation items for the signed-in app header. Each phase adds its page
+ * here when the page exists (Progress arrives in Phase 6), so the nav never
  * links to something that isn't built.
  */
 export const appNav = [
@@ -8,6 +8,7 @@ export const appNav = [
   { label: 'Prepare', to: { name: 'prepare' } },
   // `match`: path prefixes that also count as "this section" for highlighting.
   { label: 'Practice', to: { name: 'practice', params: { category: 'coding' } }, match: ['/practice', '/questions'] },
+  { label: 'Ask Kafka', to: { name: 'ask' }, match: ['/ask'] },
   { label: 'Settings', to: { name: 'settings' }, icon: 'settings' },
 ]
 

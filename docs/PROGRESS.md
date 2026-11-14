@@ -5,7 +5,7 @@ Details live in [ARCHITECTURE.md](ARCHITECTURE.md) and [DESIGN.md](DESIGN.md); s
 
 ## Current status
 
-**Phase 4 — Preparation modules: done (verified 2026-11-13).** Next: Phase 5 (ASK KAFKA AI assistant).
+**Phase 5 — ASK KAFKA: done (verified 2026-11-14, offline provider).** Provider switched to **Groq · GPT-OSS 120B (free tier)**; waiting for a `GROQ_API_KEY` to verify live answers. Next: Phase 6.
 
 ## Environment (verified 2026-11-13)
 
@@ -33,9 +33,9 @@ Workspace notes:
 | 1 | Scaffold Django + Vue, Tailwind, Postgres db/role, env files, verify both servers start | Done |
 | 2 | Models + migrations, auth (JWT/cookie), catalog/progress APIs, seed command, API tests | Done |
 | 3 | Design system (tokens, ui components), layouts, routing + guards, landing, auth pages, dashboard | Done (+ settings page) |
-| 4 | Prepare hub, practice lists, coding / aptitude / core question pages, completion + MCQ grading | **Done** (+ bank grown to 162) |
-| 5 | ASK KAFKA: provider layer, context, hints, streaming, conversation history | Next |
-| 6 | Analytics page, recommendations/plan, responsiveness pass, error/empty states, integration testing | Not started |
+| 4 | Prepare hub, practice lists, coding / aptitude / core question pages, completion + MCQ grading | Done (+ bank grown to 162) |
+| 5 | ASK KAFKA: provider layer, context, hints, streaming, conversation history | **Done** (Groq live answers need a key) |
+| 6 | Analytics page, recommendations/plan, responsiveness pass, error/empty states, integration testing | Next |
 
 ### Phase 1 — what exists
 
@@ -57,6 +57,49 @@ Frontend (`frontend/`)
   404 page.
 - Verified in the browser: status page shows all OK; with Django stopped it shows OFFLINE + "Could not reach the
   server"; `npm run build` passes.
+
+### Phase 5 — what exists
+
+Backend (`apps/assistant`)
+- Models: `Conversation` (user, optional question, title) and `Message` (role, content, mode, hint level, status
+  complete/incomplete/error/refused, provider/model, token counts incl. cache reads). Admin with inline messages.
+- Provider layer (`llm/`): protocol + `AnthropicProvider` (official SDK, `claude-opus-5-5`, effort `medium`,
+  streaming, automatic prompt caching, server-side refusal fallbacks) + `FakeProvider` (offline, labelled demo) +
+  registry. Errors become `LLMError` with student-safe text; provider details are logged, never shown.
+- `context.py`: question context built from the DB; **solution withheld** for chat/hint until the question is
+  completed; `explain`/`review` include it; MCQ explain/review only after answering, hint only before.
+- `prompts.py`: mentor rules → question context → mode block (cache-friendly order); 3 hint levels.
+- `services.stream_turn`: validates first (proper 4xx), then streams; saves the reply on success, provider error,
+  max-tokens cut-off, refusal, or client disconnect (partial reply kept as `incomplete`); logs an `ai_message`
+  activity event (counts towards streak/daily activity).
+- API: status, conversations list/create/detail/delete, SSE messages endpoint; `assistant` throttle scope.
+
+Frontend
+- `services/sse.js` (fetch + ReadableStream SSE client sharing the single-flight token refresh with Axios),
+  `services/assistant.api.js`, `stores/assistant.js` (status + conversation list), `composables/useChat.js`.
+- Components: `ChatThread` (follows the stream unless you scroll up), `ChatMessage` (Markdown via sanitized
+  `KMarkdown`, typing indicator, status notes), `ChatComposer` (Enter/Shift+Enter, Stop, 4000-char guard),
+  `QuickActions` (Hint n of 3 → Review → Explain, per capabilities), `AssistantDrawer`, `DemoModeNote`.
+- `/ask` and `/ask/:id`: conversation list (delete), suggestions, general chat; conversations started from a
+  question keep their quick actions and link back. Nav gains "Ask Kafka".
+- Question pages: "Ask Kafka" card in the side rail opens the drawer (latest conversation for that question, created
+  lazily on first message); "Ask Kafka why →" after a wrong MCQ answer.
+
+Verification
+- Backend: 97 tests (32 new): reveal rules (solution never in hint context; other users' progress never used),
+  capability matrix, prompt order, SSE event sequence, persistence, activity logging, validation, provider error
+  mid-stream, max-tokens and refusal handling, client disconnect, history building, throttling, cross-user 404s,
+  and the Claude adapter against a stub client (request shape incl. effort/caching/fallbacks; error mapping).
+- Live: tokens stream through the Vite proxy (first token ≈0.06 s); browser checks at 1440px and 375px — hint
+  streaming and escalation, Stop (partial saved as `incomplete` server-side), MCQ wrong → "Ask Kafka why" → review,
+  unanswered MCQ offers hint only, general chat creates/titles a conversation and updates the URL, delete, drawer
+  history reload, body scroll lock, no console errors. Test accounts deleted.
+- **Provider switch (2026-11-14):** default is now Groq · `openai/gpt-oss-120b`. 108 backend tests pass (11 new:
+  Groq request shape incl. `include_reasoning=False`, effort mapping, finish-reason mapping, error mapping, missing
+  key, registry defaults/overrides, history character budget). Live server checked without a key: status reports
+  `configured: false` and a message returns the "not configured" error cleanly.
+- **Not yet verified:** real Groq responses — no `GROQ_API_KEY` is configured. Check one hint + one explanation once
+  a key is added (README "Turning on ASK KAFKA").
 
 ### Phase 4 — what exists
 
@@ -197,10 +240,22 @@ Verification
 | D28 | Approach and solution hidden behind explicit reveals | Encourages attempting first — the hint-before-answer philosophy ASK KAFKA will extend |
 | D29 | markdown-it (`html: false`) + DOMPurify, highlight.js core with 5 languages | Safe rendering now and for AI output later; small bundle |
 | D30 | Question bank verified by executing solutions / recomputing answers before seeding | Wrong answers in a prep tool do real harm |
+| D31 | Anti-spoiler rule enforced by withholding the solution from the model's context | A prompt instruction can be talked around; absent data can't leak |
+| D32 | MCQ explain/review only after answering | Otherwise ASK KAFKA bypasses server-side grading |
+| D33 | Mode per message (chat/hint/explain/review), not per conversation | One conversation per question can mix hints and explanations |
+| D34 | Conversations created lazily on the first message | Opening the drawer doesn't litter history with empty chats |
+| D35 | Claude defaults: Opus 5.5, effort `medium`, 16k max tokens, prompt caching, server-side refusal fallbacks | Quality tutoring with bounded per-message cost; all tunable via env |
+| D36 | Partial replies are always saved (error / stop / disconnect) | History never has silent gaps; the model sees what the student saw |
+| D37 | **Default LLM: Groq, `openai/gpt-oss-120b`, free tier** (user's choice); Claude adapter kept as optional | No pay-as-you-go cost; provider layer still allows switching by env var |
+| D38 | Groq defaults: 3,000-token replies, `include_reasoning=False`, history ≤10 msgs / ~12k chars | Free tier is ~8K tokens/min account-wide; students only see answers, not raw reasoning |
+| D39 | Provider client created lazily; missing key → clear "not configured" message + `configured` flag | A missing secret must not crash the server or confuse students |
 
 ## Open items
 
-- **LLM API key:** not configured yet. Add `ANTHROPIC_API_KEY` to `backend/.env` and set `LLM_PROVIDER=anthropic` before Phase 5 testing.
+- **Groq API key:** not configured. Create a free key at console.groq.com, set `GROQ_API_KEY` in `backend/.env`
+  (`LLM_PROVIDER=groq` is already set), restart Django, then try one hint and one explanation to verify the live path.
+- **Free-tier capacity:** limits are per Groq account and shared by all students (≈1K requests and 200K tokens per
+  day). Fine for development/demos; a real launch needs Groq's paid Developer tier or another provider.
 
 - **Content volume:** 162 questions — D12 target reached. More can be added with the same format + `seed_content`.
 - **Mobile question page:** the status / "Mark as solved" rail sits below the article on phones. A sticky bottom
@@ -216,7 +271,7 @@ Verification
 
 ## Next step
 
-Phase 5 — ASK KAFKA: `assistant` app (Conversation, Message), provider interface + Anthropic adapter + fake
-provider, question-aware context builder, hint levels that never send the solution, SSE streaming endpoint with
-rate limit, conversation history API; frontend chat page + "Ask KAFKA" drawer on question pages, rendered with the
-existing `KMarkdown`. Needs `ANTHROPIC_API_KEY` in `backend/.env` for real answers (fake provider otherwise).
+Phase 6 — analytics and polish: Progress page (nav "Progress", replaces the reference's INTERVIEW) with activity
+heatmap (`/progress/activity?days=90|365`), per-track and per-topic completion, MCQ accuracy by category, weakest
+topics; sticky mobile action bar on question pages; focus return after drawers; loading/empty/error audit; a
+production settings/deploy checklist; end-to-end integration pass.

@@ -97,4 +97,34 @@ cd frontend && npm run build
 
 - The project folder name ends in `]`, so quote paths in the shell: `cd ~/Desktop/"website]"`.
 - Secrets live only in `backend/.env` (git-ignored). The frontend never holds API keys.
-- `LLM_PROVIDER=fake` runs ASK KAFKA offline; set `anthropic` + `ANTHROPIC_API_KEY` for real answers.
+- `LLM_PROVIDER=fake` runs ASK KAFKA offline (clearly labelled demo replies).
+
+## Turning on ASK KAFKA (Groq · GPT-OSS 120B · free tier)
+
+ASK KAFKA uses [Groq](https://groq.com/) with the open-weight model **`openai/gpt-oss-120b`**. Groq's free tier
+costs nothing; you only need an account and an API key (no card required to start, as far as Groq's billing docs
+indicate).
+
+1. Sign up at [console.groq.com](https://console.groq.com/) and create a key under **API Keys**.
+2. Put it in `backend/.env` (never in the frontend, never in git):
+
+   ```
+   LLM_PROVIDER=groq
+   GROQ_API_KEY=<your key>
+   ```
+
+3. Restart the Django server. Until a key is set, ASK KAFKA shows "isn't set up yet" instead of answering.
+
+**Free-tier limits are per Groq account, shared by everyone using your KAFKA deployment.** At the time of writing
+Groq lists roughly 30 requests/minute, 1,000 requests/day, 8,000 tokens/minute and 200,000 tokens/day for this
+model — check the **Limits** page in the Groq console for the current numbers. That's plenty for development and
+demos (very roughly 40–60 ASK KAFKA messages a day at typical sizes), not for thousands of students. When a limit is
+hit, students see "ASK KAFKA is busy right now (free-tier limit reached). Try again in a minute."
+
+To stay inside the limits, replies are capped at 3,000 tokens and only the last ~3,000 tokens of conversation
+history are sent. Tunables in `backend/.env`: `LLM_EFFORT` (`low`/`medium`/`high` reasoning), `LLM_MAX_TOKENS`
+(0 = provider default), `LLM_MODEL` (e.g. `openai/gpt-oss-20b` for a smaller, faster model), `LLM_HISTORY_CHARS`,
+and `ASSISTANT_RATE` (per-student limit, default `40/hour`).
+
+**Other providers.** The provider layer also includes a Claude adapter (`LLM_PROVIDER=anthropic` +
+`ANTHROPIC_API_KEY`, paid per token) and the offline `fake` provider. Switching never requires code changes.

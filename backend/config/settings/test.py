@@ -10,6 +10,7 @@ PASSWORD_HASHERS = ["django.contrib.auth.hashers.MD5PasswordHasher"]
 
 # Never call a real LLM from tests.
 LLM_PROVIDER = "fake"
+LLM_FAKE_DELAY = 0.0
 
 # Tests deliberately trigger 4xx responses; don't print a warning for each.
 LOGGING["loggers"] = {"django.request": {"level": "ERROR"}}  # noqa: F405

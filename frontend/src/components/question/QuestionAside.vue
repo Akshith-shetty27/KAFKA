@@ -16,7 +16,7 @@ const props = defineProps({
   busy: { type: Boolean, default: false },
   error: { type: Object, default: null },
 })
-const emit = defineEmits(['complete', 'reset'])
+const emit = defineEmits(['complete', 'reset', 'ask'])
 
 const status = computed(() => props.progress?.status ?? null)
 const isMcq = computed(() => props.question.question_type === 'mcq')
@@ -25,6 +25,20 @@ const completeLabel = computed(() => (props.question.question_type === 'concept'
 
 <template>
   <div class="flex flex-col gap-8">
+    <!-- ASK KAFKA -->
+    <button
+      type="button"
+      data-surface="ink"
+      class="group k-grid flex items-center justify-between gap-4 border border-rule p-5 text-left transition-colors hover:border-accent"
+      @click="emit('ask')"
+    >
+      <span>
+        <span class="k-display block text-xl tracking-[-0.04em]">Ask Kafka<span class="text-accent">.</span></span>
+        <span class="mt-1 block text-sm text-muted">Stuck? Get a hint, not the answer.</span>
+      </span>
+      <KIcon name="arrow-up-right" :size="18" class="text-accent transition-transform group-hover:translate-x-0.5 group-hover:-translate-y-0.5" />
+    </button>
+
     <!-- Status + actions -->
     <div class="bg-surface p-6">
       <p class="k-eyebrow text-muted">Your status</p>

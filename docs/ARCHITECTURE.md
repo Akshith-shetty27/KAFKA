@@ -181,9 +181,10 @@ all env-configurable.
 
 | Method | Path | Notes |
 |---|---|---|
-| GET / POST | `assistant/conversations/` | create with optional `{question_slug, mode}` |
-| GET / DELETE | `assistant/conversations/{id}/` | with messages |
-| POST | `assistant/conversations/{id}/messages/` | body `{content, hint_level?}` → **Server-Sent Events** stream of tokens, then a final `done` event with message id |
+| GET | `assistant/status/` | `{provider, model, offline}` — the UI flags offline demo mode |
+| GET / POST | `assistant/conversations/?question=` | list mine (with last-message preview) / create with optional `{question_slug}` |
+| GET / DELETE | `assistant/conversations/{id}/` | messages + `capabilities {hint, explain, review}` |
+| POST | `assistant/conversations/{id}/messages/` | `{content, mode: chat\|hint\|explain\|review, hint_level?}` → validation errors as JSON 4xx; otherwise **Server-Sent Events**: `start` (user message + conversation title) → many `token` → `done` (saved reply) or `error` (safe message, `retryable`, partial reply if any) |
 
 Rate limit: DRF `ScopedRateThrottle` on the messages endpoint (e.g. 40/hour/user, env-configurable).
 
@@ -211,30 +212,54 @@ logout ─▶ POST auth/logout ─▶ refresh blacklisted, cookie cleared, store
 ```
 assistant/
   llm/
-    base.py            LLMProvider protocol: stream(system, messages, max_tokens) -> Iterator[str]
-                                             complete(system, messages, max_tokens) -> LLMResult
-    anthropic_provider.py   adapter using the official SDK
-    fake_provider.py        deterministic offline provider (tests, dev without a key)
-    registry.py        get_provider() — picks adapter from settings.LLM_PROVIDER
-  context.py           builds question context from the DB (never trusts client-sent problem text)
-  prompts.py           system prompts per mode: chat / hint (graduated levels 1–3) / explain / review
-  services.py          send_message(): persist user msg → build context + history → stream → persist reply → log activity
+    base.py               LLMProvider protocol: stream(system, messages, max_tokens) → TextDelta… then Finished(LLMResult)
+                          LLMError(user_message, retryable) — the only error type the rest of the app sees
+    groq_provider.py      Groq adapter (official `groq` SDK) — default: openai/gpt-oss-120b, free tier
+    anthropic_provider.py Claude adapter (official SDK) — optional, paid
+    fake_provider.py      deterministic offline provider (tests, and dev until a key is set)
+    registry.py           get_provider() — chosen by LLM_PROVIDER; per-provider default model and reply cap
+  context.py              question context from the DB + the reveal rules + capabilities
+  prompts.py              mentor instructions, then question context, then per-mode instructions
+  services.py             stream_turn(): validate → save user msg → stream → save reply (whatever happens)
+  views.py                SSE endpoint (StreamingHttpResponse), conversations CRUD, status
 ```
 
-- **Provider-agnostic:** the rest of the app only imports `get_provider()`. Adding OpenAI/Gemini later = one new adapter file + env change.
-- **Context awareness:** when a chat is opened from a question page, the conversation stores `question_id`.
-  `context.py` loads statement, constraints, examples, pattern, the user's progress, and — for an MCQ the user
-  got wrong — the option they picked, so "review my mistake" is specific.
-- **Hints without spoilers:** hint mode instructs the model with a level (1 = nudge toward the pattern,
-  2 = key insight, 3 = step outline in pseudocode). The full solution is not sent to the model in hint mode,
-  so it cannot leak it.
-- **History window:** last ~20 turns sent to the model; full history stays in Postgres.
-- **Streaming:** Django `StreamingHttpResponse` with SSE. The browser side uses `fetch` + `ReadableStream`
-  for this single endpoint (Axios in the browser is XHR-based and cannot consume a token stream cleanly);
-  it reuses the same access token from the auth store. Every other call goes through Axios.
-- **Secrets:** `LLM_API_KEY` (or the provider's standard env var) only in `backend/.env`.
+**Anti-spoiler rule — enforced by what the model is given, not only by prompting**
 
----
+| Request | Model receives the reference solution? |
+|---|---|
+| chat / hint on a question not yet completed | No — statement, examples, constraints only (patterns hidden too) |
+| explain / review (deliberate requests) | Yes |
+| question already completed by this student | Yes |
+
+For MCQs, `explain`/`review` are allowed only after the student has answered (otherwise the assistant would bypass
+server-side grading); `hint` only before. The UI mirrors these `capabilities`, the server re-checks them.
+
+**Hints** come in three levels (nudge → key insight → step outline, never final code); the drawer offers the next
+level automatically.
+
+**Default provider: Groq, `openai/gpt-oss-120b` (free tier).** Request: system prompt as the first message, then
+history; `max_completion_tokens` 3000 (provider default), `reasoning_effort` from `LLM_EFFORT` (`low`/`medium`/
+`high`; `xhigh`/`max` map to `high`), `include_reasoning=False` so the model's private reasoning never reaches the
+student, streaming. Prompt caching is automatic on Groq. `finish_reason` `length` → reply marked "cut short",
+`content_filter` → "declined". The client is created lazily: no `GROQ_API_KEY` → a clear "not configured" message
+(and `configured: false` from `/assistant/status/`), never a crash. Errors are mapped to student-safe messages
+(429 → "busy, free-tier limit reached", retryable). Free-tier limits are account-wide (≈30 RPM, 1K RPD, 8K TPM,
+200K TPD at the time of writing), which is why reply size and history are budgeted.
+
+**Optional Claude adapter** (`LLM_PROVIDER=anthropic`): `claude-opus-5-5`, effort, 16k reply cap, prompt caching,
+server-side refusal fallbacks — kept for anyone who wants a paid, stronger model; covered by the same tests.
+
+**History**: last 10 messages and at most ~12,000 characters (≈3k tokens; `LLM_HISTORY_MESSAGES`, `LLM_HISTORY_CHARS`) —
+the student's newest message is always included; failed/empty replies skipped; consecutive same-role messages
+merged; always starting with the student. Full history stays in Postgres with token counts per reply.
+
+**Streaming**: Django `StreamingHttpResponse` with SSE; `X-Accel-Buffering: no` for proxies. Validation runs
+*before* the generator starts so errors are proper 4xx JSON. If the student presses Stop or closes the page the
+generator receives `GeneratorExit` and the partial reply is saved as `incomplete`. The browser uses `fetch` +
+`ReadableStream` (`services/sse.js`) with the same token refresh as Axios (shared single-flight refresh).
+
+**Rate limit**: `ScopedRateThrottle` scope `assistant`, `ASSISTANT_RATE` (default 40/hour/user).
 
 ## 7. Folder structure
 
@@ -259,7 +284,7 @@ website]/                       ← repo root (see PROGRESS.md: folder name)
 │       ├── catalog/     models.py · serializers.py · selectors.py · views.py · urls.py · admin.py
 │       │                management/commands/seed_content.py · content/{coding,aptitude,core_cs}.py · tests/
 │       ├── progress/    models.py · serializers.py · services.py · selectors.py · views.py · urls.py · tests/
-│       └── assistant/   models.py · serializers.py · services.py · context.py · prompts.py
+│       └── assistant/   models.py · serializers.py · services.py · context.py · prompts.py · admin.py
 │                        llm/{base,registry,anthropic_provider,fake_provider}.py · views.py · urls.py · tests/
 └── frontend/
     ├── index.html · vite.config.js · package.json · .env.example
@@ -267,9 +292,9 @@ website]/                       ← repo root (see PROGRESS.md: folder name)
         ├── main.js · App.vue            App.vue = <RouterView/> inside a layout only
         ├── assets/styles/main.css        Tailwind v4 + @theme tokens (Paper/Ink)
         ├── router/        index.js (routes + guards) · navigation.js
-        ├── stores/        auth.js   (+ assistant.js in Phase 5)
-        ├── services/      http.js · auth.api.js · catalog.api.js · progress.api.js · system.api.js  (+ assistant, sse in Phase 5)
-        ├── composables/   useAsync.js · useForm.js
+        ├── stores/        auth.js · assistant.js
+        ├── services/      http.js · sse.js · auth.api.js · catalog.api.js · progress.api.js · assistant.api.js · system.api.js
+        ├── composables/   useAsync.js · useForm.js · useChat.js
         ├── utils/         format.js (dates, percent, greeting, safeRedirect) · markdown.js (markdown-it + DOMPurify + highlight.js)
         ├── components/
         │   ├── ui/        KIcon · KLogo · KEyebrow · KArrowLink · KButton · KInput · KSelect · KCodeWindow
@@ -280,12 +305,12 @@ website]/                       ← repo root (see PROGRESS.md: folder name)
         │   │              RecommendedTopics · RecentQuestions
         │   ├── catalog/   QuestionTable
         │   ├── question/  ExampleList · RevealPanel · McqOptions · QuestionAside
-        │   └── assistant/ (Phase 5) ChatThread · ChatMessage · ChatComposer · ConversationList · AssistantDrawer
+        │   └── assistant/ ChatThread · ChatMessage · ChatComposer · QuickActions · AssistantDrawer · DemoModeNote
         └── views/
             LandingView · auth/LoginView · auth/RegisterView · DashboardView
             PrepareView · PracticeView (/practice/:category = coding · aptitude · core-cs)
             QuestionView (/questions/:slug — coding · mcq · concept layouts)
-            AskKafkaView · SettingsView (profile) · AnalyticsView · SystemStatusView · NotFoundView
+            AskKafkaView (/ask, /ask/:id) · SettingsView (profile) · AnalyticsView · SystemStatusView · NotFoundView
 ```
 
 ---
@@ -301,7 +326,8 @@ website]/                       ← repo root (see PROGRESS.md: folder name)
 | `django-cors-headers` | CORS for production when frontend and API are on different origins |
 | `psycopg[binary]` 3 | PostgreSQL driver |
 | `django-environ` | reads `.env` into typed settings |
-| `anthropic` | the default LLM adapter (only imported inside `anthropic_provider.py`) |
+| `groq` | default LLM adapter — Groq, GPT-OSS 120B (only imported inside `groq_provider.py`) |
+| `anthropic` | optional Claude adapter (only imported inside `anthropic_provider.py`) |
 
 Not added: django-filter (filters are 4 query params — hand-written in selectors), Celery/Redis (not needed for v1), pytest (Django's test runner + DRF `APITestCase` are enough).
 
@@ -326,7 +352,8 @@ DJANGO_SECRET_KEY=            DJANGO_DEBUG=true            DJANGO_ALLOWED_HOSTS=
 DATABASE_URL=postgres://kafka_app:<password>@localhost:5432/kafka_app
 CORS_ALLOWED_ORIGINS=http://localhost:5174
 JWT_ACCESS_MINUTES=10         JWT_REFRESH_DAYS=7
-LLM_PROVIDER=fake             LLM_MODEL=claude-opus-5-5    ANTHROPIC_API_KEY=
+LLM_PROVIDER=groq             GROQ_API_KEY=                LLM_MODEL=           LLM_EFFORT=medium
+LLM_MAX_TOKENS=0              ANTHROPIC_API_KEY=           (empty/0 → provider defaults)
 ASSISTANT_RATE=40/hour
 ```
 `frontend/.env`

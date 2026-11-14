@@ -51,6 +51,19 @@ export function installAuth(handlers) {
   auth = handlers
 }
 
+/** For the fetch-based SSE client, which can't use Axios interceptors. */
+export function authHandlers() {
+  return auth
+}
+
+/** Share one refresh between Axios and the SSE client. */
+export function refreshOnce() {
+  refreshInFlight ??= auth.refresh().finally(() => {
+    refreshInFlight = null
+  })
+  return refreshInFlight
+}
+
 http.interceptors.request.use((config) => {
   const token = auth?.getToken()
   if (token && !config.skipAuth) {
@@ -69,10 +82,7 @@ http.interceptors.response.use(
       config._retried = true
       try {
         // Many requests can fail at once; they all wait on the same refresh.
-        refreshInFlight ??= auth.refresh().finally(() => {
-          refreshInFlight = null
-        })
-        await refreshInFlight
+        await refreshOnce()
         return http(config)
       } catch {
         auth.onSessionExpired()
