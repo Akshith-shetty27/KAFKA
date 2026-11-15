@@ -127,3 +127,104 @@ class RegistryDefaultsTests(SimpleTestCase):
             registry.get_provider.cache_clear()
             with self.assertRaises(ImproperlyConfigured):
                 registry.get_provider()
+
+
+class JsonStubClient:
+    """Non-streaming stub: returns queued responses / raises queued errors in order."""
+
+    def __init__(self, *outcomes):
+        self.calls = []
+        self._outcomes = list(outcomes)
+        self.chat = SimpleNamespace(completions=SimpleNamespace(create=self._create))
+
+    def _create(self, **kwargs):
+        self.calls.append(kwargs)
+        outcome = self._outcomes.pop(0)
+        if isinstance(outcome, Exception):
+            raise outcome
+        return outcome
+
+
+def json_response(content, finish="stop"):
+    message = SimpleNamespace(content=content)
+    return SimpleNamespace(
+        model="openai/gpt-oss-120b",
+        choices=[SimpleNamespace(message=message, finish_reason=finish)],
+        usage=usage(prompt=2000, completion=3000, cached=0),
+    )
+
+
+def bad_request(message):
+    request = httpx.Request("POST", "https://api.groq.com/openai/v1/chat/completions")
+    return groq.BadRequestError(message, response=httpx.Response(400, request=request), body=None)
+
+
+class GroqJsonTests(SimpleTestCase):
+    SCHEMA = {"type": "object", "properties": {"ok": {"type": "boolean"}}, "required": ["ok"], "additionalProperties": False}
+
+    def call(self, client, **kwargs):
+        provider = GroqProvider(model="openai/gpt-oss-120b", effort="medium", client=client)
+        return provider.complete_json(system="sys", prompt="hi", schema=self.SCHEMA, name="test", max_tokens=4500, **kwargs)
+
+    def test_request_shape_uses_strict_schema_and_effort_override(self):
+        client = JsonStubClient(json_response('{"ok": true}'))
+        data, result = self.call(client, effort="low")
+        self.assertEqual(data, {"ok": True})
+        self.assertEqual((result.input_tokens, result.output_tokens, result.stop_reason), (2000, 3000, "end_turn"))
+        kwargs = client.calls[0]
+        self.assertEqual(kwargs["response_format"], {
+            "type": "json_schema", "json_schema": {"name": "test", "schema": self.SCHEMA, "strict": True},
+        })
+        self.assertEqual((kwargs["reasoning_effort"], kwargs["max_completion_tokens"]), ("low", 4500))
+        self.assertIs(kwargs["include_reasoning"], False)
+        self.assertNotIn("stream", kwargs)
+        self.assertEqual(kwargs["messages"], [{"role": "system", "content": "sys"}, {"role": "user", "content": "hi"}])
+
+    def test_default_effort_is_the_providers(self):
+        client = JsonStubClient(json_response('{"ok": true}'))
+        self.call(client)
+        self.assertEqual(client.calls[0]["reasoning_effort"], "medium")
+
+    def test_schema_validation_failure_is_retried_once(self):
+        client = JsonStubClient(bad_request("json_validate_failed"), json_response('{"ok": false}'))
+        data, _ = self.call(client)
+        self.assertEqual(data, {"ok": False})
+        self.assertEqual(len(client.calls), 2)
+
+        client = JsonStubClient(bad_request("json_validate_failed"), bad_request("json_validate_failed"))
+        with self.assertRaises(LLMError) as ctx:
+            self.call(client)
+        self.assertTrue(ctx.exception.retryable)
+        self.assertEqual(len(client.calls), 2)
+
+    def test_other_bad_requests_are_not_retried(self):
+        client = JsonStubClient(bad_request("invalid model"))
+        with self.assertRaises(LLMError) as ctx:
+            self.call(client)
+        self.assertFalse(ctx.exception.retryable)
+        self.assertEqual(len(client.calls), 1)
+
+    def test_truncated_or_unreadable_replies_are_retryable_errors(self):
+        for response in (json_response('{"ok": tr', finish="length"), json_response("not json"), json_response("[1, 2]")):
+            with self.subTest(content=response.choices[0].message.content), self.assertRaises(LLMError) as ctx:
+                self.call(JsonStubClient(response))
+            self.assertTrue(ctx.exception.retryable)
+
+    def test_request_larger_than_the_minute_budget_is_explained(self):
+        with self.assertRaises(LLMError) as ctx:
+            self.call(JsonStubClient(status_error(groq.APIStatusError, 413)))
+        self.assertIn("too large", ctx.exception.user_message)
+        self.assertTrue(ctx.exception.retryable)
+
+
+class FakeJsonTests(SimpleTestCase):
+    def test_builds_a_schema_shaped_object_quoting_the_prompt(self):
+        from apps.assistant.llm.fake_provider import FakeProvider
+        from apps.prep.schema import plan_schema
+
+        prompt = "<job_description>\nShort\nWe need strong SQL and REST API skills for this role.\n</job_description>"
+        data, result = FakeProvider().complete_json(system="", prompt=prompt, schema=plan_schema(), name="plan", max_tokens=10)
+        self.assertEqual(set(data), {"is_job_description", "rejection_reason", "summary", "requirements", "phases"})
+        self.assertEqual(data["requirements"][0]["evidence"], "We need strong SQL and REST API skills for this role.")
+        self.assertIn(data["phases"][0]["kind"], ("fundamentals", "technical", "advanced", "company", "mock_interview"))
+        self.assertEqual(result.model, "kafka-offline-demo")

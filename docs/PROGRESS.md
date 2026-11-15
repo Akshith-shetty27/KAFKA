@@ -5,7 +5,9 @@ Details live in [ARCHITECTURE.md](ARCHITECTURE.md) and [DESIGN.md](DESIGN.md); s
 
 ## Current status
 
-**All six phases done (2026-11-14).** KAFKA is feature-complete for v1. Remaining before a public launch: add a `GROQ_API_KEY` and verify live ASK KAFKA answers, then deploy (docs/DEPLOYMENT.md).
+**v1 complete (2026-11-14). v2 in progress ([PLAN-V2.md](PLAN-V2.md)):** study plans from a pasted job description
+are done (2026-11-15). Next: expand the question banks (≥ 50 per aptitude topic, ≥ 15 per coding pattern), then
+plan-aware ASK KAFKA chat. Code execution (LeetCode-style workspace) is descoped.
 
 ## Environment (verified 2026-11-13)
 
@@ -36,6 +38,9 @@ Workspace notes:
 | 4 | Prepare hub, practice lists, coding / aptitude / core question pages, completion + MCQ grading | Done (+ bank grown to 162) |
 | 5 | ASK KAFKA: provider layer, context, hints, streaming, conversation history | Done (Groq live answers need a key) |
 | 6 | Analytics page, recommendations/plan, responsiveness pass, error/empty states, integration testing | **Done** |
+| v2·A | Study plans: paste JD + role → AI analysis → phased roadmap linked to topics, progress tracking | **Done** |
+| v2·B | Question banks: aptitude ≥ 50/topic (20/20/10), coding ≥ 15/pattern over 14 patterns | Next |
+| v2·C | Plan-aware ASK KAFKA chat (teach, generate questions, adapt plan, mock interview) | Planned |
 
 ### Phase 1 — what exists
 
@@ -57,6 +62,24 @@ Frontend (`frontend/`)
   404 page.
 - Verified in the browser: status page shows all OK; with Django stopped it shows OFFLINE + "Could not reach the
   server"; `npm run build` passes.
+
+### v2·A Study plans — what exists
+
+- **Backend `apps.prep`:** `PreparationPlan` (role, company, pasted JD, background, days × hours, summary,
+  requirements JSON with evidence quotes, model + token usage) → `PlanPhase` → `PlanItem` (category, importance,
+  reason, subtopics, activities, hours, M2M topics/patterns, `completed_at`). Migration `prep/0001`.
+- **AI:** new `LLMProvider.complete_json()` (Groq strict JSON Schema; Claude `output_config.format`; offline fake
+  builds a schema-shaped demo). Groq retries once on `json_validate_failed`; 413 "request too large" explained.
+- **Validation (`services.validate_plan`):** requirements without a real JD quote are dropped (< 2 left → 422);
+  non-JDs rejected with the model's reason; unknown topic/pattern slugs dropped; values normalised; sizes capped;
+  hours scaled to the student's budget; phases forced into preparation order. JD is passed as tagged data
+  (prompt-injection test: hidden "ignore previous instructions" in a recipe → rejected as not a JD).
+- **Frontend:** `/ask/plans/new` (form; role pre-filled from profile) and `/ask/plans/:id` (requirements with
+  quotes, phased roadmap, tick-off with optimistic save, links into Practice with live topic progress); Ask KAFKA
+  sidebar lists plans; empty chat offers "Build my plan". `KTextarea` added to the design system.
+- **Measured (Groq free tier, 8k TPM):** medium reasoning used ~7.8k tokens and couldn't fit prompt + reply limit;
+  low reasoning: ~2.2k in / ~3k out, 7–10 s, 3/3 live runs succeeded, all five phase kinds present.
+- **Tests:** +30 (validation, API incl. privacy/throttle/errors, Groq JSON request shape/retry). 144 total.
 
 ### Phase 6 — what exists
 
@@ -288,8 +311,7 @@ Verification
 
 ## Open items
 
-- **Groq API key:** not configured. Create a free key at console.groq.com, set `GROQ_API_KEY` in `backend/.env`
-  (`LLM_PROVIDER=groq` is already set), restart Django, then try one hint and one explanation to verify the live path.
+- **Groq API key:** configured and verified live (chat and study plans).
 - **Free-tier capacity:** limits are per Groq account and shared by all students (≈1K requests and 200K tokens per
   day). Fine for development/demos; a real launch needs Groq's paid Developer tier or another provider.
 

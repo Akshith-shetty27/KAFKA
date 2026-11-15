@@ -68,6 +68,18 @@ const routes = [
         meta: { title: 'Progress' },
       },
       {
+        path: 'ask/plans/new',
+        name: 'plan-new',
+        component: () => import('@/views/StudyPlanNewView.vue'),
+        meta: { title: 'New study plan' },
+      },
+      {
+        path: 'ask/plans/:id(\\d+)',
+        name: 'plan',
+        component: () => import('@/views/StudyPlanView.vue'),
+        meta: { title: 'Study plan' },
+      },
+      {
         path: 'ask/:id(\\d+)?',
         name: 'ask',
         component: () => import('@/views/AskKafkaView.vue'),

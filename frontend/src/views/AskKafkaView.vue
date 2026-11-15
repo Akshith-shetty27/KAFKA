@@ -2,7 +2,8 @@
 /**
  * ASK KAFKA — full-page chat. /ask starts a new general conversation;
  * /ask/:id continues one (including conversations started from a question,
- * which keep their question-aware quick actions).
+ * which keep their question-aware quick actions). The sidebar also holds the
+ * student's study plans (generated from a pasted job description).
  */
 import { computed, onMounted, ref, watch } from 'vue'
 import { useRoute, useRouter } from 'vue-router'
@@ -18,6 +19,7 @@ import KIcon from '@/components/ui/KIcon.vue'
 import KSkeleton from '@/components/ui/KSkeleton.vue'
 import { useChat } from '@/composables/useChat'
 import { assistantApi } from '@/services/assistant.api'
+import { prepApi } from '@/services/prep.api'
 import { useAssistantStore } from '@/stores/assistant'
 import { timeAgo } from '@/utils/format'
 
@@ -63,6 +65,17 @@ async function open(id) {
 watch(routeId, open, { immediate: true })
 onMounted(store.loadConversations)
 
+// Study plans (newest first). A failure here only hides the list — chat still works.
+const plans = ref([])
+const plansError = ref(false)
+onMounted(async () => {
+  try {
+    plans.value = (await prepApi.list({ page_size: 5 })).results
+  } catch {
+    plansError.value = true
+  }
+})
+
 const question = computed(() => chat.conversation.value?.question ?? null)
 const capabilities = computed(() => chat.conversation.value?.capabilities ?? { hint: false, explain: false, review: false })
 
@@ -93,10 +106,37 @@ function useSuggestion(text) {
       >
         <span aria-hidden="true">+</span> New conversation
       </RouterLink>
-      <KErrorState v-if="store.listError" class="mt-6" :message="store.listError.message" @retry="store.loadConversations" />
-      <KSkeleton v-else-if="store.loadingList && !store.conversations.length" class="mt-6" :lines="5" />
-      <p v-else-if="!store.conversations.length" class="mt-6 text-sm text-muted">Your conversations will appear here.</p>
-      <ul v-else class="mt-6 flex flex-col">
+      <RouterLink
+        :to="{ name: 'plan-new' }"
+        class="k-label mt-3 flex h-11 items-center justify-center gap-2 border border-rule text-xs hover:border-accent hover:text-accent-text"
+      >
+        <span aria-hidden="true">+</span> New study plan
+      </RouterLink>
+
+      <section v-if="plans.length" class="mt-8" aria-labelledby="plans-title">
+        <p id="plans-title" class="k-eyebrow text-muted">Study plans</p>
+        <ul class="mt-3 flex flex-col">
+          <li v-for="p in plans" :key="p.id" class="border-b border-rule-soft">
+            <RouterLink :to="{ name: 'plan', params: { id: p.id } }" class="block py-3 text-muted transition-colors hover:text-fg">
+              <span class="block truncate text-sm font-medium">{{ p.role }}<template v-if="p.company"> · {{ p.company }}</template></span>
+              <span class="mt-1 flex items-center gap-3 text-xs">
+                <span class="font-mono">{{ p.progress.completed_items }}/{{ p.progress.total_items }}</span>
+                <span class="h-[3px] flex-1 bg-rule-soft">
+                  <span
+                    class="block h-full bg-accent"
+                    :style="{ width: `${p.progress.total_items ? (100 * p.progress.completed_items) / p.progress.total_items : 0}%` }"
+                  />
+                </span>
+              </span>
+            </RouterLink>
+          </li>
+        </ul>
+      </section>
+      <p v-if="plans.length || store.conversations.length" class="k-eyebrow mt-8 text-muted">Conversations</p>
+      <KErrorState v-if="store.listError" class="mt-3" :message="store.listError.message" @retry="store.loadConversations" />
+      <KSkeleton v-else-if="store.loadingList && !store.conversations.length" class="mt-3" :lines="5" />
+      <p v-else-if="!store.conversations.length" class="mt-3 text-sm text-muted">Your conversations will appear here.</p>
+      <ul v-else class="mt-3 flex flex-col">
         <li v-for="c in store.conversations" :key="c.id" class="group relative border-b border-rule-soft">
           <RouterLink
             :to="{ name: 'ask', params: { id: c.id } }"
@@ -164,6 +204,16 @@ function useSuggestion(text) {
                   problem, open it and use the ASK KAFKA button — KAFKA will know exactly which question you're on.
                 </p>
               </div>
+              <RouterLink
+                :to="{ name: 'plan-new' }"
+                class="group flex flex-col gap-2 border border-rule p-5 transition-colors hover:border-accent sm:flex-row sm:items-center sm:justify-between sm:gap-6"
+              >
+                <span>
+                  <span class="block font-medium group-hover:text-accent-text">Preparing for a specific job?</span>
+                  <span class="mt-1 block text-sm text-muted">Paste the job description and KAFKA builds a study plan for that exact role.</span>
+                </span>
+                <span class="k-label inline-flex shrink-0 items-center gap-2 text-xs">Build my plan <KIcon name="arrow-up-right" :size="14" /></span>
+              </RouterLink>
               <ul class="grid grid-cols-1 gap-3 sm:grid-cols-2">
                 <li v-for="s in suggestions" :key="s">
                   <button

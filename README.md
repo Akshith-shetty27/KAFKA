@@ -131,5 +131,13 @@ history are sent. Tunables in `backend/.env`: `LLM_EFFORT` (`low`/`medium`/`high
 (0 = provider default), `LLM_MODEL` (e.g. `openai/gpt-oss-20b` for a smaller, faster model), `LLM_HISTORY_CHARS`,
 and `ASSISTANT_RATE` (per-student limit, default `40/hour`).
 
+**Study plans from a job description.** In ASK KAFKA, *New study plan* takes a role, an optional company and
+background, the pasted job description and (optionally) days left × hours per day. One Groq call (≈10 s,
+≈5k tokens) turns it into a phased roadmap — every requirement quotes the line of the JD it came from, items
+link to real KAFKA topics/patterns, and hours are scaled to the time you have. On the free tier one plan uses most
+of a minute's token budget, so generating several plans back-to-back may hit "busy, try again in a minute".
+Tunables: `PREP_PLAN_RATE` (per student, default `10/hour`), `PREP_LLM_EFFORT`, `PREP_PLAN_MAX_TOKENS`,
+`PREP_JD_PROMPT_CHARS`.
+
 **Other providers.** The provider layer also includes a Claude adapter (`LLM_PROVIDER=anthropic` +
 `ANTHROPIC_API_KEY`, paid per token) and the offline `fake` provider. Switching never requires code changes.

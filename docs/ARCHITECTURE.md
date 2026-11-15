@@ -48,6 +48,7 @@ base URLs, tokens and refresh.
 | `catalog` | Content: Category → Topic → Question, patterns, coding details, solutions, MCQ options; content seeding command | `selectors.py`, `management/commands/seed_content.py`, `content/*.py` |
 | `progress` | Per-user question state, MCQ answering, activity log, dashboard/analytics/streak/recommendations | `services.py` (writes), `selectors.py` (aggregations) |
 | `assistant` | ASK KAFKA: conversations, messages, context building, prompts, provider adapters, streaming | `llm/`, `context.py`, `prompts.py`, `services.py` |
+| `prep` (v2) | Study plans: pasted job description → validated, JD-specific roadmap (phases → items linked to catalog topics/patterns), item progress | `services.py` (generation + validation), `schema.py` (JSON Schema for structured output), `prompts.py`, `selectors.py` |
 
 Why `progress` owns analytics: every dashboard number is an aggregation over progress and
 activity tables. A separate analytics app would only re-import those models (duplicate surface).
@@ -185,6 +186,9 @@ all env-configurable.
 | GET | `assistant/status/` | `{provider, model, offline}` — the UI flags offline demo mode |
 | GET / POST | `assistant/conversations/?question=` | list mine (with last-message preview) / create with optional `{question_slug}` |
 | GET / DELETE | `assistant/conversations/{id}/` | messages + `capabilities {hint, explain, review}` |
+| GET / POST | `prep/plans/` | list my study plans (with progress) / generate one: `{role, job_description, company?, candidate_info?, days_available?, hours_per_day?}` → 201 plan · 400 field errors · 422 `plan_rejected` (not a JD / no evidenced requirements) · 503 `plan_generation_failed` (AI busy, retryable) · 502 (AI misconfigured). Throttle scope `prep_plan` |
+| GET / DELETE | `prep/plans/{id}/` | plan with requirements (+ evidence quotes), phases, items, linked topics with my progress |
+| PATCH | `prep/plans/{id}/items/{item_id}/` | `{completed}` — tick an item off / undo |
 | POST | `assistant/conversations/{id}/messages/` | `{content, mode: chat\|hint\|explain\|review, hint_level?}` → validation errors as JSON 4xx; otherwise **Server-Sent Events**: `start` (user message + conversation title) → many `token` → `done` (saved reply) or `error` (safe message, `retryable`, partial reply if any) |
 
 Rate limit: DRF `ScopedRateThrottle` on the messages endpoint (e.g. 40/hour/user, env-configurable).
@@ -357,6 +361,8 @@ JWT_ACCESS_MINUTES=10         JWT_REFRESH_DAYS=7
 LLM_PROVIDER=groq             GROQ_API_KEY=                LLM_MODEL=           LLM_EFFORT=medium
 LLM_MAX_TOKENS=0              ANTHROPIC_API_KEY=           (empty/0 → provider defaults)
 ASSISTANT_RATE=40/hour
+PREP_PLAN_RATE=10/hour        PREP_LLM_EFFORT=low          PREP_PLAN_MAX_TOKENS=4500
+PREP_JD_MIN_CHARS=200         PREP_JD_MAX_CHARS=15000      PREP_JD_PROMPT_CHARS=5000
 ```
 `frontend/.env`
 ```

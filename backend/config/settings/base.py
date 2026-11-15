@@ -45,6 +45,7 @@ LOCAL_APPS = [
     "apps.catalog",
     "apps.progress",
     "apps.assistant",
+    "apps.prep",
 ]
 
 INSTALLED_APPS = DJANGO_APPS + THIRD_PARTY_APPS + LOCAL_APPS
@@ -136,6 +137,7 @@ REST_FRAMEWORK = {
         "auth": env("AUTH_RATE", default="20/min"),  # login / register (brute-force guard)
         "auth_refresh": env("AUTH_REFRESH_RATE", default="60/min"),
         "assistant": env("ASSISTANT_RATE", default="40/hour"),
+        "prep_plan": env("PREP_PLAN_RATE", default="10/hour"),  # study-plan generation (one LLM call each)
     },
 }
 
@@ -180,6 +182,16 @@ LLM_TIMEOUT = env.float("LLM_TIMEOUT", default=60.0)
 LLM_HISTORY_MESSAGES = env.int("LLM_HISTORY_MESSAGES", default=10)  # recent messages sent with each request
 LLM_HISTORY_CHARS = env.int("LLM_HISTORY_CHARS", default=12000)  # ≈3k tokens; keeps requests within rate limits
 LLM_FAKE_DELAY = env.float("LLM_FAKE_DELAY", default=0.02)  # seconds between fake tokens (shows streaming)
+
+# Study plans (apps.prep). The pasted job description is trimmed before it is
+# sent so prompt + reply fit Groq's free-tier per-minute token budget.
+PREP_JD_MIN_CHARS = env.int("PREP_JD_MIN_CHARS", default=200)
+PREP_JD_MAX_CHARS = env.int("PREP_JD_MAX_CHARS", default=15000)  # longest paste accepted
+PREP_JD_PROMPT_CHARS = env.int("PREP_JD_PROMPT_CHARS", default=5000)  # ≈1.3k tokens sent to the model
+# Groq's free tier refuses any request whose prompt + reply limit exceeds 8,000 tokens/min,
+# so plans use low reasoning effort (≈3k-token replies, measured) under a 4,500-token cap.
+PREP_PLAN_MAX_TOKENS = env.int("PREP_PLAN_MAX_TOKENS", default=4500)
+PREP_LLM_EFFORT = env("PREP_LLM_EFFORT", default="low")
 
 # ---------------------------------------------------------------------------
 # Logging

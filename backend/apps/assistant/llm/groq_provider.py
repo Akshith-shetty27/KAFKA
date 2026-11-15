@@ -26,7 +26,7 @@ from collections.abc import Iterator
 
 import groq
 
-from .base import ChatTurn, Finished, LLMError, LLMResult, StreamEvent, TextDelta
+from .base import ChatTurn, Finished, LLMError, LLMResult, StreamEvent, TextDelta, parse_json_reply
 
 logger = logging.getLogger(__name__)
 
@@ -42,6 +42,42 @@ def _usage_from(chunk):
     if usage is None and getattr(chunk, "x_groq", None) is not None:
         usage = chunk.x_groq.usage
     return usage
+
+
+def _to_llm_error(exc: Exception) -> LLMError:
+    """Translate an SDK exception into a message that is safe to show a student."""
+    if isinstance(exc, (groq.AuthenticationError, groq.PermissionDeniedError)):
+        logger.error("Groq rejected our credentials: %s", exc)
+        return LLMError("ASK KAFKA isn't configured correctly yet.", retryable=False, detail=str(exc))
+    if isinstance(exc, groq.RateLimitError):
+        logger.warning("Groq rate limit reached: %s", exc)
+        return LLMError(
+            "ASK KAFKA is busy right now (free-tier limit reached). Try again in a minute.",
+            retryable=True,
+            detail=str(exc),
+        )
+    if isinstance(exc, (groq.APIConnectionError, groq.APITimeoutError)):
+        return LLMError("Couldn't reach ASK KAFKA. Check your connection and try again.", retryable=True, detail=str(exc))
+    if isinstance(exc, (groq.BadRequestError, groq.UnprocessableEntityError)):
+        logger.error("Groq rejected the request: %s", exc)
+        if "json_validate_failed" in str(exc):  # structured output didn't match the schema
+            return LLMError("KAFKA returned an incomplete answer. Please try again.", retryable=True, detail=str(exc))
+        return LLMError("ASK KAFKA couldn't process that message.", retryable=False, detail=str(exc))
+    if isinstance(exc, groq.APIStatusError):
+        logger.warning("Groq API error %s: %s", exc.status_code, exc)
+        if exc.status_code == 413:  # request + reply budget larger than the per-minute token limit
+            return LLMError(
+                "That request is too large for ASK KAFKA's free-tier limit right now. Try again in a minute.",
+                retryable=True,
+                detail=str(exc),
+            )
+        return LLMError(
+            "ASK KAFKA had a problem answering. Please try again.",
+            retryable=exc.status_code >= 500,
+            detail=str(exc),
+        )
+    logger.exception("Unexpected Groq error")
+    return LLMError("ASK KAFKA had a problem answering. Please try again.", retryable=True, detail=str(exc))
 
 
 class GroqProvider:
@@ -93,31 +129,8 @@ class GroqProvider:
                     yield TextDelta(choice.delta.content)
                 if choice.finish_reason:
                     finish_reason = choice.finish_reason
-        except groq.AuthenticationError as exc:
-            logger.error("Groq authentication failed: %s", exc)
-            raise LLMError("ASK KAFKA isn't configured correctly yet.", retryable=False, detail=str(exc)) from exc
-        except groq.PermissionDeniedError as exc:
-            logger.error("Groq permission denied: %s", exc)
-            raise LLMError("ASK KAFKA isn't configured correctly yet.", retryable=False, detail=str(exc)) from exc
-        except groq.RateLimitError as exc:
-            logger.warning("Groq rate limit reached: %s", exc)
-            raise LLMError(
-                "ASK KAFKA is busy right now (free-tier limit reached). Try again in a minute.",
-                retryable=True,
-                detail=str(exc),
-            ) from exc
-        except (groq.APIConnectionError, groq.APITimeoutError) as exc:
-            raise LLMError("Couldn't reach ASK KAFKA. Check your connection and try again.", retryable=True, detail=str(exc)) from exc
-        except (groq.BadRequestError, groq.UnprocessableEntityError) as exc:
-            logger.error("Groq rejected the request: %s", exc)
-            raise LLMError("ASK KAFKA couldn't process that message.", retryable=False, detail=str(exc)) from exc
-        except groq.APIStatusError as exc:
-            logger.warning("Groq API error %s: %s", exc.status_code, exc)
-            raise LLMError(
-                "ASK KAFKA had a problem answering. Please try again.",
-                retryable=exc.status_code >= 500 or exc.status_code == 413,
-                detail=str(exc),
-            ) from exc
+        except groq.GroqError as exc:
+            raise _to_llm_error(exc) from exc
 
         details = getattr(usage, "prompt_tokens_details", None) if usage else None
         yield Finished(
@@ -129,3 +142,43 @@ class GroqProvider:
                 cache_read_tokens=getattr(details, "cached_tokens", None) if details else None,
             )
         )
+
+    def complete_json(
+        self, *, system: str, prompt: str, schema: dict, name: str, max_tokens: int, effort: str | None = None
+    ) -> tuple[dict, LLMResult]:
+        # Strict structured outputs: Groq constrains decoding to the schema
+        # (supported on gpt-oss models; not available with streaming).
+        # Groq checks the finished output against the schema and answers 400
+        # json_validate_failed when it doesn't match; that is a sampling fluke,
+        # so it is retried once before giving up.
+        client = self._get_client()
+        for attempt in (1, 2):
+            try:
+                response = client.chat.completions.create(
+                    model=self.model,
+                    messages=[{"role": "system", "content": system}, {"role": "user", "content": prompt}],
+                    max_completion_tokens=max_tokens,
+                    reasoning_effort=EFFORT_MAP.get(effort, self.effort) if effort else self.effort,
+                    include_reasoning=False,
+                    response_format={"type": "json_schema", "json_schema": {"name": name, "schema": schema, "strict": True}},
+                )
+                break
+            except groq.BadRequestError as exc:
+                if attempt == 1 and "json_validate_failed" in str(exc):
+                    logger.warning("Groq output failed schema validation; retrying once")
+                    continue
+                raise _to_llm_error(exc) from exc
+            except groq.GroqError as exc:
+                raise _to_llm_error(exc) from exc
+
+        choice = response.choices[0]
+        usage = response.usage
+        details = getattr(usage, "prompt_tokens_details", None) if usage else None
+        result = LLMResult(
+            stop_reason=FINISH_MAP.get(choice.finish_reason, "end_turn"),
+            model=getattr(response, "model", None) or self.model,
+            input_tokens=getattr(usage, "prompt_tokens", None),
+            output_tokens=getattr(usage, "completion_tokens", None),
+            cache_read_tokens=getattr(details, "cached_tokens", None) if details else None,
+        )
+        return parse_json_reply(choice.message.content, result.stop_reason), result

@@ -57,3 +57,34 @@ class LLMProvider(Protocol):
         Raises LLMError on provider failures (possibly after some deltas).
         """
         ...
+
+    def complete_json(
+        self, *, system: str, prompt: str, schema: dict, name: str, max_tokens: int, effort: str | None = None
+    ) -> tuple[dict, LLMResult]:
+        """One non-streaming request whose reply must match `schema` (JSON Schema).
+
+        Used for structured features (e.g. study plans), where the result is
+        validated and stored rather than shown as it arrives. Returns the
+        parsed object. `effort` overrides the provider's reasoning effort for
+        this call. Raises LLMError on provider failures, on a reply cut
+        off by `max_tokens`, or on output that isn't valid JSON — callers
+        must still validate the content itself.
+        """
+        ...
+
+
+def parse_json_reply(text: str, stop_reason: str) -> dict:
+    """Shared tail of every `complete_json`: turn the reply text into a dict or fail clearly."""
+    import json
+
+    if stop_reason == "max_tokens":
+        raise LLMError("KAFKA ran out of room before finishing. Please try again.", retryable=True, detail="max_tokens")
+    if stop_reason == "refusal":
+        raise LLMError("KAFKA can't help with that request.", retryable=False, detail="refusal")
+    try:
+        data = json.loads(text)
+    except (TypeError, ValueError) as exc:
+        raise LLMError("KAFKA returned an unreadable answer. Please try again.", retryable=True, detail=str(exc)) from exc
+    if not isinstance(data, dict):
+        raise LLMError("KAFKA returned an unreadable answer. Please try again.", retryable=True, detail="not an object")
+    return data

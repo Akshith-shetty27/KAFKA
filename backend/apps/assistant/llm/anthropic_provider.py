@@ -21,7 +21,7 @@ from collections.abc import Iterator
 
 import anthropic
 
-from .base import ChatTurn, Finished, LLMError, LLMResult, StreamEvent, TextDelta
+from .base import ChatTurn, Finished, LLMError, LLMResult, StreamEvent, TextDelta, parse_json_reply
 
 logger = logging.getLogger(__name__)
 
@@ -79,3 +79,38 @@ class AnthropicProvider:
                 cache_read_tokens=getattr(usage, "cache_read_input_tokens", None),
             )
         )
+
+    def complete_json(
+        self, *, system: str, prompt: str, schema: dict, name: str, max_tokens: int, effort: str | None = None
+    ) -> tuple[dict, LLMResult]:
+        # Structured outputs via output_config.format; streamed internally so
+        # long generations don't hit HTTP timeouts, but returned as one object.
+        try:
+            with self._client.messages.stream(
+                model=self.model,
+                max_tokens=max_tokens,
+                system=system,
+                messages=[{"role": "user", "content": prompt}],
+                output_config={"effort": effort or self.effort, "format": {"type": "json_schema", "schema": schema}},
+            ) as stream:
+                final = stream.get_final_message()
+        except anthropic.RateLimitError as exc:
+            raise LLMError("ASK KAFKA is busy right now. Try again in a minute.", retryable=True, detail=str(exc)) from exc
+        except (anthropic.APIConnectionError, anthropic.APITimeoutError) as exc:
+            raise LLMError("Couldn't reach ASK KAFKA. Check your connection and try again.", retryable=True, detail=str(exc)) from exc
+        except anthropic.APIStatusError as exc:
+            logger.warning("Anthropic API error %s: %s", exc.status_code, exc)
+            retryable = exc.status_code >= 500
+            message = "ASK KAFKA had a problem answering. Please try again." if retryable else "ASK KAFKA couldn't process that request."
+            raise LLMError(message, retryable=retryable, detail=str(exc)) from exc
+
+        text = "".join(block.text for block in final.content if getattr(block, "type", "") == "text")
+        usage = final.usage
+        result = LLMResult(
+            stop_reason=final.stop_reason or "end_turn",
+            model=final.model,
+            input_tokens=getattr(usage, "input_tokens", None),
+            output_tokens=getattr(usage, "output_tokens", None),
+            cache_read_tokens=getattr(usage, "cache_read_input_tokens", None),
+        )
+        return parse_json_reply(text, result.stop_reason), result

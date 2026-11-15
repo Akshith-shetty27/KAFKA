@@ -1,4 +1,4 @@
-from .base import ChatTurn, Finished, LLMError, LLMProvider, LLMResult, StreamEvent, TextDelta
+from .base import ChatTurn, Finished, LLMError, LLMProvider, LLMResult, StreamEvent, TextDelta, parse_json_reply
 from .registry import get_provider, max_reply_tokens
 
 __all__ = [
@@ -10,5 +10,6 @@ __all__ = [
     "StreamEvent",
     "TextDelta",
     "get_provider",
+    "parse_json_reply",
     "max_reply_tokens",
 ]
