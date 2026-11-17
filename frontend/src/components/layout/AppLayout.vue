@@ -10,7 +10,13 @@ import AppHeader from './AppHeader.vue'
     </a>
     <AppHeader />
     <main id="main" class="flex-1">
-      <RouterView />
+      <!-- Pages rise in on navigation; the same page re-used with new params
+           (another question, another conversation) doesn't re-animate. -->
+      <RouterView v-slot="{ Component }">
+        <Transition name="k-page">
+          <component :is="Component" />
+        </Transition>
+      </RouterView>
     </main>
     <AppFooter />
   </div>

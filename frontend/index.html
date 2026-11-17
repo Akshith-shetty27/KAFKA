@@ -7,6 +7,24 @@
     <meta name="description" content="KAFKA — a smarter way to prepare for coding interviews, aptitude tests and placements." />
     <meta name="theme-color" content="#050505" />
     <title>KAFKA — Interview Preparation</title>
+    <script>
+      // Paint the right surface before the app loads (no light→dark flash).
+      // Public pages are Paper; /status is Ink; app pages use the theme the
+      // user had last time (stored by App.vue), defaulting to Ink.
+      ;(function () {
+        var path = location.pathname.replace(/\/+$/, '') || '/'
+        var surface = 'ink'
+        if (path === '/' || path === '/login' || path === '/register') surface = 'paper'
+        else if (path !== '/status') {
+          try {
+            var saved = localStorage.getItem('kafka:theme')
+            if (saved === 'paper' || saved === 'ink') surface = saved
+          } catch (e) {}
+        }
+        document.documentElement.dataset.surface = surface
+        document.querySelector('meta[name="theme-color"]').setAttribute('content', surface === 'ink' ? '#050505' : '#fffcf2')
+      })()
+    </script>
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link

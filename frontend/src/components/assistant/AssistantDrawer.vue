@@ -14,6 +14,7 @@ import { assistantApi } from '@/services/assistant.api'
 import ChatComposer from './ChatComposer.vue'
 import ChatThread from './ChatThread.vue'
 import DemoModeNote from './DemoModeNote.vue'
+import KAssistantMark from './KAssistantMark.vue'
 import QuickActions from './QuickActions.vue'
 
 const open = defineModel('open', { type: Boolean, default: false })
@@ -112,7 +113,10 @@ onBeforeUnmount(() => {
       >
         <header class="flex items-start justify-between gap-6 border-b border-rule px-5 py-5 sm:px-7">
           <div class="min-w-0">
-            <p class="k-display text-2xl tracking-[-0.04em]">Ask Kafka<span class="text-accent">.</span></p>
+            <p class="flex items-center gap-3">
+              <KAssistantMark :active="chat.streaming.value" :size="20" />
+              <span class="k-display text-2xl tracking-[-0.04em]">Ask Kafka<span class="text-accent">.</span></span>
+            </p>
             <p class="mt-1 truncate text-sm text-muted">{{ question.title }}</p>
           </div>
           <div class="flex items-center gap-4">

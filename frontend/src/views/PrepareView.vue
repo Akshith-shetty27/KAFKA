@@ -4,22 +4,33 @@
  * progress, then every topic grouped by track (and section for aptitude),
  * each linking into the practice library pre-filtered to that topic.
  */
-import { computed, onMounted } from 'vue'
+import { computed, onMounted, ref } from 'vue'
 
-import KArrowLink from '@/components/ui/KArrowLink.vue'
 import KErrorState from '@/components/ui/KErrorState.vue'
 import KEyebrow from '@/components/ui/KEyebrow.vue'
 import KProgressBar from '@/components/ui/KProgressBar.vue'
 import KSkeleton from '@/components/ui/KSkeleton.vue'
+import KTrackCard from '@/components/ui/KTrackCard.vue'
 import { useAsync } from '@/composables/useAsync'
+import { useMotion } from '@/motion'
 import { catalogApi } from '@/services/catalog.api'
-import { percent } from '@/utils/format'
 
 const load = useAsync(async () => {
   const [categories, topics] = await Promise.all([catalogApi.categories(), catalogApi.topics()])
   return { categories, topics }
 })
 onMounted(load.run)
+
+// Track cards rise in one after another once the data has arrived.
+const trackGrid = ref(null)
+useMotion(
+  trackGrid,
+  ({ q, gsap, reduced }) => {
+    if (reduced) return
+    gsap.from(q('.k-track'), { y: 24, opacity: 0, duration: 0.6, stagger: 0.08 })
+  },
+  { watch: () => load.data.value },
+)
 
 /** [{ category, groups: [{ section, topics[] }] }] in curriculum order */
 const tracks = computed(() => {
@@ -56,28 +67,24 @@ const tracks = computed(() => {
 
     <template v-else>
       <!-- Track overview -->
-      <section class="mt-16 grid grid-cols-1 gap-14 md:grid-cols-3 md:gap-10" aria-label="Tracks">
-        <article v-for="({ category }, i) in tracks" :key="category.slug" class="flex flex-col border-t border-rule pt-8">
-          <p class="font-mono text-sm">{{ String(i + 1).padStart(2, '0') }}</p>
-          <p class="k-serif my-8 text-center text-[6rem] leading-none not-italic" aria-hidden="true">{{ category.glyph }}</p>
-          <h2 class="text-2xl font-medium tracking-tight uppercase">{{ category.name }}</h2>
-          <p class="mt-3 flex-1 text-muted">{{ category.description }}</p>
-          <div class="mt-6 flex items-center gap-4">
-            <KProgressBar :value="category.completed_count" :max="category.question_count" :label="`${category.name} progress`" />
-            <span class="shrink-0 font-mono text-sm">{{ category.completed_count }}/{{ category.question_count }}</span>
-          </div>
-          <p class="mt-2 text-sm text-muted">
-            {{ percent(category.question_count ? category.completed_count / category.question_count : 0) }} complete ·
-            {{ category.attempted_count }} attempted
-          </p>
-          <div class="mt-8">
-            <KArrowLink :to="{ name: 'practice', params: { category: category.slug } }">Practice</KArrowLink>
-          </div>
-        </article>
+      <section ref="trackGrid" class="mt-16 grid grid-cols-1 gap-6 md:grid-cols-3" aria-label="Tracks">
+        <!-- GSAP animates the wrapper; the card's own transform belongs to its CSS hover lift. -->
+        <div v-for="({ category }, i) in tracks" :key="category.slug" class="k-track">
+          <KTrackCard
+            :to="{ name: 'practice', params: { category: category.slug } }"
+            :index="i + 1"
+            :glyph="category.glyph"
+            :name="category.name"
+            :description="category.description"
+            :completed="category.completed_count"
+            :total="category.question_count"
+            :attempted="category.attempted_count"
+          />
+        </div>
       </section>
 
       <!-- Topics per track -->
-      <section v-for="({ category, groups }, i) in tracks" :key="category.slug" class="mt-24" :aria-labelledby="`topics-${category.slug}`">
+      <section v-for="({ category, groups }, i) in tracks" :key="category.slug" v-reveal class="mt-24" :aria-labelledby="`topics-${category.slug}`">
         <header class="flex items-baseline justify-between gap-6 border-b border-rule pb-4">
           <KEyebrow :id="`topics-${category.slug}`" as="h2" :index="String(i + 2).padStart(2, '0')">{{ category.name }} topics</KEyebrow>
           <RouterLink :to="{ name: 'practice', params: { category: category.slug } }" class="k-eyebrow text-muted hover:text-accent-text">

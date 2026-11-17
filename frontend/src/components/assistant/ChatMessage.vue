@@ -1,6 +1,8 @@
 <script setup>
 import KMarkdown from '@/components/ui/KMarkdown.vue'
 
+import KAssistantMark from './KAssistantMark.vue'
+
 defineProps({
   message: { type: Object, required: true },
 })
@@ -24,10 +26,13 @@ const STATUS_NOTE = {
 
   <!-- KAFKA -->
   <div v-else class="border-l-2 border-accent pl-4 sm:pl-5">
-    <p class="k-eyebrow mb-3 text-[10px] text-accent-text">Kafka</p>
-    <div v-if="message.status === 'streaming' && !message.content" class="flex gap-1.5 py-2" aria-label="KAFKA is thinking" role="status">
-      <span v-for="n in 3" :key="n" class="size-1.5 animate-pulse bg-accent" :style="{ animationDelay: `${n * 150}ms` }" />
-    </div>
+    <p class="mb-3 flex items-center gap-2.5">
+      <KAssistantMark :active="message.status === 'streaming'" :size="14" />
+      <span class="k-eyebrow text-[10px] text-accent-text">Kafka</span>
+    </p>
+    <p v-if="message.status === 'streaming' && !message.content" class="k-eyebrow py-1 text-[10px] text-muted" role="status">
+      Thinking…
+    </p>
     <KMarkdown v-else :source="message.content" />
     <span v-if="message.status === 'streaming' && message.content" class="ml-0.5 inline-block h-4 w-1.5 animate-pulse bg-accent align-middle" aria-hidden="true" />
     <p v-if="STATUS_NOTE[message.status]" class="k-eyebrow mt-3 text-[10px] text-muted">{{ STATUS_NOTE[message.status] }}</p>

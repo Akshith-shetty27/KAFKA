@@ -7,7 +7,7 @@ import { computed, ref, watch } from 'vue'
 
 import { highlight } from '@/utils/markdown'
 
-import KIcon from './KIcon.vue'
+import KCopyButton from './KCopyButton.vue'
 
 const props = defineProps({
   /** [{ language, code }] */
@@ -27,16 +27,6 @@ const current = computed(() => props.solutions.find((s) => s.language === active
 const html = computed(() => (current.value ? highlight(current.value.code, current.value.language) : ''))
 const lineCount = computed(() => (current.value?.code.split('\n').length ?? 0))
 
-const copied = ref(false)
-async function copy() {
-  try {
-    await navigator.clipboard.writeText(current.value.code)
-    copied.value = true
-    setTimeout(() => (copied.value = false), 1600)
-  } catch {
-    copied.value = false
-  }
-}
 </script>
 
 <template>
@@ -56,10 +46,7 @@ async function copy() {
           {{ LABELS[s.language] ?? s.language }}
         </button>
       </div>
-      <button type="button" class="flex items-center gap-2 py-3 text-xs tracking-wider text-paper-50/60 uppercase hover:text-accent" @click="copy">
-        <KIcon :name="copied ? 'check' : 'copy'" :size="14" />
-        <span aria-live="polite">{{ copied ? 'Copied' : 'Copy' }}</span>
-      </button>
+      <KCopyButton :text="current.code" />
     </div>
     <div class="flex overflow-x-auto">
       <div class="shrink-0 py-5 pr-4 pl-5 text-right leading-[1.85] text-paper-50/25 select-none" aria-hidden="true">

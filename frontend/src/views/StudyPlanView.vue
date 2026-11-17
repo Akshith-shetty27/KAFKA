@@ -13,6 +13,7 @@ import KEyebrow from '@/components/ui/KEyebrow.vue'
 import KIcon from '@/components/ui/KIcon.vue'
 import KProgressBar from '@/components/ui/KProgressBar.vue'
 import KSkeleton from '@/components/ui/KSkeleton.vue'
+import { useToast } from '@/composables/useToast'
 import { prepApi } from '@/services/prep.api'
 import { toApiError } from '@/services/http'
 
@@ -22,7 +23,7 @@ const router = useRouter()
 const plan = ref(null)
 const loading = ref(false)
 const error = ref(null)
-const saveError = ref('')
+const toast = useToast()
 const pending = ref(new Set())
 
 async function load(id) {
@@ -54,12 +55,11 @@ async function toggle(item) {
   const next = !item.completed
   item.completed = next // optimistic
   pending.value.add(item.id)
-  saveError.value = ''
   try {
     await prepApi.setItemCompleted(plan.value.id, item.id, next)
   } catch (err) {
     item.completed = !next
-    saveError.value = (err.apiError ?? toApiError(err)).message
+    toast.error(`Couldn't update “${item.title}”: ${(err.apiError ?? toApiError(err)).message}`)
   } finally {
     pending.value.delete(item.id)
   }
@@ -69,9 +69,10 @@ async function remove() {
   if (!window.confirm(`Delete the study plan for “${plan.value.role}”? This can't be undone.`)) return
   try {
     await prepApi.remove(plan.value.id)
+    toast.success(`Study plan for “${plan.value.role}” deleted.`)
     router.push({ name: 'ask' })
   } catch (err) {
-    saveError.value = (err.apiError ?? toApiError(err)).message
+    toast.error(`Couldn't delete the plan: ${(err.apiError ?? toApiError(err)).message}`)
   }
 }
 
@@ -132,7 +133,6 @@ function patternLink(p) {
         </div>
       </header>
 
-      <KErrorState v-if="saveError" class="mt-6" :message="saveError" :retryable="false" />
 
       <div class="mt-12 grid grid-cols-1 gap-14 lg:grid-cols-12">
         <!-- What the job asks for -->

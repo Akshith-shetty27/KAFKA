@@ -23,6 +23,9 @@
   --color-ink-700: #2a2a2a;
   --color-teal-400: #22dcc8;
   --color-teal-700: #0a7a6e;
+  /* Secondary data hue — chart series only, never for actions. */
+  --color-cyan-300: #7fd3e6;
+  --color-cyan-700: #176b7d;
 
   --font-display: 'Inter Tight', ui-sans-serif, system-ui, sans-serif;
   --font-serif: 'Instrument Serif', ui-serif, Georgia, serif;
@@ -45,6 +48,9 @@
   --color-on-accent: var(--k-on-accent);
   --color-danger: var(--k-danger);
   --color-warning: var(--k-warning);
+  --color-signal: var(--k-signal);
+  --shadow-elevated: var(--k-elevation);
+  --shadow-elevated-hover: var(--k-elevation-hover);
 }
 
 @layer base {
@@ -63,6 +69,9 @@
     --k-danger: #b8391f;
     --k-warning: #9a6200;
     --k-grid-line: rgb(5 5 5 / 0.05);
+    --k-signal: var(--color-cyan-700); /* 6:1 on paper */
+    --k-elevation: inset 0 1px 0 rgb(255 255 255 / 0.7), 0 1px 2px rgb(5 5 5 / 0.06), 0 10px 24px -16px rgb(5 5 5 / 0.25);
+    --k-elevation-hover: inset 0 1px 0 rgb(255 255 255 / 0.7), 0 2px 4px rgb(5 5 5 / 0.08), 0 18px 32px -18px rgb(5 5 5 / 0.35);
     color-scheme: light;
   }
 
@@ -80,6 +89,10 @@
     --k-danger: #f0614a;
     --k-warning: #f2b33d;
     --k-grid-line: rgb(255 255 255 / 0.045);
+    --k-signal: var(--color-cyan-300);
+    /* Depth from a 1px top highlight + soft shadow — no glows, no glass. */
+    --k-elevation: inset 0 1px 0 rgb(255 255 255 / 0.05), 0 1px 2px rgb(0 0 0 / 0.5), 0 12px 28px -16px rgb(0 0 0 / 0.7);
+    --k-elevation-hover: inset 0 1px 0 rgb(255 255 255 / 0.08), 0 2px 4px rgb(0 0 0 / 0.5), 0 22px 40px -18px rgb(0 0 0 / 0.85);
     color-scheme: dark;
   }
 
@@ -102,7 +115,8 @@
     background: var(--k-bg);
     color: var(--k-text);
     font-family: var(--font-sans);
-    transition: background-color 250ms var(--ease-out-soft);
+    /* No colour transition: text flips instantly, so fading only the
+       background left text unreadable for a moment on theme changes. */
   }
 
   ::selection {
@@ -165,6 +179,21 @@
   font-weight: 500;
   letter-spacing: 0.22em;
   text-transform: uppercase;
+}
+
+/* Interactive card depth: lifts 2px on hover/keyboard focus. Transform only. */
+@utility k-lift {
+  box-shadow: var(--k-elevation);
+  transition:
+    transform 220ms var(--ease-out-soft),
+    box-shadow 220ms var(--ease-out-soft),
+    background-color 220ms var(--ease-out-soft);
+  &:hover,
+  &:focus-visible,
+  &:focus-within {
+    transform: translateY(-2px);
+    box-shadow: var(--k-elevation-hover);
+  }
 }
 
 /* ---------------------------------------------------------------- layout */
@@ -308,10 +337,39 @@
     border-bottom-color: var(--k-rule);
   }
   /* Fenced code blocks are always dark, like the reference code window. */
+  .k-prose .k-code-block {
+    border: 1px solid var(--color-ink-700);
+    background: var(--color-ink-900);
+  }
+  .k-prose .k-code-bar {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 1rem;
+    padding: 0.35em 0.6em 0.35em 1.2em;
+    border-bottom: 1px solid var(--color-ink-700);
+    font-family: var(--font-mono);
+    font-size: 0.72em;
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    color: rgb(255 252 242 / 0.5);
+  }
+  .k-prose .k-code-copy {
+    padding: 0.35em 0.6em;
+    font: inherit;
+    letter-spacing: inherit;
+    text-transform: inherit;
+    color: rgb(255 252 242 / 0.65);
+    cursor: pointer;
+    transition: color 150ms;
+  }
+  .k-prose .k-code-copy:hover {
+    color: var(--color-teal-400);
+  }
   .k-prose pre.k-code {
+    margin: 0;
     background: var(--color-ink-900);
     color: var(--color-paper-50);
-    border: 1px solid var(--color-ink-700);
     padding: 1em 1.2em;
     overflow-x: auto;
     font-family: var(--font-mono);
@@ -350,4 +408,17 @@
   .hljs-attr {
     color: rgb(255 252 242 / 0.85);
   }
+}
+
+/* ---------------------------------------------------------------- page transition */
+
+/* Entering pages rise in; leaving pages go instantly (no overlap, no scroll jump). */
+.k-page-enter-active {
+  transition:
+    opacity 280ms var(--ease-out-soft),
+    transform 280ms var(--ease-out-soft);
+}
+.k-page-enter-from {
+  opacity: 0;
+  transform: translateY(8px);
 }

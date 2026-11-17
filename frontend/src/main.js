@@ -2,6 +2,7 @@ import { createPinia } from 'pinia'
 import { createApp } from 'vue'
 
 import App from './App.vue'
+import { reveal } from './motion'
 import router from './router'
 import { installAuth } from './services/http'
 import { useAuthStore } from './stores/auth'
@@ -26,4 +27,5 @@ installAuth({
 })
 
 app.use(router)
+app.directive('reveal', reveal)
 app.mount('#app')

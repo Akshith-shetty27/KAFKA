@@ -11,6 +11,7 @@ import { useRoute, useRouter } from 'vue-router'
 import ChatComposer from '@/components/assistant/ChatComposer.vue'
 import ChatThread from '@/components/assistant/ChatThread.vue'
 import DemoModeNote from '@/components/assistant/DemoModeNote.vue'
+import KAssistantMark from '@/components/assistant/KAssistantMark.vue'
 import QuickActions from '@/components/assistant/QuickActions.vue'
 import KEmptyState from '@/components/ui/KEmptyState.vue'
 import KErrorState from '@/components/ui/KErrorState.vue'
@@ -19,6 +20,7 @@ import KIcon from '@/components/ui/KIcon.vue'
 import KSkeleton from '@/components/ui/KSkeleton.vue'
 import { useChat } from '@/composables/useChat'
 import { assistantApi } from '@/services/assistant.api'
+import { useToast } from '@/composables/useToast'
 import { prepApi } from '@/services/prep.api'
 import { useAssistantStore } from '@/stores/assistant'
 import { timeAgo } from '@/utils/format'
@@ -26,6 +28,7 @@ import { timeAgo } from '@/utils/format'
 const route = useRoute()
 const router = useRouter()
 const store = useAssistantStore()
+const toast = useToast()
 
 const routeId = computed(() => (route.params.id ? Number(route.params.id) : null))
 const loading = ref(false)
@@ -81,7 +84,13 @@ const capabilities = computed(() => chat.conversation.value?.capabilities ?? { h
 
 async function deleteConversation(c) {
   if (!window.confirm(`Delete “${c.title || 'Untitled conversation'}”? This can't be undone.`)) return
-  await store.remove(c.id)
+  try {
+    await store.remove(c.id)
+  } catch (err) {
+    toast.error(`Couldn't delete the conversation: ${err.apiError?.message ?? 'please try again.'}`)
+    return
+  }
+  toast.success('Conversation deleted.')
   if (routeId.value === c.id) router.push({ name: 'ask' })
 }
 
@@ -171,7 +180,10 @@ function useSuggestion(text) {
           <RouterLink v-if="routeId" :to="{ name: 'ask' }" class="k-eyebrow mb-3 inline-flex items-center gap-2 text-muted hover:text-fg lg:hidden">
             <KIcon name="arrow-left" :size="12" /> Conversations
           </RouterLink>
-          <KEyebrow tone="muted">Ask Kafka<template v-if="question"> / {{ question.category.name }}</template></KEyebrow>
+          <p class="flex items-center gap-3">
+            <KAssistantMark :active="chat.streaming.value" :size="16" />
+            <KEyebrow tone="muted" as="span">Ask Kafka<template v-if="question"> / {{ question.category.name }}</template></KEyebrow>
+          </p>
           <h1 class="k-display mt-3 truncate text-3xl tracking-[-0.04em] normal-case sm:text-4xl">
             {{ chat.conversation.value?.title || 'New conversation' }}
           </h1>
