@@ -1,6 +1,6 @@
 # KAFKA — UI/UX & Interaction Transformation Plan
 
-Status: **Stages 1–2 done** — see §7. GSAP and Three.js approved; Three.js is added in Stage 6.
+Status: **Stages 1–3 done** — see §7. GSAP and Three.js approved; Three.js is added in Stage 6.
 Scope: frontend only. No backend, model, API-contract or environment changes are needed for anything below.
 
 ---
@@ -168,3 +168,24 @@ Ask KAFKA (+ study plans) → Landing (+3D) → Auth → Progress & Settings.
 - **Bundle:** app shell 73.3 KB gzip (+0.3 KB vs Stage 1); chat chunk 74.8 KB (+0.7 KB).
 - Testing note: when the browser pane is hidden, `requestAnimationFrame` and IntersectionObserver don't run at all —
   front the tab before checking animations.
+
+### Stage 3 — Dashboard (done)
+
+Same APIs as before plus `/topics/` (already public to the app); no backend changes. Nothing is invented.
+
+- **Welcome hero** (`WelcomeHero`): greeting lines rise in from a mask (GSAP via `useMotion`), date, a message
+  that adapts (new user / questions left / goal done), and **Today's objective** — the daily goal as a ring
+  (`completed_today / items`) with the next unfinished plan item and a *Continue* link straight to it; streak badge.
+- **Stats:** Stage 2 count-up cards.
+- **Your tracks** (`TrackOverview`): Coding, Quantitative, Logical, Verbal and Core CS as compact `KTrackCard`s —
+  aptitude split by section by summing per-topic progress; each links to the first unfinished topic. 5 columns on
+  desktop, 3 on tablet, 2 on phones.
+- **Activity** (`ActivityPanel`): 90-day heatmap (larger 16 px cells) that is now explorable — one tab stop, arrow
+  keys move by day/week, Home/End, hover/click select — with an `aria-live` readout (questions, completed, answers);
+  plus this week's questions, active days and 90-day completions (count-up).
+- **Today's plan**, **Recommended next** (cards with progress rings + `k-lift`), **Recently attempted**; panels
+  reveal on scroll.
+- Removed the now-unused `WeeklyActivity` and `CategoryProgress`.
+- **Verified** with a brand-new account (all empty states) and a seeded active account (26/28/67 %/02 best 10,
+  4/5 today, 60 days of history) at 1280 px and 375 px; heatmap keyboard navigation checked (←, ↑, Home, End).
+- **Bundle:** dashboard chunk 13.1 KB (4.7 KB gzip); app shell unchanged.

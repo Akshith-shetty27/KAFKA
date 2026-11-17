@@ -1,6 +1,6 @@
 <script setup>
 import KEmptyState from '@/components/ui/KEmptyState.vue'
-import KProgressBar from '@/components/ui/KProgressBar.vue'
+import KProgressRing from '@/components/ui/KProgressRing.vue'
 
 defineProps({
   topics: { type: Array, required: true },
@@ -12,16 +12,20 @@ defineProps({
     <li v-for="topic in topics" :key="topic.slug">
       <RouterLink
         :to="{ name: 'practice', params: { category: topic.category.slug }, query: { topic: topic.slug } }"
-        class="group block bg-surface p-5 transition-colors hover:bg-raised"
+        class="k-lift group flex items-center gap-5 border border-rule-soft bg-surface p-5 hover:border-rule"
       >
-        <p class="k-eyebrow text-muted">{{ topic.category.name }}<template v-if="topic.section"> · {{ topic.section.name }}</template></p>
-        <div class="mt-3 flex items-baseline justify-between gap-4">
-          <h3 class="text-xl font-medium tracking-tight group-hover:text-accent-text">{{ topic.name }}</h3>
-          <span class="font-mono text-sm text-muted">{{ topic.completed_count }}/{{ topic.question_count }}</span>
-        </div>
-        <p class="mt-1 text-sm text-muted">{{ topic.attempted_count > 0 ? 'In progress — finish what you started' : 'Next up in the curriculum' }}</p>
-        <div class="mt-4">
-          <KProgressBar :value="topic.completed_count" :max="topic.question_count" :label="`${topic.name} progress`" />
+        <KProgressRing :value="topic.completed_count" :max="topic.question_count" :label="`${topic.name} progress`" :size="52">
+          <span class="font-mono text-[11px]">{{ topic.completed_count }}</span>
+        </KProgressRing>
+        <div class="min-w-0 flex-1">
+          <p class="k-eyebrow truncate text-[10px] text-muted">
+            {{ topic.category.name }}<template v-if="topic.section"> · {{ topic.section.name }}</template>
+          </p>
+          <h3 class="mt-1.5 truncate text-lg font-medium tracking-tight group-hover:text-accent-text">{{ topic.name }}</h3>
+          <p class="mt-0.5 text-sm text-muted">
+            {{ topic.attempted_count > 0 ? 'In progress — finish what you started' : 'Next up in the curriculum' }} ·
+            <span class="font-mono">{{ topic.completed_count }}/{{ topic.question_count }}</span>
+          </p>
         </div>
       </RouterLink>
     </li>
