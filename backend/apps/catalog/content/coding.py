@@ -24,6 +24,9 @@ PATTERNS = [
     {"slug": "dfs", "name": "Depth-First Search", "description": "Explore as deep as possible before backtracking."},
     {"slug": "dynamic-programming", "name": "Dynamic Programming", "description": "Build answers from answers to smaller subproblems."},
     {"slug": "greedy", "name": "Greedy", "description": "Make the locally best choice when it provably leads to the global best."},
+    {"slug": "sorting", "name": "Sorting", "description": "Put the data in order first; neighbours, duplicates and ranges become easy."},
+    {"slug": "recursion", "name": "Recursion", "description": "Define the answer in terms of the same problem on smaller input."},
+    {"slug": "backtracking", "name": "Backtracking", "description": "Build a candidate step by step and undo the last choice when it can't succeed."},
 ]
 
 CATEGORY = {
@@ -1982,3 +1985,8 @@ CATEGORY = {
         },
     ],
 }
+
+# Expanded bank: hand-written problems in content/bank/coding/<topic>.py (four new topics included).
+from .bank import extend_coding  # noqa: E402
+
+extend_coding(CATEGORY)

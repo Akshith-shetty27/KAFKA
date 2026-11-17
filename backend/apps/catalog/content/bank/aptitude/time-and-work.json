@@ -1,0 +1,677 @@
+[
+ {
+  "slug": "tw-together-1",
+  "title": "24-day and 21-day workers together",
+  "type": "mcq",
+  "difficulty": "easy",
+  "statement": "A can finish a piece of work in 24 days and B can finish it in 21 days. How many days will they take working together?",
+  "options": [
+   "12.2 days",
+   "22.5 days",
+   "3 days",
+   "11.2 days"
+  ],
+  "answer": "D",
+  "explanation": "In one day A does 1/24 and B does 1/21 of the work; together 1/24 + 1/21 = 5/56 of it.\nTime = 1 ÷ 5/56 = **11.2 days**  (shortcut: ab/(a + b) = 504/45)."
+ },
+ {
+  "slug": "tw-find-one-1",
+  "title": "Together in 4 days, A alone in 6: B alone?",
+  "type": "mcq",
+  "difficulty": "easy",
+  "statement": "A and B together can complete a task in 4 days. A alone can complete it in 6 days. In how many days can B alone complete it?",
+  "options": [
+   "12 days",
+   "2 days",
+   "10 days",
+   "14 days"
+  ],
+  "answer": "A",
+  "explanation": "B's daily work = 1/4 − 1/6 = 1/12, so B alone takes **12 days**."
+ },
+ {
+  "slug": "tw-men-days-1",
+  "title": "25 workers in 6 days → 5 workers",
+  "type": "mcq",
+  "difficulty": "easy",
+  "statement": "25 workers can build a wall in 6 days. How many days will 5 workers take to build the same wall, working at the same rate?",
+  "options": [
+   "1.2 days",
+   "30 days",
+   "28 days",
+   "32 days"
+  ],
+  "answer": "B",
+  "explanation": "Total work = 25 × 6 = 150 worker-days. With 5 workers: 150 / 5 = **30 days**."
+ },
+ {
+  "slug": "tw-pipes-1",
+  "title": "Fill in 15 h, empty in 20 h",
+  "type": "mcq",
+  "difficulty": "easy",
+  "statement": "Pipe A fills a tank in 15 hours and pipe B empties the full tank in 20 hours. If both are opened together on an empty tank, how long will it take to fill?",
+  "options": [
+   "5 hours",
+   "62 hours",
+   "60 hours",
+   "63 hours"
+  ],
+  "answer": "C",
+  "explanation": "Net filling per hour = 1/15 − 1/20 = 1/60. Time = 1 ÷ 1/60 = **60 hours**."
+ },
+ {
+  "slug": "tw-together-2",
+  "title": "60-day and 36-day workers together",
+  "type": "mcq",
+  "difficulty": "easy",
+  "statement": "A can finish a piece of work in 60 days and B can finish it in 36 days. How many days will they take working together?",
+  "options": [
+   "23.5 days",
+   "24 days",
+   "22.5 days",
+   "48 days"
+  ],
+  "answer": "C",
+  "explanation": "In one day A does 1/60 and B does 1/36 of the work; together 1/60 + 1/36 = 2/45 of it.\nTime = 1 ÷ 2/45 = **22.5 days**  (shortcut: ab/(a + b) = 2160/96)."
+ },
+ {
+  "slug": "tw-find-one-2",
+  "title": "Together in 3 days, A alone in 6: B alone?",
+  "type": "mcq",
+  "difficulty": "easy",
+  "statement": "A and B together can complete a task in 3 days. A alone can complete it in 6 days. In how many days can B alone complete it?",
+  "options": [
+   "4 days",
+   "3 days",
+   "6 days",
+   "8 days"
+  ],
+  "answer": "C",
+  "explanation": "B's daily work = 1/3 − 1/6 = 1/6, so B alone takes **6 days**."
+ },
+ {
+  "slug": "tw-men-days-2",
+  "title": "25 workers in 8 days → 10 workers",
+  "type": "mcq",
+  "difficulty": "easy",
+  "statement": "25 workers can build a wall in 8 days. How many days will 10 workers take to build the same wall, working at the same rate?",
+  "options": [
+   "20 days",
+   "22 days",
+   "18 days",
+   "3.2 days"
+  ],
+  "answer": "A",
+  "explanation": "Total work = 25 × 8 = 200 worker-days. With 10 workers: 200 / 10 = **20 days**."
+ },
+ {
+  "slug": "tw-pipes-2",
+  "title": "Fill in 20 h, empty in 24 h",
+  "type": "mcq",
+  "difficulty": "easy",
+  "statement": "Pipe A fills a tank in 20 hours and pipe B empties the full tank in 24 hours. If both are opened together on an empty tank, how long will it take to fill?",
+  "options": [
+   "122 hours",
+   "123 hours",
+   "4 hours",
+   "120 hours"
+  ],
+  "answer": "D",
+  "explanation": "Net filling per hour = 1/20 − 1/24 = 1/120. Time = 1 ÷ 1/120 = **120 hours**."
+ },
+ {
+  "slug": "tw-together-3",
+  "title": "8-day and 24-day workers together",
+  "type": "mcq",
+  "difficulty": "easy",
+  "statement": "A can finish a piece of work in 8 days and B can finish it in 24 days. How many days will they take working together?",
+  "options": [
+   "16 days",
+   "6 days",
+   "7 days",
+   "8 days"
+  ],
+  "answer": "B",
+  "explanation": "In one day A does 1/8 and B does 1/24 of the work; together 1/8 + 1/24 = 1/6 of it.\nTime = 1 ÷ 1/6 = **6 days**  (shortcut: ab/(a + b) = 192/32)."
+ },
+ {
+  "slug": "tw-find-one-3",
+  "title": "Together in 10 days, A alone in 12: B alone?",
+  "type": "mcq",
+  "difficulty": "easy",
+  "statement": "A and B together can complete a task in 10 days. A alone can complete it in 12 days. In how many days can B alone complete it?",
+  "options": [
+   "2 days",
+   "60 days",
+   "62 days",
+   "58 days"
+  ],
+  "answer": "B",
+  "explanation": "B's daily work = 1/10 − 1/12 = 1/60, so B alone takes **60 days**."
+ },
+ {
+  "slug": "tw-men-days-3",
+  "title": "24 workers in 24 days → 18 workers",
+  "type": "mcq",
+  "difficulty": "easy",
+  "statement": "24 workers can build a wall in 24 days. How many days will 18 workers take to build the same wall, working at the same rate?",
+  "options": [
+   "34 days",
+   "30 days",
+   "32 days",
+   "18 days"
+  ],
+  "answer": "C",
+  "explanation": "Total work = 24 × 24 = 576 worker-days. With 18 workers: 576 / 18 = **32 days**."
+ },
+ {
+  "slug": "tw-pipes-3",
+  "title": "Fill in 9 h, empty in 15 h",
+  "type": "mcq",
+  "difficulty": "easy",
+  "statement": "Pipe A fills a tank in 9 hours and pipe B empties the full tank in 15 hours. If both are opened together on an empty tank, how long will it take to fill?",
+  "options": [
+   "6 hours",
+   "25.5 hours",
+   "22.5 hours",
+   "24.5 hours"
+  ],
+  "answer": "C",
+  "explanation": "Net filling per hour = 1/9 − 1/15 = 2/45. Time = 1 ÷ 2/45 = **22.5 hours**."
+ },
+ {
+  "slug": "tw-find-one-4",
+  "title": "Together in 9 days, A alone in 18: B alone?",
+  "type": "mcq",
+  "difficulty": "easy",
+  "statement": "A and B together can complete a task in 9 days. A alone can complete it in 18 days. In how many days can B alone complete it?",
+  "options": [
+   "20 days",
+   "16 days",
+   "9 days",
+   "18 days"
+  ],
+  "answer": "D",
+  "explanation": "B's daily work = 1/9 − 1/18 = 1/18, so B alone takes **18 days**."
+ },
+ {
+  "slug": "tw-men-days-4",
+  "title": "15 workers in 8 days → 12 workers",
+  "type": "mcq",
+  "difficulty": "easy",
+  "statement": "15 workers can build a wall in 8 days. How many days will 12 workers take to build the same wall, working at the same rate?",
+  "options": [
+   "6.4 days",
+   "8 days",
+   "10 days",
+   "12 days"
+  ],
+  "answer": "C",
+  "explanation": "Total work = 15 × 8 = 120 worker-days. With 12 workers: 120 / 12 = **10 days**."
+ },
+ {
+  "slug": "tw-pipes-4",
+  "title": "Fill in 9 h, empty in 24 h",
+  "type": "mcq",
+  "difficulty": "easy",
+  "statement": "Pipe A fills a tank in 9 hours and pipe B empties the full tank in 24 hours. If both are opened together on an empty tank, how long will it take to fill?",
+  "options": [
+   "14.4 hours",
+   "16.4 hours",
+   "17.4 hours",
+   "15 hours"
+  ],
+  "answer": "A",
+  "explanation": "Net filling per hour = 1/9 − 1/24 = 5/72. Time = 1 ÷ 5/72 = **14.4 hours**."
+ },
+ {
+  "slug": "tw-together-4",
+  "title": "10-day and 15-day workers together",
+  "type": "mcq",
+  "difficulty": "easy",
+  "statement": "A can finish a piece of work in 10 days and B can finish it in 15 days. How many days will they take working together?",
+  "options": [
+   "7 days",
+   "6 days",
+   "12.5 days",
+   "5 days"
+  ],
+  "answer": "B",
+  "explanation": "In one day A does 1/10 and B does 1/15 of the work; together 1/10 + 1/15 = 1/6 of it.\nTime = 1 ÷ 1/6 = **6 days**  (shortcut: ab/(a + b) = 150/25)."
+ },
+ {
+  "slug": "tw-find-one-5",
+  "title": "Together in 12 days, A alone in 20: B alone?",
+  "type": "mcq",
+  "difficulty": "easy",
+  "statement": "A and B together can complete a task in 12 days. A alone can complete it in 20 days. In how many days can B alone complete it?",
+  "options": [
+   "28 days",
+   "30 days",
+   "32 days",
+   "8 days"
+  ],
+  "answer": "B",
+  "explanation": "B's daily work = 1/12 − 1/20 = 1/30, so B alone takes **30 days**."
+ },
+ {
+  "slug": "tw-leaves-1",
+  "title": "A (10 d) and B (12 d) together for 3 days, then B alone",
+  "type": "mcq",
+  "difficulty": "medium",
+  "statement": "A can do a job in 10 days and B in 12 days. They work together for 3 days, after which A leaves. In how many days, in total, is the job finished?",
+  "options": [
+   "8.4 days",
+   "5.4 days",
+   "9.4 days",
+   "7.4 days"
+  ],
+  "answer": "A",
+  "explanation": "In 3 days together they finish 3 × (1/10 + 1/12) = 11/20 of the job. Remaining 9/20 is done by B alone in 9/20 × 12 = 5.4 days.\nTotal = 3 + 5.4 = **8.4 days**."
+ },
+ {
+  "slug": "tw-three-1",
+  "title": "Three workers: 15, 60 and 24 days",
+  "type": "mcq",
+  "difficulty": "medium",
+  "statement": "A, B and C can finish a job alone in 15, 60 and 24 days respectively. How long will they take working together?",
+  "options": [
+   "33 days",
+   "10 days",
+   "8 days",
+   "9 days"
+  ],
+  "answer": "C",
+  "explanation": "Together per day: 1/15 + 1/60 + 1/24 = 1/8. Time = **8 days**."
+ },
+ {
+  "slug": "tw-efficiency-1",
+  "title": "A is three times as efficient; together in 12 days",
+  "type": "mcq",
+  "difficulty": "medium",
+  "statement": "A is three times as efficient as B. Working together they finish a job in 12 days. How long would A alone take?",
+  "options": [
+   "16 days",
+   "19 days",
+   "6 days",
+   "48 days"
+  ],
+  "answer": "A",
+  "explanation": "Let B do 1 unit a day, so A does 3; together 4 units a day. Work = 4 × 12 = 48 units.\nA alone: 48 / 3 = **16 days**."
+ },
+ {
+  "slug": "tw-wages-1",
+  "title": "Sharing ₹9,100 between 18-day and 8-day workers",
+  "type": "mcq",
+  "difficulty": "medium",
+  "statement": "A can do a job in 18 days and B in 8 days. They do it together and are paid ₹9,100 in all. What is A's fair share?",
+  "options": [
+   "₹6,300",
+   "₹4,550",
+   "₹2,800",
+   "₹2,900"
+  ],
+  "answer": "C",
+  "explanation": "Wages are shared in the ratio of work done, i.e. of daily rates 1/18 : 1/8 = 8 : 18.\nA's share = 9100 × 8/26 = **₹2,800**. (Sharing in the ratio 18 : 8 rewards the slower worker.)"
+ },
+ {
+  "slug": "tw-leaves-2",
+  "title": "A (10 d) and B (24 d) together for 5 days, then B alone",
+  "type": "mcq",
+  "difficulty": "medium",
+  "statement": "A can do a job in 10 days and B in 24 days. They work together for 5 days, after which A leaves. In how many days, in total, is the job finished?",
+  "options": [
+   "7 days",
+   "12 days",
+   "13 days",
+   "11 days"
+  ],
+  "answer": "B",
+  "explanation": "In 5 days together they finish 5 × (1/10 + 1/24) = 17/24 of the job. Remaining 7/24 is done by B alone in 7/24 × 24 = 7 days.\nTotal = 5 + 7 = **12 days**."
+ },
+ {
+  "slug": "tw-three-2",
+  "title": "Three workers: 10, 15 and 18 days",
+  "type": "mcq",
+  "difficulty": "medium",
+  "statement": "A, B and C can finish a job alone in 10, 15 and 18 days respectively. How long will they take working together?",
+  "options": [
+   "5.5 days",
+   "14.33 days",
+   "6.5 days",
+   "4.5 days"
+  ],
+  "answer": "D",
+  "explanation": "Together per day: 1/10 + 1/15 + 1/18 = 2/9. Time = **4.5 days**."
+ },
+ {
+  "slug": "tw-efficiency-2",
+  "title": "A is three times as efficient; together in 18 days",
+  "type": "mcq",
+  "difficulty": "medium",
+  "statement": "A is three times as efficient as B. Working together they finish a job in 18 days. How long would A alone take?",
+  "options": [
+   "24 days",
+   "72 days",
+   "9 days",
+   "27 days"
+  ],
+  "answer": "A",
+  "explanation": "Let B do 1 unit a day, so A does 3; together 4 units a day. Work = 4 × 18 = 72 units.\nA alone: 72 / 3 = **24 days**."
+ },
+ {
+  "slug": "tw-wages-2",
+  "title": "Sharing ₹7,700 between 18-day and 12-day workers",
+  "type": "mcq",
+  "difficulty": "medium",
+  "statement": "A can do a job in 18 days and B in 12 days. They do it together and are paid ₹7,700 in all. What is A's fair share?",
+  "options": [
+   "₹3,850",
+   "₹3,180",
+   "₹3,080",
+   "₹4,620"
+  ],
+  "answer": "C",
+  "explanation": "Wages are shared in the ratio of work done, i.e. of daily rates 1/18 : 1/12 = 12 : 18.\nA's share = 7700 × 12/30 = **₹3,080**. (Sharing in the ratio 18 : 12 rewards the slower worker.)"
+ },
+ {
+  "slug": "tw-leaves-3",
+  "title": "A (18 d) and B (12 d) together for 6 days, then B alone",
+  "type": "mcq",
+  "difficulty": "medium",
+  "statement": "A can do a job in 18 days and B in 12 days. They work together for 6 days, after which A leaves. In how many days, in total, is the job finished?",
+  "options": [
+   "8 days",
+   "2 days",
+   "7 days",
+   "9 days"
+  ],
+  "answer": "A",
+  "explanation": "In 6 days together they finish 6 × (1/18 + 1/12) = 5/6 of the job. Remaining 1/6 is done by B alone in 1/6 × 12 = 2 days.\nTotal = 6 + 2 = **8 days**."
+ },
+ {
+  "slug": "tw-three-3",
+  "title": "Three workers: 20, 18 and 30 days",
+  "type": "mcq",
+  "difficulty": "medium",
+  "statement": "A, B and C can finish a job alone in 20, 18 and 30 days respectively. How long will they take working together?",
+  "options": [
+   "8.2 days",
+   "22.67 days",
+   "7.2 days",
+   "9.2 days"
+  ],
+  "answer": "C",
+  "explanation": "Together per day: 1/20 + 1/18 + 1/30 = 5/36. Time = **7.2 days**."
+ },
+ {
+  "slug": "tw-efficiency-3",
+  "title": "A is twice as efficient; together in 6 days",
+  "type": "mcq",
+  "difficulty": "medium",
+  "statement": "A is twice as efficient as B. Working together they finish a job in 6 days. How long would A alone take?",
+  "options": [
+   "12 days",
+   "18 days",
+   "9 days",
+   "3 days"
+  ],
+  "answer": "C",
+  "explanation": "Let B do 1 unit a day, so A does 2; together 3 units a day. Work = 3 × 6 = 18 units.\nA alone: 18 / 2 = **9 days**."
+ },
+ {
+  "slug": "tw-wages-3",
+  "title": "Sharing ₹6,400 between 12-day and 18-day workers",
+  "type": "mcq",
+  "difficulty": "medium",
+  "statement": "A can do a job in 12 days and B in 18 days. They do it together and are paid ₹6,400 in all. What is A's fair share?",
+  "options": [
+   "₹3,200",
+   "₹2,560",
+   "₹3,940",
+   "₹3,840"
+  ],
+  "answer": "D",
+  "explanation": "Wages are shared in the ratio of work done, i.e. of daily rates 1/12 : 1/18 = 18 : 12.\nA's share = 6400 × 18/30 = **₹3,840**. (Sharing in the ratio 12 : 18 rewards the slower worker.)"
+ },
+ {
+  "slug": "tw-leaves-4",
+  "title": "A (20 d) and B (10 d) together for 5 days, then B alone",
+  "type": "mcq",
+  "difficulty": "medium",
+  "statement": "A can do a job in 20 days and B in 10 days. They work together for 5 days, after which A leaves. In how many days, in total, is the job finished?",
+  "options": [
+   "7.5 days",
+   "6.5 days",
+   "8.5 days",
+   "2.5 days"
+  ],
+  "answer": "A",
+  "explanation": "In 5 days together they finish 5 × (1/20 + 1/10) = 3/4 of the job. Remaining 1/4 is done by B alone in 1/4 × 10 = 2.5 days.\nTotal = 5 + 2.5 = **7.5 days**."
+ },
+ {
+  "slug": "tw-three-4",
+  "title": "Three workers: 60, 8 and 15 days",
+  "type": "mcq",
+  "difficulty": "medium",
+  "statement": "A, B and C can finish a job alone in 60, 8 and 15 days respectively. How long will they take working together?",
+  "options": [
+   "27.67 days",
+   "4.8 days",
+   "6.8 days",
+   "5.8 days"
+  ],
+  "answer": "B",
+  "explanation": "Together per day: 1/60 + 1/8 + 1/15 = 5/24. Time = **4.8 days**."
+ },
+ {
+  "slug": "tw-efficiency-4",
+  "title": "A is one and a half times as efficient; together in 24 days",
+  "type": "mcq",
+  "difficulty": "medium",
+  "statement": "A is one and a half times as efficient as B. Working together they finish a job in 24 days. How long would A alone take?",
+  "options": [
+   "43 days",
+   "60 days",
+   "12 days",
+   "40 days"
+  ],
+  "answer": "D",
+  "explanation": "Let B do 1 unit a day, so A does 1.5; together 2.5 units a day. Work = 2.5 × 24 = 60 units.\nA alone: 60 / 1.5 = **40 days**."
+ },
+ {
+  "slug": "tw-wages-4",
+  "title": "Sharing ₹7,700 between 12-day and 9-day workers",
+  "type": "mcq",
+  "difficulty": "medium",
+  "statement": "A can do a job in 12 days and B in 9 days. They do it together and are paid ₹7,700 in all. What is A's fair share?",
+  "options": [
+   "₹3,850",
+   "₹3,300",
+   "₹4,400",
+   "₹3,400"
+  ],
+  "answer": "B",
+  "explanation": "Wages are shared in the ratio of work done, i.e. of daily rates 1/12 : 1/9 = 9 : 12.\nA's share = 7700 × 9/21 = **₹3,300**. (Sharing in the ratio 12 : 9 rewards the slower worker.)"
+ },
+ {
+  "slug": "tw-leaves-5",
+  "title": "A (24 d) and B (40 d) together for 6 days, then B alone",
+  "type": "mcq",
+  "difficulty": "medium",
+  "statement": "A can do a job in 24 days and B in 40 days. They work together for 6 days, after which A leaves. In how many days, in total, is the job finished?",
+  "options": [
+   "29 days",
+   "31 days",
+   "24 days",
+   "30 days"
+  ],
+  "answer": "D",
+  "explanation": "In 6 days together they finish 6 × (1/24 + 1/40) = 2/5 of the job. Remaining 3/5 is done by B alone in 3/5 × 40 = 24 days.\nTotal = 6 + 24 = **30 days**."
+ },
+ {
+  "slug": "tw-three-5",
+  "title": "Three workers: 40, 10 and 8 days",
+  "type": "mcq",
+  "difficulty": "medium",
+  "statement": "A, B and C can finish a job alone in 40, 10 and 8 days respectively. How long will they take working together?",
+  "options": [
+   "19.33 days",
+   "5 days",
+   "6 days",
+   "4 days"
+  ],
+  "answer": "D",
+  "explanation": "Together per day: 1/40 + 1/10 + 1/8 = 1/4. Time = **4 days**."
+ },
+ {
+  "slug": "tw-man-hours-1",
+  "title": "15 men × 8 h/day lay 1 km in 10 days; 20 men × 10 h/day lay 1 km",
+  "type": "mcq",
+  "difficulty": "hard",
+  "statement": "15 men working 8 hours a day can lay a road 1 km long in 10 days. How many days will 20 men working 10 hours a day take to lay a road 1 km long?",
+  "options": [
+   "9 days",
+   "4 days",
+   "8 days",
+   "6 days"
+  ],
+  "answer": "D",
+  "explanation": "Work is proportional to men × days × hours: 15 × 10 × 8 man-hours lay 1 km.\n1 km needs 1200 man-hours; per day the new team gives 20 × 10 = 200. Days = 1200/200 = **6 days**."
+ },
+ {
+  "slug": "tw-alternate-1",
+  "title": "Working on alternate days: 4 days and 15 days",
+  "type": "mcq",
+  "difficulty": "hard",
+  "statement": "A can finish a job in 4 days and B in 15 days. They work on alternate days, with A working on the first day. In how many days will the job be finished?",
+  "options": [
+   "5.2 days",
+   "7.2 days",
+   "8.2 days",
+   "6.2 days"
+  ],
+  "answer": "D",
+  "explanation": "Two days (A then B) complete 1/4 + 1/15 = 19/60 of the job. Count whole pairs of days, then finish the remainder with whoever works next.\nSimulating day by day, the work is completed after **6.2 days**."
+ },
+ {
+  "slug": "tw-leak-1",
+  "title": "Two filling pipes (20 h, 15 h) and a leak (12 h)",
+  "type": "mcq",
+  "difficulty": "hard",
+  "statement": "Pipes A and B can fill a tank in 20 and 15 hours respectively. A leak at the bottom can empty the full tank in 12 hours. If all three are working, how long will the empty tank take to fill?",
+  "options": [
+   "33 hours",
+   "31 hours",
+   "32 hours",
+   "30 hours"
+  ],
+  "answer": "D",
+  "explanation": "Net per hour = 1/20 + 1/15 − 1/12 = 1/30. Time = 1 ÷ 1/30 = **30 hours**."
+ },
+ {
+  "slug": "tw-man-hours-2",
+  "title": "15 men × 8 h/day lay 1 km in 15 days; 18 men × 12 h/day lay 3 km",
+  "type": "mcq",
+  "difficulty": "hard",
+  "statement": "15 men working 8 hours a day can lay a road 1 km long in 15 days. How many days will 18 men working 12 hours a day take to lay a road 3 km long?",
+  "options": [
+   "27 days",
+   "25 days",
+   "28 days",
+   "23 days"
+  ],
+  "answer": "B",
+  "explanation": "Work is proportional to men × days × hours: 15 × 15 × 8 man-hours lay 1 km.\n3 km needs 5400 man-hours; per day the new team gives 18 × 12 = 216. Days = 5400/216 = **25 days**."
+ },
+ {
+  "slug": "tw-alternate-2",
+  "title": "Working on alternate days: 16 days and 15 days",
+  "type": "mcq",
+  "difficulty": "hard",
+  "statement": "A can finish a job in 16 days and B in 15 days. They work on alternate days, with A working on the first day. In how many days will the job be finished?",
+  "options": [
+   "15.5 days",
+   "17.5 days",
+   "14.5 days",
+   "16.5 days"
+  ],
+  "answer": "A",
+  "explanation": "Two days (A then B) complete 1/16 + 1/15 = 31/240 of the job. Count whole pairs of days, then finish the remainder with whoever works next.\nSimulating day by day, the work is completed after **15.5 days**."
+ },
+ {
+  "slug": "tw-leak-2",
+  "title": "Two filling pipes (20 h, 6 h) and a leak (20 h)",
+  "type": "mcq",
+  "difficulty": "hard",
+  "statement": "Pipes A and B can fill a tank in 20 and 6 hours respectively. A leak at the bottom can empty the full tank in 20 hours. If all three are working, how long will the empty tank take to fill?",
+  "options": [
+   "8 hours",
+   "7 hours",
+   "6 hours",
+   "9 hours"
+  ],
+  "answer": "C",
+  "explanation": "Net per hour = 1/20 + 1/6 − 1/20 = 1/6. Time = 1 ÷ 1/6 = **6 hours**."
+ },
+ {
+  "slug": "tw-man-hours-3",
+  "title": "16 men × 8 h/day lay 1 km in 15 days; 24 men × 8 h/day lay 3 km",
+  "type": "mcq",
+  "difficulty": "hard",
+  "statement": "16 men working 8 hours a day can lay a road 1 km long in 15 days. How many days will 24 men working 8 hours a day take to lay a road 3 km long?",
+  "options": [
+   "30 days",
+   "28 days",
+   "33 days",
+   "10 days"
+  ],
+  "answer": "A",
+  "explanation": "Work is proportional to men × days × hours: 16 × 15 × 8 man-hours lay 1 km.\n3 km needs 5760 man-hours; per day the new team gives 24 × 8 = 192. Days = 5760/192 = **30 days**."
+ },
+ {
+  "slug": "tw-alternate-3",
+  "title": "Working on alternate days: 8 days and 5 days",
+  "type": "mcq",
+  "difficulty": "hard",
+  "statement": "A can finish a job in 8 days and B in 5 days. They work on alternate days, with A working on the first day. In how many days will the job be finished?",
+  "options": [
+   "7.2 days",
+   "5.2 days",
+   "8.2 days",
+   "6.2 days"
+  ],
+  "answer": "D",
+  "explanation": "Two days (A then B) complete 1/8 + 1/5 = 13/40 of the job. Count whole pairs of days, then finish the remainder with whoever works next.\nSimulating day by day, the work is completed after **6.2 days**."
+ },
+ {
+  "slug": "tw-leak-3",
+  "title": "Two filling pipes (15 h, 10 h) and a leak (15 h)",
+  "type": "mcq",
+  "difficulty": "hard",
+  "statement": "Pipes A and B can fill a tank in 15 and 10 hours respectively. A leak at the bottom can empty the full tank in 15 hours. If all three are working, how long will the empty tank take to fill?",
+  "options": [
+   "10 hours",
+   "13 hours",
+   "11 hours",
+   "6 hours"
+  ],
+  "answer": "A",
+  "explanation": "Net per hour = 1/15 + 1/10 − 1/15 = 1/10. Time = 1 ÷ 1/10 = **10 hours**."
+ },
+ {
+  "slug": "tw-man-hours-4",
+  "title": "18 men × 9 h/day lay 1 km in 15 days; 9 men × 9 h/day lay 3 km",
+  "type": "mcq",
+  "difficulty": "hard",
+  "statement": "18 men working 9 hours a day can lay a road 1 km long in 15 days. How many days will 9 men working 9 hours a day take to lay a road 3 km long?",
+  "options": [
+   "90 days",
+   "30 days",
+   "93 days",
+   "88 days"
+  ],
+  "answer": "A",
+  "explanation": "Work is proportional to men × days × hours: 18 × 15 × 9 man-hours lay 1 km.\n3 km needs 7290 man-hours; per day the new team gives 9 × 9 = 81. Days = 7290/81 = **90 days**."
+ }
+]

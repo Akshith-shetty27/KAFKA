@@ -39,7 +39,7 @@ Workspace notes:
 | 5 | ASK KAFKA: provider layer, context, hints, streaming, conversation history | Done (Groq live answers need a key) |
 | 6 | Analytics page, recommendations/plan, responsiveness pass, error/empty states, integration testing | **Done** |
 | v2·A | Study plans: paste JD + role → AI analysis → phased roadmap linked to topics, progress tracking | **Done** |
-| v2·B | Question banks: aptitude ≥ 50/topic (20/20/10), coding ≥ 15/pattern over 14 patterns | Next |
+| v2·B | Question banks: aptitude 650 (13 topics × 20/20/10), coding 210 (14 topics × 15, incl. Hashing, Sorting, Recursion & Backtracking, Greedy) | **Done** (generators: `manage.py generate_aptitude`; bank in `content/bank/`; 153 tests) |
 | v2·C | Plan-aware ASK KAFKA chat (teach, generate questions, adapt plan, mock interview) | Planned |
 
 ### Phase 1 — what exists

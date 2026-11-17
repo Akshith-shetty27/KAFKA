@@ -1,0 +1,692 @@
+[
+ {
+  "slug": "rp-share-1",
+  "title": "Dividing ₹16,560 in the ratio 5 : 7 (B's share)",
+  "type": "mcq",
+  "difficulty": "easy",
+  "statement": "₹16,560 is divided between A and B in the ratio 5 : 7. What is B's share?",
+  "options": [
+   "₹8,280",
+   "₹9,780",
+   "₹9,660",
+   "₹6,900"
+  ],
+  "answer": "C",
+  "explanation": "Total parts = 5 + 7 = 12; one part = 16,560/12 = 1,380. B's share = 7 × 1,380 = **₹9,660**."
+ },
+ {
+  "slug": "rp-proportional-1",
+  "title": "Mean proportional between 1 and 169",
+  "type": "mcq",
+  "difficulty": "easy",
+  "statement": "Find the mean proportional between 1 and 169.",
+  "options": [
+   "26",
+   "14",
+   "85",
+   "13"
+  ],
+  "answer": "D",
+  "explanation": "The mean proportional x satisfies a : x = x : b, so x = √(ab) = √169 = **13**."
+ },
+ {
+  "slug": "rp-combine-1",
+  "title": "A : B = 3 : 2 and B : C = 1 : 4",
+  "type": "mcq",
+  "difficulty": "easy",
+  "statement": "If A : B = 3 : 2 and B : C = 1 : 4, find A : B : C.",
+  "options": [
+   "3 : 2 : 8",
+   "3 : 8 : 2",
+   "8 : 2 : 3",
+   "3 : 2 : 4"
+  ],
+  "answer": "A",
+  "explanation": "Make B the same in both: B appears as 2 and 1; use their LCM 2. A : B = 3 : 2 and B : C = 2 : 8. So A : B : C = **3 : 2 : 8**."
+ },
+ {
+  "slug": "rp-share-2",
+  "title": "Dividing ₹6,840 in the ratio 4 : 5 (B's share)",
+  "type": "mcq",
+  "difficulty": "easy",
+  "statement": "₹6,840 is divided between A and B in the ratio 4 : 5. What is B's share?",
+  "options": [
+   "₹3,040",
+   "₹3,420",
+   "₹3,800",
+   "₹3,890"
+  ],
+  "answer": "C",
+  "explanation": "Total parts = 4 + 5 = 9; one part = 6,840/9 = 760. B's share = 5 × 760 = **₹3,800**."
+ },
+ {
+  "slug": "rp-proportional-2",
+  "title": "Fourth proportional to 7, 37 and 21",
+  "type": "mcq",
+  "difficulty": "easy",
+  "statement": "Find the fourth proportional to 7, 37 and 21.",
+  "options": [
+   "111",
+   "114",
+   "113",
+   "108"
+  ],
+  "answer": "A",
+  "explanation": "a : b = c : d → d = b × c / a = 37 × 21/7 = **111**."
+ },
+ {
+  "slug": "rp-combine-2",
+  "title": "A : B = 1 : 5 and B : C = 3 : 7",
+  "type": "mcq",
+  "difficulty": "easy",
+  "statement": "If A : B = 1 : 5 and B : C = 3 : 7, find A : B : C.",
+  "options": [
+   "1 : 5 : 7",
+   "3 : 35 : 15",
+   "1 : 15 : 7",
+   "3 : 15 : 35"
+  ],
+  "answer": "D",
+  "explanation": "Make B the same in both: B appears as 5 and 3; use their LCM 15. A : B = 3 : 15 and B : C = 15 : 35. So A : B : C = **3 : 15 : 35**."
+ },
+ {
+  "slug": "rp-share-3",
+  "title": "Dividing ₹1,200 in the ratio 7 : 8 (A's share)",
+  "type": "mcq",
+  "difficulty": "easy",
+  "statement": "₹1,200 is divided between A and B in the ratio 7 : 8. What is A's share?",
+  "options": [
+   "₹640",
+   "₹710",
+   "₹560",
+   "₹600"
+  ],
+  "answer": "C",
+  "explanation": "Total parts = 7 + 8 = 15; one part = 1,200/15 = 80. A's share = 7 × 80 = **₹560**."
+ },
+ {
+  "slug": "rp-proportional-3",
+  "title": "Mean proportional between 1 and 400",
+  "type": "mcq",
+  "difficulty": "easy",
+  "statement": "Find the mean proportional between 1 and 400.",
+  "options": [
+   "200.5",
+   "20",
+   "40",
+   "21"
+  ],
+  "answer": "B",
+  "explanation": "The mean proportional x satisfies a : x = x : b, so x = √(ab) = √400 = **20**."
+ },
+ {
+  "slug": "rp-combine-3",
+  "title": "A : B = 4 : 5 and B : C = 3 : 2",
+  "type": "mcq",
+  "difficulty": "easy",
+  "statement": "If A : B = 4 : 5 and B : C = 3 : 2, find A : B : C.",
+  "options": [
+   "12 : 15 : 10",
+   "4 : 5 : 2",
+   "4 : 15 : 2",
+   "12 : 10 : 15"
+  ],
+  "answer": "A",
+  "explanation": "Make B the same in both: B appears as 5 and 3; use their LCM 15. A : B = 12 : 15 and B : C = 15 : 10. So A : B : C = **12 : 15 : 10**."
+ },
+ {
+  "slug": "rp-share-4",
+  "title": "Dividing ₹7,700 in the ratio 2 : 5 (A's share)",
+  "type": "mcq",
+  "difficulty": "easy",
+  "statement": "₹7,700 is divided between A and B in the ratio 2 : 5. What is A's share?",
+  "options": [
+   "₹3,850",
+   "₹2,270",
+   "₹5,500",
+   "₹2,200"
+  ],
+  "answer": "D",
+  "explanation": "Total parts = 2 + 5 = 7; one part = 7,700/7 = 1,100. A's share = 2 × 1,100 = **₹2,200**."
+ },
+ {
+  "slug": "rp-proportional-4",
+  "title": "Fourth proportional to 3, 33 and 16",
+  "type": "mcq",
+  "difficulty": "easy",
+  "statement": "Find the fourth proportional to 3, 33 and 16.",
+  "options": [
+   "179",
+   "178",
+   "173",
+   "176"
+  ],
+  "answer": "D",
+  "explanation": "a : b = c : d → d = b × c / a = 33 × 16/3 = **176**."
+ },
+ {
+  "slug": "rp-combine-4",
+  "title": "A : B = 3 : 1 and B : C = 3 : 8",
+  "type": "mcq",
+  "difficulty": "easy",
+  "statement": "If A : B = 3 : 1 and B : C = 3 : 8, find A : B : C.",
+  "options": [
+   "9 : 3 : 8",
+   "9 : 8 : 3",
+   "3 : 1 : 8",
+   "3 : 3 : 8"
+  ],
+  "answer": "A",
+  "explanation": "Make B the same in both: B appears as 1 and 3; use their LCM 3. A : B = 9 : 3 and B : C = 3 : 8. So A : B : C = **9 : 3 : 8**."
+ },
+ {
+  "slug": "rp-share-5",
+  "title": "Dividing ₹7,280 in the ratio 3 : 4 (B's share)",
+  "type": "mcq",
+  "difficulty": "easy",
+  "statement": "₹7,280 is divided between A and B in the ratio 3 : 4. What is B's share?",
+  "options": [
+   "₹3,640",
+   "₹4,160",
+   "₹3,120",
+   "₹4,230"
+  ],
+  "answer": "B",
+  "explanation": "Total parts = 3 + 4 = 7; one part = 7,280/7 = 1,040. B's share = 4 × 1,040 = **₹4,160**."
+ },
+ {
+  "slug": "rp-proportional-5",
+  "title": "Mean proportional between 3 and 108",
+  "type": "mcq",
+  "difficulty": "easy",
+  "statement": "Find the mean proportional between 3 and 108.",
+  "options": [
+   "18",
+   "36",
+   "55.5",
+   "19"
+  ],
+  "answer": "A",
+  "explanation": "The mean proportional x satisfies a : x = x : b, so x = √(ab) = √324 = **18**."
+ },
+ {
+  "slug": "rp-combine-5",
+  "title": "A : B = 7 : 6 and B : C = 3 : 2",
+  "type": "mcq",
+  "difficulty": "easy",
+  "statement": "If A : B = 7 : 6 and B : C = 3 : 2, find A : B : C.",
+  "options": [
+   "7 : 6 : 2",
+   "7 : 18 : 2",
+   "7 : 6 : 4",
+   "7 : 4 : 6"
+  ],
+  "answer": "C",
+  "explanation": "Make B the same in both: B appears as 6 and 3; use their LCM 6. A : B = 7 : 6 and B : C = 6 : 4. So A : B : C = **7 : 6 : 4**."
+ },
+ {
+  "slug": "rp-share-6",
+  "title": "Dividing ₹3,990 in the ratio 3 : 4 (B's share)",
+  "type": "mcq",
+  "difficulty": "easy",
+  "statement": "₹3,990 is divided between A and B in the ratio 3 : 4. What is B's share?",
+  "options": [
+   "₹2,350",
+   "₹1,710",
+   "₹1,995",
+   "₹2,280"
+  ],
+  "answer": "D",
+  "explanation": "Total parts = 3 + 4 = 7; one part = 3,990/7 = 570. B's share = 4 × 570 = **₹2,280**."
+ },
+ {
+  "slug": "rp-proportional-6",
+  "title": "Mean proportional between 3 and 75",
+  "type": "mcq",
+  "difficulty": "easy",
+  "statement": "Find the mean proportional between 3 and 75.",
+  "options": [
+   "39",
+   "16",
+   "30",
+   "15"
+  ],
+  "answer": "D",
+  "explanation": "The mean proportional x satisfies a : x = x : b, so x = √(ab) = √225 = **15**."
+ },
+ {
+  "slug": "rp-combine-6",
+  "title": "A : B = 7 : 3 and B : C = 2 : 7",
+  "type": "mcq",
+  "difficulty": "easy",
+  "statement": "If A : B = 7 : 3 and B : C = 2 : 7, find A : B : C.",
+  "options": [
+   "7 : 6 : 7",
+   "14 : 21 : 6",
+   "14 : 6 : 21",
+   "7 : 3 : 7"
+  ],
+  "answer": "C",
+  "explanation": "Make B the same in both: B appears as 3 and 2; use their LCM 6. A : B = 14 : 6 and B : C = 6 : 21. So A : B : C = **14 : 6 : 21**."
+ },
+ {
+  "slug": "rp-mixture-1",
+  "title": "100 L of milk : water = 7 : 3 → 2 : 1",
+  "type": "mcq",
+  "difficulty": "medium",
+  "statement": "A 100-litre mixture contains milk and water in the ratio 7 : 3. How much water must be added to make the ratio 2 : 1?",
+  "options": [
+   "7 litres",
+   "10 litres",
+   "5 litres",
+   "3 litres"
+  ],
+  "answer": "C",
+  "explanation": "Milk = 70 L and water = 30 L. Milk doesn't change, so the new water must be 70 × 1/2 = 35 L. Add 35 − 30 = **5 litres**."
+ },
+ {
+  "slug": "rp-ages-1",
+  "title": "Ages 12 : 11 now, 4 : 3 8 years ago",
+  "type": "mcq",
+  "difficulty": "medium",
+  "statement": "The ratio of the present ages of A and B is 12 : 11. 8 years ago the ratio was 4 : 3. What is A's present age?",
+  "options": [
+   "4 years",
+   "20 years",
+   "12 years",
+   "11 years"
+  ],
+  "answer": "C",
+  "explanation": "Let the ages be 12x and 11x. Then (12x − 8) : (11x − 8) = 4 : 3.\nCross-multiplying: 3(12x − 8) = 4(11x − 8) → x = 1. A = 12 × 1 = **12 years**."
+ },
+ {
+  "slug": "rp-coins-1",
+  "title": "Coins of ₹1, 50p and 25p in the ratio 1 : 2 : 3 worth ₹22",
+  "type": "mcq",
+  "difficulty": "medium",
+  "statement": "A bag contains ₹1, 50-paise and 25-paise coins in the ratio 1 : 2 : 3. The total value is ₹22. How many 50-paise coins are there?",
+  "options": [
+   "16",
+   "8",
+   "24",
+   "18"
+  ],
+  "answer": "A",
+  "explanation": "Let the counts be 1k, 2k, 3k. Value = 1k × 1 + 2k × 0.5 + 3k × 0.25 = 2.75k.\n2.75k = 22 → k = 8. 50-paise coins = 2 × 8 = **16**."
+ },
+ {
+  "slug": "rp-alligation-1",
+  "title": "Mixing ₹20/kg and ₹60/kg rice to get ₹28/kg",
+  "type": "mcq",
+  "difficulty": "medium",
+  "statement": "In what ratio must rice at ₹20 per kg be mixed with rice at ₹60 per kg so that the mixture is worth ₹28 per kg?",
+  "options": [
+   "4 : 1",
+   "1 : 3",
+   "1 : 4",
+   "5 : 1"
+  ],
+  "answer": "A",
+  "explanation": "Alligation: cheaper : dearer = (dearer − mean) : (mean − cheaper) = (60 − 28) : (28 − 20) = 32 : 8 = **4 : 1**.\nCheck: (4 × 20 + 1 × 60)/5 = 28."
+ },
+ {
+  "slug": "rp-mixture-2",
+  "title": "35 L of milk : water = 5 : 2 → 4 : 3",
+  "type": "mcq",
+  "difficulty": "medium",
+  "statement": "A 35-litre mixture contains milk and water in the ratio 5 : 2. How much water must be added to make the ratio 4 : 3?",
+  "options": [
+   "8.75 litres",
+   "6.75 litres",
+   "17.5 litres",
+   "10.75 litres"
+  ],
+  "answer": "A",
+  "explanation": "Milk = 25 L and water = 10 L. Milk doesn't change, so the new water must be 25 × 3/4 = 18.75 L. Add 18.75 − 10 = **8.75 litres**."
+ },
+ {
+  "slug": "rp-ages-2",
+  "title": "Ages 8 : 11 now, 2 : 5 6 years ago",
+  "type": "mcq",
+  "difficulty": "medium",
+  "statement": "The ratio of the present ages of A and B is 8 : 11. 6 years ago the ratio was 2 : 5. What is A's present age?",
+  "options": [
+   "14 years",
+   "11 years",
+   "8 years",
+   "2 years"
+  ],
+  "answer": "C",
+  "explanation": "Let the ages be 8x and 11x. Then (8x − 6) : (11x − 6) = 2 : 5.\nCross-multiplying: 5(8x − 6) = 2(11x − 6) → x = 1. A = 8 × 1 = **8 years**."
+ },
+ {
+  "slug": "rp-coins-2",
+  "title": "Coins of ₹1, 50p and 25p in the ratio 1 : 2 : 4 worth ₹48",
+  "type": "mcq",
+  "difficulty": "medium",
+  "statement": "A bag contains ₹1, 50-paise and 25-paise coins in the ratio 1 : 2 : 4. The total value is ₹48. How many 50-paise coins are there?",
+  "options": [
+   "34",
+   "64",
+   "16",
+   "32"
+  ],
+  "answer": "D",
+  "explanation": "Let the counts be 1k, 2k, 4k. Value = 1k × 1 + 2k × 0.5 + 4k × 0.25 = 3k.\n3k = 48 → k = 16. 50-paise coins = 2 × 16 = **32**."
+ },
+ {
+  "slug": "rp-alligation-2",
+  "title": "Mixing ₹30/kg and ₹40/kg rice to get ₹36/kg",
+  "type": "mcq",
+  "difficulty": "medium",
+  "statement": "In what ratio must rice at ₹30 per kg be mixed with rice at ₹40 per kg so that the mixture is worth ₹36 per kg?",
+  "options": [
+   "3 : 2",
+   "2 : 3",
+   "3 : 4",
+   "1 : 1"
+  ],
+  "answer": "B",
+  "explanation": "Alligation: cheaper : dearer = (dearer − mean) : (mean − cheaper) = (40 − 36) : (36 − 30) = 4 : 6 = **2 : 3**.\nCheck: (2 × 30 + 3 × 40)/5 = 36."
+ },
+ {
+  "slug": "rp-mixture-3",
+  "title": "84 L of milk : water = 5 : 2 → 4 : 3",
+  "type": "mcq",
+  "difficulty": "medium",
+  "statement": "A 84-litre mixture contains milk and water in the ratio 5 : 2. How much water must be added to make the ratio 4 : 3?",
+  "options": [
+   "23 litres",
+   "19 litres",
+   "42 litres",
+   "21 litres"
+  ],
+  "answer": "D",
+  "explanation": "Milk = 60 L and water = 24 L. Milk doesn't change, so the new water must be 60 × 3/4 = 45 L. Add 45 − 24 = **21 litres**."
+ },
+ {
+  "slug": "rp-ages-3",
+  "title": "Ages 2 : 1 now, 4 : 1 8 years ago",
+  "type": "mcq",
+  "difficulty": "medium",
+  "statement": "The ratio of the present ages of A and B is 2 : 1. 8 years ago the ratio was 4 : 1. What is A's present age?",
+  "options": [
+   "32 years",
+   "12 years",
+   "24 years",
+   "16 years"
+  ],
+  "answer": "C",
+  "explanation": "Let the ages be 2x and 1x. Then (2x − 8) : (1x − 8) = 4 : 1.\nCross-multiplying: 1(2x − 8) = 4(1x − 8) → x = 12. A = 2 × 12 = **24 years**."
+ },
+ {
+  "slug": "rp-coins-3",
+  "title": "Coins of ₹1, 50p and 25p in the ratio 5 : 6 : 8 worth ₹580",
+  "type": "mcq",
+  "difficulty": "medium",
+  "statement": "A bag contains ₹1, 50-paise and 25-paise coins in the ratio 5 : 6 : 8. The total value is ₹580. How many 50-paise coins are there?",
+  "options": [
+   "464",
+   "290",
+   "348",
+   "354"
+  ],
+  "answer": "C",
+  "explanation": "Let the counts be 5k, 6k, 8k. Value = 5k × 1 + 6k × 0.5 + 8k × 0.25 = 10k.\n10k = 580 → k = 58. 50-paise coins = 6 × 58 = **348**."
+ },
+ {
+  "slug": "rp-alligation-3",
+  "title": "Mixing ₹40/kg and ₹45/kg rice to get ₹42/kg",
+  "type": "mcq",
+  "difficulty": "medium",
+  "statement": "In what ratio must rice at ₹40 per kg be mixed with rice at ₹45 per kg so that the mixture is worth ₹42 per kg?",
+  "options": [
+   "2 : 3",
+   "8 : 9",
+   "2 : 1",
+   "3 : 2"
+  ],
+  "answer": "D",
+  "explanation": "Alligation: cheaper : dearer = (dearer − mean) : (mean − cheaper) = (45 − 42) : (42 − 40) = 3 : 2 = **3 : 2**.\nCheck: (3 × 40 + 2 × 45)/5 = 42."
+ },
+ {
+  "slug": "rp-mixture-4",
+  "title": "32 L of milk : water = 3 : 1 → 4 : 3",
+  "type": "mcq",
+  "difficulty": "medium",
+  "statement": "A 32-litre mixture contains milk and water in the ratio 3 : 1. How much water must be added to make the ratio 4 : 3?",
+  "options": [
+   "12 litres",
+   "8 litres",
+   "10 litres",
+   "20 litres"
+  ],
+  "answer": "C",
+  "explanation": "Milk = 24 L and water = 8 L. Milk doesn't change, so the new water must be 24 × 3/4 = 18 L. Add 18 − 8 = **10 litres**."
+ },
+ {
+  "slug": "rp-coins-4",
+  "title": "Coins of ₹1, 50p and 25p in the ratio 2 : 3 : 4 worth ₹81",
+  "type": "mcq",
+  "difficulty": "medium",
+  "statement": "A bag contains ₹1, 50-paise and 25-paise coins in the ratio 2 : 3 : 4. The total value is ₹81. How many 50-paise coins are there?",
+  "options": [
+   "54",
+   "36",
+   "57",
+   "72"
+  ],
+  "answer": "A",
+  "explanation": "Let the counts be 2k, 3k, 4k. Value = 2k × 1 + 3k × 0.5 + 4k × 0.25 = 4.5k.\n4.5k = 81 → k = 18. 50-paise coins = 3 × 18 = **54**."
+ },
+ {
+  "slug": "rp-alligation-4",
+  "title": "Mixing ₹45/kg and ₹48/kg rice to get ₹47/kg",
+  "type": "mcq",
+  "difficulty": "medium",
+  "statement": "In what ratio must rice at ₹45 per kg be mixed with rice at ₹48 per kg so that the mixture is worth ₹47 per kg?",
+  "options": [
+   "1 : 1",
+   "15 : 16",
+   "2 : 1",
+   "1 : 2"
+  ],
+  "answer": "D",
+  "explanation": "Alligation: cheaper : dearer = (dearer − mean) : (mean − cheaper) = (48 − 47) : (47 − 45) = 1 : 2 = **1 : 2**.\nCheck: (1 × 45 + 2 × 48)/3 = 47."
+ },
+ {
+  "slug": "rp-mixture-5",
+  "title": "25 L of milk : water = 3 : 2 → 1 : 1",
+  "type": "mcq",
+  "difficulty": "medium",
+  "statement": "A 25-litre mixture contains milk and water in the ratio 3 : 2. How much water must be added to make the ratio 1 : 1?",
+  "options": [
+   "5 litres",
+   "3 litres",
+   "7 litres",
+   "10 litres"
+  ],
+  "answer": "A",
+  "explanation": "Milk = 15 L and water = 10 L. Milk doesn't change, so the new water must be 15 × 1/1 = 15 L. Add 15 − 10 = **5 litres**."
+ },
+ {
+  "slug": "rp-ages-4",
+  "title": "Ages 5 : 6 now, 4 : 5 4 years ago",
+  "type": "mcq",
+  "difficulty": "medium",
+  "statement": "The ratio of the present ages of A and B is 5 : 6. 4 years ago the ratio was 4 : 5. What is A's present age?",
+  "options": [
+   "16 years",
+   "22 years",
+   "24 years",
+   "20 years"
+  ],
+  "answer": "D",
+  "explanation": "Let the ages be 5x and 6x. Then (5x − 4) : (6x − 4) = 4 : 5.\nCross-multiplying: 5(5x − 4) = 4(6x − 4) → x = 4. A = 5 × 4 = **20 years**."
+ },
+ {
+  "slug": "rp-coins-5",
+  "title": "Coins of ₹1, 50p and 25p in the ratio 5 : 6 : 8 worth ₹390",
+  "type": "mcq",
+  "difficulty": "medium",
+  "statement": "A bag contains ₹1, 50-paise and 25-paise coins in the ratio 5 : 6 : 8. The total value is ₹390. How many 50-paise coins are there?",
+  "options": [
+   "195",
+   "312",
+   "234",
+   "240"
+  ],
+  "answer": "C",
+  "explanation": "Let the counts be 5k, 6k, 8k. Value = 5k × 1 + 6k × 0.5 + 8k × 0.25 = 10k.\n10k = 390 → k = 39. 50-paise coins = 6 × 39 = **234**."
+ },
+ {
+  "slug": "rp-income-1",
+  "title": "Incomes 3 : 4, expenses 1 : 2, each saves ₹9,500",
+  "type": "mcq",
+  "difficulty": "hard",
+  "statement": "The incomes of P and Q are in the ratio 3 : 4 and their expenses are in the ratio 1 : 2. If each saves ₹9,500 a month, what is P's monthly income?",
+  "options": [
+   "₹14,250",
+   "₹15,250",
+   "₹4,750",
+   "₹19,000"
+  ],
+  "answer": "A",
+  "explanation": "Let incomes be 3x, 4x and expenses 1y, 2y. Then 3x − 1y = 9500 and 4x − 2y = 9500.\nSolving: x = 4,750, y = 4,750. P's income = 3 × 4,750 = **₹14,250**."
+ },
+ {
+  "slug": "rp-partnership-1",
+  "title": "Partnership: ₹30,000 for 12 months vs ₹80,000 for 8 months",
+  "type": "mcq",
+  "difficulty": "hard",
+  "statement": "A starts a business with ₹30,000. After 4 months B joins with ₹80,000. Out of a year-end profit of ₹53,000, what is B's share?",
+  "options": [
+   "₹19,080",
+   "₹34,420",
+   "₹33,920",
+   "₹34,920"
+  ],
+  "answer": "C",
+  "explanation": "Profit is shared in the ratio of capital × time: A = 30,000 × 12 = 360,000, B = 80,000 × 8 = 640,000.\nB's share = 53,000 × 640,000/1,000,000 = **₹33,920**."
+ },
+ {
+  "slug": "rp-replacement-1",
+  "title": "8 L of 50 L milk replaced by water, 2 times",
+  "type": "mcq",
+  "difficulty": "hard",
+  "statement": "A container holds 50 litres of milk. 8 litres are taken out and replaced with water; this is done 2 times in all. How much milk is left?",
+  "options": [
+   "34 litres",
+   "35.28 litres",
+   "33.28 litres",
+   "36.28 litres"
+  ],
+  "answer": "B",
+  "explanation": "Each replacement keeps (50 − 8)/50 = 21/25 of the milk. After 2 times: 50 × (21/25)^2 = **35.28 litres**."
+ },
+ {
+  "slug": "rp-income-2",
+  "title": "Incomes 7 : 9, expenses 3 : 5, each saves ₹12,500",
+  "type": "mcq",
+  "difficulty": "hard",
+  "statement": "The incomes of P and Q are in the ratio 7 : 9 and their expenses are in the ratio 3 : 5. If each saves ₹12,500 a month, what is P's monthly income?",
+  "options": [
+   "₹9,375",
+   "₹21,875",
+   "₹28,125",
+   "₹22,875"
+  ],
+  "answer": "B",
+  "explanation": "Let incomes be 7x, 9x and expenses 3y, 5y. Then 7x − 3y = 12500 and 9x − 5y = 12500.\nSolving: x = 3,125, y = 3,125. P's income = 7 × 3,125 = **₹21,875**."
+ },
+ {
+  "slug": "rp-partnership-2",
+  "title": "Partnership: ₹70,000 for 12 months vs ₹50,000 for 4 months",
+  "type": "mcq",
+  "difficulty": "hard",
+  "statement": "A starts a business with ₹70,000. After 8 months B joins with ₹50,000. Out of a year-end profit of ₹26,000, what is B's share?",
+  "options": [
+   "₹5,500",
+   "₹6,000",
+   "₹5,000",
+   "₹21,000"
+  ],
+  "answer": "C",
+  "explanation": "Profit is shared in the ratio of capital × time: A = 70,000 × 12 = 840,000, B = 50,000 × 4 = 200,000.\nB's share = 26,000 × 200,000/1,040,000 = **₹5,000**."
+ },
+ {
+  "slug": "rp-replacement-2",
+  "title": "10 L of 50 L milk replaced by water, 3 times",
+  "type": "mcq",
+  "difficulty": "hard",
+  "statement": "A container holds 50 litres of milk. 10 litres are taken out and replaced with water; this is done 3 times in all. How much milk is left?",
+  "options": [
+   "23.6 litres",
+   "20 litres",
+   "25.6 litres",
+   "26.6 litres"
+  ],
+  "answer": "C",
+  "explanation": "Each replacement keeps (50 − 10)/50 = 4/5 of the milk. After 3 times: 50 × (4/5)^3 = **25.6 litres**."
+ },
+ {
+  "slug": "rp-income-3",
+  "title": "Incomes 5 : 6, expenses 4 : 5, each saves ₹3,500",
+  "type": "mcq",
+  "difficulty": "hard",
+  "statement": "The incomes of P and Q are in the ratio 5 : 6 and their expenses are in the ratio 4 : 5. If each saves ₹3,500 a month, what is P's monthly income?",
+  "options": [
+   "₹17,500",
+   "₹14,000",
+   "₹21,000",
+   "₹18,500"
+  ],
+  "answer": "A",
+  "explanation": "Let incomes be 5x, 6x and expenses 4y, 5y. Then 5x − 4y = 3500 and 6x − 5y = 3500.\nSolving: x = 3,500, y = 3,500. P's income = 5 × 3,500 = **₹17,500**."
+ },
+ {
+  "slug": "rp-partnership-3",
+  "title": "Partnership: ₹35,000 for 12 months vs ₹30,000 for 10 months",
+  "type": "mcq",
+  "difficulty": "hard",
+  "statement": "A starts a business with ₹35,000. After 2 months B joins with ₹30,000. Out of a year-end profit of ₹6,000, what is B's share?",
+  "options": [
+   "₹3,000",
+   "₹3,500",
+   "₹2,500",
+   "₹1,500"
+  ],
+  "answer": "C",
+  "explanation": "Profit is shared in the ratio of capital × time: A = 35,000 × 12 = 420,000, B = 30,000 × 10 = 300,000.\nB's share = 6,000 × 300,000/720,000 = **₹2,500**."
+ },
+ {
+  "slug": "rp-replacement-3",
+  "title": "10 L of 100 L milk replaced by water, 2 times",
+  "type": "mcq",
+  "difficulty": "hard",
+  "statement": "A container holds 100 litres of milk. 10 litres are taken out and replaced with water; this is done 2 times in all. How much milk is left?",
+  "options": [
+   "80 litres",
+   "79 litres",
+   "82 litres",
+   "81 litres"
+  ],
+  "answer": "D",
+  "explanation": "Each replacement keeps (100 − 10)/100 = 9/10 of the milk. After 2 times: 100 × (9/10)^2 = **81 litres**."
+ },
+ {
+  "slug": "rp-income-4",
+  "title": "Incomes 7 : 9, expenses 3 : 4, each saves ₹14,000",
+  "type": "mcq",
+  "difficulty": "hard",
+  "statement": "The incomes of P and Q are in the ratio 7 : 9 and their expenses are in the ratio 3 : 4. If each saves ₹14,000 a month, what is P's monthly income?",
+  "options": [
+   "₹98,000",
+   "₹99,000",
+   "₹126,000",
+   "₹84,000"
+  ],
+  "answer": "A",
+  "explanation": "Let incomes be 7x, 9x and expenses 3y, 4y. Then 7x − 3y = 14000 and 9x − 4y = 14000.\nSolving: x = 14,000, y = 28,000. P's income = 7 × 14,000 = **₹98,000**."
+ }
+]

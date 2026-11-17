@@ -923,3 +923,12 @@ CATEGORY = {
         },
     ],
 }
+
+# The hand-written questions above, before the generated bank is merged in
+# (generate_aptitude tops each topic up relative to these).
+HAND_WRITTEN_TOPICS = [{"slug": t["slug"], "questions": t["questions"]} for t in CATEGORY["topics"]]
+
+# Expanded bank: content/bank/aptitude/<topic>.json (see `manage.py generate_aptitude`).
+from .bank import extend_aptitude  # noqa: E402
+
+extend_aptitude(CATEGORY)

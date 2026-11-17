@@ -1,0 +1,692 @@
+[
+ {
+  "slug": "avg-list-1",
+  "title": "Average of 36, 18, 59, 76, 94, 11",
+  "type": "mcq",
+  "difficulty": "easy",
+  "statement": "Find the average of 36, 18, 59, 76, 94, 11.",
+  "options": [
+   "42",
+   "49",
+   "48",
+   "50"
+  ],
+  "answer": "B",
+  "explanation": "Sum = 294; there are 6 numbers, so the average is 294/6 = **49**."
+ },
+ {
+  "slug": "avg-removed-1",
+  "title": "Removing one of 8 numbers: average 36 → 39",
+  "type": "mcq",
+  "difficulty": "easy",
+  "statement": "The average of 8 numbers is 36. When one number is removed, the average of the remaining numbers becomes 39. What number was removed?",
+  "options": [
+   "24",
+   "7",
+   "23",
+   "15"
+  ],
+  "answer": "D",
+  "explanation": "Total before = 8 × 36 = 288. Total after = 7 × 39 = 273. Removed number = 288 − 273 = **15**."
+ },
+ {
+  "slug": "avg-joins-1",
+  "title": "Teacher joins 10 students: average 18 rises by 3",
+  "type": "mcq",
+  "difficulty": "easy",
+  "statement": "The average age of 10 students is 18 years. When the teacher's age is included, the average rises by 3 years. How old is the teacher?",
+  "options": [
+   "28 years",
+   "51 years",
+   "57 years",
+   "21 years"
+  ],
+  "answer": "B",
+  "explanation": "New total = 11 × 21 = 231. Old total = 10 × 18 = 180. Teacher = 231 − 180 = **51 years**."
+ },
+ {
+  "slug": "avg-multiples-1",
+  "title": "Average of the first 25 multiples of 12",
+  "type": "mcq",
+  "difficulty": "easy",
+  "statement": "What is the average of the first 25 multiples of 12?",
+  "options": [
+   "156",
+   "168",
+   "150",
+   "300"
+  ],
+  "answer": "A",
+  "explanation": "The multiples 12, 24, …, 300 are evenly spaced, so the average is (first + last)/2 = (12 + 300)/2 = **156**."
+ },
+ {
+  "slug": "avg-list-2",
+  "title": "Average of 53, 67, 18, 71, 15, 40",
+  "type": "mcq",
+  "difficulty": "easy",
+  "statement": "Find the average of 53, 67, 18, 71, 15, 40.",
+  "options": [
+   "44",
+   "43",
+   "45",
+   "46"
+  ],
+  "answer": "A",
+  "explanation": "Sum = 264; there are 6 numbers, so the average is 264/6 = **44**."
+ },
+ {
+  "slug": "avg-removed-2",
+  "title": "Removing one of 6 numbers: average 35 → 36",
+  "type": "mcq",
+  "difficulty": "easy",
+  "statement": "The average of 6 numbers is 35. When one number is removed, the average of the remaining numbers becomes 36. What number was removed?",
+  "options": [
+   "6",
+   "36",
+   "24",
+   "30"
+  ],
+  "answer": "D",
+  "explanation": "Total before = 6 × 35 = 210. Total after = 5 × 36 = 180. Removed number = 210 − 180 = **30**."
+ },
+ {
+  "slug": "avg-joins-2",
+  "title": "Teacher joins 15 students: average 24 rises by 0.5",
+  "type": "mcq",
+  "difficulty": "easy",
+  "statement": "The average age of 15 students is 24 years. When the teacher's age is included, the average rises by 0.5 years. How old is the teacher?",
+  "options": [
+   "39 years",
+   "24.5 years",
+   "32 years",
+   "33 years"
+  ],
+  "answer": "C",
+  "explanation": "New total = 16 × 24.5 = 392. Old total = 15 × 24 = 360. Teacher = 392 − 360 = **32 years**."
+ },
+ {
+  "slug": "avg-multiples-2",
+  "title": "Average of the first 8 multiples of 8",
+  "type": "mcq",
+  "difficulty": "easy",
+  "statement": "What is the average of the first 8 multiples of 8?",
+  "options": [
+   "44",
+   "36",
+   "64",
+   "32"
+  ],
+  "answer": "B",
+  "explanation": "The multiples 8, 16, …, 64 are evenly spaced, so the average is (first + last)/2 = (8 + 64)/2 = **36**."
+ },
+ {
+  "slug": "avg-list-3",
+  "title": "Average of 45, 71, 88, 97, 94, 34, 82",
+  "type": "mcq",
+  "difficulty": "easy",
+  "statement": "Find the average of 45, 71, 88, 97, 94, 34, 82.",
+  "options": [
+   "73",
+   "75",
+   "72",
+   "74"
+  ],
+  "answer": "A",
+  "explanation": "Sum = 511; there are 7 numbers, so the average is 511/7 = **73**."
+ },
+ {
+  "slug": "avg-removed-3",
+  "title": "Removing one of 8 numbers: average 46 → 51",
+  "type": "mcq",
+  "difficulty": "easy",
+  "statement": "The average of 8 numbers is 46. When one number is removed, the average of the remaining numbers becomes 51. What number was removed?",
+  "options": [
+   "40",
+   "3",
+   "19",
+   "11"
+  ],
+  "answer": "D",
+  "explanation": "Total before = 8 × 46 = 368. Total after = 7 × 51 = 357. Removed number = 368 − 357 = **11**."
+ },
+ {
+  "slug": "avg-joins-3",
+  "title": "Teacher joins 24 students: average 30 rises by 1",
+  "type": "mcq",
+  "difficulty": "easy",
+  "statement": "The average age of 24 students is 30 years. When the teacher's age is included, the average rises by 1 year. How old is the teacher?",
+  "options": [
+   "57 years",
+   "55 years",
+   "31 years",
+   "54 years"
+  ],
+  "answer": "B",
+  "explanation": "New total = 25 × 31 = 775. Old total = 24 × 30 = 720. Teacher = 775 − 720 = **55 years**."
+ },
+ {
+  "slug": "avg-multiples-3",
+  "title": "Average of the first 25 multiples of 3",
+  "type": "mcq",
+  "difficulty": "easy",
+  "statement": "What is the average of the first 25 multiples of 3?",
+  "options": [
+   "37.5",
+   "39",
+   "42",
+   "75"
+  ],
+  "answer": "B",
+  "explanation": "The multiples 3, 6, …, 75 are evenly spaced, so the average is (first + last)/2 = (3 + 75)/2 = **39**."
+ },
+ {
+  "slug": "avg-list-4",
+  "title": "Average of 22, 60, 55, 84, 48, 85, 24",
+  "type": "mcq",
+  "difficulty": "easy",
+  "statement": "Find the average of 22, 60, 55, 84, 48, 85, 24.",
+  "options": [
+   "47.25",
+   "54",
+   "55",
+   "53"
+  ],
+  "answer": "B",
+  "explanation": "Sum = 378; there are 7 numbers, so the average is 378/7 = **54**."
+ },
+ {
+  "slug": "avg-removed-4",
+  "title": "Removing one of 5 numbers: average 39 → 34",
+  "type": "mcq",
+  "difficulty": "easy",
+  "statement": "The average of 5 numbers is 39. When one number is removed, the average of the remaining numbers becomes 34. What number was removed?",
+  "options": [
+   "25",
+   "59",
+   "54",
+   "64"
+  ],
+  "answer": "B",
+  "explanation": "Total before = 5 × 39 = 195. Total after = 4 × 34 = 136. Removed number = 195 − 136 = **59**."
+ },
+ {
+  "slug": "avg-joins-4",
+  "title": "Teacher joins 15 students: average 34 rises by 0.5",
+  "type": "mcq",
+  "difficulty": "easy",
+  "statement": "The average age of 15 students is 34 years. When the teacher's age is included, the average rises by 0.5 years. How old is the teacher?",
+  "options": [
+   "49 years",
+   "42 years",
+   "34.5 years",
+   "43 years"
+  ],
+  "answer": "B",
+  "explanation": "New total = 16 × 34.5 = 552. Old total = 15 × 34 = 510. Teacher = 552 − 510 = **42 years**."
+ },
+ {
+  "slug": "avg-multiples-4",
+  "title": "Average of the first 10 multiples of 6",
+  "type": "mcq",
+  "difficulty": "easy",
+  "statement": "What is the average of the first 10 multiples of 6?",
+  "options": [
+   "30",
+   "60",
+   "39",
+   "33"
+  ],
+  "answer": "D",
+  "explanation": "The multiples 6, 12, …, 60 are evenly spaced, so the average is (first + last)/2 = (6 + 60)/2 = **33**."
+ },
+ {
+  "slug": "avg-list-5",
+  "title": "Average of 54, 81, 69, 66, 25",
+  "type": "mcq",
+  "difficulty": "easy",
+  "statement": "Find the average of 54, 81, 69, 66, 25.",
+  "options": [
+   "60",
+   "59",
+   "61",
+   "58"
+  ],
+  "answer": "B",
+  "explanation": "Sum = 295; there are 5 numbers, so the average is 295/5 = **59**."
+ },
+ {
+  "slug": "avg-removed-5",
+  "title": "Removing one of 9 numbers: average 33 → 29",
+  "type": "mcq",
+  "difficulty": "easy",
+  "statement": "The average of 9 numbers is 33. When one number is removed, the average of the remaining numbers becomes 29. What number was removed?",
+  "options": [
+   "65",
+   "36",
+   "74",
+   "56"
+  ],
+  "answer": "A",
+  "explanation": "Total before = 9 × 33 = 297. Total after = 8 × 29 = 232. Removed number = 297 − 232 = **65**."
+ },
+ {
+  "slug": "avg-consecutive-1",
+  "title": "7 consecutive even numbers averaging 70",
+  "type": "mcq",
+  "difficulty": "medium",
+  "statement": "The average of 7 consecutive even numbers is 70. What is the largest of them?",
+  "options": [
+   "76",
+   "77",
+   "74",
+   "78"
+  ],
+  "answer": "A",
+  "explanation": "Consecutive numbers are evenly spaced, so the average sits in the middle. With 7 numbers 2 apart,\nthe largest is 70 + 6 = **76**."
+ },
+ {
+  "slug": "avg-batting-1",
+  "title": "Raising a batting average from 41 to 45 after 24 innings",
+  "type": "mcq",
+  "difficulty": "medium",
+  "statement": "A batter's average after 24 innings is 41. How many runs must they score in the next innings to raise the average to 45?",
+  "options": [
+   "145",
+   "141",
+   "137",
+   "45"
+  ],
+  "answer": "B",
+  "explanation": "Runs needed after 25 innings: 25 × 45 = 1125. Runs so far: 24 × 41 = 984. Next innings = **141**."
+ },
+ {
+  "slug": "avg-combined-1",
+  "title": "Combined average of sections (20 @ 63, 20 @ 73)",
+  "type": "mcq",
+  "difficulty": "medium",
+  "statement": "Section A has 20 students with an average score of 63; section B has 20 students averaging 73. What is the average score of all 40 students?",
+  "options": [
+   "68",
+   "69",
+   "67",
+   "70"
+  ],
+  "answer": "A",
+  "explanation": "Combined total = 20 × 63 + 20 × 73 = 2720. Average = 2720/40 = **68** — weighted, not (63 + 73)/2."
+ },
+ {
+  "slug": "avg-replacement-1",
+  "title": "Replacing a 63 kg member raises the average of 6 by 0.5 kg",
+  "type": "mcq",
+  "difficulty": "medium",
+  "statement": "The average weight of 6 people increases by 0.5 kg when one of them, who weighs 63 kg, is replaced by a new person. What is the new person's weight?",
+  "options": [
+   "63.5 kg",
+   "66.5 kg",
+   "66 kg",
+   "65.5 kg"
+  ],
+  "answer": "C",
+  "explanation": "The total rises by 6 × 0.5 = 3 kg, all due to the newcomer: 63 + 3 = **66 kg**."
+ },
+ {
+  "slug": "avg-consecutive-2",
+  "title": "5 consecutive odd numbers averaging 69",
+  "type": "mcq",
+  "difficulty": "medium",
+  "statement": "The average of 5 consecutive odd numbers is 69. What is the smallest of them?",
+  "options": [
+   "67",
+   "65",
+   "61",
+   "74"
+  ],
+  "answer": "B",
+  "explanation": "Consecutive numbers are evenly spaced, so the average sits in the middle. With 5 numbers 2 apart,\nthe smallest is 69 − 4 = **65**."
+ },
+ {
+  "slug": "avg-batting-2",
+  "title": "Raising a batting average from 52 to 54 after 12 innings",
+  "type": "mcq",
+  "difficulty": "medium",
+  "statement": "A batter's average after 12 innings is 52. How many runs must they score in the next innings to raise the average to 54?",
+  "options": [
+   "80",
+   "76",
+   "78",
+   "54"
+  ],
+  "answer": "C",
+  "explanation": "Runs needed after 13 innings: 13 × 54 = 702. Runs so far: 12 × 52 = 624. Next innings = **78**."
+ },
+ {
+  "slug": "avg-combined-2",
+  "title": "Combined average of sections (30 @ 53, 30 @ 66)",
+  "type": "mcq",
+  "difficulty": "medium",
+  "statement": "Section A has 30 students with an average score of 53; section B has 30 students averaging 66. What is the average score of all 60 students?",
+  "options": [
+   "60.5",
+   "61.5",
+   "58.5",
+   "59.5"
+  ],
+  "answer": "D",
+  "explanation": "Combined total = 30 × 53 + 30 × 66 = 3570. Average = 3570/60 = **59.5** — weighted, not (53 + 66)/2."
+ },
+ {
+  "slug": "avg-replacement-2",
+  "title": "Replacing a 51 kg member raises the average of 15 by 1 kg",
+  "type": "mcq",
+  "difficulty": "medium",
+  "statement": "The average weight of 15 people increases by 1 kg when one of them, who weighs 51 kg, is replaced by a new person. What is the new person's weight?",
+  "options": [
+   "52 kg",
+   "67 kg",
+   "65 kg",
+   "66 kg"
+  ],
+  "answer": "D",
+  "explanation": "The total rises by 15 × 1 = 15 kg, all due to the newcomer: 51 + 15 = **66 kg**."
+ },
+ {
+  "slug": "avg-consecutive-3",
+  "title": "7 consecutive whole numbers averaging 18",
+  "type": "mcq",
+  "difficulty": "medium",
+  "statement": "The average of 7 consecutive whole numbers is 18. What is the smallest of them?",
+  "options": [
+   "16",
+   "13",
+   "15",
+   "25"
+  ],
+  "answer": "C",
+  "explanation": "Consecutive numbers are evenly spaced, so the average sits in the middle. With 7 numbers 1 apart,\nthe smallest is 18 − 3 = **15**."
+ },
+ {
+  "slug": "avg-batting-3",
+  "title": "Raising a batting average from 41 to 44 after 18 innings",
+  "type": "mcq",
+  "difficulty": "medium",
+  "statement": "A batter's average after 18 innings is 41. How many runs must they score in the next innings to raise the average to 44?",
+  "options": [
+   "44",
+   "101",
+   "98",
+   "95"
+  ],
+  "answer": "C",
+  "explanation": "Runs needed after 19 innings: 19 × 44 = 836. Runs so far: 18 × 41 = 738. Next innings = **98**."
+ },
+ {
+  "slug": "avg-combined-3",
+  "title": "Combined average of sections (30 @ 78, 60 @ 51)",
+  "type": "mcq",
+  "difficulty": "medium",
+  "statement": "Section A has 30 students with an average score of 78; section B has 60 students averaging 51. What is the average score of all 90 students?",
+  "options": [
+   "61",
+   "59",
+   "60",
+   "64.5"
+  ],
+  "answer": "C",
+  "explanation": "Combined total = 30 × 78 + 60 × 51 = 5400. Average = 5400/90 = **60** — weighted, not (78 + 51)/2."
+ },
+ {
+  "slug": "avg-replacement-3",
+  "title": "Replacing a 74 kg member raises the average of 10 by 2 kg",
+  "type": "mcq",
+  "difficulty": "medium",
+  "statement": "The average weight of 10 people increases by 2 kg when one of them, who weighs 74 kg, is replaced by a new person. What is the new person's weight?",
+  "options": [
+   "96 kg",
+   "94 kg",
+   "92 kg",
+   "76 kg"
+  ],
+  "answer": "B",
+  "explanation": "The total rises by 10 × 2 = 20 kg, all due to the newcomer: 74 + 20 = **94 kg**."
+ },
+ {
+  "slug": "avg-consecutive-4",
+  "title": "9 consecutive even numbers averaging 30",
+  "type": "mcq",
+  "difficulty": "medium",
+  "statement": "The average of 9 consecutive even numbers is 30. What is the largest of them?",
+  "options": [
+   "36",
+   "40",
+   "39",
+   "38"
+  ],
+  "answer": "D",
+  "explanation": "Consecutive numbers are evenly spaced, so the average sits in the middle. With 9 numbers 2 apart,\nthe largest is 30 + 8 = **38**."
+ },
+ {
+  "slug": "avg-batting-4",
+  "title": "Raising a batting average from 30 to 34 after 15 innings",
+  "type": "mcq",
+  "difficulty": "medium",
+  "statement": "A batter's average after 15 innings is 30. How many runs must they score in the next innings to raise the average to 34?",
+  "options": [
+   "98",
+   "90",
+   "34",
+   "94"
+  ],
+  "answer": "D",
+  "explanation": "Runs needed after 16 innings: 16 × 34 = 544. Runs so far: 15 × 30 = 450. Next innings = **94**."
+ },
+ {
+  "slug": "avg-combined-4",
+  "title": "Combined average of sections (20 @ 42, 60 @ 57)",
+  "type": "mcq",
+  "difficulty": "medium",
+  "statement": "Section A has 20 students with an average score of 42; section B has 60 students averaging 57. What is the average score of all 80 students?",
+  "options": [
+   "54.25",
+   "49.5",
+   "52.25",
+   "53.25"
+  ],
+  "answer": "D",
+  "explanation": "Combined total = 20 × 42 + 60 × 57 = 4260. Average = 4260/80 = **53.25** — weighted, not (42 + 57)/2."
+ },
+ {
+  "slug": "avg-replacement-4",
+  "title": "Replacing a 52 kg member raises the average of 8 by 3 kg",
+  "type": "mcq",
+  "difficulty": "medium",
+  "statement": "The average weight of 8 people increases by 3 kg when one of them, who weighs 52 kg, is replaced by a new person. What is the new person's weight?",
+  "options": [
+   "55 kg",
+   "76 kg",
+   "73 kg",
+   "79 kg"
+  ],
+  "answer": "B",
+  "explanation": "The total rises by 8 × 3 = 24 kg, all due to the newcomer: 52 + 24 = **76 kg**."
+ },
+ {
+  "slug": "avg-consecutive-5",
+  "title": "8 consecutive odd numbers averaging 64",
+  "type": "mcq",
+  "difficulty": "medium",
+  "statement": "The average of 8 consecutive odd numbers is 64. What is the smallest of them?",
+  "options": [
+   "72",
+   "57",
+   "59",
+   "53"
+  ],
+  "answer": "B",
+  "explanation": "Consecutive numbers are evenly spaced, so the average sits in the middle. With 8 numbers 2 apart,\nthe smallest is 64 − 7 = **57**."
+ },
+ {
+  "slug": "avg-batting-5",
+  "title": "Raising a batting average from 32 to 34 after 16 innings",
+  "type": "mcq",
+  "difficulty": "medium",
+  "statement": "A batter's average after 16 innings is 32. How many runs must they score in the next innings to raise the average to 34?",
+  "options": [
+   "64",
+   "68",
+   "34",
+   "66"
+  ],
+  "answer": "D",
+  "explanation": "Runs needed after 17 innings: 17 × 34 = 578. Runs so far: 16 × 32 = 512. Next innings = **66**."
+ },
+ {
+  "slug": "avg-misread-1",
+  "title": "Average of 25 numbers: 71 misread as 69",
+  "type": "mcq",
+  "difficulty": "hard",
+  "statement": "The average of 25 numbers was calculated as 76. It was later found that the number 71 had been read as 69. What is the correct average?",
+  "options": [
+   "75.92",
+   "76.08",
+   "74.08",
+   "77.08"
+  ],
+  "answer": "B",
+  "explanation": "Wrong total = 25 × 76 = 1900. Correct total = 1900 − 69 + 71 = 1902. Correct average = **76.08**."
+ },
+ {
+  "slug": "avg-three-1",
+  "title": "Average of A, B, C is 49; A, B is 35.5; B, C is 62",
+  "type": "mcq",
+  "difficulty": "hard",
+  "statement": "The average weight of A, B and C is 49 kg. The average of A and B is 35.5 kg and that of B and C is 62 kg. What is B's weight (in kg)?",
+  "options": [
+   "50",
+   "23",
+   "48",
+   "76"
+  ],
+  "answer": "C",
+  "explanation": "A + B + C = 147; A + B = 71; B + C = 124. Adding the last two counts B twice: B = 71 + 124 − 147 = **48**."
+ },
+ {
+  "slug": "avg-excluding-1",
+  "title": "Excluding 5 of 20 values changes the average from 65 to 66",
+  "type": "mcq",
+  "difficulty": "hard",
+  "statement": "The average of 20 results is 65. If 5 results, all equal, are left out, the average of the rest is 66. What is the value of each excluded result?",
+  "options": [
+   "57",
+   "310",
+   "67",
+   "62"
+  ],
+  "answer": "D",
+  "explanation": "Total of all = 20 × 65 = 1300. Total of the rest = 15 × 66 = 990. Excluded total = 310, so each = 310/5 = **62**."
+ },
+ {
+  "slug": "avg-misread-2",
+  "title": "Average of 10 numbers: 35 misread as 45",
+  "type": "mcq",
+  "difficulty": "hard",
+  "statement": "The average of 10 numbers was calculated as 77. It was later found that the number 35 had been read as 45. What is the correct average?",
+  "options": [
+   "77",
+   "74",
+   "76",
+   "78"
+  ],
+  "answer": "C",
+  "explanation": "Wrong total = 10 × 77 = 770. Correct total = 770 − 45 + 35 = 760. Correct average = **76**."
+ },
+ {
+  "slug": "avg-three-2",
+  "title": "Average of A, B, C is 67; A, B is 57; B, C is 63.5",
+  "type": "mcq",
+  "difficulty": "hard",
+  "statement": "The average weight of A, B and C is 67 kg. The average of A and B is 57 kg and that of B and C is 63.5 kg. What is B's weight (in kg)?",
+  "options": [
+   "40",
+   "87",
+   "42",
+   "74"
+  ],
+  "answer": "A",
+  "explanation": "A + B + C = 201; A + B = 114; B + C = 127. Adding the last two counts B twice: B = 114 + 127 − 201 = **40**."
+ },
+ {
+  "slug": "avg-excluding-2",
+  "title": "Excluding 5 of 15 values changes the average from 39 to 33",
+  "type": "mcq",
+  "difficulty": "hard",
+  "statement": "The average of 15 results is 39. If 5 results, all equal, are left out, the average of the rest is 33. What is the value of each excluded result?",
+  "options": [
+   "51",
+   "46",
+   "255",
+   "56"
+  ],
+  "answer": "A",
+  "explanation": "Total of all = 15 × 39 = 585. Total of the rest = 10 × 33 = 330. Excluded total = 255, so each = 255/5 = **51**."
+ },
+ {
+  "slug": "avg-misread-3",
+  "title": "Average of 25 numbers: 55 misread as 95",
+  "type": "mcq",
+  "difficulty": "hard",
+  "statement": "The average of 25 numbers was calculated as 42. It was later found that the number 55 had been read as 95. What is the correct average?",
+  "options": [
+   "38.4",
+   "43.6",
+   "40.4",
+   "41.4"
+  ],
+  "answer": "C",
+  "explanation": "Wrong total = 25 × 42 = 1050. Correct total = 1050 − 95 + 55 = 1010. Correct average = **40.4**."
+ },
+ {
+  "slug": "avg-three-3",
+  "title": "Average of A, B, C is 60; A, B is 53; B, C is 78",
+  "type": "mcq",
+  "difficulty": "hard",
+  "statement": "The average weight of A, B and C is 60 kg. The average of A and B is 53 kg and that of B and C is 78 kg. What is B's weight (in kg)?",
+  "options": [
+   "84",
+   "24",
+   "74",
+   "82"
+  ],
+  "answer": "D",
+  "explanation": "A + B + C = 180; A + B = 106; B + C = 156. Adding the last two counts B twice: B = 106 + 156 − 180 = **82**."
+ },
+ {
+  "slug": "avg-excluding-3",
+  "title": "Excluding 5 of 20 values changes the average from 59 to 66",
+  "type": "mcq",
+  "difficulty": "hard",
+  "statement": "The average of 20 results is 59. If 5 results, all equal, are left out, the average of the rest is 66. What is the value of each excluded result?",
+  "options": [
+   "33",
+   "38",
+   "43",
+   "190"
+  ],
+  "answer": "B",
+  "explanation": "Total of all = 20 × 59 = 1180. Total of the rest = 15 × 66 = 990. Excluded total = 190, so each = 190/5 = **38**."
+ },
+ {
+  "slug": "avg-misread-4",
+  "title": "Average of 50 numbers: 50 misread as 69",
+  "type": "mcq",
+  "difficulty": "hard",
+  "statement": "The average of 50 numbers was calculated as 72. It was later found that the number 50 had been read as 69. What is the correct average?",
+  "options": [
+   "69.62",
+   "72.62",
+   "71.62",
+   "72.38"
+  ],
+  "answer": "C",
+  "explanation": "Wrong total = 50 × 72 = 3600. Correct total = 3600 − 69 + 50 = 3581. Correct average = **71.62**."
+ }
+]

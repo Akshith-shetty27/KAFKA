@@ -1,0 +1,677 @@
+[
+ {
+  "slug": "pct-of-number-1",
+  "title": "35% of a number is 602",
+  "type": "mcq",
+  "difficulty": "easy",
+  "statement": "If 35% of a number is 602, what is the number?",
+  "options": [
+   "1,720",
+   "1,740",
+   "1,700",
+   "210.7"
+  ],
+  "answer": "A",
+  "explanation": "Let the number be N. Then 35/100 × N = 602, so N = 602 × 100 / 35 = **1,720**."
+ },
+ {
+  "slug": "pct-successive-1",
+  "title": "Down 10%, then up 10%",
+  "type": "mcq",
+  "difficulty": "easy",
+  "statement": "A price is first decreased by 10% and then increased by 10%. What is the net percentage change?",
+  "options": [
+   "No change",
+   "2% decrease",
+   "1% decrease",
+   "1% increase"
+  ],
+  "answer": "C",
+  "explanation": "Take 100. After the first change: 90. The second change applies to that new value:\n90 × 110/100 = 99.\nNet change = **1% decrease**.\n\nShortcut for successive changes x% and y%: x + y + xy/100 = -10 + (10) + (-10×10)/100 = -1."
+ },
+ {
+  "slug": "pct-more-less-1",
+  "title": "37.5% less: the reverse comparison (salary)",
+  "type": "mcq",
+  "difficulty": "easy",
+  "statement": "Joseph's salary is 37.5% less than Neha's. By what percentage is Neha's salary more than Joseph's?",
+  "options": [
+   "37.5%",
+   "48.75%",
+   "60%",
+   "22.5%"
+  ],
+  "answer": "C",
+  "explanation": "Let Neha = 100, so Joseph = 62.5. The gap 37.5 is measured on Joseph's value: 37.5 / 62.5 × 100 = **60%**.\n\nThe base changes, so the two percentages are not equal."
+ },
+ {
+  "slug": "pct-growth-1",
+  "title": "Town population of 40,000 over two years (+25%, +10%)",
+  "type": "mcq",
+  "difficulty": "easy",
+  "statement": "The population of a town is 40,000. In the first year it increases by 25%; in the second year it increases by 10%. What is it after two years?",
+  "options": [
+   "55,400",
+   "54,600",
+   "54,000",
+   "55,000"
+  ],
+  "answer": "D",
+  "explanation": "Successive changes multiply: 40,000 × 125/100 × 110/100 = **55,000**.\nAdding the rates (25 + 10 = 35%) and applying once gives 54,000 — the classic trap."
+ },
+ {
+  "slug": "pct-of-number-2",
+  "title": "15% of a number is 153",
+  "type": "mcq",
+  "difficulty": "easy",
+  "statement": "If 15% of a number is 153, what is the number?",
+  "options": [
+   "1,020",
+   "22.95",
+   "1,000",
+   "180"
+  ],
+  "answer": "A",
+  "explanation": "Let the number be N. Then 15/100 × N = 153, so N = 153 × 100 / 15 = **1,020**."
+ },
+ {
+  "slug": "pct-successive-2",
+  "title": "Up 20%, then down 40%",
+  "type": "mcq",
+  "difficulty": "easy",
+  "statement": "A price is first increased by 20% and then decreased by 40%. What is the net percentage change?",
+  "options": [
+   "28% decrease",
+   "28% increase",
+   "29% decrease",
+   "20% decrease"
+  ],
+  "answer": "A",
+  "explanation": "Take 100. After the first change: 120. The second change applies to that new value:\n120 × 60/100 = 72.\nNet change = **28% decrease**.\n\nShortcut for successive changes x% and y%: x + y + xy/100 = 20 + (-40) + (20×-40)/100 = -28."
+ },
+ {
+  "slug": "pct-more-less-2",
+  "title": "400% more: the reverse comparison (salary)",
+  "type": "mcq",
+  "difficulty": "easy",
+  "statement": "Farhan's salary is 400% more than Kiran's. By what percentage is Kiran's salary less than Farhan's?",
+  "options": [
+   "320%",
+   "240%",
+   "80%",
+   "400%"
+  ],
+  "answer": "C",
+  "explanation": "Let Kiran = 100, so Farhan = 500. The gap 400 is measured on Farhan's value: 400 / 500 × 100 = **80%**.\n\nThe base changes, so the two percentages are not equal."
+ },
+ {
+  "slug": "pct-growth-2",
+  "title": "Town population of 50,000 over two years (+25%, -10%)",
+  "type": "mcq",
+  "difficulty": "easy",
+  "statement": "The population of a town is 50,000. In the first year it increases by 25%; in the second year it decreases by 10%. What is it after two years?",
+  "options": [
+   "55,750",
+   "56,250",
+   "56,750",
+   "57,500"
+  ],
+  "answer": "B",
+  "explanation": "Successive changes multiply: 50,000 × 125/100 × 90/100 = **56,250**.\nAdding the rates (25 + -10 = 15%) and applying once gives 57,500 — the classic trap."
+ },
+ {
+  "slug": "pct-of-number-3",
+  "title": "25% of a number is 150",
+  "type": "mcq",
+  "difficulty": "easy",
+  "statement": "If 25% of a number is 150, what is the number?",
+  "options": [
+   "37.5",
+   "580",
+   "200",
+   "600"
+  ],
+  "answer": "D",
+  "explanation": "Let the number be N. Then 25/100 × N = 150, so N = 150 × 100 / 25 = **600**."
+ },
+ {
+  "slug": "pct-successive-3",
+  "title": "Up 40%, then down 40%",
+  "type": "mcq",
+  "difficulty": "easy",
+  "statement": "A price is first increased by 40% and then decreased by 40%. What is the net percentage change?",
+  "options": [
+   "17% decrease",
+   "16% decrease",
+   "16% increase",
+   "No change"
+  ],
+  "answer": "B",
+  "explanation": "Take 100. After the first change: 140. The second change applies to that new value:\n140 × 60/100 = 84.\nNet change = **16% decrease**.\n\nShortcut for successive changes x% and y%: x + y + xy/100 = 40 + (-40) + (40×-40)/100 = -16."
+ },
+ {
+  "slug": "pct-more-less-3",
+  "title": "150% more: the reverse comparison (savings)",
+  "type": "mcq",
+  "difficulty": "easy",
+  "statement": "Ravi's savings is 150% more than Meena's. By what percentage is Meena's savings less than Ravi's?",
+  "options": [
+   "150%",
+   "105%",
+   "90%",
+   "60%"
+  ],
+  "answer": "D",
+  "explanation": "Let Meena = 100, so Ravi = 250. The gap 150 is measured on Ravi's value: 150 / 250 × 100 = **60%**.\n\nThe base changes, so the two percentages are not equal."
+ },
+ {
+  "slug": "pct-growth-3",
+  "title": "Town population of 25,000 over two years (+20%, -10%)",
+  "type": "mcq",
+  "difficulty": "easy",
+  "statement": "The population of a town is 25,000. In the first year it increases by 20%; in the second year it decreases by 10%. What is it after two years?",
+  "options": [
+   "27,250",
+   "27,500",
+   "27,000",
+   "26,750"
+  ],
+  "answer": "C",
+  "explanation": "Successive changes multiply: 25,000 × 120/100 × 90/100 = **27,000**.\nAdding the rates (20 + -10 = 10%) and applying once gives 27,500 — the classic trap."
+ },
+ {
+  "slug": "pct-of-number-4",
+  "title": "35% of a number is 217",
+  "type": "mcq",
+  "difficulty": "easy",
+  "statement": "If 35% of a number is 217, what is the number?",
+  "options": [
+   "600",
+   "640",
+   "75.95",
+   "620"
+  ],
+  "answer": "D",
+  "explanation": "Let the number be N. Then 35/100 × N = 217, so N = 217 × 100 / 35 = **620**."
+ },
+ {
+  "slug": "pct-successive-4",
+  "title": "Down 50%, then up 20%",
+  "type": "mcq",
+  "difficulty": "easy",
+  "statement": "A price is first decreased by 50% and then increased by 20%. What is the net percentage change?",
+  "options": [
+   "30% decrease",
+   "41% decrease",
+   "40% decrease",
+   "40% increase"
+  ],
+  "answer": "C",
+  "explanation": "Take 100. After the first change: 50. The second change applies to that new value:\n50 × 120/100 = 60.\nNet change = **40% decrease**.\n\nShortcut for successive changes x% and y%: x + y + xy/100 = -50 + (20) + (-50×20)/100 = -40."
+ },
+ {
+  "slug": "pct-more-less-4",
+  "title": "50% less: the reverse comparison (monthly income)",
+  "type": "mcq",
+  "difficulty": "easy",
+  "statement": "Farhan's monthly income is 50% less than Asha's. By what percentage is Asha's monthly income more than Farhan's?",
+  "options": [
+   "105%",
+   "50%",
+   "100%",
+   "75%"
+  ],
+  "answer": "C",
+  "explanation": "Let Asha = 100, so Farhan = 50. The gap 50 is measured on Farhan's value: 50 / 50 × 100 = **100%**.\n\nThe base changes, so the two percentages are not equal."
+ },
+ {
+  "slug": "pct-growth-4",
+  "title": "Club membership of 12,000 over two years (+15%, +20%)",
+  "type": "mcq",
+  "difficulty": "easy",
+  "statement": "The number of members of a club is 12,000. In the first year it increases by 15%; in the second year it increases by 20%. What is it after two years?",
+  "options": [
+   "16,440",
+   "16,560",
+   "16,200",
+   "16,680"
+  ],
+  "answer": "B",
+  "explanation": "Successive changes multiply: 12,000 × 115/100 × 120/100 = **16,560**.\nAdding the rates (15 + 20 = 35%) and applying once gives 16,200 — the classic trap."
+ },
+ {
+  "slug": "pct-of-number-5",
+  "title": "25% of a number is 365",
+  "type": "mcq",
+  "difficulty": "easy",
+  "statement": "If 25% of a number is 365, what is the number?",
+  "options": [
+   "1,440",
+   "1,460",
+   "1,480",
+   "91.25"
+  ],
+  "answer": "B",
+  "explanation": "Let the number be N. Then 25/100 × N = 365, so N = 365 × 100 / 25 = **1,460**."
+ },
+ {
+  "slug": "pct-pass-marks-1",
+  "title": "Failing by 96 marks with 104",
+  "type": "mcq",
+  "difficulty": "medium",
+  "statement": "A student needs 40% of the maximum marks to pass. She scores 104 marks and fails by 96 marks. What are the maximum marks?",
+  "options": [
+   "400",
+   "500",
+   "600",
+   "260"
+  ],
+  "answer": "B",
+  "explanation": "Pass marks = 104 + 96 = 200. These are 40% of the maximum:\nmaximum = 200 × 100 / 40 = **500**."
+ },
+ {
+  "slug": "pct-consumption-1",
+  "title": "Price rises 150%: adjusting sugar consumption",
+  "type": "mcq",
+  "difficulty": "medium",
+  "statement": "The price of sugar rises by 150%. By what percentage must a family reduce its consumption so that its spending on sugar stays the same?",
+  "options": [
+   "150%",
+   "65%",
+   "60%",
+   "55%"
+  ],
+  "answer": "C",
+  "explanation": "Spending = price × quantity. Price becomes 2.5×, so quantity must become 100/250 of its value — a reduction of 150/250 × 100 = **60%**."
+ },
+ {
+  "slug": "pct-election-1",
+  "title": "Won with 62% by 10,680 votes",
+  "type": "mcq",
+  "difficulty": "medium",
+  "statement": "In an election between two candidates, the winner gets 62% of the votes cast and wins by 10,680 votes. How many votes were cast in all? (All votes were valid.)",
+  "options": [
+   "44,500",
+   "46,500",
+   "45,500",
+   "43,500"
+  ],
+  "answer": "A",
+  "explanation": "The loser gets 38%, so the margin is 62% − 38% = 24% of the votes.\n24% of V = 10,680 → V = 10,680 × 100 / 24 = **44,500**."
+ },
+ {
+  "slug": "pct-spending-1",
+  "title": "Saving ₹16,800 after three expenses",
+  "type": "mcq",
+  "difficulty": "medium",
+  "statement": "Ramesh spends 30% of his salary on rent, 40% of the remainder on food and 50% of what is then left on travel. He saves the rest, which is ₹16,800. What is his salary?",
+  "options": [
+   "₹85,000",
+   "₹80,000",
+   "₹82,000",
+   "₹78,000"
+  ],
+  "answer": "B",
+  "explanation": "Work backwards with the fraction left at each step:\nsalary × 0.7 × 0.6 × 0.5 = 16,800.\nSalary = 16,800 / 0.21 = **₹80,000**.\nEach percentage applies to what is *left*, so you can't just add 30 + 40 + 50."
+ },
+ {
+  "slug": "pct-pass-marks-2",
+  "title": "Failing by 73 marks with 107",
+  "type": "mcq",
+  "difficulty": "medium",
+  "statement": "A student needs 30% of the maximum marks to pass. She scores 107 marks and fails by 73 marks. What are the maximum marks?",
+  "options": [
+   "800",
+   "500",
+   "600",
+   "700"
+  ],
+  "answer": "C",
+  "explanation": "Pass marks = 107 + 73 = 180. These are 30% of the maximum:\nmaximum = 180 × 100 / 30 = **600**."
+ },
+ {
+  "slug": "pct-consumption-2",
+  "title": "Price falls 60%: adjusting milk consumption",
+  "type": "mcq",
+  "difficulty": "medium",
+  "statement": "The price of milk falls by 60%. By what percentage can a family increase its consumption without changing its spending on milk?",
+  "options": [
+   "155%",
+   "145%",
+   "150%",
+   "60%"
+  ],
+  "answer": "C",
+  "explanation": "Price becomes 0.4×, so quantity can become 100/40 of its value — an increase of 60/40 × 100 = **150%**."
+ },
+ {
+  "slug": "pct-election-2",
+  "title": "Won with 55% by 1,350 votes",
+  "type": "mcq",
+  "difficulty": "medium",
+  "statement": "In an election between two candidates, the winner gets 55% of the votes cast and wins by 1,350 votes. How many votes were cast in all? (All votes were valid.)",
+  "options": [
+   "14,500",
+   "15,500",
+   "13,500",
+   "12,500"
+  ],
+  "answer": "C",
+  "explanation": "The loser gets 45%, so the margin is 55% − 45% = 10% of the votes.\n10% of V = 1,350 → V = 1,350 × 100 / 10 = **13,500**."
+ },
+ {
+  "slug": "pct-spending-2",
+  "title": "Saving ₹9,720 after three expenses",
+  "type": "mcq",
+  "difficulty": "medium",
+  "statement": "Ramesh spends 40% of his salary on rent, 40% of the remainder on food and 25% of what is then left on travel. He saves the rest, which is ₹9,720. What is his salary?",
+  "options": [
+   "₹38,000",
+   "₹41,000",
+   "₹34,000",
+   "₹36,000"
+  ],
+  "answer": "D",
+  "explanation": "Work backwards with the fraction left at each step:\nsalary × 0.6 × 0.6 × 0.75 = 9,720.\nSalary = 9,720 / 0.27 = **₹36,000**.\nEach percentage applies to what is *left*, so you can't just add 40 + 40 + 25."
+ },
+ {
+  "slug": "pct-pass-marks-3",
+  "title": "Failing by 40 marks with 104",
+  "type": "mcq",
+  "difficulty": "medium",
+  "statement": "A student needs 36% of the maximum marks to pass. She scores 104 marks and fails by 40 marks. What are the maximum marks?",
+  "options": [
+   "400",
+   "500",
+   "300",
+   "600"
+  ],
+  "answer": "A",
+  "explanation": "Pass marks = 104 + 40 = 144. These are 36% of the maximum:\nmaximum = 144 × 100 / 36 = **400**."
+ },
+ {
+  "slug": "pct-consumption-3",
+  "title": "Price falls 60%: adjusting sugar consumption",
+  "type": "mcq",
+  "difficulty": "medium",
+  "statement": "The price of sugar falls by 60%. By what percentage can a family increase its consumption without changing its spending on sugar?",
+  "options": [
+   "155%",
+   "145%",
+   "60%",
+   "150%"
+  ],
+  "answer": "D",
+  "explanation": "Price becomes 0.4×, so quantity can become 100/40 of its value — an increase of 60/40 × 100 = **150%**."
+ },
+ {
+  "slug": "pct-election-3",
+  "title": "Won with 60% by 2,700 votes",
+  "type": "mcq",
+  "difficulty": "medium",
+  "statement": "In an election between two candidates, the winner gets 60% of the votes cast and wins by 2,700 votes. How many votes were cast in all? (All votes were valid.)",
+  "options": [
+   "12,500",
+   "13,500",
+   "4,500",
+   "15,500"
+  ],
+  "answer": "B",
+  "explanation": "The loser gets 40%, so the margin is 60% − 40% = 20% of the votes.\n20% of V = 2,700 → V = 2,700 × 100 / 20 = **13,500**."
+ },
+ {
+  "slug": "pct-spending-3",
+  "title": "Saving ₹42,120 after three expenses",
+  "type": "mcq",
+  "difficulty": "medium",
+  "statement": "Ramesh spends 20% of his salary on rent, 10% of the remainder on food and 10% of what is then left on travel. He saves the rest, which is ₹42,120. What is his salary?",
+  "options": [
+   "₹70,200",
+   "₹63,000",
+   "₹67,000",
+   "₹65,000"
+  ],
+  "answer": "D",
+  "explanation": "Work backwards with the fraction left at each step:\nsalary × 0.8 × 0.9 × 0.9 = 42,120.\nSalary = 42,120 / 0.65 = **₹65,000**.\nEach percentage applies to what is *left*, so you can't just add 20 + 10 + 10."
+ },
+ {
+  "slug": "pct-pass-marks-4",
+  "title": "Failing by 80 marks with 130",
+  "type": "mcq",
+  "difficulty": "medium",
+  "statement": "A student needs 35% of the maximum marks to pass. She scores 130 marks and fails by 80 marks. What are the maximum marks?",
+  "options": [
+   "500",
+   "600",
+   "800",
+   "700"
+  ],
+  "answer": "B",
+  "explanation": "Pass marks = 130 + 80 = 210. These are 35% of the maximum:\nmaximum = 210 × 100 / 35 = **600**."
+ },
+ {
+  "slug": "pct-consumption-4",
+  "title": "Price falls 50%: adjusting milk consumption",
+  "type": "mcq",
+  "difficulty": "medium",
+  "statement": "The price of milk falls by 50%. By what percentage can a family increase its consumption without changing its spending on milk?",
+  "options": [
+   "95%",
+   "50%",
+   "100%",
+   "105%"
+  ],
+  "answer": "C",
+  "explanation": "Price becomes 0.5×, so quantity can become 100/50 of its value — an increase of 50/50 × 100 = **100%**."
+ },
+ {
+  "slug": "pct-election-4",
+  "title": "Won with 60% by 11,600 votes",
+  "type": "mcq",
+  "difficulty": "medium",
+  "statement": "In an election between two candidates, the winner gets 60% of the votes cast and wins by 11,600 votes. How many votes were cast in all? (All votes were valid.)",
+  "options": [
+   "58,000",
+   "59,000",
+   "57,000",
+   "60,000"
+  ],
+  "answer": "A",
+  "explanation": "The loser gets 40%, so the margin is 60% − 40% = 20% of the votes.\n20% of V = 11,600 → V = 11,600 × 100 / 20 = **58,000**."
+ },
+ {
+  "slug": "pct-spending-4",
+  "title": "Saving ₹58,320 after three expenses",
+  "type": "mcq",
+  "difficulty": "medium",
+  "statement": "Ramesh spends 25% of his salary on rent, 10% of the remainder on food and 10% of what is then left on travel. He saves the rest, which is ₹58,320. What is his salary?",
+  "options": [
+   "₹101,000",
+   "₹98,000",
+   "₹96,000",
+   "₹94,000"
+  ],
+  "answer": "C",
+  "explanation": "Work backwards with the fraction left at each step:\nsalary × 0.75 × 0.9 × 0.9 = 58,320.\nSalary = 58,320 / 0.61 = **₹96,000**.\nEach percentage applies to what is *left*, so you can't just add 25 + 10 + 10."
+ },
+ {
+  "slug": "pct-pass-marks-5",
+  "title": "Failing by 12 marks with 168",
+  "type": "mcq",
+  "difficulty": "medium",
+  "statement": "A student needs 45% of the maximum marks to pass. She scores 168 marks and fails by 12 marks. What are the maximum marks?",
+  "options": [
+   "400",
+   "300",
+   "500",
+   "600"
+  ],
+  "answer": "A",
+  "explanation": "Pass marks = 168 + 12 = 180. These are 45% of the maximum:\nmaximum = 180 × 100 / 45 = **400**."
+ },
+ {
+  "slug": "pct-consumption-5",
+  "title": "Price falls 50%: adjusting rice consumption",
+  "type": "mcq",
+  "difficulty": "medium",
+  "statement": "The price of rice falls by 50%. By what percentage can a family increase its consumption without changing its spending on rice?",
+  "options": [
+   "95%",
+   "50%",
+   "100%",
+   "105%"
+  ],
+  "answer": "C",
+  "explanation": "Price becomes 0.5×, so quantity can become 100/50 of its value — an increase of 50/50 × 100 = **100%**."
+ },
+ {
+  "slug": "pct-two-candidates-1",
+  "title": "25% fails by 174, 48% passes by 10",
+  "type": "mcq",
+  "difficulty": "hard",
+  "statement": "In an exam, a candidate who scores 25% of the maximum marks fails by 174 marks, while another who scores 48% gets 10 marks more than the pass mark. What are the maximum marks?",
+  "options": [
+   "800",
+   "900",
+   "700",
+   "1,000"
+  ],
+  "answer": "A",
+  "explanation": "The gap between the two scores is 174 + 10 = 184 marks,\nwhich equals 48% − 25% = 23% of the maximum.\nMaximum = 184 × 100 / 23 = **800**. (Pass mark = 374.)"
+ },
+ {
+  "slug": "pct-invalid-votes-1",
+  "title": "25% invalid votes, winner by 1,200",
+  "type": "mcq",
+  "difficulty": "hard",
+  "statement": "In an election between two candidates, 25% of the votes cast were invalid. The winner got 70% of the valid votes and won by 1,200 votes. How many votes were cast?",
+  "options": [
+   "5,000",
+   "3,000",
+   "3,200",
+   "4,000"
+  ],
+  "answer": "D",
+  "explanation": "Margin = 70% − 30% = 40% of the valid votes, so valid votes = 1,200 × 100 / 40 = 3,000.\nThese are 75% of all votes cast: total = 3,000 × 100 / 75 = **4,000**."
+ },
+ {
+  "slug": "pct-three-changes-1",
+  "title": "Three successive price changes: +20%, +50%, -10%",
+  "type": "mcq",
+  "difficulty": "hard",
+  "statement": "The price of a laptop is raised by 20%, then raised by 50%, then cut by 10%. What is the overall percentage change?",
+  "options": [
+   "64% increase",
+   "60% increase",
+   "62% increase",
+   "62% decrease"
+  ],
+  "answer": "C",
+  "explanation": "Multiply the factors: 1.2 × 1.5 × 0.9 = 1.62.\nSo the price changes by 1.62 − 1 = 0.62 → **62% increase**."
+ },
+ {
+  "slug": "pct-two-candidates-2",
+  "title": "32% fails by 13, 42% passes by 17",
+  "type": "mcq",
+  "difficulty": "hard",
+  "statement": "In an exam, a candidate who scores 32% of the maximum marks fails by 13 marks, while another who scores 42% gets 17 marks more than the pass mark. What are the maximum marks?",
+  "options": [
+   "500",
+   "200",
+   "300",
+   "400"
+  ],
+  "answer": "C",
+  "explanation": "The gap between the two scores is 13 + 17 = 30 marks,\nwhich equals 42% − 32% = 10% of the maximum.\nMaximum = 30 × 100 / 10 = **300**. (Pass mark = 109.)"
+ },
+ {
+  "slug": "pct-invalid-votes-2",
+  "title": "15% invalid votes, winner by 9,656",
+  "type": "mcq",
+  "difficulty": "hard",
+  "statement": "In an election between two candidates, 15% of the votes cast were invalid. The winner got 70% of the valid votes and won by 9,656 votes. How many votes were cast?",
+  "options": [
+   "28,400",
+   "29,400",
+   "24,140",
+   "27,600"
+  ],
+  "answer": "A",
+  "explanation": "Margin = 70% − 30% = 40% of the valid votes, so valid votes = 9,656 × 100 / 40 = 24,140.\nThese are 85% of all votes cast: total = 24,140 × 100 / 85 = **28,400**."
+ },
+ {
+  "slug": "pct-three-changes-2",
+  "title": "Three successive price changes: +10%, +25%, -20%",
+  "type": "mcq",
+  "difficulty": "hard",
+  "statement": "The price of a laptop is raised by 10%, then raised by 25%, then cut by 20%. What is the overall percentage change?",
+  "options": [
+   "10% decrease",
+   "12% increase",
+   "15% increase",
+   "10% increase"
+  ],
+  "answer": "D",
+  "explanation": "Multiply the factors: 1.1 × 1.25 × 0.8 = 1.1.\nSo the price changes by 1.1 − 1 = 0.1 → **10% increase**."
+ },
+ {
+  "slug": "pct-two-candidates-3",
+  "title": "28% fails by 99, 48% passes by 61",
+  "type": "mcq",
+  "difficulty": "hard",
+  "statement": "In an exam, a candidate who scores 28% of the maximum marks fails by 99 marks, while another who scores 48% gets 61 marks more than the pass mark. What are the maximum marks?",
+  "options": [
+   "900",
+   "1,000",
+   "700",
+   "800"
+  ],
+  "answer": "D",
+  "explanation": "The gap between the two scores is 99 + 61 = 160 marks,\nwhich equals 48% − 28% = 20% of the maximum.\nMaximum = 160 × 100 / 20 = **800**. (Pass mark = 323.)"
+ },
+ {
+  "slug": "pct-invalid-votes-3",
+  "title": "20% invalid votes, winner by 7,200",
+  "type": "mcq",
+  "difficulty": "hard",
+  "statement": "In an election between two candidates, 20% of the votes cast were invalid. The winner got 65% of the valid votes and won by 7,200 votes. How many votes were cast?",
+  "options": [
+   "31,000",
+   "30,000",
+   "24,000",
+   "29,200"
+  ],
+  "answer": "B",
+  "explanation": "Margin = 65% − 35% = 30% of the valid votes, so valid votes = 7,200 × 100 / 30 = 24,000.\nThese are 80% of all votes cast: total = 24,000 × 100 / 80 = **30,000**."
+ },
+ {
+  "slug": "pct-three-changes-3",
+  "title": "Three successive price changes: +10%, +50%, -10%",
+  "type": "mcq",
+  "difficulty": "hard",
+  "statement": "The price of a laptop is raised by 10%, then raised by 50%, then cut by 10%. What is the overall percentage change?",
+  "options": [
+   "48.5% increase",
+   "48.5% decrease",
+   "50% increase",
+   "50.5% increase"
+  ],
+  "answer": "A",
+  "explanation": "Multiply the factors: 1.1 × 1.5 × 0.9 = 1.485.\nSo the price changes by 1.485 − 1 = 0.485 → **48.5% increase**."
+ },
+ {
+  "slug": "pct-two-candidates-4",
+  "title": "30% fails by 13, 50% passes by 47",
+  "type": "mcq",
+  "difficulty": "hard",
+  "statement": "In an exam, a candidate who scores 30% of the maximum marks fails by 13 marks, while another who scores 50% gets 47 marks more than the pass mark. What are the maximum marks?",
+  "options": [
+   "400",
+   "300",
+   "500",
+   "200"
+  ],
+  "answer": "B",
+  "explanation": "The gap between the two scores is 13 + 47 = 60 marks,\nwhich equals 50% − 30% = 20% of the maximum.\nMaximum = 60 × 100 / 20 = **300**. (Pass mark = 103.)"
+ }
+]

@@ -1,0 +1,677 @@
+[
+ {
+  "slug": "pl-percent-1",
+  "title": "Bought for ₹1,850, sold for ₹2,405",
+  "type": "mcq",
+  "difficulty": "easy",
+  "statement": "An article bought for ₹1,850 is sold for ₹2,405. What is the profit or loss percentage?",
+  "options": [
+   "35% profit",
+   "32% profit",
+   "30% profit",
+   "30% loss"
+  ],
+  "answer": "C",
+  "explanation": "Profit = |2,405 − 1,850| = ₹555. Profit and loss percentages are always on the **cost price**:\n555 / 1,850 × 100 = **30% profit**."
+ },
+ {
+  "slug": "pl-find-sp-1",
+  "title": "Selling price for a 15% gain on ₹4,800",
+  "type": "mcq",
+  "difficulty": "easy",
+  "statement": "A trader buys a phone for ₹4,800. At what price must he sell it to make a 15% profit?",
+  "options": [
+   "₹4,080",
+   "₹5,520",
+   "₹5,570",
+   "₹4,950"
+  ],
+  "answer": "B",
+  "explanation": "SP = CP × (100 + 15)/100 = 4,800 × 115/100 = **₹5,520**."
+ },
+ {
+  "slug": "pl-find-cp-1",
+  "title": "Cost price from ₹3,500 at 25% profit",
+  "type": "mcq",
+  "difficulty": "easy",
+  "statement": "By selling a watch for ₹3,500, a shopkeeper makes a 25% profit. What did the watch cost him?",
+  "options": [
+   "₹2,750",
+   "₹2,800",
+   "₹2,850",
+   "₹2,625"
+  ],
+  "answer": "B",
+  "explanation": "SP = CP × 125/100, so CP = SP × 100/125 = 3,500 × 100/125 = **₹2,800**.\n(Taking 25% of the *selling* price gives ₹2,625 — percentages are on cost.)"
+ },
+ {
+  "slug": "pl-discount-1",
+  "title": "12% off a marked price of ₹2,600",
+  "type": "mcq",
+  "difficulty": "easy",
+  "statement": "A jacket is marked at ₹2,600 and sold at a 12% discount. What is the selling price?",
+  "options": [
+   "₹2,388",
+   "₹2,288",
+   "₹2,238",
+   "₹312"
+  ],
+  "answer": "B",
+  "explanation": "Discount is on the marked price: 2,600 × 12/100 = ₹312. Selling price = 2,600 − 312 = **₹2,288**."
+ },
+ {
+  "slug": "pl-percent-2",
+  "title": "Bought for ₹1,400, sold for ₹1,050",
+  "type": "mcq",
+  "difficulty": "easy",
+  "statement": "An article bought for ₹1,400 is sold for ₹1,050. What is the profit or loss percentage?",
+  "options": [
+   "25% profit",
+   "27% loss",
+   "30% loss",
+   "25% loss"
+  ],
+  "answer": "D",
+  "explanation": "Loss = |1,050 − 1,400| = ₹350. Profit and loss percentages are always on the **cost price**:\n350 / 1,400 × 100 = **25% loss**."
+ },
+ {
+  "slug": "pl-find-sp-2",
+  "title": "Selling price for a 15% loss on ₹5,200",
+  "type": "mcq",
+  "difficulty": "easy",
+  "statement": "A trader buys a phone for ₹5,200. At what price must he sell it to make a 15% loss?",
+  "options": [
+   "₹4,420",
+   "₹5,050",
+   "₹5,980",
+   "₹4,470"
+  ],
+  "answer": "A",
+  "explanation": "SP = CP × (100 − 15)/100 = 5,200 × 85/100 = **₹4,420**."
+ },
+ {
+  "slug": "pl-find-cp-2",
+  "title": "Cost price from ₹1,500 at 25% profit",
+  "type": "mcq",
+  "difficulty": "easy",
+  "statement": "By selling a watch for ₹1,500, a shopkeeper makes a 25% profit. What did the watch cost him?",
+  "options": [
+   "₹1,200",
+   "₹1,150",
+   "₹1,250",
+   "₹1,125"
+  ],
+  "answer": "A",
+  "explanation": "SP = CP × 125/100, so CP = SP × 100/125 = 1,500 × 100/125 = **₹1,200**.\n(Taking 25% of the *selling* price gives ₹1,125 — percentages are on cost.)"
+ },
+ {
+  "slug": "pl-discount-2",
+  "title": "35% off a marked price of ₹6,500",
+  "type": "mcq",
+  "difficulty": "easy",
+  "statement": "A jacket is marked at ₹6,500 and sold at a 35% discount. What is the selling price?",
+  "options": [
+   "₹4,325",
+   "₹4,225",
+   "₹2,275",
+   "₹4,175"
+  ],
+  "answer": "B",
+  "explanation": "Discount is on the marked price: 6,500 × 35/100 = ₹2,275. Selling price = 6,500 − 2,275 = **₹4,225**."
+ },
+ {
+  "slug": "pl-percent-3",
+  "title": "Bought for ₹300, sold for ₹360",
+  "type": "mcq",
+  "difficulty": "easy",
+  "statement": "An article bought for ₹300 is sold for ₹360. What is the profit or loss percentage?",
+  "options": [
+   "20% loss",
+   "25% profit",
+   "22% profit",
+   "20% profit"
+  ],
+  "answer": "D",
+  "explanation": "Profit = |360 − 300| = ₹60. Profit and loss percentages are always on the **cost price**:\n60 / 300 × 100 = **20% profit**."
+ },
+ {
+  "slug": "pl-find-sp-3",
+  "title": "Selling price for a 25% gain on ₹4,000",
+  "type": "mcq",
+  "difficulty": "easy",
+  "statement": "A trader buys a phone for ₹4,000. At what price must he sell it to make a 25% profit?",
+  "options": [
+   "₹5,050",
+   "₹4,250",
+   "₹5,000",
+   "₹3,000"
+  ],
+  "answer": "C",
+  "explanation": "SP = CP × (100 + 25)/100 = 4,000 × 125/100 = **₹5,000**."
+ },
+ {
+  "slug": "pl-find-cp-3",
+  "title": "Cost price from ₹1,920 at 4% loss",
+  "type": "mcq",
+  "difficulty": "easy",
+  "statement": "By selling a watch for ₹1,920, a shopkeeper makes a 4% loss. What did the watch cost him?",
+  "options": [
+   "₹2,000",
+   "₹2,050",
+   "₹1,950",
+   "₹1,996.8"
+  ],
+  "answer": "A",
+  "explanation": "SP = CP × 96/100, so CP = SP × 100/96 = 1,920 × 100/96 = **₹2,000**.\n(Taking 4% of the *selling* price gives ₹1,996.8 — percentages are on cost.)"
+ },
+ {
+  "slug": "pl-discount-3",
+  "title": "40% off a marked price of ₹2,000",
+  "type": "mcq",
+  "difficulty": "easy",
+  "statement": "A jacket is marked at ₹2,000 and sold at a 40% discount. What is the selling price?",
+  "options": [
+   "₹1,200",
+   "₹800",
+   "₹1,150",
+   "₹1,300"
+  ],
+  "answer": "A",
+  "explanation": "Discount is on the marked price: 2,000 × 40/100 = ₹800. Selling price = 2,000 − 800 = **₹1,200**."
+ },
+ {
+  "slug": "pl-percent-4",
+  "title": "Bought for ₹550, sold for ₹506",
+  "type": "mcq",
+  "difficulty": "easy",
+  "statement": "An article bought for ₹550 is sold for ₹506. What is the profit or loss percentage?",
+  "options": [
+   "8% loss",
+   "10% loss",
+   "13% loss",
+   "8% profit"
+  ],
+  "answer": "A",
+  "explanation": "Loss = |506 − 550| = ₹44. Profit and loss percentages are always on the **cost price**:\n44 / 550 × 100 = **8% loss**."
+ },
+ {
+  "slug": "pl-find-sp-4",
+  "title": "Selling price for a 5% gain on ₹2,500",
+  "type": "mcq",
+  "difficulty": "easy",
+  "statement": "A trader buys a phone for ₹2,500. At what price must he sell it to make a 5% profit?",
+  "options": [
+   "₹2,675",
+   "₹2,550",
+   "₹2,625",
+   "₹2,375"
+  ],
+  "answer": "C",
+  "explanation": "SP = CP × (100 + 5)/100 = 2,500 × 105/100 = **₹2,625**."
+ },
+ {
+  "slug": "pl-find-cp-4",
+  "title": "Cost price from ₹2,688 at 4% loss",
+  "type": "mcq",
+  "difficulty": "easy",
+  "statement": "By selling a watch for ₹2,688, a shopkeeper makes a 4% loss. What did the watch cost him?",
+  "options": [
+   "₹2,850",
+   "₹2,800",
+   "₹2,795.52",
+   "₹2,750"
+  ],
+  "answer": "B",
+  "explanation": "SP = CP × 96/100, so CP = SP × 100/96 = 2,688 × 100/96 = **₹2,800**.\n(Taking 4% of the *selling* price gives ₹2,795.52 — percentages are on cost.)"
+ },
+ {
+  "slug": "pl-discount-4",
+  "title": "10% off a marked price of ₹7,900",
+  "type": "mcq",
+  "difficulty": "easy",
+  "statement": "A jacket is marked at ₹7,900 and sold at a 10% discount. What is the selling price?",
+  "options": [
+   "₹7,060",
+   "₹7,210",
+   "₹790",
+   "₹7,110"
+  ],
+  "answer": "D",
+  "explanation": "Discount is on the marked price: 7,900 × 10/100 = ₹790. Selling price = 7,900 − 790 = **₹7,110**."
+ },
+ {
+  "slug": "pl-percent-5",
+  "title": "Bought for ₹800, sold for ₹1,000",
+  "type": "mcq",
+  "difficulty": "easy",
+  "statement": "An article bought for ₹800 is sold for ₹1,000. What is the profit or loss percentage?",
+  "options": [
+   "30% profit",
+   "25% loss",
+   "20% profit",
+   "25% profit"
+  ],
+  "answer": "D",
+  "explanation": "Profit = |1,000 − 800| = ₹200. Profit and loss percentages are always on the **cost price**:\n200 / 800 × 100 = **25% profit**."
+ },
+ {
+  "slug": "pl-find-sp-5",
+  "title": "Selling price for a 30% gain on ₹5,400",
+  "type": "mcq",
+  "difficulty": "easy",
+  "statement": "A trader buys a phone for ₹5,400. At what price must he sell it to make a 30% profit?",
+  "options": [
+   "₹3,780",
+   "₹7,070",
+   "₹7,020",
+   "₹5,700"
+  ],
+  "answer": "C",
+  "explanation": "SP = CP × (100 + 30)/100 = 5,400 × 130/100 = **₹7,020**."
+ },
+ {
+  "slug": "pl-markup-discount-1",
+  "title": "Marked 75% above cost, 25% discount",
+  "type": "mcq",
+  "difficulty": "medium",
+  "statement": "A shopkeeper marks his goods 75% above the cost price and then allows a discount of 25% on the marked price. What is his profit or loss percentage?",
+  "options": [
+   "29.25% profit",
+   "33.25% profit",
+   "31.25% profit",
+   "50% profit"
+  ],
+  "answer": "C",
+  "explanation": "Take CP = 100. Marked price = 175. After a 25% discount: 175 × 75/100 = 131.25.\nResult on a cost of 100: **31.25% profit**. (Subtracting 75 − 25 ignores that the discount is taken on the larger marked price.)"
+ },
+ {
+  "slug": "pl-successive-discounts-1",
+  "title": "Discounts of 25% and 15% in a row",
+  "type": "mcq",
+  "difficulty": "medium",
+  "statement": "A store offers successive discounts of 25% and 15%. What single discount is equivalent to these two?",
+  "options": [
+   "36.25%",
+   "40%",
+   "35.25%",
+   "37.25%"
+  ],
+  "answer": "A",
+  "explanation": "After both discounts a ₹100 item costs 100 × 0.75 × 0.85 = 63.75.\nSingle equivalent discount = 100 − 63.75 = **36.25%**  (formula: d1 + d2 − d1·d2/100)."
+ },
+ {
+  "slug": "pl-same-sp-1",
+  "title": "Two items at ₹3,720: 25% gain and 25% loss",
+  "type": "mcq",
+  "difficulty": "medium",
+  "statement": "Two cycles are sold for ₹3,720 each. On one the seller gains 25% and on the other he loses 25%. What is his overall gain or loss percentage?",
+  "options": [
+   "No profit, no loss",
+   "6.25% loss",
+   "6.25% gain",
+   "12.5% loss"
+  ],
+  "answer": "B",
+  "explanation": "Costs: 3,720 × 100/125 = 2,976 and 3,720 × 100/75 = 4,960; total cost 7,936 vs revenue 7,440.\nEqual selling prices with equal gain% and loss% always give a loss of x²/100 = 25²/100 = **6.25%**."
+ },
+ {
+  "slug": "pl-loss-to-gain-1",
+  "title": "From 20% loss at ₹1,664 to 15% gain",
+  "type": "mcq",
+  "difficulty": "medium",
+  "statement": "By selling a table for ₹1,664, a carpenter loses 20%. At what price should he sell it to gain 15%?",
+  "options": [
+   "₹2,246.4",
+   "₹2,372",
+   "₹2,392",
+   "₹2,412"
+  ],
+  "answer": "C",
+  "explanation": "CP = 1,664 × 100/80 = ₹2,080. For a 15% gain, SP = 2,080 × 115/100 = **₹2,392**."
+ },
+ {
+  "slug": "pl-markup-discount-2",
+  "title": "Marked 40% above cost, 10% discount",
+  "type": "mcq",
+  "difficulty": "medium",
+  "statement": "A shopkeeper marks his goods 40% above the cost price and then allows a discount of 10% on the marked price. What is his profit or loss percentage?",
+  "options": [
+   "30% profit",
+   "24% profit",
+   "26% profit",
+   "28% profit"
+  ],
+  "answer": "C",
+  "explanation": "Take CP = 100. Marked price = 140. After a 10% discount: 140 × 90/100 = 126.\nResult on a cost of 100: **26% profit**. (Subtracting 40 − 10 ignores that the discount is taken on the larger marked price.)"
+ },
+ {
+  "slug": "pl-successive-discounts-2",
+  "title": "Discounts of 15% and 15% in a row",
+  "type": "mcq",
+  "difficulty": "medium",
+  "statement": "A store offers successive discounts of 15% and 15%. What single discount is equivalent to these two?",
+  "options": [
+   "26.75%",
+   "28.75%",
+   "27.75%",
+   "30%"
+  ],
+  "answer": "C",
+  "explanation": "After both discounts a ₹100 item costs 100 × 0.85 × 0.85 = 72.25.\nSingle equivalent discount = 100 − 72.25 = **27.75%**  (formula: d1 + d2 − d1·d2/100)."
+ },
+ {
+  "slug": "pl-same-sp-2",
+  "title": "Two items at ₹3,270: 20% gain and 20% loss",
+  "type": "mcq",
+  "difficulty": "medium",
+  "statement": "Two cycles are sold for ₹3,270 each. On one the seller gains 20% and on the other he loses 20%. What is his overall gain or loss percentage?",
+  "options": [
+   "8% loss",
+   "4% gain",
+   "4% loss",
+   "No profit, no loss"
+  ],
+  "answer": "C",
+  "explanation": "Costs: 3,270 × 100/120 = 2,725 and 3,270 × 100/80 = 4,087.5; total cost 6,812.5 vs revenue 6,540.\nEqual selling prices with equal gain% and loss% always give a loss of x²/100 = 20²/100 = **4%**."
+ },
+ {
+  "slug": "pl-loss-to-gain-2",
+  "title": "From 10% loss at ₹3,096 to 10% gain",
+  "type": "mcq",
+  "difficulty": "medium",
+  "statement": "By selling a table for ₹3,096, a carpenter loses 10%. At what price should he sell it to gain 10%?",
+  "options": [
+   "₹3,804",
+   "₹3,784",
+   "₹3,715.2",
+   "₹3,764"
+  ],
+  "answer": "B",
+  "explanation": "CP = 3,096 × 100/90 = ₹3,440. For a 10% gain, SP = 3,440 × 110/100 = **₹3,784**."
+ },
+ {
+  "slug": "pl-markup-discount-3",
+  "title": "Marked 30% above cost, 25% discount",
+  "type": "mcq",
+  "difficulty": "medium",
+  "statement": "A shopkeeper marks his goods 30% above the cost price and then allows a discount of 25% on the marked price. What is his profit or loss percentage?",
+  "options": [
+   "4.5% loss",
+   "5% profit",
+   "0.5% loss",
+   "2.5% loss"
+  ],
+  "answer": "D",
+  "explanation": "Take CP = 100. Marked price = 130. After a 25% discount: 130 × 75/100 = 97.5.\nResult on a cost of 100: **2.5% loss**. (Subtracting 30 − 25 ignores that the discount is taken on the larger marked price.)"
+ },
+ {
+  "slug": "pl-successive-discounts-3",
+  "title": "Discounts of 20% and 20% in a row",
+  "type": "mcq",
+  "difficulty": "medium",
+  "statement": "A store offers successive discounts of 20% and 20%. What single discount is equivalent to these two?",
+  "options": [
+   "35%",
+   "36%",
+   "40%",
+   "37%"
+  ],
+  "answer": "B",
+  "explanation": "After both discounts a ₹100 item costs 100 × 0.8 × 0.8 = 64.\nSingle equivalent discount = 100 − 64 = **36%**  (formula: d1 + d2 − d1·d2/100)."
+ },
+ {
+  "slug": "pl-same-sp-3",
+  "title": "Two items at ₹2,730: 20% gain and 20% loss",
+  "type": "mcq",
+  "difficulty": "medium",
+  "statement": "Two cycles are sold for ₹2,730 each. On one the seller gains 20% and on the other he loses 20%. What is his overall gain or loss percentage?",
+  "options": [
+   "4% loss",
+   "8% loss",
+   "4% gain",
+   "No profit, no loss"
+  ],
+  "answer": "A",
+  "explanation": "Costs: 2,730 × 100/120 = 2,275 and 2,730 × 100/80 = 3,412.5; total cost 5,687.5 vs revenue 5,460.\nEqual selling prices with equal gain% and loss% always give a loss of x²/100 = 20²/100 = **4%**."
+ },
+ {
+  "slug": "pl-loss-to-gain-3",
+  "title": "From 15% loss at ₹1,428 to 25% gain",
+  "type": "mcq",
+  "difficulty": "medium",
+  "statement": "By selling a table for ₹1,428, a carpenter loses 15%. At what price should he sell it to gain 25%?",
+  "options": [
+   "₹1,999.2",
+   "₹2,100",
+   "₹2,080",
+   "₹2,120"
+  ],
+  "answer": "B",
+  "explanation": "CP = 1,428 × 100/85 = ₹1,680. For a 25% gain, SP = 1,680 × 125/100 = **₹2,100**."
+ },
+ {
+  "slug": "pl-markup-discount-4",
+  "title": "Marked 100% above cost, 30% discount",
+  "type": "mcq",
+  "difficulty": "medium",
+  "statement": "A shopkeeper marks his goods 100% above the cost price and then allows a discount of 30% on the marked price. What is his profit or loss percentage?",
+  "options": [
+   "70% profit",
+   "42% profit",
+   "38% profit",
+   "40% profit"
+  ],
+  "answer": "D",
+  "explanation": "Take CP = 100. Marked price = 200. After a 30% discount: 200 × 70/100 = 140.\nResult on a cost of 100: **40% profit**. (Subtracting 100 − 30 ignores that the discount is taken on the larger marked price.)"
+ },
+ {
+  "slug": "pl-successive-discounts-4",
+  "title": "Discounts of 15% and 5% in a row",
+  "type": "mcq",
+  "difficulty": "medium",
+  "statement": "A store offers successive discounts of 15% and 5%. What single discount is equivalent to these two?",
+  "options": [
+   "20.25%",
+   "20%",
+   "19.25%",
+   "18.25%"
+  ],
+  "answer": "C",
+  "explanation": "After both discounts a ₹100 item costs 100 × 0.85 × 0.95 = 80.75.\nSingle equivalent discount = 100 − 80.75 = **19.25%**  (formula: d1 + d2 − d1·d2/100)."
+ },
+ {
+  "slug": "pl-same-sp-4",
+  "title": "Two items at ₹1,410: 25% gain and 25% loss",
+  "type": "mcq",
+  "difficulty": "medium",
+  "statement": "Two cycles are sold for ₹1,410 each. On one the seller gains 25% and on the other he loses 25%. What is his overall gain or loss percentage?",
+  "options": [
+   "12.5% loss",
+   "6.25% gain",
+   "6.25% loss",
+   "No profit, no loss"
+  ],
+  "answer": "C",
+  "explanation": "Costs: 1,410 × 100/125 = 1,128 and 1,410 × 100/75 = 1,880; total cost 3,008 vs revenue 2,820.\nEqual selling prices with equal gain% and loss% always give a loss of x²/100 = 25²/100 = **6.25%**."
+ },
+ {
+  "slug": "pl-loss-to-gain-4",
+  "title": "From 5% loss at ₹3,287 to 20% gain",
+  "type": "mcq",
+  "difficulty": "medium",
+  "statement": "By selling a table for ₹3,287, a carpenter loses 5%. At what price should he sell it to gain 20%?",
+  "options": [
+   "₹4,132",
+   "₹4,152",
+   "₹4,172",
+   "₹4,108.75"
+  ],
+  "answer": "B",
+  "explanation": "CP = 3,287 × 100/95 = ₹3,460. For a 20% gain, SP = 3,460 × 120/100 = **₹4,152**."
+ },
+ {
+  "slug": "pl-markup-discount-5",
+  "title": "Marked 80% above cost, 12% discount",
+  "type": "mcq",
+  "difficulty": "medium",
+  "statement": "A shopkeeper marks his goods 80% above the cost price and then allows a discount of 12% on the marked price. What is his profit or loss percentage?",
+  "options": [
+   "60.4% profit",
+   "56.4% profit",
+   "58.4% profit",
+   "68% profit"
+  ],
+  "answer": "C",
+  "explanation": "Take CP = 100. Marked price = 180. After a 12% discount: 180 × 88/100 = 158.4.\nResult on a cost of 100: **58.4% profit**. (Subtracting 80 − 12 ignores that the discount is taken on the larger marked price.)"
+ },
+ {
+  "slug": "pl-articles-1",
+  "title": "Buy 10 for ₹20, sell 8 for ₹20",
+  "type": "mcq",
+  "difficulty": "hard",
+  "statement": "A vendor buys bananas at 10 for ₹20 and sells them at 8 for ₹20. What is his profit percentage?",
+  "options": [
+   "25%",
+   "20%",
+   "2%",
+   "30%"
+  ],
+  "answer": "A",
+  "explanation": "CP of one = 20/10, SP of one = 20/8. Profit % = (SP − CP)/CP × 100 = (10 − 8)/8 × 100 = **25%**.\n(Dividing by 10 instead of 8 measures the profit on the selling price — a common slip.)"
+ },
+ {
+  "slug": "pl-two-gains-1",
+  "title": "Selling at 5% vs 15% gain differs by ₹455",
+  "type": "mcq",
+  "difficulty": "hard",
+  "statement": "If an article is sold at a 15% gain instead of a 5% gain, the seller gets ₹455 more. What is the cost price?",
+  "options": [
+   "₹4,650",
+   "₹4,550",
+   "₹4,450",
+   "₹4,750"
+  ],
+  "answer": "B",
+  "explanation": "The difference of 15% − 5% = 10% of CP is ₹455, so CP = 455 × 100/10 = **₹4,550**."
+ },
+ {
+  "slug": "pl-markup-needed-1",
+  "title": "Mark-up for 10% profit after a 20% discount",
+  "type": "mcq",
+  "difficulty": "hard",
+  "statement": "A trader wants a 10% profit even after giving a 20% discount. By what percentage above the cost price should he mark his goods?",
+  "options": [
+   "42.5%",
+   "32.5%",
+   "37.5%",
+   "30%"
+  ],
+  "answer": "C",
+  "explanation": "Take CP = 100, so the required SP = 110. That is 80% of the marked price: MP = 110 × 100/80 = 137.5.\nMark-up = **37.5%** above cost. (Adding 10 + 20 = 30% falls short because the discount is taken on the larger marked price.)"
+ },
+ {
+  "slug": "pl-articles-2",
+  "title": "Buy 25 for ₹10, sell 20 for ₹10",
+  "type": "mcq",
+  "difficulty": "hard",
+  "statement": "A vendor buys bananas at 25 for ₹10 and sells them at 20 for ₹10. What is his profit percentage?",
+  "options": [
+   "30%",
+   "20%",
+   "5%",
+   "25%"
+  ],
+  "answer": "D",
+  "explanation": "CP of one = 10/25, SP of one = 10/20. Profit % = (SP − CP)/CP × 100 = (25 − 20)/20 × 100 = **25%**.\n(Dividing by 25 instead of 20 measures the profit on the selling price — a common slip.)"
+ },
+ {
+  "slug": "pl-two-gains-2",
+  "title": "Selling at 6% vs 12% gain differs by ₹162",
+  "type": "mcq",
+  "difficulty": "hard",
+  "statement": "If an article is sold at a 12% gain instead of a 6% gain, the seller gets ₹162 more. What is the cost price?",
+  "options": [
+   "₹2,600",
+   "₹1,350",
+   "₹2,800",
+   "₹2,700"
+  ],
+  "answer": "D",
+  "explanation": "The difference of 12% − 6% = 6% of CP is ₹162, so CP = 162 × 100/6 = **₹2,700**."
+ },
+ {
+  "slug": "pl-markup-needed-2",
+  "title": "Mark-up for 20% profit after a 20% discount",
+  "type": "mcq",
+  "difficulty": "hard",
+  "statement": "A trader wants a 20% profit even after giving a 20% discount. By what percentage above the cost price should he mark his goods?",
+  "options": [
+   "40%",
+   "50%",
+   "45%",
+   "55%"
+  ],
+  "answer": "B",
+  "explanation": "Take CP = 100, so the required SP = 120. That is 80% of the marked price: MP = 120 × 100/80 = 150.\nMark-up = **50%** above cost. (Adding 20 + 20 = 40% falls short because the discount is taken on the larger marked price.)"
+ },
+ {
+  "slug": "pl-articles-3",
+  "title": "Buy 15 for ₹15, sell 12 for ₹15",
+  "type": "mcq",
+  "difficulty": "hard",
+  "statement": "A vendor buys bananas at 15 for ₹15 and sells them at 12 for ₹15. What is his profit percentage?",
+  "options": [
+   "3%",
+   "30%",
+   "20%",
+   "25%"
+  ],
+  "answer": "D",
+  "explanation": "CP of one = 15/15, SP of one = 15/12. Profit % = (SP − CP)/CP × 100 = (15 − 12)/12 × 100 = **25%**.\n(Dividing by 15 instead of 12 measures the profit on the selling price — a common slip.)"
+ },
+ {
+  "slug": "pl-two-gains-3",
+  "title": "Selling at 4% vs 8% gain differs by ₹74",
+  "type": "mcq",
+  "difficulty": "hard",
+  "statement": "If an article is sold at a 8% gain instead of a 4% gain, the seller gets ₹74 more. What is the cost price?",
+  "options": [
+   "₹1,850",
+   "₹1,750",
+   "₹1,950",
+   "₹925"
+  ],
+  "answer": "A",
+  "explanation": "The difference of 8% − 4% = 4% of CP is ₹74, so CP = 74 × 100/4 = **₹1,850**."
+ },
+ {
+  "slug": "pl-markup-needed-3",
+  "title": "Mark-up for 8% profit after a 25% discount",
+  "type": "mcq",
+  "difficulty": "hard",
+  "statement": "A trader wants a 8% profit even after giving a 25% discount. By what percentage above the cost price should he mark his goods?",
+  "options": [
+   "33%",
+   "49%",
+   "39%",
+   "44%"
+  ],
+  "answer": "D",
+  "explanation": "Take CP = 100, so the required SP = 108. That is 75% of the marked price: MP = 108 × 100/75 = 144.\nMark-up = **44%** above cost. (Adding 8 + 25 = 33% falls short because the discount is taken on the larger marked price.)"
+ },
+ {
+  "slug": "pl-articles-4",
+  "title": "Buy 20 for ₹15, sell 16 for ₹15",
+  "type": "mcq",
+  "difficulty": "hard",
+  "statement": "A vendor buys bananas at 20 for ₹15 and sells them at 16 for ₹15. What is his profit percentage?",
+  "options": [
+   "25%",
+   "4%",
+   "20%",
+   "30%"
+  ],
+  "answer": "A",
+  "explanation": "CP of one = 15/20, SP of one = 15/16. Profit % = (SP − CP)/CP × 100 = (20 − 16)/16 × 100 = **25%**.\n(Dividing by 20 instead of 16 measures the profit on the selling price — a common slip.)"
+ }
+]

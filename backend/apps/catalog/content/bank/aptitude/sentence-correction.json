@@ -1,0 +1,677 @@
+[
+ {
+  "slug": "sc-good-at",
+  "title": "Fill in: He is good ___ mathematics.",
+  "type": "mcq",
+  "difficulty": "easy",
+  "statement": "Fill in the blank: \"He is good ___ mathematics.\"",
+  "options": [
+   "at",
+   "with",
+   "on",
+   "in"
+  ],
+  "answer": "A",
+  "explanation": "The fixed expression is **good at** a subject or skill."
+ },
+ {
+  "slug": "sc-on-time",
+  "title": "Fill in: The train arrived ___ time; it was neither early nor late.",
+  "type": "mcq",
+  "difficulty": "easy",
+  "statement": "Fill in the blank: \"The train arrived ___ time; it was neither early nor late.\"",
+  "options": [
+   "by",
+   "in",
+   "at",
+   "on"
+  ],
+  "answer": "D",
+  "explanation": "**On time** means punctually. *In time* means early enough (before it was too late)."
+ },
+ {
+  "slug": "sc-prefer-to",
+  "title": "Fill in: She prefers tea ___ coffee.",
+  "type": "mcq",
+  "difficulty": "easy",
+  "statement": "Fill in the blank: \"She prefers tea ___ coffee.\"",
+  "options": [
+   "to",
+   "than",
+   "against",
+   "from"
+  ],
+  "answer": "A",
+  "explanation": "**Prefer** takes *to*: prefer X **to** Y. *Than* is used with *rather* (I would rather have tea than coffee)."
+ },
+ {
+  "slug": "sc-for-years",
+  "title": "Fill in: I have lived in Pune ___ ten years.",
+  "type": "mcq",
+  "difficulty": "easy",
+  "statement": "Fill in the blank: \"I have lived in Pune ___ ten years.\"",
+  "options": [
+   "for",
+   "from",
+   "by",
+   "since"
+  ],
+  "answer": "A",
+  "explanation": "Use **for** with a duration (ten years) and *since* with a starting point (2015)."
+ },
+ {
+  "slug": "sc-neither-of",
+  "title": "Fill in: Neither of the answers ___ correct.",
+  "type": "mcq",
+  "difficulty": "easy",
+  "statement": "Fill in the blank: \"Neither of the answers ___ correct.\"",
+  "options": [
+   "were",
+   "is",
+   "have been",
+   "are"
+  ],
+  "answer": "B",
+  "explanation": "**Neither** (of …) is singular in formal English, so it takes **is**."
+ },
+ {
+  "slug": "sc-news-is",
+  "title": "Fill in: The news ___ very encouraging.",
+  "type": "mcq",
+  "difficulty": "easy",
+  "statement": "Fill in the blank: \"The news ___ very encouraging.\"",
+  "options": [
+   "are",
+   "have been",
+   "is",
+   "were"
+  ],
+  "answer": "C",
+  "explanation": "**News** is an uncountable noun and takes a singular verb, despite ending in *s*."
+ },
+ {
+  "slug": "sc-goes",
+  "title": "Fill in: He ___ to the gym every morning.",
+  "type": "mcq",
+  "difficulty": "easy",
+  "statement": "Fill in the blank: \"He ___ to the gym every morning.\"",
+  "options": [
+   "going",
+   "go",
+   "goes",
+   "gone"
+  ],
+  "answer": "C",
+  "explanation": "A habitual action in the present with a third-person singular subject: **goes**."
+ },
+ {
+  "slug": "sc-an-honest",
+  "title": "Fill in: She is ___ honest woman.",
+  "type": "mcq",
+  "difficulty": "easy",
+  "statement": "Fill in the blank: \"She is ___ honest woman.\"",
+  "options": [
+   "a",
+   "the",
+   "an",
+   "(no article)"
+  ],
+  "answer": "C",
+  "explanation": "The *h* in *honest* is silent, so the word starts with a vowel sound: **an** honest woman."
+ },
+ {
+  "slug": "sc-mathematics-is",
+  "title": "Fill in: Mathematics ___ my favourite subject.",
+  "type": "mcq",
+  "difficulty": "easy",
+  "statement": "Fill in the blank: \"Mathematics ___ my favourite subject.\"",
+  "options": [
+   "are",
+   "is",
+   "were",
+   "have"
+  ],
+  "answer": "B",
+  "explanation": "Names of subjects ending in *-ics* (mathematics, physics, economics) take a **singular** verb."
+ },
+ {
+  "slug": "sc-if-i-were",
+  "title": "Fill in: If I ___ you, I would accept the offer.",
+  "type": "mcq",
+  "difficulty": "easy",
+  "statement": "Fill in the blank: \"If I ___ you, I would accept the offer.\"",
+  "options": [
+   "was",
+   "am",
+   "were",
+   "will be"
+  ],
+  "answer": "C",
+  "explanation": "Imaginary (unreal) conditions use the subjunctive **were** for every subject: *If I were you…*"
+ },
+ {
+  "slug": "sc-go-to-bed",
+  "title": "Fill in: The children were tired, so they went ___ bed early.",
+  "type": "mcq",
+  "difficulty": "easy",
+  "statement": "Fill in the blank: \"The children were tired, so they went ___ bed early.\"",
+  "options": [
+   "at",
+   "in",
+   "to",
+   "to the"
+  ],
+  "answer": "C",
+  "explanation": "The idiom is **go to bed** — no article. *Go to the bed* means walking over to the piece of furniture."
+ },
+ {
+  "slug": "sc-since-monday",
+  "title": "Fill in: He has been absent ___ Monday.",
+  "type": "mcq",
+  "difficulty": "easy",
+  "statement": "Fill in the blank: \"He has been absent ___ Monday.\"",
+  "options": [
+   "by",
+   "since",
+   "from",
+   "for"
+  ],
+  "answer": "B",
+  "explanation": "**Since** introduces a point in time (Monday) with the present perfect."
+ },
+ {
+  "slug": "sc-tallest",
+  "title": "Fill in: She is the ___ student in the class.",
+  "type": "mcq",
+  "difficulty": "easy",
+  "statement": "Fill in the blank: \"She is the ___ student in the class.\"",
+  "options": [
+   "tallest",
+   "taller",
+   "most tall",
+   "more taller"
+  ],
+  "answer": "A",
+  "explanation": "Comparing one person with the whole class needs the superlative **tallest**. *More taller* is a double comparative."
+ },
+ {
+  "slug": "sc-discuss",
+  "title": "Fill in: We discussed ___ the problem for an hour.",
+  "type": "mcq",
+  "difficulty": "easy",
+  "statement": "Fill in the blank: \"We discussed ___ the problem for an hour.\"",
+  "options": [
+   "(no word needed)",
+   "about",
+   "over",
+   "on"
+  ],
+  "answer": "A",
+  "explanation": "**Discuss** is transitive: you *discuss a problem*, not *discuss about* it."
+ },
+ {
+  "slug": "sc-brother-and-i",
+  "title": "Fill in: My brother and I ___ going to the market.",
+  "type": "mcq",
+  "difficulty": "easy",
+  "statement": "Fill in the blank: \"My brother and I ___ going to the market.\"",
+  "options": [
+   "was",
+   "is",
+   "are",
+   "am"
+  ],
+  "answer": "C",
+  "explanation": "Two subjects joined by *and* form a plural subject: **are**."
+ },
+ {
+  "slug": "sc-a-lot-of-people",
+  "title": "Fill in: There ___ a lot of people at the concert.",
+  "type": "mcq",
+  "difficulty": "easy",
+  "statement": "Fill in the blank: \"There ___ a lot of people at the concert.\"",
+  "options": [
+   "was",
+   "is",
+   "has",
+   "were"
+  ],
+  "answer": "D",
+  "explanation": "With *a lot of* the verb agrees with the noun that follows: *people* is plural, so **were**."
+ },
+ {
+  "slug": "sc-number-of",
+  "title": "Correct sentence: number of",
+  "type": "mcq",
+  "difficulty": "medium",
+  "statement": "Choose the grammatically correct sentence.",
+  "options": [
+   "The number of applicants have increased this year.",
+   "The numbers of applicants has increased this year.",
+   "The number of applicant has increased this year.",
+   "The number of applicants has increased this year."
+  ],
+  "answer": "D",
+  "explanation": "**The number of** + plural noun takes a **singular** verb (the subject is *number*). Compare *A number of applicants **have** applied*, which is plural."
+ },
+ {
+  "slug": "sc-hardly-when",
+  "title": "Correct sentence: hardly when",
+  "type": "mcq",
+  "difficulty": "medium",
+  "statement": "Choose the grammatically correct sentence.",
+  "options": [
+   "Hardly had I reach the station when the train left.",
+   "Hardly had I reached the station than the train left.",
+   "Hardly I had reached the station when the train left.",
+   "Hardly had I reached the station when the train left."
+  ],
+  "answer": "D",
+  "explanation": "**Hardly … when** (not *than*). Starting with *Hardly* inverts the subject and auxiliary: *had I reached*."
+ },
+ {
+  "slug": "sc-no-sooner",
+  "title": "Correct sentence: no sooner",
+  "type": "mcq",
+  "difficulty": "medium",
+  "statement": "Choose the grammatically correct sentence.",
+  "options": [
+   "No sooner did he arrived than the meeting began.",
+   "No sooner did he arrive than the meeting began.",
+   "No sooner did he arrive when the meeting began.",
+   "No sooner he arrived than the meeting began."
+  ],
+  "answer": "B",
+  "explanation": "**No sooner … than** (not *when*), with inversion: *did he arrive* (base form after *did*)."
+ },
+ {
+  "slug": "sc-each-has-his",
+  "title": "Correct sentence: each has his",
+  "type": "mcq",
+  "difficulty": "medium",
+  "statement": "Choose the grammatically correct sentence.",
+  "options": [
+   "Each of the boys has submitted his assignment.",
+   "Each of the boys have submitted his assignment.",
+   "Each of the boys have submitted their assignments.",
+   "Each of the boy has submitted his assignment."
+  ],
+  "answer": "A",
+  "explanation": "**Each** is singular, so the verb is **has** and the noun after *of* stays plural (*the boys*)."
+ },
+ {
+  "slug": "sc-furniture",
+  "title": "Correct sentence: furniture",
+  "type": "mcq",
+  "difficulty": "medium",
+  "statement": "Choose the grammatically correct sentence.",
+  "options": [
+   "The furniture in the office is new.",
+   "The furnitures in the office are new.",
+   "The furniture in the office are new.",
+   "The furnitures in the office is new."
+  ],
+  "answer": "A",
+  "explanation": "**Furniture** is uncountable: no plural *-s*, and it takes a singular verb (*is*)."
+ },
+ {
+  "slug": "sc-look-forward",
+  "title": "Correct sentence: look forward",
+  "type": "mcq",
+  "difficulty": "medium",
+  "statement": "Choose the grammatically correct sentence.",
+  "options": [
+   "I look forward to met you.",
+   "I look forward to meet you.",
+   "I look forward to meeting you.",
+   "I look forward for meeting you."
+  ],
+  "answer": "C",
+  "explanation": "In **look forward to**, *to* is a preposition, so it is followed by the *-ing* form: *to meeting*."
+ },
+ {
+  "slug": "sc-one-of-those",
+  "title": "Correct sentence: one of those",
+  "type": "mcq",
+  "difficulty": "medium",
+  "statement": "Choose the grammatically correct sentence.",
+  "options": [
+   "He is one of those people who never gives up.",
+   "He is one of those people who never give up.",
+   "He is one of those person who never give up.",
+   "He is one of that people who never give up."
+  ],
+  "answer": "B",
+  "explanation": "In *one of those people who…*, the relative pronoun **who** refers to *people* (plural), so the verb is **give**."
+ },
+ {
+  "slug": "sc-scarcely-when",
+  "title": "Correct sentence: scarcely when",
+  "type": "mcq",
+  "difficulty": "medium",
+  "statement": "Choose the grammatically correct sentence.",
+  "options": [
+   "Scarcely had we started than it began to rain.",
+   "Scarcely we had started when it began to rain.",
+   "Scarcely had we started when it began to rain.",
+   "Scarcely had we start when it began to rain."
+  ],
+  "answer": "C",
+  "explanation": "**Scarcely … when**, with inversion (*had we started*), like *hardly … when*."
+ },
+ {
+  "slug": "sc-police-have",
+  "title": "Correct sentence: police have",
+  "type": "mcq",
+  "difficulty": "medium",
+  "statement": "Choose the grammatically correct sentence.",
+  "options": [
+   "The police have arrest the thief.",
+   "The police have arrested the thief.",
+   "The police has arrested the thief.",
+   "The polices have arrested the thief."
+  ],
+  "answer": "B",
+  "explanation": "**Police** is a plural noun in English: *the police **have***. It never takes *-s*."
+ },
+ {
+  "slug": "sc-did-not-know",
+  "title": "Spot the error: He did not knew the answer to the last question.",
+  "type": "mcq",
+  "difficulty": "medium",
+  "statement": "The sentence below is split into parts. Which part contains an error? (Choose *No error* if it is correct.)\n\n(A) He did not knew / (B) the answer to / (C) the last question. / (D) No error",
+  "options": [
+   "(A) He did not knew",
+   "(B) the answer to",
+   "(C) the last question.",
+   "(D) No error"
+  ],
+  "answer": "A",
+  "explanation": "After *did* (or *did not*) use the base form: *did not **know***."
+ },
+ {
+  "slug": "sc-committee-its",
+  "title": "Spot the error: The committee have submitted its report.",
+  "type": "mcq",
+  "difficulty": "medium",
+  "statement": "The sentence below is split into parts. Which part contains an error? (Choose *No error* if it is correct.)\n\n(A) The committee / (B) have submitted / (C) its report. / (D) No error",
+  "options": [
+   "(A) The committee",
+   "(B) have submitted",
+   "(C) its report.",
+   "(D) No error"
+  ],
+  "answer": "B",
+  "explanation": "*Its report* treats the committee as a single unit, so the verb must be singular too: *has submitted*."
+ },
+ {
+  "slug": "sc-unless-not",
+  "title": "Spot the error: Unless you do not work hard, you will not pass the exam.",
+  "type": "mcq",
+  "difficulty": "medium",
+  "statement": "The sentence below is split into parts. Which part contains an error? (Choose *No error* if it is correct.)\n\n(A) Unless you do not work hard, / (B) you will not / (C) pass the exam. / (D) No error",
+  "options": [
+   "(A) Unless you do not work hard,",
+   "(B) you will not",
+   "(C) pass the exam.",
+   "(D) No error"
+  ],
+  "answer": "A",
+  "explanation": "**Unless** already means *if not*; adding *do not* makes a double negative. Correct: *Unless you work hard…*"
+ },
+ {
+  "slug": "sc-despite-of",
+  "title": "Spot the error: Despite of the rain, the match continued as planned.",
+  "type": "mcq",
+  "difficulty": "medium",
+  "statement": "The sentence below is split into parts. Which part contains an error? (Choose *No error* if it is correct.)\n\n(A) Despite of the rain, / (B) the match / (C) continued as planned. / (D) No error",
+  "options": [
+   "(A) Despite of the rain,",
+   "(B) the match",
+   "(C) continued as planned.",
+   "(D) No error"
+  ],
+  "answer": "A",
+  "explanation": "**Despite** is never followed by *of*. Use *despite the rain* or *in spite of the rain*."
+ },
+ {
+  "slug": "sc-has-returned-yesterday",
+  "title": "Spot the error: He has returned from Delhi yesterday.",
+  "type": "mcq",
+  "difficulty": "medium",
+  "statement": "The sentence below is split into parts. Which part contains an error? (Choose *No error* if it is correct.)\n\n(A) He has returned / (B) from Delhi / (C) yesterday. / (D) No error",
+  "options": [
+   "(A) He has returned",
+   "(B) from Delhi",
+   "(C) yesterday.",
+   "(D) No error"
+  ],
+  "answer": "A",
+  "explanation": "A finished past time (*yesterday*) needs the simple past: *He **returned** from Delhi yesterday*. The present perfect can't take a past time marker."
+ },
+ {
+  "slug": "sc-neither-nor-friends",
+  "title": "Spot the error: Neither Ravi nor his friends was present at the meeting.",
+  "type": "mcq",
+  "difficulty": "medium",
+  "statement": "The sentence below is split into parts. Which part contains an error? (Choose *No error* if it is correct.)\n\n(A) Neither Ravi / (B) nor his friends / (C) was present at the meeting. / (D) No error",
+  "options": [
+   "(A) Neither Ravi",
+   "(B) nor his friends",
+   "(C) was present at the meeting.",
+   "(D) No error"
+  ],
+  "answer": "C",
+  "explanation": "With *neither … nor*, the verb agrees with the **nearer** subject — *his friends* (plural) → *were present*."
+ },
+ {
+  "slug": "sc-between-you-and-me",
+  "title": "Correct sentence: between you and me",
+  "type": "mcq",
+  "difficulty": "medium",
+  "statement": "Choose the grammatically correct sentence.",
+  "options": [
+   "Among you and me, the plan won't work.",
+   "Between you and I, the plan won't work.",
+   "Between you and me, the plan won't work.",
+   "Between you and myself, the plan won't work."
+  ],
+  "answer": "C",
+  "explanation": "**Between** is a preposition, so it takes object pronouns: *between you and **me***. *Among* is for more than two."
+ },
+ {
+  "slug": "sc-more-of-two",
+  "title": "Correct sentence: more of two",
+  "type": "mcq",
+  "difficulty": "medium",
+  "statement": "Choose the grammatically correct sentence.",
+  "options": [
+   "She is the more intelligent of the two sisters.",
+   "She is more intelligent of the two sisters.",
+   "She is the most intelligent of the two sisters.",
+   "She is the intelligenter of the two sisters."
+  ],
+  "answer": "A",
+  "explanation": "Comparing **two** uses the comparative with *the*: *the more intelligent of the two*. The superlative is for three or more."
+ },
+ {
+  "slug": "sc-ten-kilometres",
+  "title": "Correct sentence: ten kilometres",
+  "type": "mcq",
+  "difficulty": "medium",
+  "statement": "Choose the grammatically correct sentence.",
+  "options": [
+   "Ten kilometre is a long distance to walk.",
+   "Ten kilometres are a long distance to walk.",
+   "Ten kilometres is a long distance to walk.",
+   "Ten kilometres are long distance to walk."
+  ],
+  "answer": "C",
+  "explanation": "An amount of distance, money or time treated as one quantity takes a **singular** verb: *Ten kilometres **is** a long distance*."
+ },
+ {
+  "slug": "sc-insisted-on",
+  "title": "Fill in: He insisted ___ paying the bill.",
+  "type": "mcq",
+  "difficulty": "medium",
+  "statement": "Fill in the blank: \"He insisted ___ paying the bill.\"",
+  "options": [
+   "at",
+   "to",
+   "for",
+   "on"
+  ],
+  "answer": "D",
+  "explanation": "**Insist** takes *on* + *-ing*: *insisted on paying*."
+ },
+ {
+  "slug": "sc-not-only-but-also",
+  "title": "Spot the error: Not only the students but also the teacher were invited to the event.",
+  "type": "mcq",
+  "difficulty": "hard",
+  "statement": "The sentence below is split into parts. Which part contains an error? (Choose *No error* if it is correct.)\n\n(A) Not only the students / (B) but also the teacher / (C) were invited to the event. / (D) No error",
+  "options": [
+   "(A) Not only the students",
+   "(B) but also the teacher",
+   "(C) were invited to the event.",
+   "(D) No error"
+  ],
+  "answer": "C",
+  "explanation": "With *not only … but also*, the verb agrees with the **nearer** subject — *the teacher* (singular) → *was invited*."
+ },
+ {
+  "slug": "sc-had-i-known",
+  "title": "Correct sentence: had i known",
+  "type": "mcq",
+  "difficulty": "hard",
+  "statement": "Choose the grammatically correct sentence.",
+  "options": [
+   "Had I knew about the delay, I would take another route.",
+   "Had I known about the delay, I would have taken another route.",
+   "If I would have known about the delay, I would have taken another route.",
+   "If I had known about the delay, I would take another route."
+  ],
+  "answer": "B",
+  "explanation": "A past unreal condition uses the past perfect in the *if*-clause (or the inverted *Had I known*) and *would have* + past participle in the result. *If I would have known* is incorrect."
+ },
+ {
+  "slug": "sc-reason-is-that",
+  "title": "Correct sentence: reason is that",
+  "type": "mcq",
+  "difficulty": "hard",
+  "statement": "Choose the grammatically correct sentence.",
+  "options": [
+   "The reason why he failed is because he did not prepare.",
+   "The reason he failed is because he did not prepare.",
+   "The reason he failed is that he did not prepare.",
+   "The reason he failed was because of he did not prepare."
+  ],
+  "answer": "C",
+  "explanation": "**The reason … is that** — *because* repeats the idea of *reason*, so *the reason is because* is redundant."
+ },
+ {
+  "slug": "sc-being-rainy",
+  "title": "Spot the error: Being a rainy day, we decided to stay indoors.",
+  "type": "mcq",
+  "difficulty": "hard",
+  "statement": "The sentence below is split into parts. Which part contains an error? (Choose *No error* if it is correct.)\n\n(A) Being a rainy day, / (B) we decided / (C) to stay indoors. / (D) No error",
+  "options": [
+   "(A) Being a rainy day,",
+   "(B) we decided",
+   "(C) to stay indoors.",
+   "(D) No error"
+  ],
+  "answer": "A",
+  "explanation": "A dangling participle: *Being a rainy day* seems to describe *we*. Correct: *It being a rainy day, we decided…* or *As it was a rainy day…*"
+ },
+ {
+  "slug": "sc-not-until",
+  "title": "Correct sentence: not until",
+  "type": "mcq",
+  "difficulty": "hard",
+  "statement": "Choose the grammatically correct sentence.",
+  "options": [
+   "Not until the results announced did she relax.",
+   "Not until the results were announced did she relax.",
+   "Not until the results were announced she relaxed.",
+   "Not until were the results announced did she relax."
+  ],
+  "answer": "B",
+  "explanation": "A sentence starting with **Not until** inverts the *main* clause (*did she relax*); the *until*-clause keeps normal order."
+ },
+ {
+  "slug": "sc-cost-is",
+  "title": "Spot the error: The cost of these new phones are rising every year.",
+  "type": "mcq",
+  "difficulty": "hard",
+  "statement": "The sentence below is split into parts. Which part contains an error? (Choose *No error* if it is correct.)\n\n(A) The cost of / (B) these new phones / (C) are rising every year. / (D) No error",
+  "options": [
+   "(A) The cost of",
+   "(B) these new phones",
+   "(C) are rising every year.",
+   "(D) No error"
+  ],
+  "answer": "C",
+  "explanation": "The subject is **cost** (singular), not *phones*: *The cost … **is** rising*."
+ },
+ {
+  "slug": "sc-hardly-anyone",
+  "title": "Correct sentence: hardly anyone",
+  "type": "mcq",
+  "difficulty": "hard",
+  "statement": "Choose the grammatically correct sentence.",
+  "options": [
+   "Hardly anyone attended the lecture.",
+   "Hardly no one attended the lecture.",
+   "Hardly any one did not attended the lecture.",
+   "Hardly anyone didn't attend the lecture."
+  ],
+  "answer": "A",
+  "explanation": "**Hardly** is already negative, so it can't be combined with *no one* or *didn't* (double negative)."
+ },
+ {
+  "slug": "sc-cannot-hardly",
+  "title": "Spot the error: He is so tired that he cannot hardly walk.",
+  "type": "mcq",
+  "difficulty": "hard",
+  "statement": "The sentence below is split into parts. Which part contains an error? (Choose *No error* if it is correct.)\n\n(A) He is so tired / (B) that he / (C) cannot hardly walk. / (D) No error",
+  "options": [
+   "(A) He is so tired",
+   "(B) that he",
+   "(C) cannot hardly walk.",
+   "(D) No error"
+  ],
+  "answer": "C",
+  "explanation": "*Cannot hardly* is a double negative. Correct: *he can hardly walk*."
+ },
+ {
+  "slug": "sc-whom-invite",
+  "title": "Correct sentence: whom invite",
+  "type": "mcq",
+  "difficulty": "hard",
+  "statement": "Choose the grammatically correct sentence.",
+  "options": [
+   "Who did you invited to the party?",
+   "Whom did you invite to the party?",
+   "Whom did you invited to the party?",
+   "Whom you did invite to the party?"
+  ],
+  "answer": "B",
+  "explanation": "The pronoun is the object of *invite*, so formal English uses **whom**; after *did*, the verb is the base form (*invite*), and the question needs inversion (*did you*)."
+ },
+ {
+  "slug": "sc-along-with",
+  "title": "Spot the error: The manager, along with his assistants, are attending the conference today.",
+  "type": "mcq",
+  "difficulty": "hard",
+  "statement": "The sentence below is split into parts. Which part contains an error? (Choose *No error* if it is correct.)\n\n(A) The manager, along with his assistants, / (B) are attending / (C) the conference today. / (D) No error",
+  "options": [
+   "(A) The manager, along with his assistants,",
+   "(B) are attending",
+   "(C) the conference today.",
+   "(D) No error"
+  ],
+  "answer": "B",
+  "explanation": "Phrases like *along with*, *as well as* and *together with* don't change the subject: *The manager … **is** attending*."
+ }
+]

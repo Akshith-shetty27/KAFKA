@@ -1,0 +1,677 @@
+[
+ {
+  "slug": "voc-abundant",
+  "title": "Synonym: Abundant",
+  "type": "mcq",
+  "difficulty": "easy",
+  "statement": "Choose the word closest in meaning to **ABUNDANT**.",
+  "options": [
+   "Plentiful",
+   "Absent",
+   "Abandoned",
+   "Scarce"
+  ],
+  "answer": "A",
+  "explanation": "**Abundant** means existing in large quantities — *plentiful*. *Scarce* is its opposite."
+ },
+ {
+  "slug": "voc-ancient",
+  "title": "Antonym: Ancient",
+  "type": "mcq",
+  "difficulty": "easy",
+  "statement": "Choose the word most nearly **opposite** in meaning to **ANCIENT**.",
+  "options": [
+   "Historic",
+   "Old",
+   "Antique",
+   "Modern"
+  ],
+  "answer": "D",
+  "explanation": "**Ancient** means very old; the opposite is *modern*. The other options are near-synonyms."
+ },
+ {
+  "slug": "voc-brief",
+  "title": "Synonym: Brief",
+  "type": "mcq",
+  "difficulty": "easy",
+  "statement": "Choose the word closest in meaning to **BRIEF**.",
+  "options": [
+   "Short",
+   "Long",
+   "Bright",
+   "Brave"
+  ],
+  "answer": "A",
+  "explanation": "**Brief** means lasting a short time or using few words — *short*."
+ },
+ {
+  "slug": "voc-courage",
+  "title": "Synonym: Courage",
+  "type": "mcq",
+  "difficulty": "easy",
+  "statement": "Choose the word closest in meaning to **COURAGE**.",
+  "options": [
+   "Bravery",
+   "Anger",
+   "Caution",
+   "Fear"
+  ],
+  "answer": "A",
+  "explanation": "**Courage** is the ability to face danger or difficulty — *bravery*."
+ },
+ {
+  "slug": "voc-expand",
+  "title": "Antonym: Expand",
+  "type": "mcq",
+  "difficulty": "easy",
+  "statement": "Choose the word most nearly **opposite** in meaning to **EXPAND**.",
+  "options": [
+   "Extend",
+   "Contract",
+   "Explain",
+   "Enlarge"
+  ],
+  "answer": "B",
+  "explanation": "**Expand** means to become larger; the opposite is *contract* (become smaller)."
+ },
+ {
+  "slug": "voc-fragile",
+  "title": "Synonym: Fragile",
+  "type": "mcq",
+  "difficulty": "easy",
+  "statement": "Choose the word closest in meaning to **FRAGILE**.",
+  "options": [
+   "Sturdy",
+   "Flexible",
+   "Delicate",
+   "Fragrant"
+  ],
+  "answer": "C",
+  "explanation": "**Fragile** means easily broken — *delicate*. *Sturdy* is the opposite; *fragrant* only sounds similar."
+ },
+ {
+  "slug": "voc-generous",
+  "title": "Antonym: Generous",
+  "type": "mcq",
+  "difficulty": "easy",
+  "statement": "Choose the word most nearly **opposite** in meaning to **GENEROUS**.",
+  "options": [
+   "Lavish",
+   "Kind",
+   "Stingy",
+   "Giving"
+  ],
+  "answer": "C",
+  "explanation": "**Generous** means freely giving; the opposite is *stingy* (unwilling to give or spend)."
+ },
+ {
+  "slug": "voc-hostile",
+  "title": "Synonym: Hostile",
+  "type": "mcq",
+  "difficulty": "easy",
+  "statement": "Choose the word closest in meaning to **HOSTILE**.",
+  "options": [
+   "Hospitable",
+   "Peaceful",
+   "Unfriendly",
+   "Polite"
+  ],
+  "answer": "C",
+  "explanation": "**Hostile** means unfriendly or aggressive. *Hospitable* looks similar but means welcoming."
+ },
+ {
+  "slug": "voc-humble",
+  "title": "Antonym: Humble",
+  "type": "mcq",
+  "difficulty": "easy",
+  "statement": "Choose the word most nearly **opposite** in meaning to **HUMBLE**.",
+  "options": [
+   "Modest",
+   "Arrogant",
+   "Meek",
+   "Simple"
+  ],
+  "answer": "B",
+  "explanation": "**Humble** means modest about one's importance; the opposite is *arrogant*."
+ },
+ {
+  "slug": "voc-rapid",
+  "title": "Synonym: Rapid",
+  "type": "mcq",
+  "difficulty": "easy",
+  "statement": "Choose the word closest in meaning to **RAPID**.",
+  "options": [
+   "Slow",
+   "Steady",
+   "Swift",
+   "Rough"
+  ],
+  "answer": "C",
+  "explanation": "**Rapid** means happening quickly — *swift*."
+ },
+ {
+  "slug": "voc-victory",
+  "title": "Antonym: Victory",
+  "type": "mcq",
+  "difficulty": "easy",
+  "statement": "Choose the word most nearly **opposite** in meaning to **VICTORY**.",
+  "options": [
+   "Conquest",
+   "Success",
+   "Defeat",
+   "Triumph"
+  ],
+  "answer": "C",
+  "explanation": "**Victory** is winning; its opposite is *defeat*. The others are synonyms."
+ },
+ {
+  "slug": "voc-vacant",
+  "title": "Synonym: Vacant",
+  "type": "mcq",
+  "difficulty": "easy",
+  "statement": "Choose the word closest in meaning to **VACANT**.",
+  "options": [
+   "Valid",
+   "Empty",
+   "Vague",
+   "Occupied"
+  ],
+  "answer": "B",
+  "explanation": "**Vacant** means not occupied — *empty*."
+ },
+ {
+  "slug": "voc-transparent",
+  "title": "Antonym: Transparent",
+  "type": "mcq",
+  "difficulty": "easy",
+  "statement": "Choose the word most nearly **opposite** in meaning to **TRANSPARENT**.",
+  "options": [
+   "Opaque",
+   "Clear",
+   "Lucid",
+   "Visible"
+  ],
+  "answer": "A",
+  "explanation": "**Transparent** means you can see through it; **opaque** means light cannot pass through."
+ },
+ {
+  "slug": "voc-diligent",
+  "title": "Synonym: Diligent",
+  "type": "mcq",
+  "difficulty": "easy",
+  "statement": "Choose the word closest in meaning to **DILIGENT**.",
+  "options": [
+   "Hardworking",
+   "Lazy",
+   "Intelligent",
+   "Careless"
+  ],
+  "answer": "A",
+  "explanation": "**Diligent** means showing steady, careful effort — *hardworking*. Being diligent is not the same as being *intelligent*."
+ },
+ {
+  "slug": "voc-optimistic",
+  "title": "Antonym: Optimistic",
+  "type": "mcq",
+  "difficulty": "easy",
+  "statement": "Choose the word most nearly **opposite** in meaning to **OPTIMISTIC**.",
+  "options": [
+   "Positive",
+   "Cheerful",
+   "Pessimistic",
+   "Hopeful"
+  ],
+  "answer": "C",
+  "explanation": "**Optimistic** means expecting good outcomes; the opposite is *pessimistic*."
+ },
+ {
+  "slug": "voc-adversity",
+  "title": "Synonym: Adversity",
+  "type": "mcq",
+  "difficulty": "medium",
+  "statement": "Choose the word closest in meaning to **ADVERSITY**.",
+  "options": [
+   "Prosperity",
+   "Opponent",
+   "Advertisement",
+   "Hardship"
+  ],
+  "answer": "D",
+  "explanation": "**Adversity** means difficult or unlucky circumstances — *hardship*. An *adversary* (not adversity) is an opponent."
+ },
+ {
+  "slug": "voc-ambiguous",
+  "title": "Antonym: Ambiguous",
+  "type": "mcq",
+  "difficulty": "medium",
+  "statement": "Choose the word most nearly **opposite** in meaning to **AMBIGUOUS**.",
+  "options": [
+   "Vague",
+   "Ambitious",
+   "Doubtful",
+   "Clear"
+  ],
+  "answer": "D",
+  "explanation": "**Ambiguous** means open to more than one interpretation; the opposite is *clear*."
+ },
+ {
+  "slug": "voc-concise",
+  "title": "Synonym: Concise",
+  "type": "mcq",
+  "difficulty": "medium",
+  "statement": "Choose the word closest in meaning to **CONCISE**.",
+  "options": [
+   "Confused",
+   "Lengthy",
+   "Precise",
+   "Brief"
+  ],
+  "answer": "D",
+  "explanation": "**Concise** means giving information clearly in few words — *brief*. *Precise* means exact, which is different."
+ },
+ {
+  "slug": "voc-frugal",
+  "title": "Antonym: Frugal",
+  "type": "mcq",
+  "difficulty": "medium",
+  "statement": "Choose the word most nearly **opposite** in meaning to **FRUGAL**.",
+  "options": [
+   "Economical",
+   "Extravagant",
+   "Thrifty",
+   "Careful"
+  ],
+  "answer": "B",
+  "explanation": "**Frugal** means careful with money; the opposite is *extravagant* (spending too much)."
+ },
+ {
+  "slug": "voc-prudent",
+  "title": "Synonym: Prudent",
+  "type": "mcq",
+  "difficulty": "medium",
+  "statement": "Choose the word closest in meaning to **PRUDENT**.",
+  "options": [
+   "Wise",
+   "Rash",
+   "Shy",
+   "Proud"
+  ],
+  "answer": "A",
+  "explanation": "**Prudent** means acting with care and thought for the future — *wise*. *Rash* is the opposite."
+ },
+ {
+  "slug": "voc-tranquil",
+  "title": "Antonym: Tranquil",
+  "type": "mcq",
+  "difficulty": "medium",
+  "statement": "Choose the word most nearly **opposite** in meaning to **TRANQUIL**.",
+  "options": [
+   "Agitated",
+   "Calm",
+   "Peaceful",
+   "Serene"
+  ],
+  "answer": "A",
+  "explanation": "**Tranquil** means calm and peaceful; the opposite is *agitated*."
+ },
+ {
+  "slug": "voc-lucid",
+  "title": "Synonym: Lucid",
+  "type": "mcq",
+  "difficulty": "medium",
+  "statement": "Choose the word closest in meaning to **LUCID**.",
+  "options": [
+   "Lazy",
+   "Confusing",
+   "Clear",
+   "Lucky"
+  ],
+  "answer": "C",
+  "explanation": "**Lucid** means expressed clearly and easy to understand."
+ },
+ {
+  "slug": "voc-verbose",
+  "title": "Antonym: Verbose",
+  "type": "mcq",
+  "difficulty": "medium",
+  "statement": "Choose the word most nearly **opposite** in meaning to **VERBOSE**.",
+  "options": [
+   "Wordy",
+   "Concise",
+   "Verbal",
+   "Talkative"
+  ],
+  "answer": "B",
+  "explanation": "**Verbose** means using more words than needed; the opposite is *concise*."
+ },
+ {
+  "slug": "voc-zeal",
+  "title": "Synonym: Zeal",
+  "type": "mcq",
+  "difficulty": "medium",
+  "statement": "Choose the word closest in meaning to **ZEAL**.",
+  "options": [
+   "Apathy",
+   "Jealousy",
+   "Enthusiasm",
+   "Zone"
+  ],
+  "answer": "C",
+  "explanation": "**Zeal** is great energy or enthusiasm for a cause. *Apathy* is the opposite."
+ },
+ {
+  "slug": "voc-indigenous",
+  "title": "Antonym: Indigenous",
+  "type": "mcq",
+  "difficulty": "medium",
+  "statement": "Choose the word most nearly **opposite** in meaning to **INDIGENOUS**.",
+  "options": [
+   "Local",
+   "Foreign",
+   "Native",
+   "Original"
+  ],
+  "answer": "B",
+  "explanation": "**Indigenous** means originating naturally in a place (native); the opposite is *foreign*."
+ },
+ {
+  "slug": "voc-alleviate",
+  "title": "Synonym: Alleviate",
+  "type": "mcq",
+  "difficulty": "medium",
+  "statement": "Choose the word closest in meaning to **ALLEVIATE**.",
+  "options": [
+   "Elevate",
+   "Aggravate",
+   "Relieve",
+   "Allocate"
+  ],
+  "answer": "C",
+  "explanation": "**Alleviate** means to make pain or a problem less severe — *relieve*. *Aggravate* means to make worse."
+ },
+ {
+  "slug": "voc-scarcity",
+  "title": "Antonym: Scarcity",
+  "type": "mcq",
+  "difficulty": "medium",
+  "statement": "Choose the word most nearly **opposite** in meaning to **SCARCITY**.",
+  "options": [
+   "Shortage",
+   "Dearth",
+   "Lack",
+   "Abundance"
+  ],
+  "answer": "D",
+  "explanation": "**Scarcity** means shortage; the opposite is *abundance*. *Dearth* and *lack* are synonyms."
+ },
+ {
+  "slug": "voc-ows-illiterate",
+  "title": "One word: one who cannot read or write",
+  "type": "mcq",
+  "difficulty": "medium",
+  "statement": "Choose the one word for: *One who cannot read or write*",
+  "options": [
+   "Illiterate",
+   "Illegible",
+   "Innocent",
+   "Ignorant"
+  ],
+  "answer": "A",
+  "explanation": "An **illiterate** person cannot read or write. *Ignorant* means lacking knowledge in general; *illegible* describes handwriting that can't be read."
+ },
+ {
+  "slug": "voc-ows-optimist",
+  "title": "One word: a person who always looks on the bright side",
+  "type": "mcq",
+  "difficulty": "medium",
+  "statement": "Choose the one word for: *A person who always looks on the bright side*",
+  "options": [
+   "Pessimist",
+   "Optimist",
+   "Realist",
+   "Fatalist"
+  ],
+  "answer": "B",
+  "explanation": "An **optimist** expects the best. A *pessimist* expects the worst; a *fatalist* believes events are fixed by fate."
+ },
+ {
+  "slug": "voc-ows-library",
+  "title": "One word: a place where books are kept for reading or borrowing",
+  "type": "mcq",
+  "difficulty": "medium",
+  "statement": "Choose the one word for: *A place where books are kept for reading or borrowing*",
+  "options": [
+   "Granary",
+   "Gallery",
+   "Laboratory",
+   "Library"
+  ],
+  "answer": "D",
+  "explanation": "A **library** holds books. A *gallery* displays art; a *granary* stores grain."
+ },
+ {
+  "slug": "voc-ows-herbivores",
+  "title": "One word: animals that feed only on plants",
+  "type": "mcq",
+  "difficulty": "medium",
+  "statement": "Choose the one word for: *Animals that feed only on plants*",
+  "options": [
+   "Carnivores",
+   "Herbivores",
+   "Omnivores",
+   "Insectivores"
+  ],
+  "answer": "B",
+  "explanation": "**Herbivores** eat plants; *carnivores* eat meat; *omnivores* eat both."
+ },
+ {
+  "slug": "voc-ows-extempore",
+  "title": "One word: a speech given without preparation",
+  "type": "mcq",
+  "difficulty": "medium",
+  "statement": "Choose the one word for: *A speech given without preparation*",
+  "options": [
+   "Monologue",
+   "Eulogy",
+   "Extempore",
+   "Soliloquy"
+  ],
+  "answer": "C",
+  "explanation": "An **extempore** speech is unprepared. A *eulogy* praises someone who has died; a *soliloquy* is a character speaking thoughts aloud alone."
+ },
+ {
+  "slug": "voc-ows-polyglot",
+  "title": "One word: a person who knows many languages",
+  "type": "mcq",
+  "difficulty": "medium",
+  "statement": "Choose the one word for: *A person who knows many languages*",
+  "options": [
+   "Polyglot",
+   "Polygamist",
+   "Philanthropist",
+   "Pedagogue"
+  ],
+  "answer": "A",
+  "explanation": "A **polyglot** speaks many languages. A *philanthropist* donates to good causes; a *pedagogue* is a teacher."
+ },
+ {
+  "slug": "voc-idiom-bush",
+  "title": "Idiom: To beat around the bush",
+  "type": "mcq",
+  "difficulty": "medium",
+  "statement": "Choose the meaning of the idiom: *“To beat around the bush”*",
+  "options": [
+   "To work very hard",
+   "To search everywhere carefully",
+   "To avoid coming to the point",
+   "To hide from danger"
+  ],
+  "answer": "C",
+  "explanation": "**Beating around the bush** means talking around a topic instead of saying the main thing directly."
+ },
+ {
+  "slug": "voc-idiom-cake",
+  "title": "Idiom: A piece of cake",
+  "type": "mcq",
+  "difficulty": "medium",
+  "statement": "Choose the meaning of the idiom: *“A piece of cake”*",
+  "options": [
+   "A difficult task",
+   "Something delicious",
+   "A small reward",
+   "Something very easy"
+  ],
+  "answer": "D",
+  "explanation": "**A piece of cake** means a task that is very easy to do."
+ },
+ {
+  "slug": "voc-garrulous",
+  "title": "Synonym: Garrulous",
+  "type": "mcq",
+  "difficulty": "hard",
+  "statement": "Choose the word closest in meaning to **GARRULOUS**.",
+  "options": [
+   "Grumpy",
+   "Reserved",
+   "Talkative",
+   "Gracious"
+  ],
+  "answer": "C",
+  "explanation": "**Garrulous** means excessively talkative, especially about trivial things."
+ },
+ {
+  "slug": "voc-laconic",
+  "title": "Antonym: Laconic",
+  "type": "mcq",
+  "difficulty": "hard",
+  "statement": "Choose the word most nearly **opposite** in meaning to **LACONIC**.",
+  "options": [
+   "Terse",
+   "Verbose",
+   "Brief",
+   "Lazy"
+  ],
+  "answer": "B",
+  "explanation": "**Laconic** means using very few words; its opposite is *verbose*. *Brief* and *terse* are synonyms."
+ },
+ {
+  "slug": "voc-obsequious",
+  "title": "Synonym: Obsequious",
+  "type": "mcq",
+  "difficulty": "hard",
+  "statement": "Choose the word closest in meaning to **OBSEQUIOUS**.",
+  "options": [
+   "Obscure",
+   "Obstinate",
+   "Servile",
+   "Rebellious"
+  ],
+  "answer": "C",
+  "explanation": "**Obsequious** means too eager to please or obey — *servile*. *Obstinate* (stubborn) only sounds similar."
+ },
+ {
+  "slug": "voc-ebullient",
+  "title": "Antonym: Ebullient",
+  "type": "mcq",
+  "difficulty": "hard",
+  "statement": "Choose the word most nearly **opposite** in meaning to **EBULLIENT**.",
+  "options": [
+   "Elated",
+   "Bubbly",
+   "Enthusiastic",
+   "Subdued"
+  ],
+  "answer": "D",
+  "explanation": "**Ebullient** means cheerful and full of energy; the opposite is *subdued* (quiet, restrained)."
+ },
+ {
+  "slug": "voc-perfidious",
+  "title": "Synonym: Perfidious",
+  "type": "mcq",
+  "difficulty": "hard",
+  "statement": "Choose the word closest in meaning to **PERFIDIOUS**.",
+  "options": [
+   "Perfect",
+   "Treacherous",
+   "Loyal",
+   "Fearful"
+  ],
+  "answer": "B",
+  "explanation": "**Perfidious** means deceitful and untrustworthy — *treacherous*. *Loyal* is the opposite."
+ },
+ {
+  "slug": "voc-sanguine",
+  "title": "Synonym: Sanguine",
+  "type": "mcq",
+  "difficulty": "hard",
+  "statement": "Choose the word closest in meaning to **SANGUINE**.",
+  "options": [
+   "Gloomy",
+   "Angry",
+   "Sanitary",
+   "Optimistic"
+  ],
+  "answer": "D",
+  "explanation": "**Sanguine** means hopeful and confident, especially in a difficult situation — *optimistic*."
+ },
+ {
+  "slug": "voc-esoteric",
+  "title": "Antonym: Esoteric",
+  "type": "mcq",
+  "difficulty": "hard",
+  "statement": "Choose the word most nearly **opposite** in meaning to **ESOTERIC**.",
+  "options": [
+   "Well-known",
+   "Obscure",
+   "Abstruse",
+   "Mysterious"
+  ],
+  "answer": "A",
+  "explanation": "**Esoteric** means understood by only a small group with special knowledge; the opposite is *well-known*. The other options are synonyms."
+ },
+ {
+  "slug": "voc-ows-plutocracy",
+  "title": "One word: government by the wealthy",
+  "type": "mcq",
+  "difficulty": "hard",
+  "statement": "Choose the one word for: *Government by the wealthy*",
+  "options": [
+   "Autocracy",
+   "Aristocracy",
+   "Bureaucracy",
+   "Plutocracy"
+  ],
+  "answer": "D",
+  "explanation": "**Plutocracy** is rule by the rich. *Aristocracy* is rule by a hereditary nobility; *autocracy* by one person with absolute power."
+ },
+ {
+  "slug": "voc-ows-panacea",
+  "title": "One word: a remedy for all diseases or problems",
+  "type": "mcq",
+  "difficulty": "hard",
+  "statement": "Choose the one word for: *A remedy for all diseases or problems*",
+  "options": [
+   "Placebo",
+   "Panacea",
+   "Vaccine",
+   "Antiseptic"
+  ],
+  "answer": "B",
+  "explanation": "A **panacea** is a cure-all. A *placebo* is a substance with no medical effect given for psychological benefit."
+ },
+ {
+  "slug": "voc-ows-acrophobia",
+  "title": "One word: an abnormal fear of heights",
+  "type": "mcq",
+  "difficulty": "hard",
+  "statement": "Choose the one word for: *An abnormal fear of heights*",
+  "options": [
+   "Hydrophobia",
+   "Acrophobia",
+   "Claustrophobia",
+   "Agoraphobia"
+  ],
+  "answer": "B",
+  "explanation": "**Acrophobia** is fear of heights. *Claustrophobia*: enclosed spaces; *hydrophobia*: water; *agoraphobia*: open or crowded places."
+ }
+]

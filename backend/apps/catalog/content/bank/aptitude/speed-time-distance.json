@@ -1,0 +1,677 @@
+[
+ {
+  "slug": "std-convert-1",
+  "title": "30 m/s in km/h",
+  "type": "mcq",
+  "difficulty": "easy",
+  "statement": "A cheetah runs at 30 m/s. What is its speed in km/h?",
+  "options": [
+   "90 km/h",
+   "117 km/h",
+   "108 km/h",
+   "104.4 km/h"
+  ],
+  "answer": "C",
+  "explanation": "Multiply by 18/5 to go from m/s to km/h: 30 × 18/5 = **108 km/h**."
+ },
+ {
+  "slug": "std-pole-1",
+  "title": "Train at 54 km/h passes a pole in 16 s",
+  "type": "mcq",
+  "difficulty": "easy",
+  "statement": "A train running at 54 km/h passes a signal pole in 16 seconds. How long is the train?",
+  "options": [
+   "260 m",
+   "220 m",
+   "864 m",
+   "240 m"
+  ],
+  "answer": "D",
+  "explanation": "Passing a pole, the train covers its own length. Speed = 54 × 5/18 = 15 m/s; length = 15 × 16 = **240 m**."
+ },
+ {
+  "slug": "std-platform-1",
+  "title": "300 m train, 180 m platform at 108 km/h",
+  "type": "mcq",
+  "difficulty": "easy",
+  "statement": "A 300 m long train runs at 108 km/h. How long does it take to cross a 180 m long platform completely?",
+  "options": [
+   "16 s",
+   "10 s",
+   "6 s",
+   "22 s"
+  ],
+  "answer": "A",
+  "explanation": "It must cover its own length plus the platform: 300 + 180 = 480 m at 30 m/s → **16 s**."
+ },
+ {
+  "slug": "std-bus-1",
+  "title": "300 km in 5 h; how long for 240 km?",
+  "type": "mcq",
+  "difficulty": "easy",
+  "statement": "A bus covers 300 km in 5 hours. At the same speed, how long will it take to cover 240 km?",
+  "options": [
+   "5 hours",
+   "4 hours",
+   "4.5 hours",
+   "3.5 hours"
+  ],
+  "answer": "B",
+  "explanation": "Speed = 300 / 5 = 60 km/h. Time for 240 km = 240/60 = **4 hours**."
+ },
+ {
+  "slug": "std-convert-2",
+  "title": "55 m/s in km/h",
+  "type": "mcq",
+  "difficulty": "easy",
+  "statement": "A cheetah runs at 55 m/s. What is its speed in km/h?",
+  "options": [
+   "207 km/h",
+   "194.4 km/h",
+   "165 km/h",
+   "198 km/h"
+  ],
+  "answer": "D",
+  "explanation": "Multiply by 18/5 to go from m/s to km/h: 55 × 18/5 = **198 km/h**."
+ },
+ {
+  "slug": "std-pole-2",
+  "title": "Train at 60 km/h passes a pole in 9 s",
+  "type": "mcq",
+  "difficulty": "easy",
+  "statement": "A train running at 60 km/h passes a signal pole in 9 seconds. How long is the train?",
+  "options": [
+   "540 m",
+   "150 m",
+   "130 m",
+   "170 m"
+  ],
+  "answer": "B",
+  "explanation": "Passing a pole, the train covers its own length. Speed = 60 × 5/18 = 16.67 m/s; length = 16.67 × 9 = **150 m**."
+ },
+ {
+  "slug": "std-platform-2",
+  "title": "180 m train, 450 m platform at 90 km/h",
+  "type": "mcq",
+  "difficulty": "easy",
+  "statement": "A 180 m long train runs at 90 km/h. How long does it take to cross a 450 m long platform completely?",
+  "options": [
+   "7.2 s",
+   "25.2 s",
+   "18 s",
+   "31.2 s"
+  ],
+  "answer": "B",
+  "explanation": "It must cover its own length plus the platform: 180 + 450 = 630 m at 25 m/s → **25.2 s**."
+ },
+ {
+  "slug": "std-bus-2",
+  "title": "160 km in 4 h; how long for 200 km?",
+  "type": "mcq",
+  "difficulty": "easy",
+  "statement": "A bus covers 160 km in 4 hours. At the same speed, how long will it take to cover 200 km?",
+  "options": [
+   "4.5 hours",
+   "5.5 hours",
+   "6 hours",
+   "5 hours"
+  ],
+  "answer": "D",
+  "explanation": "Speed = 160 / 4 = 40 km/h. Time for 200 km = 200/40 = **5 hours**."
+ },
+ {
+  "slug": "std-convert-3",
+  "title": "144 km/h in m/s",
+  "type": "mcq",
+  "difficulty": "easy",
+  "statement": "A car travels at 144 km/h. What is its speed in metres per second?",
+  "options": [
+   "45 m/s",
+   "40 m/s",
+   "518.4 m/s",
+   "38 m/s"
+  ],
+  "answer": "B",
+  "explanation": "1 km/h = 1000 m / 3600 s = 5/18 m/s. So 144 × 5/18 = **40 m/s**."
+ },
+ {
+  "slug": "std-pole-3",
+  "title": "Train at 126 km/h passes a pole in 20 s",
+  "type": "mcq",
+  "difficulty": "easy",
+  "statement": "A train running at 126 km/h passes a signal pole in 20 seconds. How long is the train?",
+  "options": [
+   "700 m",
+   "2,520 m",
+   "680 m",
+   "720 m"
+  ],
+  "answer": "A",
+  "explanation": "Passing a pole, the train covers its own length. Speed = 126 × 5/18 = 35 m/s; length = 35 × 20 = **700 m**."
+ },
+ {
+  "slug": "std-platform-3",
+  "title": "250 m train, 150 m platform at 72 km/h",
+  "type": "mcq",
+  "difficulty": "easy",
+  "statement": "A 250 m long train runs at 72 km/h. How long does it take to cross a 150 m long platform completely?",
+  "options": [
+   "26 s",
+   "20 s",
+   "12.5 s",
+   "7.5 s"
+  ],
+  "answer": "B",
+  "explanation": "It must cover its own length plus the platform: 250 + 150 = 400 m at 20 m/s → **20 s**."
+ },
+ {
+  "slug": "std-bus-3",
+  "title": "72 km in 1.5 h; how long for 240 km?",
+  "type": "mcq",
+  "difficulty": "easy",
+  "statement": "A bus covers 72 km in 1.5 hours. At the same speed, how long will it take to cover 240 km?",
+  "options": [
+   "4.5 hours",
+   "5.5 hours",
+   "6 hours",
+   "5 hours"
+  ],
+  "answer": "D",
+  "explanation": "Speed = 72 / 1.5 = 48 km/h. Time for 240 km = 240/48 = **5 hours**."
+ },
+ {
+  "slug": "std-convert-4",
+  "title": "5 m/s in km/h",
+  "type": "mcq",
+  "difficulty": "easy",
+  "statement": "A cheetah runs at 5 m/s. What is its speed in km/h?",
+  "options": [
+   "27 km/h",
+   "15 km/h",
+   "14.4 km/h",
+   "18 km/h"
+  ],
+  "answer": "D",
+  "explanation": "Multiply by 18/5 to go from m/s to km/h: 5 × 18/5 = **18 km/h**."
+ },
+ {
+  "slug": "std-pole-4",
+  "title": "Train at 144 km/h passes a pole in 16 s",
+  "type": "mcq",
+  "difficulty": "easy",
+  "statement": "A train running at 144 km/h passes a signal pole in 16 seconds. How long is the train?",
+  "options": [
+   "660 m",
+   "620 m",
+   "640 m",
+   "2,304 m"
+  ],
+  "answer": "C",
+  "explanation": "Passing a pole, the train covers its own length. Speed = 144 × 5/18 = 40 m/s; length = 40 × 16 = **640 m**."
+ },
+ {
+  "slug": "std-platform-4",
+  "title": "180 m train, 180 m platform at 45 km/h",
+  "type": "mcq",
+  "difficulty": "easy",
+  "statement": "A 180 m long train runs at 45 km/h. How long does it take to cross a 180 m long platform completely?",
+  "options": [
+   "14.4 s",
+   "34.8 s",
+   "28.8 s",
+   "38.8 s"
+  ],
+  "answer": "C",
+  "explanation": "It must cover its own length plus the platform: 180 + 180 = 360 m at 12.5 m/s → **28.8 s**."
+ },
+ {
+  "slug": "std-bus-4",
+  "title": "288 km in 4 h; how long for 90 km?",
+  "type": "mcq",
+  "difficulty": "easy",
+  "statement": "A bus covers 288 km in 4 hours. At the same speed, how long will it take to cover 90 km?",
+  "options": [
+   "2.25 hours",
+   "1.75 hours",
+   "1.25 hours",
+   "0.75 hours"
+  ],
+  "answer": "C",
+  "explanation": "Speed = 288 / 4 = 72 km/h. Time for 90 km = 90/72 = **1.25 hours**."
+ },
+ {
+  "slug": "std-convert-5",
+  "title": "18 km/h in m/s",
+  "type": "mcq",
+  "difficulty": "easy",
+  "statement": "A car travels at 18 km/h. What is its speed in metres per second?",
+  "options": [
+   "10 m/s",
+   "3 m/s",
+   "64.8 m/s",
+   "5 m/s"
+  ],
+  "answer": "D",
+  "explanation": "1 km/h = 1000 m / 3600 s = 5/18 m/s. So 18 × 5/18 = **5 m/s**."
+ },
+ {
+  "slug": "std-pole-5",
+  "title": "Train at 36 km/h passes a pole in 15 s",
+  "type": "mcq",
+  "difficulty": "easy",
+  "statement": "A train running at 36 km/h passes a signal pole in 15 seconds. How long is the train?",
+  "options": [
+   "170 m",
+   "130 m",
+   "540 m",
+   "150 m"
+  ],
+  "answer": "D",
+  "explanation": "Passing a pole, the train covers its own length. Speed = 36 × 5/18 = 10 m/s; length = 10 × 15 = **150 m**."
+ },
+ {
+  "slug": "std-average-1",
+  "title": "Round trip at 72 and 36 km/h",
+  "type": "mcq",
+  "difficulty": "medium",
+  "statement": "A cyclist goes from home to college at 72 km/h and returns along the same route at 36 km/h. What is the average speed for the whole journey?",
+  "options": [
+   "46 km/h",
+   "48 km/h",
+   "54 km/h",
+   "50 km/h"
+  ],
+  "answer": "B",
+  "explanation": "Average speed = total distance / total time — not the average of the speeds. For equal distances it is 2xy/(x + y) = 2 × 72 × 36/108 = **48 km/h**."
+ },
+ {
+  "slug": "std-two-trains-1",
+  "title": "Trains of 180 m and 250 m, 90 and 72 km/h, same direction",
+  "type": "mcq",
+  "difficulty": "medium",
+  "statement": "Two trains 180 m and 250 m long run on parallel tracks in the same direction at 90 km/h and 72 km/h. How long do they take to cross each other completely?",
+  "options": [
+   "90 s",
+   "88 s",
+   "83 s",
+   "86 s"
+  ],
+  "answer": "D",
+  "explanation": "Relative speed = 90 − 72 = 18 km/h = 5 m/s.\nDistance to clear = 180 + 250 = 430 m, so time = 430/5 = **86 s**."
+ },
+ {
+  "slug": "std-boat-1",
+  "title": "24 km downstream in 2 h, upstream in 3 h (boat)",
+  "type": "mcq",
+  "difficulty": "medium",
+  "statement": "A boat goes 24 km downstream in 2 hours and the same distance upstream in 3 hours. What is the speed of the boat in still water?",
+  "options": [
+   "12 km/h",
+   "11 km/h",
+   "2 km/h",
+   "10 km/h"
+  ],
+  "answer": "D",
+  "explanation": "Downstream speed = 24/2 = 12 km/h; upstream = 24/3 = 8 km/h.\nBoat speed = (12 + 8)/2 = 10 km/h; stream speed = (12 − 8)/2 = 2 km/h. Answer: **10 km/h**."
+ },
+ {
+  "slug": "std-late-early-1",
+  "title": "12 km/h late by 12 min, 15 km/h early by 5 min",
+  "type": "mcq",
+  "difficulty": "medium",
+  "statement": "Walking at 12 km/h, Sana reaches her office 12 minutes late. Walking at 15 km/h, she reaches 5 minutes early. How far is the office?",
+  "options": [
+   "18 km",
+   "16 km",
+   "34 km",
+   "17 km"
+  ],
+  "answer": "D",
+  "explanation": "The two journey times differ by 12 + 5 = 17 minutes = 0.28 h.\nd/12 − d/15 = 0.28 → d = 0.28 × 12 × 15/(15 − 12) = **17 km**."
+ },
+ {
+  "slug": "std-average-2",
+  "title": "Round trip at 60 and 20 km/h",
+  "type": "mcq",
+  "difficulty": "medium",
+  "statement": "A cyclist goes from home to college at 60 km/h and returns along the same route at 20 km/h. What is the average speed for the whole journey?",
+  "options": [
+   "40 km/h",
+   "28 km/h",
+   "32 km/h",
+   "30 km/h"
+  ],
+  "answer": "D",
+  "explanation": "Average speed = total distance / total time — not the average of the speeds. For equal distances it is 2xy/(x + y) = 2 × 60 × 20/80 = **30 km/h**."
+ },
+ {
+  "slug": "std-two-trains-2",
+  "title": "Trains of 180 m and 250 m, 54 and 72 km/h, same direction",
+  "type": "mcq",
+  "difficulty": "medium",
+  "statement": "Two trains 180 m and 250 m long run on parallel tracks in the same direction at 54 km/h and 72 km/h. How long do they take to cross each other completely?",
+  "options": [
+   "88 s",
+   "86 s",
+   "83 s",
+   "90 s"
+  ],
+  "answer": "B",
+  "explanation": "Relative speed = 72 − 54 = 18 km/h = 5 m/s.\nDistance to clear = 180 + 250 = 430 m, so time = 430/5 = **86 s**."
+ },
+ {
+  "slug": "std-boat-2",
+  "title": "110 km downstream in 10 h, upstream in 22 h (stream)",
+  "type": "mcq",
+  "difficulty": "medium",
+  "statement": "A boat goes 110 km downstream in 10 hours and the same distance upstream in 22 hours. What is the speed of the stream?",
+  "options": [
+   "3 km/h",
+   "8 km/h",
+   "4 km/h",
+   "5 km/h"
+  ],
+  "answer": "A",
+  "explanation": "Downstream speed = 110/10 = 11 km/h; upstream = 110/22 = 5 km/h.\nBoat speed = (11 + 5)/2 = 8 km/h; stream speed = (11 − 5)/2 = 3 km/h. Answer: **3 km/h**."
+ },
+ {
+  "slug": "std-late-early-2",
+  "title": "10 km/h late by 6 min, 12 km/h early by 10 min",
+  "type": "mcq",
+  "difficulty": "medium",
+  "statement": "Walking at 10 km/h, Sana reaches her office 6 minutes late. Walking at 12 km/h, she reaches 10 minutes early. How far is the office?",
+  "options": [
+   "15 km",
+   "17 km",
+   "32 km",
+   "16 km"
+  ],
+  "answer": "D",
+  "explanation": "The two journey times differ by 6 + 10 = 16 minutes = 0.27 h.\nd/10 − d/12 = 0.27 → d = 0.27 × 10 × 12/(12 − 10) = **16 km**."
+ },
+ {
+  "slug": "std-average-3",
+  "title": "Round trip at 24 and 48 km/h",
+  "type": "mcq",
+  "difficulty": "medium",
+  "statement": "A cyclist goes from home to college at 24 km/h and returns along the same route at 48 km/h. What is the average speed for the whole journey?",
+  "options": [
+   "32 km/h",
+   "36 km/h",
+   "30 km/h",
+   "34 km/h"
+  ],
+  "answer": "A",
+  "explanation": "Average speed = total distance / total time — not the average of the speeds. For equal distances it is 2xy/(x + y) = 2 × 24 × 48/72 = **32 km/h**."
+ },
+ {
+  "slug": "std-two-trains-3",
+  "title": "Trains of 120 m and 100 m, 54 and 90 km/h, same direction",
+  "type": "mcq",
+  "difficulty": "medium",
+  "statement": "Two trains 120 m and 100 m long run on parallel tracks in the same direction at 54 km/h and 90 km/h. How long do they take to cross each other completely?",
+  "options": [
+   "22 s",
+   "5.5 s",
+   "19 s",
+   "24 s"
+  ],
+  "answer": "A",
+  "explanation": "Relative speed = 90 − 54 = 36 km/h = 10 m/s.\nDistance to clear = 120 + 100 = 220 m, so time = 220/10 = **22 s**."
+ },
+ {
+  "slug": "std-boat-3",
+  "title": "72 km downstream in 6 h, upstream in 9 h (stream)",
+  "type": "mcq",
+  "difficulty": "medium",
+  "statement": "A boat goes 72 km downstream in 6 hours and the same distance upstream in 9 hours. What is the speed of the stream?",
+  "options": [
+   "2 km/h",
+   "10 km/h",
+   "4 km/h",
+   "3 km/h"
+  ],
+  "answer": "A",
+  "explanation": "Downstream speed = 72/6 = 12 km/h; upstream = 72/9 = 8 km/h.\nBoat speed = (12 + 8)/2 = 10 km/h; stream speed = (12 − 8)/2 = 2 km/h. Answer: **2 km/h**."
+ },
+ {
+  "slug": "std-late-early-3",
+  "title": "20 km/h late by 12 min, 25 km/h early by 12 min",
+  "type": "mcq",
+  "difficulty": "medium",
+  "statement": "Walking at 20 km/h, Sana reaches her office 12 minutes late. Walking at 25 km/h, she reaches 12 minutes early. How far is the office?",
+  "options": [
+   "40 km",
+   "80 km",
+   "41 km",
+   "39 km"
+  ],
+  "answer": "A",
+  "explanation": "The two journey times differ by 12 + 12 = 24 minutes = 0.4 h.\nd/20 − d/25 = 0.4 → d = 0.4 × 20 × 25/(25 − 20) = **40 km**."
+ },
+ {
+  "slug": "std-average-4",
+  "title": "Round trip at 36 and 60 km/h",
+  "type": "mcq",
+  "difficulty": "medium",
+  "statement": "A cyclist goes from home to college at 36 km/h and returns along the same route at 60 km/h. What is the average speed for the whole journey?",
+  "options": [
+   "48 km/h",
+   "45 km/h",
+   "47 km/h",
+   "43 km/h"
+  ],
+  "answer": "B",
+  "explanation": "Average speed = total distance / total time — not the average of the speeds. For equal distances it is 2xy/(x + y) = 2 × 36 × 60/96 = **45 km/h**."
+ },
+ {
+  "slug": "std-two-trains-4",
+  "title": "Trains of 180 m and 150 m, 45 and 36 km/h, same direction",
+  "type": "mcq",
+  "difficulty": "medium",
+  "statement": "Two trains 180 m and 150 m long run on parallel tracks in the same direction at 45 km/h and 36 km/h. How long do they take to cross each other completely?",
+  "options": [
+   "134 s",
+   "136 s",
+   "129 s",
+   "132 s"
+  ],
+  "answer": "D",
+  "explanation": "Relative speed = 45 − 36 = 9 km/h = 2.5 m/s.\nDistance to clear = 180 + 150 = 330 m, so time = 330/2.5 = **132 s**."
+ },
+ {
+  "slug": "std-boat-4",
+  "title": "117 km downstream in 9 h, upstream in 39 h (boat)",
+  "type": "mcq",
+  "difficulty": "medium",
+  "statement": "A boat goes 117 km downstream in 9 hours and the same distance upstream in 39 hours. What is the speed of the boat in still water?",
+  "options": [
+   "5 km/h",
+   "9 km/h",
+   "10 km/h",
+   "8 km/h"
+  ],
+  "answer": "D",
+  "explanation": "Downstream speed = 117/9 = 13 km/h; upstream = 117/39 = 3 km/h.\nBoat speed = (13 + 3)/2 = 8 km/h; stream speed = (13 − 3)/2 = 5 km/h. Answer: **8 km/h**."
+ },
+ {
+  "slug": "std-late-early-4",
+  "title": "5 km/h late by 5 min, 6 km/h early by 10 min",
+  "type": "mcq",
+  "difficulty": "medium",
+  "statement": "Walking at 5 km/h, Sana reaches her office 5 minutes late. Walking at 6 km/h, she reaches 10 minutes early. How far is the office?",
+  "options": [
+   "8.5 km",
+   "6.5 km",
+   "7.5 km",
+   "15 km"
+  ],
+  "answer": "C",
+  "explanation": "The two journey times differ by 5 + 10 = 15 minutes = 0.25 h.\nd/5 − d/6 = 0.25 → d = 0.25 × 5 × 6/(6 − 5) = **7.5 km**."
+ },
+ {
+  "slug": "std-average-5",
+  "title": "Round trip at 60 and 30 km/h",
+  "type": "mcq",
+  "difficulty": "medium",
+  "statement": "A cyclist goes from home to college at 60 km/h and returns along the same route at 30 km/h. What is the average speed for the whole journey?",
+  "options": [
+   "42 km/h",
+   "40 km/h",
+   "45 km/h",
+   "38 km/h"
+  ],
+  "answer": "B",
+  "explanation": "Average speed = total distance / total time — not the average of the speeds. For equal distances it is 2xy/(x + y) = 2 × 60 × 30/90 = **40 km/h**."
+ },
+ {
+  "slug": "std-meeting-1",
+  "title": "Meeting point on a 300 km road (20 and 60 km/h, A starts an hour earlier)",
+  "type": "mcq",
+  "difficulty": "hard",
+  "statement": "Towns P and Q are 300 km apart. A leaves P for Q at 20 km/h and B leaves Q for P at 60 km/h; A starts at 8 a.m. and B at 9 a.m.. How far from P do they meet?",
+  "options": [
+   "90 km",
+   "100 km",
+   "75 km",
+   "210 km"
+  ],
+  "answer": "A",
+  "explanation": "By 9 a.m. A has covered 20 km, leaving 280 km. They close the gap at 20 + 60 = 80 km/h, so they meet 3.5 h after 9 a.m..\nA has then travelled 20 × 4.5 = **90 km** from P."
+ },
+ {
+  "slug": "std-round-trip-1",
+  "title": "Round trip of 72 km each way, boat 12 km/h, stream 4 km/h",
+  "type": "mcq",
+  "difficulty": "hard",
+  "statement": "A motorboat's speed in still water is 12 km/h and the river flows at 4 km/h. How long does it take to go 72 km downstream and come back?",
+  "options": [
+   "13.5 hours",
+   "14.5 hours",
+   "12.5 hours",
+   "12 hours"
+  ],
+  "answer": "A",
+  "explanation": "Downstream 16 km/h: 72/16 = 4.5 h. Upstream 8 km/h: 72/8 = 9 h. Total **13.5 hours** (not 2 × 72/12 — the current doesn't cancel out)."
+ },
+ {
+  "slug": "std-train-man-1",
+  "title": "Train at 72 km/h passes a man walking towards it at 9 km/h in 8 s",
+  "type": "mcq",
+  "difficulty": "hard",
+  "statement": "A train running at 72 km/h passes a man walking at 9 km/h towards the train in 8 seconds. How long is the train?",
+  "options": [
+   "160 m",
+   "140 m",
+   "200 m",
+   "180 m"
+  ],
+  "answer": "D",
+  "explanation": "Relative speed = 72 + 9 = 81 km/h = 22.5 m/s. Length = 22.5 × 8 = **180 m**."
+ },
+ {
+  "slug": "std-meeting-2",
+  "title": "Meeting point on a 180 km road (60 and 20 km/h)",
+  "type": "mcq",
+  "difficulty": "hard",
+  "statement": "Towns P and Q are 180 km apart. A leaves P for Q at 60 km/h and B leaves Q for P at 20 km/h; at the same time. How far from P do they meet?",
+  "options": [
+   "145 km",
+   "45 km",
+   "135 km",
+   "125 km"
+  ],
+  "answer": "C",
+  "explanation": "They close the gap at 60 + 20 = 80 km/h, so they meet 2.25 h after starting.\nA has then travelled 60 × 2.25 = **135 km** from P."
+ },
+ {
+  "slug": "std-round-trip-2",
+  "title": "Round trip of 45 km each way, boat 9 km/h, stream 3 km/h",
+  "type": "mcq",
+  "difficulty": "hard",
+  "statement": "A motorboat's speed in still water is 9 km/h and the river flows at 3 km/h. How long does it take to go 45 km downstream and come back?",
+  "options": [
+   "10 hours",
+   "10.25 hours",
+   "12.25 hours",
+   "11.25 hours"
+  ],
+  "answer": "D",
+  "explanation": "Downstream 12 km/h: 45/12 = 3.75 h. Upstream 6 km/h: 45/6 = 7.5 h. Total **11.25 hours** (not 2 × 45/9 — the current doesn't cancel out)."
+ },
+ {
+  "slug": "std-train-man-2",
+  "title": "Train at 90 km/h passes a man walking with it at 9 km/h in 8 s",
+  "type": "mcq",
+  "difficulty": "hard",
+  "statement": "A train running at 90 km/h passes a man walking at 9 km/h in the same direction as the train in 8 seconds. How long is the train?",
+  "options": [
+   "155 m",
+   "180 m",
+   "220 m",
+   "200 m"
+  ],
+  "answer": "B",
+  "explanation": "Relative speed = 90 − 9 = 81 km/h = 22.5 m/s. Length = 22.5 × 8 = **180 m**."
+ },
+ {
+  "slug": "std-meeting-3",
+  "title": "Meeting point on a 240 km road (20 and 60 km/h)",
+  "type": "mcq",
+  "difficulty": "hard",
+  "statement": "Towns P and Q are 240 km apart. A leaves P for Q at 20 km/h and B leaves Q for P at 60 km/h; at the same time. How far from P do they meet?",
+  "options": [
+   "70 km",
+   "50 km",
+   "60 km",
+   "180 km"
+  ],
+  "answer": "C",
+  "explanation": "They close the gap at 20 + 60 = 80 km/h, so they meet 3 h after starting.\nA has then travelled 20 × 3 = **60 km** from P."
+ },
+ {
+  "slug": "std-round-trip-3",
+  "title": "Round trip of 36 km each way, boat 8 km/h, stream 2 km/h",
+  "type": "mcq",
+  "difficulty": "hard",
+  "statement": "A motorboat's speed in still water is 8 km/h and the river flows at 2 km/h. How long does it take to go 36 km downstream and come back?",
+  "options": [
+   "8.6 hours",
+   "10.6 hours",
+   "9.6 hours",
+   "9 hours"
+  ],
+  "answer": "C",
+  "explanation": "Downstream 10 km/h: 36/10 = 3.6 h. Upstream 6 km/h: 36/6 = 6 h. Total **9.6 hours** (not 2 × 36/8 — the current doesn't cancel out)."
+ },
+ {
+  "slug": "std-train-man-3",
+  "title": "Train at 72 km/h passes a man walking with it at 9 km/h in 12 s",
+  "type": "mcq",
+  "difficulty": "hard",
+  "statement": "A train running at 72 km/h passes a man walking at 9 km/h in the same direction as the train in 12 seconds. How long is the train?",
+  "options": [
+   "210 m",
+   "240 m",
+   "230 m",
+   "270 m"
+  ],
+  "answer": "A",
+  "explanation": "Relative speed = 72 − 9 = 63 km/h = 17.5 m/s. Length = 17.5 × 12 = **210 m**."
+ },
+ {
+  "slug": "std-meeting-4",
+  "title": "Meeting point on a 280 km road (40 and 30 km/h)",
+  "type": "mcq",
+  "difficulty": "hard",
+  "statement": "Towns P and Q are 280 km apart. A leaves P for Q at 40 km/h and B leaves Q for P at 30 km/h; at the same time. How far from P do they meet?",
+  "options": [
+   "120 km",
+   "170 km",
+   "160 km",
+   "150 km"
+  ],
+  "answer": "C",
+  "explanation": "They close the gap at 40 + 30 = 70 km/h, so they meet 4 h after starting.\nA has then travelled 40 × 4 = **160 km** from P."
+ }
+]

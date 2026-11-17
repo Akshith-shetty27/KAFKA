@@ -1,0 +1,692 @@
+[
+ {
+  "slug": "ds-facing-1",
+  "title": "Facing South: turns left, then turns right",
+  "type": "mcq",
+  "difficulty": "easy",
+  "statement": "Ravi is facing South. Ravi turns left, then turns right. Which direction is Ravi facing now?",
+  "options": [
+   "South",
+   "West",
+   "East",
+   "North"
+  ],
+  "answer": "A",
+  "explanation": "Track it step by step: South → East → South. Final: **South**."
+ },
+ {
+  "slug": "ds-two-legs-1",
+  "title": "5 km East, then 12 km North",
+  "type": "mcq",
+  "difficulty": "easy",
+  "statement": "Deepa walks 5 km East and then 12 km North. How far is Deepa from the starting point (in a straight line)?",
+  "options": [
+   "17 km",
+   "14 km",
+   "13 km",
+   "7 km"
+  ],
+  "answer": "C",
+  "explanation": "The two legs are at right angles, so the distance is √(5² + 12²) = √169 = **13 km**."
+ },
+ {
+  "slug": "ds-degrees-1",
+  "title": "From North: 90° anticlockwise, then 45° clockwise",
+  "type": "mcq",
+  "difficulty": "easy",
+  "statement": "A compass needle points North. It turns 90° anticlockwise and then 45° clockwise. Where does it point now?",
+  "options": [
+   "South-East",
+   "North-West",
+   "South-West",
+   "North-East"
+  ],
+  "answer": "B",
+  "explanation": "Net turn = 90° anticlockwise − 45° clockwise → 45° anticlockwise. From North that is **North-West**."
+ },
+ {
+  "slug": "ds-facing-2",
+  "title": "Facing North: turns right, then turns right, then turns around",
+  "type": "mcq",
+  "difficulty": "easy",
+  "statement": "Imran is facing North. Imran turns right, then turns right, then turns around. Which direction is Imran facing now?",
+  "options": [
+   "West",
+   "South",
+   "East",
+   "North"
+  ],
+  "answer": "D",
+  "explanation": "Track it step by step: North → East → South → North. Final: **North**."
+ },
+ {
+  "slug": "ds-two-legs-2",
+  "title": "4 km East, then 3 km South",
+  "type": "mcq",
+  "difficulty": "easy",
+  "statement": "Anita walks 4 km East and then 3 km South. How far is Anita from the starting point (in a straight line)?",
+  "options": [
+   "1 km",
+   "6 km",
+   "7 km",
+   "5 km"
+  ],
+  "answer": "D",
+  "explanation": "The two legs are at right angles, so the distance is √(4² + 3²) = √25 = **5 km**."
+ },
+ {
+  "slug": "ds-degrees-2",
+  "title": "From North: 90° anticlockwise, then 225° clockwise",
+  "type": "mcq",
+  "difficulty": "easy",
+  "statement": "A compass needle points North. It turns 90° anticlockwise and then 225° clockwise. Where does it point now?",
+  "options": [
+   "North-West",
+   "North-East",
+   "South-East",
+   "South-West"
+  ],
+  "answer": "C",
+  "explanation": "Net turn = 90° anticlockwise − 225° clockwise → 135° clockwise. From North that is **South-East**."
+ },
+ {
+  "slug": "ds-facing-3",
+  "title": "Facing South: turns right, then turns around",
+  "type": "mcq",
+  "difficulty": "easy",
+  "statement": "Imran is facing South. Imran turns right, then turns around. Which direction is Imran facing now?",
+  "options": [
+   "North",
+   "South",
+   "East",
+   "West"
+  ],
+  "answer": "C",
+  "explanation": "Track it step by step: South → West → East. Final: **East**."
+ },
+ {
+  "slug": "ds-two-legs-3",
+  "title": "16 km East, then 12 km North",
+  "type": "mcq",
+  "difficulty": "easy",
+  "statement": "Lata walks 16 km East and then 12 km North. How far is Lata from the starting point (in a straight line)?",
+  "options": [
+   "4 km",
+   "21 km",
+   "28 km",
+   "20 km"
+  ],
+  "answer": "D",
+  "explanation": "The two legs are at right angles, so the distance is √(16² + 12²) = √400 = **20 km**."
+ },
+ {
+  "slug": "ds-degrees-3",
+  "title": "From South: 180° anticlockwise, then 270° clockwise",
+  "type": "mcq",
+  "difficulty": "easy",
+  "statement": "A compass needle points South. It turns 180° anticlockwise and then 270° clockwise. Where does it point now?",
+  "options": [
+   "West",
+   "South",
+   "East",
+   "North"
+  ],
+  "answer": "A",
+  "explanation": "Net turn = 180° anticlockwise − 270° clockwise → 90° clockwise. From South that is **West**."
+ },
+ {
+  "slug": "ds-facing-4",
+  "title": "Facing South: turns left, then turns left",
+  "type": "mcq",
+  "difficulty": "easy",
+  "statement": "Sana is facing South. Sana turns left, then turns left. Which direction is Sana facing now?",
+  "options": [
+   "South",
+   "East",
+   "West",
+   "North"
+  ],
+  "answer": "D",
+  "explanation": "Track it step by step: South → East → North. Final: **North**."
+ },
+ {
+  "slug": "ds-two-legs-4",
+  "title": "5 km South, then 12 km East",
+  "type": "mcq",
+  "difficulty": "easy",
+  "statement": "Kiran walks 5 km South and then 12 km East. How far is Kiran from the starting point (in a straight line)?",
+  "options": [
+   "13 km",
+   "14 km",
+   "7 km",
+   "17 km"
+  ],
+  "answer": "A",
+  "explanation": "The two legs are at right angles, so the distance is √(5² + 12²) = √169 = **13 km**."
+ },
+ {
+  "slug": "ds-degrees-4",
+  "title": "From West: 45° anticlockwise, then 225° clockwise",
+  "type": "mcq",
+  "difficulty": "easy",
+  "statement": "A compass needle points West. It turns 45° anticlockwise and then 225° clockwise. Where does it point now?",
+  "options": [
+   "South",
+   "West",
+   "East",
+   "North"
+  ],
+  "answer": "C",
+  "explanation": "Net turn = 45° anticlockwise − 225° clockwise → 180° clockwise. From West that is **East**."
+ },
+ {
+  "slug": "ds-facing-5",
+  "title": "Facing West: turns around, then turns right, then turns right",
+  "type": "mcq",
+  "difficulty": "easy",
+  "statement": "Vikram is facing West. Vikram turns around, then turns right, then turns right. Which direction is Vikram facing now?",
+  "options": [
+   "East",
+   "South",
+   "West",
+   "North"
+  ],
+  "answer": "C",
+  "explanation": "Track it step by step: West → East → South → West. Final: **West**."
+ },
+ {
+  "slug": "ds-two-legs-5",
+  "title": "8 km South, then 15 km East",
+  "type": "mcq",
+  "difficulty": "easy",
+  "statement": "Imran walks 8 km South and then 15 km East. How far is Imran from the starting point (in a straight line)?",
+  "options": [
+   "17 km",
+   "23 km",
+   "7 km",
+   "18 km"
+  ],
+  "answer": "A",
+  "explanation": "The two legs are at right angles, so the distance is √(8² + 15²) = √289 = **17 km**."
+ },
+ {
+  "slug": "ds-degrees-5",
+  "title": "From South-West: 135° clockwise, then 225° anticlockwise",
+  "type": "mcq",
+  "difficulty": "easy",
+  "statement": "A compass needle points South-West. It turns 135° clockwise and then 225° anticlockwise. Where does it point now?",
+  "options": [
+   "North-East",
+   "North-West",
+   "South-East",
+   "South-West"
+  ],
+  "answer": "C",
+  "explanation": "Net turn = 135° clockwise − 225° anticlockwise → 90° anticlockwise. From South-West that is **South-East**."
+ },
+ {
+  "slug": "ds-facing-6",
+  "title": "Facing North: turns around, then turns left",
+  "type": "mcq",
+  "difficulty": "easy",
+  "statement": "Arjun is facing North. Arjun turns around, then turns left. Which direction is Arjun facing now?",
+  "options": [
+   "South",
+   "West",
+   "East",
+   "North"
+  ],
+  "answer": "C",
+  "explanation": "Track it step by step: North → South → East. Final: **East**."
+ },
+ {
+  "slug": "ds-two-legs-6",
+  "title": "24 km North, then 7 km West",
+  "type": "mcq",
+  "difficulty": "easy",
+  "statement": "Deepa walks 24 km North and then 7 km West. How far is Deepa from the starting point (in a straight line)?",
+  "options": [
+   "17 km",
+   "31 km",
+   "26 km",
+   "25 km"
+  ],
+  "answer": "D",
+  "explanation": "The two legs are at right angles, so the distance is √(24² + 7²) = √625 = **25 km**."
+ },
+ {
+  "slug": "ds-walk-direction-1",
+  "title": "Walk: walks 2 km East; turns left and walks 3 km; turns left and walks 4 km; turns left and walks 5 km (direction)",
+  "type": "mcq",
+  "difficulty": "medium",
+  "statement": "Lata walks 2 km East, then turns left and walks 3 km, then turns left and walks 4 km, then turns left and walks 5 km. In which direction is Lata now from the starting point?",
+  "options": [
+   "North-East",
+   "South-East",
+   "North-West",
+   "South-West"
+  ],
+  "answer": "D",
+  "explanation": "Put the start at (0, 0) with East = +x and North = +y and add up the legs: the walk ends at (-2, -2). 2 km West and 2 km South of the start, i.e. **South-West**."
+ },
+ {
+  "slug": "ds-shadow-1",
+  "title": "Morning shadow falling left",
+  "type": "mcq",
+  "difficulty": "medium",
+  "statement": "One morning, Rahul stood in an open field. Rahul's own shadow fell to Rahul's left. Which direction was Rahul facing?",
+  "options": [
+   "West",
+   "East",
+   "South",
+   "North"
+  ],
+  "answer": "D",
+  "explanation": "In the morning the sun is in the East, so shadows point West. The shadow falls to Rahul's left, so Rahul must be facing **North**."
+ },
+ {
+  "slug": "ds-walk-distance-1",
+  "title": "Walk: walks 3 km East; turns right and walks 7 km; turns right and walks 3 km (distance)",
+  "type": "mcq",
+  "difficulty": "medium",
+  "statement": "Meera walks 3 km East, then turns right and walks 7 km, then turns right and walks 3 km. How far is Meera from the starting point?",
+  "options": [
+   "9 km",
+   "8 km",
+   "7 km",
+   "10 km"
+  ],
+  "answer": "C",
+  "explanation": "With the start at (0, 0), East = +x and North = +y, the walk ends at (0, -7). Distance = √(0² + 7²) = **7 km**."
+ },
+ {
+  "slug": "ds-walk-direction-2",
+  "title": "Walk: walks 10 km West; turns right and walks 5 km; turns left and walks 7 km; turns left and walks 3 km (direction)",
+  "type": "mcq",
+  "difficulty": "medium",
+  "statement": "Meera walks 10 km West, then turns right and walks 5 km, then turns left and walks 7 km, then turns left and walks 3 km. In which direction is Meera now from the starting point?",
+  "options": [
+   "South-East",
+   "South-West",
+   "North-West",
+   "North-East"
+  ],
+  "answer": "C",
+  "explanation": "Put the start at (0, 0) with East = +x and North = +y and add up the legs: the walk ends at (-17, 2). 17 km West and 2 km North of the start, i.e. **North-West**."
+ },
+ {
+  "slug": "ds-shadow-2",
+  "title": "Evening shadow falling right",
+  "type": "mcq",
+  "difficulty": "medium",
+  "statement": "One evening, Arjun stood in an open field. Arjun's own shadow fell to Arjun's right. Which direction was Arjun facing?",
+  "options": [
+   "West",
+   "North",
+   "East",
+   "South"
+  ],
+  "answer": "B",
+  "explanation": "In the evening the sun is in the West, so shadows point East. The shadow falls to Arjun's right, so Arjun must be facing **North**."
+ },
+ {
+  "slug": "ds-walk-distance-2",
+  "title": "Walk: walks 7 km South; turns right and walks 6 km; turns right and walks 7 km; turns left and walks 7 km (distance)",
+  "type": "mcq",
+  "difficulty": "medium",
+  "statement": "Anita walks 7 km South, then turns right and walks 6 km, then turns right and walks 7 km, then turns left and walks 7 km. How far is Anita from the starting point?",
+  "options": [
+   "14 km",
+   "16 km",
+   "13 km",
+   "15 km"
+  ],
+  "answer": "C",
+  "explanation": "With the start at (0, 0), East = +x and North = +y, the walk ends at (-13, 0). Distance = √(13² + 0²) = **13 km**."
+ },
+ {
+  "slug": "ds-walk-direction-3",
+  "title": "Walk: walks 2 km South; turns right and walks 2 km; turns left and walks 3 km; turns left and walks 7 km (direction)",
+  "type": "mcq",
+  "difficulty": "medium",
+  "statement": "Ravi walks 2 km South, then turns right and walks 2 km, then turns left and walks 3 km, then turns left and walks 7 km. In which direction is Ravi now from the starting point?",
+  "options": [
+   "South-West",
+   "North-West",
+   "South-East",
+   "North-East"
+  ],
+  "answer": "C",
+  "explanation": "Put the start at (0, 0) with East = +x and North = +y and add up the legs: the walk ends at (5, -5). 5 km East and 5 km South of the start, i.e. **South-East**."
+ },
+ {
+  "slug": "ds-shadow-3",
+  "title": "Evening shadow falling left",
+  "type": "mcq",
+  "difficulty": "medium",
+  "statement": "One evening, Sana stood in an open field. Sana's own shadow fell to Sana's left. Which direction was Sana facing?",
+  "options": [
+   "South",
+   "West",
+   "East",
+   "North"
+  ],
+  "answer": "A",
+  "explanation": "In the evening the sun is in the West, so shadows point East. The shadow falls to Sana's left, so Sana must be facing **South**."
+ },
+ {
+  "slug": "ds-walk-distance-3",
+  "title": "Walk: walks 5 km West; turns right and walks 9 km; turns right and walks 5 km (distance)",
+  "type": "mcq",
+  "difficulty": "medium",
+  "statement": "Kiran walks 5 km West, then turns right and walks 9 km, then turns right and walks 5 km. How far is Kiran from the starting point?",
+  "options": [
+   "10 km",
+   "9 km",
+   "11 km",
+   "12 km"
+  ],
+  "answer": "B",
+  "explanation": "With the start at (0, 0), East = +x and North = +y, the walk ends at (0, 9). Distance = √(0² + 9²) = **9 km**."
+ },
+ {
+  "slug": "ds-walk-direction-4",
+  "title": "Walk: walks 12 km West; turns right and walks 12 km; turns right and walks 3 km; turns left and walks 10 km (direction)",
+  "type": "mcq",
+  "difficulty": "medium",
+  "statement": "Anita walks 12 km West, then turns right and walks 12 km, then turns right and walks 3 km, then turns left and walks 10 km. In which direction is Anita now from the starting point?",
+  "options": [
+   "South-East",
+   "North-East",
+   "South-West",
+   "North-West"
+  ],
+  "answer": "D",
+  "explanation": "Put the start at (0, 0) with East = +x and North = +y and add up the legs: the walk ends at (-9, 22). 9 km West and 22 km North of the start, i.e. **North-West**."
+ },
+ {
+  "slug": "ds-shadow-4",
+  "title": "Morning shadow falling right",
+  "type": "mcq",
+  "difficulty": "medium",
+  "statement": "One morning, Meera stood in an open field. Meera's own shadow fell to Meera's right. Which direction was Meera facing?",
+  "options": [
+   "East",
+   "North",
+   "West",
+   "South"
+  ],
+  "answer": "D",
+  "explanation": "In the morning the sun is in the East, so shadows point West. The shadow falls to Meera's right, so Meera must be facing **South**."
+ },
+ {
+  "slug": "ds-walk-direction-5",
+  "title": "Walk: walks 2 km West; turns right and walks 11 km; turns right and walks 5 km; turns left and walks 6 km (direction)",
+  "type": "mcq",
+  "difficulty": "medium",
+  "statement": "Deepa walks 2 km West, then turns right and walks 11 km, then turns right and walks 5 km, then turns left and walks 6 km. In which direction is Deepa now from the starting point?",
+  "options": [
+   "South-East",
+   "North-West",
+   "South-West",
+   "North-East"
+  ],
+  "answer": "D",
+  "explanation": "Put the start at (0, 0) with East = +x and North = +y and add up the legs: the walk ends at (3, 17). 3 km East and 17 km North of the start, i.e. **North-East**."
+ },
+ {
+  "slug": "ds-shadow-5",
+  "title": "Evening shadow falling in front",
+  "type": "mcq",
+  "difficulty": "medium",
+  "statement": "One evening, Lata stood in an open field. Lata's own shadow fell straight ahead of Lata. Which direction was Lata facing?",
+  "options": [
+   "East",
+   "West",
+   "South",
+   "North"
+  ],
+  "answer": "A",
+  "explanation": "In the evening the sun is in the West, so shadows point East. The shadow falls straight ahead of Lata, so Lata must be facing **East**."
+ },
+ {
+  "slug": "ds-walk-distance-4",
+  "title": "Walk: walks 2 km East; turns left and walks 3 km; turns left and walks 2 km (distance)",
+  "type": "mcq",
+  "difficulty": "medium",
+  "statement": "Arjun walks 2 km East, then turns left and walks 3 km, then turns left and walks 2 km. How far is Arjun from the starting point?",
+  "options": [
+   "3 km",
+   "5 km",
+   "4 km",
+   "6 km"
+  ],
+  "answer": "A",
+  "explanation": "With the start at (0, 0), East = +x and North = +y, the walk ends at (0, 3). Distance = √(0² + 3²) = **3 km**."
+ },
+ {
+  "slug": "ds-walk-direction-6",
+  "title": "Walk: walks 3 km South; turns right and walks 12 km; turns right and walks 12 km (direction)",
+  "type": "mcq",
+  "difficulty": "medium",
+  "statement": "Imran walks 3 km South, then turns right and walks 12 km, then turns right and walks 12 km. In which direction is Imran now from the starting point?",
+  "options": [
+   "South-West",
+   "North-West",
+   "South-East",
+   "North-East"
+  ],
+  "answer": "B",
+  "explanation": "Put the start at (0, 0) with East = +x and North = +y and add up the legs: the walk ends at (-12, 9). 12 km West and 9 km North of the start, i.e. **North-West**."
+ },
+ {
+  "slug": "ds-shadow-6",
+  "title": "Morning shadow falling behind",
+  "type": "mcq",
+  "difficulty": "medium",
+  "statement": "One morning, Rahul stood in an open field. Rahul's own shadow fell directly behind Rahul. Which direction was Rahul facing?",
+  "options": [
+   "West",
+   "South",
+   "North",
+   "East"
+  ],
+  "answer": "D",
+  "explanation": "In the morning the sun is in the East, so shadows point West. The shadow falls directly behind Rahul, so Rahul must be facing **East**."
+ },
+ {
+  "slug": "ds-walk-direction-7",
+  "title": "Walk: walks 9 km North; turns right and walks 6 km; turns right and walks 4 km; turns left and walks 9 km (direction)",
+  "type": "mcq",
+  "difficulty": "medium",
+  "statement": "Kiran walks 9 km North, then turns right and walks 6 km, then turns right and walks 4 km, then turns left and walks 9 km. In which direction is Kiran now from the starting point?",
+  "options": [
+   "North-East",
+   "North-West",
+   "South-West",
+   "South-East"
+  ],
+  "answer": "A",
+  "explanation": "Put the start at (0, 0) with East = +x and North = +y and add up the legs: the walk ends at (15, 5). 15 km East and 5 km North of the start, i.e. **North-East**."
+ },
+ {
+  "slug": "ds-shadow-7",
+  "title": "Morning shadow falling in front",
+  "type": "mcq",
+  "difficulty": "medium",
+  "statement": "One morning, Sana stood in an open field. Sana's own shadow fell straight ahead of Sana. Which direction was Sana facing?",
+  "options": [
+   "North",
+   "South",
+   "West",
+   "East"
+  ],
+  "answer": "C",
+  "explanation": "In the morning the sun is in the East, so shadows point West. The shadow falls straight ahead of Sana, so Sana must be facing **West**."
+ },
+ {
+  "slug": "ds-walk-distance-5",
+  "title": "Walk: walks 5 km East; turns right and walks 2 km; turns left and walks 3 km; turns left and walks 2 km (distance)",
+  "type": "mcq",
+  "difficulty": "medium",
+  "statement": "Arjun walks 5 km East, then turns right and walks 2 km, then turns left and walks 3 km, then turns left and walks 2 km. How far is Arjun from the starting point?",
+  "options": [
+   "10 km",
+   "11 km",
+   "9 km",
+   "8 km"
+  ],
+  "answer": "D",
+  "explanation": "With the start at (0, 0), East = +x and North = +y, the walk ends at (8, 0). Distance = √(8² + 0²) = **8 km**."
+ },
+ {
+  "slug": "ds-points-1",
+  "title": "Points: S is 2 km East of P; Q is 7 km East of S; R is 4 km South of Q",
+  "type": "mcq",
+  "difficulty": "hard",
+  "statement": "S is 2 km East of P. Q is 7 km East of S. R is 4 km South of Q. In which direction is R from P?",
+  "options": [
+   "North-West",
+   "South-East",
+   "North-East",
+   "South-West"
+  ],
+  "answer": "B",
+  "explanation": "Place P at (0, 0) (East = +x, North = +y). Following the statements, R ends up at (9, -4), i.e. **South-East** of P."
+ },
+ {
+  "slug": "ds-degrees-hard-1",
+  "title": "From South-East: 180° clockwise, then 225° anticlockwise",
+  "type": "mcq",
+  "difficulty": "hard",
+  "statement": "A compass needle points South-East. It turns 180° clockwise and then 225° anticlockwise. Where does it point now?",
+  "options": [
+   "West",
+   "East",
+   "South",
+   "North"
+  ],
+  "answer": "B",
+  "explanation": "Net turn = 180° clockwise − 225° anticlockwise → 45° anticlockwise. From South-East that is **East**."
+ },
+ {
+  "slug": "ds-walk-hard-1",
+  "title": "Five-leg walk: walks 12 km South; turns left and walks 8 km; turns right and walks 2 km; turns right and walks 11 km; turns right and walks 7 km",
+  "type": "mcq",
+  "difficulty": "hard",
+  "statement": "Priya walks 12 km South, then turns left and walks 8 km, then turns right and walks 2 km, then turns right and walks 11 km, then turns right and walks 7 km. Where is Priya relative to the start, and which way is Priya facing?",
+  "options": [
+   "North-West, facing North",
+   "North-East, facing North",
+   "South-West, facing South",
+   "South-West, facing North"
+  ],
+  "answer": "D",
+  "explanation": "Track position and facing together (East = +x, North = +y). The walk ends at (-3, -7) — **South-West** of the start — and the last leg was walked facing **North**."
+ },
+ {
+  "slug": "ds-points-2",
+  "title": "Points: R is 4 km East of T; Q is 2 km North of R; P is 5 km East of Q",
+  "type": "mcq",
+  "difficulty": "hard",
+  "statement": "R is 4 km East of T. Q is 2 km North of R. P is 5 km East of Q. In which direction is P from T?",
+  "options": [
+   "North-West",
+   "South-East",
+   "South-West",
+   "North-East"
+  ],
+  "answer": "D",
+  "explanation": "Place T at (0, 0) (East = +x, North = +y). Following the statements, P ends up at (9, 2), i.e. **North-East** of T."
+ },
+ {
+  "slug": "ds-degrees-hard-2",
+  "title": "From West: 135° anticlockwise, then 45° clockwise",
+  "type": "mcq",
+  "difficulty": "hard",
+  "statement": "A compass needle points West. It turns 135° anticlockwise and then 45° clockwise. Where does it point now?",
+  "options": [
+   "East",
+   "North",
+   "South",
+   "West"
+  ],
+  "answer": "C",
+  "explanation": "Net turn = 135° anticlockwise − 45° clockwise → 90° anticlockwise. From West that is **South**."
+ },
+ {
+  "slug": "ds-walk-hard-2",
+  "title": "Five-leg walk: walks 4 km East; turns left and walks 5 km; turns right and walks 6 km; turns right and walks 10 km; turns right and walks 8 km",
+  "type": "mcq",
+  "difficulty": "hard",
+  "statement": "Kiran walks 4 km East, then turns left and walks 5 km, then turns right and walks 6 km, then turns right and walks 10 km, then turns right and walks 8 km. Where is Kiran relative to the start, and which way is Kiran facing?",
+  "options": [
+   "South-East, facing West",
+   "South-East, facing East",
+   "North-West, facing West",
+   "South-West, facing West"
+  ],
+  "answer": "A",
+  "explanation": "Track position and facing together (East = +x, North = +y). The walk ends at (2, -5) — **South-East** of the start — and the last leg was walked facing **West**."
+ },
+ {
+  "slug": "ds-points-3",
+  "title": "Points: P is 2 km East of Q; R is 5 km South of P; T is 8 km West of R",
+  "type": "mcq",
+  "difficulty": "hard",
+  "statement": "P is 2 km East of Q. R is 5 km South of P. T is 8 km West of R. In which direction is T from Q?",
+  "options": [
+   "South-East",
+   "North-East",
+   "North-West",
+   "South-West"
+  ],
+  "answer": "D",
+  "explanation": "Place Q at (0, 0) (East = +x, North = +y). Following the statements, T ends up at (-6, -5), i.e. **South-West** of Q."
+ },
+ {
+  "slug": "ds-degrees-hard-3",
+  "title": "From South: 90° clockwise, then 45° anticlockwise",
+  "type": "mcq",
+  "difficulty": "hard",
+  "statement": "A compass needle points South. It turns 90° clockwise and then 45° anticlockwise. Where does it point now?",
+  "options": [
+   "South-West",
+   "North-East",
+   "North-West",
+   "South-East"
+  ],
+  "answer": "A",
+  "explanation": "Net turn = 90° clockwise − 45° anticlockwise → 45° clockwise. From South that is **South-West**."
+ },
+ {
+  "slug": "ds-walk-hard-3",
+  "title": "Five-leg walk: walks 7 km North; turns right and walks 2 km; turns left and walks 5 km; turns right and walks 6 km; turns right and walks 11 km",
+  "type": "mcq",
+  "difficulty": "hard",
+  "statement": "Priya walks 7 km North, then turns right and walks 2 km, then turns left and walks 5 km, then turns right and walks 6 km, then turns right and walks 11 km. Where is Priya relative to the start, and which way is Priya facing?",
+  "options": [
+   "South-East, facing South",
+   "North-East, facing North",
+   "South-West, facing South",
+   "North-East, facing South"
+  ],
+  "answer": "D",
+  "explanation": "Track position and facing together (East = +x, North = +y). The walk ends at (8, 1) — **North-East** of the start — and the last leg was walked facing **South**."
+ },
+ {
+  "slug": "ds-points-4",
+  "title": "Points: P is 6 km North of R; T is 2 km South of P; Q is 9 km South of T",
+  "type": "mcq",
+  "difficulty": "hard",
+  "statement": "P is 6 km North of R. T is 2 km South of P. Q is 9 km South of T. In which direction is Q from R?",
+  "options": [
+   "South",
+   "North",
+   "West",
+   "East"
+  ],
+  "answer": "A",
+  "explanation": "Place R at (0, 0) (East = +x, North = +y). Following the statements, Q ends up at (0, -5), i.e. **South** of R."
+ }
+]

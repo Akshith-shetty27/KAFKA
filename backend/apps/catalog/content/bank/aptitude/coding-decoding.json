@@ -1,0 +1,677 @@
+[
+ {
+  "slug": "cd-shift-1",
+  "title": "Shift by +1: PLANET → QMBOFU",
+  "type": "mcq",
+  "difficulty": "easy",
+  "statement": "In a certain code, **PLANET** is written as **QMBOFU**. How is **MOUSE** written in that code?",
+  "options": [
+   "NPVTF",
+   "OQWUG",
+   "NPVTG",
+   "LNTRD"
+  ],
+  "answer": "A",
+  "explanation": "Each letter moves 1 place forward in the alphabet (P → Q).\n\nApplying it to MOUSE: **NPVTF**."
+ },
+ {
+  "slug": "cd-reverse-1",
+  "title": "Reversed: OCEAN → NAECO",
+  "type": "mcq",
+  "difficulty": "easy",
+  "statement": "If **OCEAN** is written as **NAECO**, how is **SHEEP** written in the same code?",
+  "options": [
+   "PEEHS",
+   "PEHES",
+   "SHEEP",
+   "EEHSP"
+  ],
+  "answer": "A",
+  "explanation": "The letters are simply written in reverse order. SHEEP reversed is **PEEHS**."
+ },
+ {
+  "slug": "cd-value-1",
+  "title": "Letter values of STONE",
+  "type": "mcq",
+  "difficulty": "easy",
+  "statement": "If A = 1, B = 2, …, Z = 26, what is the value of **STONE** (the sum of its letters)?",
+  "options": [
+   "72",
+   "78",
+   "73",
+   "76"
+  ],
+  "answer": "C",
+  "explanation": "S(19) + T(20) + O(15) + N(14) + E(5) = **73**."
+ },
+ {
+  "slug": "cd-positions-1",
+  "title": "Positions as digits: QUEST → 172151920",
+  "type": "mcq",
+  "difficulty": "easy",
+  "statement": "If **QUEST** is coded as **172151920**, how is **SPACE** coded?",
+  "options": [
+   "1916135",
+   "2017246",
+   "811262422",
+   "5311619"
+  ],
+  "answer": "A",
+  "explanation": "Each letter is replaced by its position in the alphabet (Q = 17). SPACE: **1916135**."
+ },
+ {
+  "slug": "cd-shift-2",
+  "title": "Shift by -2: LEMON → JCKML",
+  "type": "mcq",
+  "difficulty": "easy",
+  "statement": "In a certain code, **LEMON** is written as **JCKML**. How is **PRIDE** written in that code?",
+  "options": [
+   "MPGBC",
+   "MOFAB",
+   "NPGBC",
+   "RTKFG"
+  ],
+  "answer": "C",
+  "explanation": "Each letter moves 2 places back in the alphabet (L → J).\n\nApplying it to PRIDE: **NPGBC**."
+ },
+ {
+  "slug": "cd-reverse-2",
+  "title": "Reversed: PLANT → TNALP",
+  "type": "mcq",
+  "difficulty": "easy",
+  "statement": "If **PLANT** is written as **TNALP**, how is **NURSE** written in the same code?",
+  "options": [
+   "SRUNE",
+   "ESRUN",
+   "ESURN",
+   "NURSE"
+  ],
+  "answer": "B",
+  "explanation": "The letters are simply written in reverse order. NURSE reversed is **ESRUN**."
+ },
+ {
+  "slug": "cd-value-2",
+  "title": "Letter values of GRAPE",
+  "type": "mcq",
+  "difficulty": "easy",
+  "statement": "If A = 1, B = 2, …, Z = 26, what is the value of **GRAPE** (the sum of its letters)?",
+  "options": [
+   "52",
+   "45",
+   "49",
+   "47"
+  ],
+  "answer": "D",
+  "explanation": "G(7) + R(18) + A(1) + P(16) + E(5) = **47**."
+ },
+ {
+  "slug": "cd-positions-2",
+  "title": "Positions as digits: RIVER → 18922518",
+  "type": "mcq",
+  "difficulty": "easy",
+  "statement": "If **RIVER** is coded as **18922518**, how is **TOWER** coded?",
+  "options": [
+   "7124229",
+   "185231520",
+   "201523518",
+   "211624619"
+  ],
+  "answer": "C",
+  "explanation": "Each letter is replaced by its position in the alphabet (R = 18). TOWER: **201523518**."
+ },
+ {
+  "slug": "cd-shift-3",
+  "title": "Shift by +4: PIANO → TMERS",
+  "type": "mcq",
+  "difficulty": "easy",
+  "statement": "In a certain code, **PIANO** is written as **TMERS**. How is **DREAM** written in that code?",
+  "options": [
+   "HVIEQ",
+   "IWJFR",
+   "ZNAWI",
+   "HVIFQ"
+  ],
+  "answer": "A",
+  "explanation": "Each letter moves 4 places forward in the alphabet (P → T).\n\nApplying it to DREAM: **HVIEQ**."
+ },
+ {
+  "slug": "cd-reverse-3",
+  "title": "Reversed: SUGAR → RAGUS",
+  "type": "mcq",
+  "difficulty": "easy",
+  "statement": "If **SUGAR** is written as **RAGUS**, how is **CROWN** written in the same code?",
+  "options": [
+   "CROWN",
+   "NWORC",
+   "NWROC",
+   "WORCN"
+  ],
+  "answer": "B",
+  "explanation": "The letters are simply written in reverse order. CROWN reversed is **NWORC**."
+ },
+ {
+  "slug": "cd-value-3",
+  "title": "Letter values of SMILE",
+  "type": "mcq",
+  "difficulty": "easy",
+  "statement": "If A = 1, B = 2, …, Z = 26, what is the value of **SMILE** (the sum of its letters)?",
+  "options": [
+   "59",
+   "58",
+   "61",
+   "60"
+  ],
+  "answer": "B",
+  "explanation": "S(19) + M(13) + I(9) + L(12) + E(5) = **58**."
+ },
+ {
+  "slug": "cd-positions-3",
+  "title": "Positions as digits: LEMON → 125131514",
+  "type": "mcq",
+  "difficulty": "easy",
+  "statement": "If **LEMON** is coded as **125131514**, how is **MUSIC** coded?",
+  "options": [
+   "142220104",
+   "14681824",
+   "39192113",
+   "13211993"
+  ],
+  "answer": "D",
+  "explanation": "Each letter is replaced by its position in the alphabet (L = 12). MUSIC: **13211993**."
+ },
+ {
+  "slug": "cd-shift-4",
+  "title": "Shift by +1: SUGAR → TVHBS",
+  "type": "mcq",
+  "difficulty": "easy",
+  "statement": "In a certain code, **SUGAR** is written as **TVHBS**. How is **FAMILY** written in that code?",
+  "options": [
+   "FBNJMZ",
+   "HCOKNA",
+   "EZLHKX",
+   "GBNJMZ"
+  ],
+  "answer": "D",
+  "explanation": "Each letter moves 1 place forward in the alphabet (S → T).\n\nApplying it to FAMILY: **GBNJMZ**."
+ },
+ {
+  "slug": "cd-reverse-4",
+  "title": "Reversed: FROST → TSORF",
+  "type": "mcq",
+  "difficulty": "easy",
+  "statement": "If **FROST** is written as **TSORF**, how is **SUGAR** written in the same code?",
+  "options": [
+   "RAGUS",
+   "RAUGS",
+   "AGUSR",
+   "SUGAR"
+  ],
+  "answer": "A",
+  "explanation": "The letters are simply written in reverse order. SUGAR reversed is **RAGUS**."
+ },
+ {
+  "slug": "cd-value-4",
+  "title": "Letter values of LIGHT",
+  "type": "mcq",
+  "difficulty": "easy",
+  "statement": "If A = 1, B = 2, …, Z = 26, what is the value of **LIGHT** (the sum of its letters)?",
+  "options": [
+   "59",
+   "57",
+   "55",
+   "56"
+  ],
+  "answer": "D",
+  "explanation": "L(12) + I(9) + G(7) + H(8) + T(20) = **56**."
+ },
+ {
+  "slug": "cd-positions-4",
+  "title": "Positions as digits: WATER → 23120518",
+  "type": "mcq",
+  "difficulty": "easy",
+  "statement": "If **WATER** is coded as **23120518**, how is **ZEBRA** coded?",
+  "options": [
+   "1182526",
+   "12225926",
+   "2763192",
+   "2652181"
+  ],
+  "answer": "D",
+  "explanation": "Each letter is replaced by its position in the alphabet (W = 23). ZEBRA: **2652181**."
+ },
+ {
+  "slug": "cd-opposite-1",
+  "title": "Opposite letters: LIGHT → ORTSG",
+  "type": "mcq",
+  "difficulty": "medium",
+  "statement": "In a certain code, **LIGHT** is written as **ORTSG**. How is **YOUTH** written in that code?",
+  "options": [
+   "BMFGS",
+   "ZPVUI",
+   "AKEFR",
+   "BLFGS"
+  ],
+  "answer": "D",
+  "explanation": "Each letter is replaced by its mirror in the alphabet (A ↔ Z, B ↔ Y, …): the pair's positions add up to 27.\n\nApplying it to YOUTH: **BLFGS**."
+ },
+ {
+  "slug": "cd-growing-shift-1",
+  "title": "Growing shift +1, +2, …: DREAM → ETHER",
+  "type": "mcq",
+  "difficulty": "medium",
+  "statement": "In a certain code, **DREAM** is written as **ETHER**. How is **PRIDE** written in that code?",
+  "options": [
+   "QTLIJ",
+   "QTLHJ",
+   "RUMIK",
+   "QSJEF"
+  ],
+  "answer": "B",
+  "explanation": "The 1st letter moves 1 place forward, the 2nd 2, the 3rd 3, and so on.\n\nApplying it to PRIDE: **QTLHJ**."
+ },
+ {
+  "slug": "cd-alternate-1",
+  "title": "Alternate +2/−2: WATER → YYVCT",
+  "type": "mcq",
+  "difficulty": "medium",
+  "statement": "In a certain code, **WATER** is written as **YYVCT**. How is **SCHOOL** written in that code?",
+  "options": [
+   "UAJMQJ",
+   "QEFQMN",
+   "UEJQQN",
+   "UBJMQJ"
+  ],
+  "answer": "A",
+  "explanation": "Letters in odd positions move 2 forward; letters in even positions move 2 back.\n\nApplying it to SCHOOL: **UAJMQJ**."
+ },
+ {
+  "slug": "cd-reverse-shift-1",
+  "title": "Reverse, then shift +1: HOUSE → FTVPI",
+  "type": "mcq",
+  "difficulty": "medium",
+  "statement": "In a certain code, **HOUSE** is written as **FTVPI**. How is **QUEST** written in that code?",
+  "options": [
+   "RVFTU",
+   "UTFVR",
+   "SRDTP",
+   "VUGWS"
+  ],
+  "answer": "B",
+  "explanation": "Write the word backwards, then move every letter 1 place forward. QUEST → TSEUQ → **UTFVR**."
+ },
+ {
+  "slug": "cd-opposite-2",
+  "title": "Opposite letters: MUSIC → NFHRX",
+  "type": "mcq",
+  "difficulty": "medium",
+  "statement": "In a certain code, **MUSIC** is written as **NFHRX**. How is **WINDOW** written in that code?",
+  "options": [
+   "DRMWLD",
+   "DRMVLD",
+   "CQLVKC",
+   "XJOEPX"
+  ],
+  "answer": "A",
+  "explanation": "Each letter is replaced by its mirror in the alphabet (A ↔ Z, B ↔ Y, …): the pair's positions add up to 27.\n\nApplying it to WINDOW: **DRMWLD**."
+ },
+ {
+  "slug": "cd-growing-shift-2",
+  "title": "Growing shift +2, +3, …: TIGER → VLKJX",
+  "type": "mcq",
+  "difficulty": "medium",
+  "statement": "In a certain code, **TIGER** is written as **VLKJX**. How is **LIGHT** written in that code?",
+  "options": [
+   "NKIJV",
+   "NLKLZ",
+   "NLKMZ",
+   "OMLNA"
+  ],
+  "answer": "C",
+  "explanation": "The 1st letter moves 2 place forward, the 2nd 3, the 3rd 4, and so on.\n\nApplying it to LIGHT: **NLKMZ**."
+ },
+ {
+  "slug": "cd-alternate-2",
+  "title": "Alternate +2/−2: GARDEN → IYTBGL",
+  "type": "mcq",
+  "difficulty": "medium",
+  "statement": "In a certain code, **GARDEN** is written as **IYTBGL**. How is **WHEAT** written in that code?",
+  "options": [
+   "YJGCV",
+   "YFGZV",
+   "YFGYV",
+   "UJCCR"
+  ],
+  "answer": "C",
+  "explanation": "Letters in odd positions move 2 forward; letters in even positions move 2 back.\n\nApplying it to WHEAT: **YFGYV**."
+ },
+ {
+  "slug": "cd-reverse-shift-2",
+  "title": "Reverse, then shift +1: GRAPE → FQBSH",
+  "type": "mcq",
+  "difficulty": "medium",
+  "statement": "In a certain code, **GRAPE** is written as **FQBSH**. How is **CHAIR** written in that code?",
+  "options": [
+   "DIBJS",
+   "SJBID",
+   "TKCJE",
+   "QHZGB"
+  ],
+  "answer": "B",
+  "explanation": "Write the word backwards, then move every letter 1 place forward. CHAIR → RIAHC → **SJBID**."
+ },
+ {
+  "slug": "cd-opposite-3",
+  "title": "Opposite letters: HEART → SVZIG",
+  "type": "mcq",
+  "difficulty": "medium",
+  "statement": "In a certain code, **HEART** is written as **SVZIG**. How is **QUEST** written in that code?",
+  "options": [
+   "RVFTU",
+   "IEUGF",
+   "JFUHG",
+   "JFVHG"
+  ],
+  "answer": "D",
+  "explanation": "Each letter is replaced by its mirror in the alphabet (A ↔ Z, B ↔ Y, …): the pair's positions add up to 27.\n\nApplying it to QUEST: **JFVHG**."
+ },
+ {
+  "slug": "cd-growing-shift-3",
+  "title": "Growing shift +1, +2, …: MARKET → NCUOJZ",
+  "type": "mcq",
+  "difficulty": "medium",
+  "statement": "In a certain code, **MARKET** is written as **NCUOJZ**. How is **EARTH** written in that code?",
+  "options": [
+   "FCUWM",
+   "GDVYN",
+   "FCUXM",
+   "FBSUI"
+  ],
+  "answer": "C",
+  "explanation": "The 1st letter moves 1 place forward, the 2nd 2, the 3rd 3, and so on.\n\nApplying it to EARTH: **FCUXM**."
+ },
+ {
+  "slug": "cd-alternate-3",
+  "title": "Alternate +1/−1: MUSIC → NTTHD",
+  "type": "mcq",
+  "difficulty": "medium",
+  "statement": "In a certain code, **MUSIC** is written as **NTTHD**. How is **SUGAR** written in that code?",
+  "options": [
+   "RVFBQ",
+   "TTHZS",
+   "TTGZS",
+   "TVHBS"
+  ],
+  "answer": "B",
+  "explanation": "Letters in odd positions move 1 forward; letters in even positions move 1 back.\n\nApplying it to SUGAR: **TTHZS**."
+ },
+ {
+  "slug": "cd-reverse-shift-3",
+  "title": "Reverse, then shift +1: MOUSE → FTVPN",
+  "type": "mcq",
+  "difficulty": "medium",
+  "statement": "In a certain code, **MOUSE** is written as **FTVPN**. How is **DOCTOR** written in that code?",
+  "options": [
+   "TQVEQF",
+   "QNSBNC",
+   "EPDUPS",
+   "SPUDPE"
+  ],
+  "answer": "D",
+  "explanation": "Write the word backwards, then move every letter 1 place forward. DOCTOR → ROTCOD → **SPUDPE**."
+ },
+ {
+  "slug": "cd-opposite-4",
+  "title": "Opposite letters: MAGIC → NZTRX",
+  "type": "mcq",
+  "difficulty": "medium",
+  "statement": "In a certain code, **MAGIC** is written as **NZTRX**. How is **QUEST** written in that code?",
+  "options": [
+   "IEUGF",
+   "RVFTU",
+   "JFVHG",
+   "JEVHG"
+  ],
+  "answer": "C",
+  "explanation": "Each letter is replaced by its mirror in the alphabet (A ↔ Z, B ↔ Y, …): the pair's positions add up to 27.\n\nApplying it to QUEST: **JFVHG**."
+ },
+ {
+  "slug": "cd-growing-shift-4",
+  "title": "Growing shift +1, +2, …: PAPER → QCSIW",
+  "type": "mcq",
+  "difficulty": "medium",
+  "statement": "In a certain code, **PAPER** is written as **QCSIW**. How is **TRAIN** written in that code?",
+  "options": [
+   "VUENT",
+   "USBJO",
+   "UTDMS",
+   "UTEMS"
+  ],
+  "answer": "C",
+  "explanation": "The 1st letter moves 1 place forward, the 2nd 2, the 3rd 3, and so on.\n\nApplying it to TRAIN: **UTDMS**."
+ },
+ {
+  "slug": "cd-alternate-4",
+  "title": "Alternate +2/−2: PLANT → RJCLV",
+  "type": "mcq",
+  "difficulty": "medium",
+  "statement": "In a certain code, **PLANT** is written as **RJCLV**. How is **SUGAR** written in that code?",
+  "options": [
+   "USIXT",
+   "UWICT",
+   "QWECP",
+   "USIYT"
+  ],
+  "answer": "D",
+  "explanation": "Letters in odd positions move 2 forward; letters in even positions move 2 back.\n\nApplying it to SUGAR: **USIYT**."
+ },
+ {
+  "slug": "cd-reverse-shift-4",
+  "title": "Reverse, then shift +2: ROBIN → PKDQT",
+  "type": "mcq",
+  "difficulty": "medium",
+  "statement": "In a certain code, **ROBIN** is written as **PKDQT**. How is **WATER** written in that code?",
+  "options": [
+   "TGVCY",
+   "YCVGT",
+   "PCRYU",
+   "UHWDZ"
+  ],
+  "answer": "A",
+  "explanation": "Write the word backwards, then move every letter 2 places forward. WATER → RETAW → **TGVCY**."
+ },
+ {
+  "slug": "cd-opposite-5",
+  "title": "Opposite letters: MARKET → NZIPVG",
+  "type": "mcq",
+  "difficulty": "medium",
+  "statement": "In a certain code, **MARKET** is written as **NZIPVG**. How is **FAMILY** written in that code?",
+  "options": [
+   "GBNJMZ",
+   "UZNRPB",
+   "TYMQNA",
+   "UZNROB"
+  ],
+  "answer": "D",
+  "explanation": "Each letter is replaced by its mirror in the alphabet (A ↔ Z, B ↔ Y, …): the pair's positions add up to 27.\n\nApplying it to FAMILY: **UZNROB**."
+ },
+ {
+  "slug": "cd-growing-shift-5",
+  "title": "Growing shift +1, +2, …: SPACE → TRDGJ",
+  "type": "mcq",
+  "difficulty": "medium",
+  "statement": "In a certain code, **SPACE** is written as **TRDGJ**. How is **STORM** written in that code?",
+  "options": [
+   "UWSWS",
+   "TVRVR",
+   "TUPSN",
+   "TVQVR"
+  ],
+  "answer": "B",
+  "explanation": "The 1st letter moves 1 place forward, the 2nd 2, the 3rd 3, and so on.\n\nApplying it to STORM: **TVRVR**."
+ },
+ {
+  "slug": "cd-alternate-5",
+  "title": "Alternate +1/−1: QUEST → RTFRU",
+  "type": "mcq",
+  "difficulty": "medium",
+  "statement": "In a certain code, **QUEST** is written as **RTFRU**. How is **TOWER** written in that code?",
+  "options": [
+   "UNWDS",
+   "SPVFQ",
+   "UPXFS",
+   "UNXDS"
+  ],
+  "answer": "D",
+  "explanation": "Letters in odd positions move 1 forward; letters in even positions move 1 back.\n\nApplying it to TOWER: **UNXDS**."
+ },
+ {
+  "slug": "cd-substitution-1",
+  "title": "Name swaps: What is the colour of a clear sky?",
+  "type": "mcq",
+  "difficulty": "hard",
+  "statement": "In a certain language, 'blue' is called 'red', 'red' is called 'black', 'black' is called 'green', 'green' is called 'yellow', 'yellow' is called 'white'. What is the colour of a clear sky?",
+  "options": [
+   "Blue",
+   "Red",
+   "Green",
+   "Yellow"
+  ],
+  "answer": "B",
+  "explanation": "The real answer is 'blue', but in this language 'blue' is called **'red'** — so the answer is the code word, not the real one."
+ },
+ {
+  "slug": "cd-common-words-1",
+  "title": "Code language: the code for 'work'",
+  "type": "mcq",
+  "difficulty": "hard",
+  "statement": "In a code language, 'fe re ju' means 'work they very'; 'ka dar fe' means 'work and we'; and 'na ka re' means 'very and you'. What is the code for **'work'**?",
+  "options": [
+   "ka",
+   "re",
+   "ju",
+   "fe"
+  ],
+  "answer": "D",
+  "explanation": "'work' appears in the first two sentences and nothing else is common to both. The only code common to their coded forms is **'fe'**."
+ },
+ {
+  "slug": "cd-substitution-2",
+  "title": "Name swaps: Where do birds fly?",
+  "type": "mcq",
+  "difficulty": "hard",
+  "statement": "In a certain language, 'cloud' is called 'rain', 'rain' is called 'sea', 'sea' is called 'sky', 'sky' is called 'water', 'water' is called 'air'. Where do birds fly?",
+  "options": [
+   "Air",
+   "Sky",
+   "Sea",
+   "Water"
+  ],
+  "answer": "D",
+  "explanation": "The real answer is 'sky', but in this language 'sky' is called **'water'** — so the answer is the code word, not the real one."
+ },
+ {
+  "slug": "cd-common-words-2",
+  "title": "Code language: the code for 'we'",
+  "type": "mcq",
+  "difficulty": "hard",
+  "statement": "In a code language, 'dar fe mi' means 'we are sweet'; 'dar zo ju' means 'we smart bad'; and 'fe re zo' means 'sweet smart always'. What is the code for **'we'**?",
+  "options": [
+   "dar",
+   "mi",
+   "fe",
+   "zo"
+  ],
+  "answer": "A",
+  "explanation": "'we' appears in the first two sentences and nothing else is common to both. The only code common to their coded forms is **'dar'**."
+ },
+ {
+  "slug": "cd-substitution-3",
+  "title": "Name swaps: What do we drink?",
+  "type": "mcq",
+  "difficulty": "hard",
+  "statement": "In a certain language, 'cloud' is called 'sky', 'sky' is called 'water', 'water' is called 'rain', 'rain' is called 'air', 'air' is called 'sea'. What do we drink?",
+  "options": [
+   "Sea",
+   "Rain",
+   "Sky",
+   "Water"
+  ],
+  "answer": "B",
+  "explanation": "The real answer is 'water', but in this language 'water' is called **'rain'** — so the answer is the code word, not the real one."
+ },
+ {
+  "slug": "cd-common-words-3",
+  "title": "Code language: the code for 'you'",
+  "type": "mcq",
+  "difficulty": "hard",
+  "statement": "In a code language, 'pit zo mi' means 'you we they'; 'na pit tok' means 'you good bad'; and 'na ju zo' means 'they good very'. What is the code for **'you'**?",
+  "options": [
+   "pit",
+   "na",
+   "zo",
+   "mi"
+  ],
+  "answer": "A",
+  "explanation": "'you' appears in the first two sentences and nothing else is common to both. The only code common to their coded forms is **'pit'**."
+ },
+ {
+  "slug": "cd-substitution-4",
+  "title": "Name swaps: What do we read?",
+  "type": "mcq",
+  "difficulty": "hard",
+  "statement": "In a certain language, 'bag' is called 'table', 'table' is called 'chair', 'chair' is called 'book', 'book' is called 'box', 'box' is called 'pen'. What do we read?",
+  "options": [
+   "Pen",
+   "Table",
+   "Box",
+   "Book"
+  ],
+  "answer": "C",
+  "explanation": "The real answer is 'book', but in this language 'book' is called **'box'** — so the answer is the code word, not the real one."
+ },
+ {
+  "slug": "cd-common-words-4",
+  "title": "Code language: the code for 'sweet'",
+  "type": "mcq",
+  "difficulty": "hard",
+  "statement": "In a code language, 'mi ka tok' means 'sweet always bad'; 'dar sa ka' means 'sweet play they'; and 're mi sa' means 'bad play fruits'. What is the code for **'sweet'**?",
+  "options": [
+   "ka",
+   "sa",
+   "tok",
+   "mi"
+  ],
+  "answer": "A",
+  "explanation": "'sweet' appears in the first two sentences and nothing else is common to both. The only code common to their coded forms is **'ka'**."
+ },
+ {
+  "slug": "cd-substitution-5",
+  "title": "Name swaps: What do we write with?",
+  "type": "mcq",
+  "difficulty": "hard",
+  "statement": "In a certain language, 'table' is called 'bag', 'bag' is called 'pen', 'pen' is called 'book', 'book' is called 'box', 'box' is called 'chair'. What do we write with?",
+  "options": [
+   "Pen",
+   "Chair",
+   "Book",
+   "Table"
+  ],
+  "answer": "C",
+  "explanation": "The real answer is 'pen', but in this language 'pen' is called **'book'** — so the answer is the code word, not the real one."
+ },
+ {
+  "slug": "cd-common-words-5",
+  "title": "Code language: the code for 'bad'",
+  "type": "mcq",
+  "difficulty": "hard",
+  "statement": "In a code language, 'sa zo mi' means 'bad very always'; 'pit dar zo' means 'bad you eat'; and 'lu sa pit' means 'always you they'. What is the code for **'bad'**?",
+  "options": [
+   "zo",
+   "mi",
+   "sa",
+   "pit"
+  ],
+  "answer": "A",
+  "explanation": "'bad' appears in the first two sentences and nothing else is common to both. The only code common to their coded forms is **'zo'**."
+ }
+]

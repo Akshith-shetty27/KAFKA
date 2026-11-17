@@ -1,0 +1,677 @@
+[
+ {
+  "slug": "br-chain-two-1",
+  "title": "Vijay → Sunita → Aman",
+  "type": "mcq",
+  "difficulty": "easy",
+  "statement": "Vijay is the son of Sunita. Sunita is the daughter of Aman. How is Vijay related to Aman?",
+  "options": [
+   "Granddaughter",
+   "Grandson",
+   "Brother-in-law",
+   "Father"
+  ],
+  "answer": "B",
+  "explanation": "Follow the chain one link at a time:\n\n- Vijay is the son of Sunita.\n- Sunita is the daughter of Aman.\n\nSo Vijay is Aman's **grandson**."
+ },
+ {
+  "slug": "br-chain-two-2",
+  "title": "Gita → Asha → Rekha",
+  "type": "mcq",
+  "difficulty": "easy",
+  "statement": "Gita is the daughter of Asha. Asha is the daughter of Rekha. How is Gita related to Rekha?",
+  "options": [
+   "Daughter-in-law",
+   "Grandmother",
+   "Granddaughter",
+   "Grandson"
+  ],
+  "answer": "C",
+  "explanation": "Follow the chain one link at a time:\n\n- Gita is the daughter of Asha.\n- Asha is the daughter of Rekha.\n\nSo Gita is Rekha's **granddaughter**."
+ },
+ {
+  "slug": "br-chain-two-3",
+  "title": "Sunita → Suresh → Karan",
+  "type": "mcq",
+  "difficulty": "easy",
+  "statement": "Sunita is the wife of Suresh. Suresh is the brother of Karan. How is Sunita related to Karan?",
+  "options": [
+   "Wife",
+   "Brother-in-law",
+   "Sister-in-law",
+   "Mother-in-law"
+  ],
+  "answer": "C",
+  "explanation": "Follow the chain one link at a time:\n\n- Sunita is the wife of Suresh.\n- Suresh is the brother of Karan.\n\nSo Sunita is Karan's **sister-in-law**."
+ },
+ {
+  "slug": "br-chain-two-4",
+  "title": "Tarun → Arun → Kavya",
+  "type": "mcq",
+  "difficulty": "easy",
+  "statement": "Tarun is the son of Arun. Arun is the brother of Kavya. How is Tarun related to Kavya?",
+  "options": [
+   "Niece",
+   "Cousin",
+   "Son-in-law",
+   "Nephew"
+  ],
+  "answer": "D",
+  "explanation": "Follow the chain one link at a time:\n\n- Tarun is the son of Arun.\n- Arun is the brother of Kavya.\n\nSo Tarun is Kavya's **nephew**."
+ },
+ {
+  "slug": "br-chain-two-5",
+  "title": "Sunita → Rekha → Sneha",
+  "type": "mcq",
+  "difficulty": "easy",
+  "statement": "Sunita is the daughter of Rekha. Rekha is the daughter of Sneha. How is Sunita related to Sneha?",
+  "options": [
+   "Grandson",
+   "Sister-in-law",
+   "Daughter",
+   "Granddaughter"
+  ],
+  "answer": "D",
+  "explanation": "Follow the chain one link at a time:\n\n- Sunita is the daughter of Rekha.\n- Rekha is the daughter of Sneha.\n\nSo Sunita is Sneha's **granddaughter**."
+ },
+ {
+  "slug": "br-chain-two-6",
+  "title": "Tarun → Nikhil → Divya",
+  "type": "mcq",
+  "difficulty": "easy",
+  "statement": "Tarun is the father of Nikhil. Nikhil is the husband of Divya. How is Tarun related to Divya?",
+  "options": [
+   "Husband",
+   "Uncle",
+   "Mother-in-law",
+   "Father-in-law"
+  ],
+  "answer": "D",
+  "explanation": "Follow the chain one link at a time:\n\n- Tarun is the father of Nikhil.\n- Nikhil is the husband of Divya.\n\nSo Tarun is Divya's **father-in-law**."
+ },
+ {
+  "slug": "br-chain-two-7",
+  "title": "Nikhil → Ritu → Sameer",
+  "type": "mcq",
+  "difficulty": "easy",
+  "statement": "Nikhil is the husband of Ritu. Ritu is the daughter of Sameer. How is Nikhil related to Sameer?",
+  "options": [
+   "Father",
+   "Son-in-law",
+   "Brother-in-law",
+   "Daughter-in-law"
+  ],
+  "answer": "B",
+  "explanation": "Follow the chain one link at a time:\n\n- Nikhil is the husband of Ritu.\n- Ritu is the daughter of Sameer.\n\nSo Nikhil is Sameer's **son-in-law**."
+ },
+ {
+  "slug": "br-chain-two-8",
+  "title": "Mohan → Sunita → Sneha",
+  "type": "mcq",
+  "difficulty": "easy",
+  "statement": "Mohan is the husband of Sunita. Sunita is the sister of Sneha. How is Mohan related to Sneha?",
+  "options": [
+   "Father-in-law",
+   "Sister-in-law",
+   "Nephew",
+   "Brother-in-law"
+  ],
+  "answer": "D",
+  "explanation": "Follow the chain one link at a time:\n\n- Mohan is the husband of Sunita.\n- Sunita is the sister of Sneha.\n\nSo Mohan is Sneha's **brother-in-law**."
+ },
+ {
+  "slug": "br-chain-two-9",
+  "title": "Jaya → Kavya → Manoj",
+  "type": "mcq",
+  "difficulty": "easy",
+  "statement": "Jaya is the mother of Kavya. Kavya is the wife of Manoj. How is Jaya related to Manoj?",
+  "options": [
+   "Mother-in-law",
+   "Father-in-law",
+   "Mother",
+   "Sister-in-law"
+  ],
+  "answer": "A",
+  "explanation": "Follow the chain one link at a time:\n\n- Jaya is the mother of Kavya.\n- Kavya is the wife of Manoj.\n\nSo Jaya is Manoj's **mother-in-law**."
+ },
+ {
+  "slug": "br-chain-two-10",
+  "title": "Lata → Mohan → Sneha",
+  "type": "mcq",
+  "difficulty": "easy",
+  "statement": "Lata is the wife of Mohan. Mohan is the son of Sneha. How is Lata related to Sneha?",
+  "options": [
+   "Sister",
+   "Niece",
+   "Son-in-law",
+   "Daughter-in-law"
+  ],
+  "answer": "D",
+  "explanation": "Follow the chain one link at a time:\n\n- Lata is the wife of Mohan.\n- Mohan is the son of Sneha.\n\nSo Lata is Sneha's **daughter-in-law**."
+ },
+ {
+  "slug": "br-chain-two-11",
+  "title": "Nikhil → Meena → Deepak",
+  "type": "mcq",
+  "difficulty": "easy",
+  "statement": "Nikhil is the father of Meena. Meena is the wife of Deepak. How is Nikhil related to Deepak?",
+  "options": [
+   "Mother-in-law",
+   "Father-in-law",
+   "Cousin",
+   "Grandson"
+  ],
+  "answer": "B",
+  "explanation": "Follow the chain one link at a time:\n\n- Nikhil is the father of Meena.\n- Meena is the wife of Deepak.\n\nSo Nikhil is Deepak's **father-in-law**."
+ },
+ {
+  "slug": "br-chain-two-12",
+  "title": "Arun → Kavya → Aman",
+  "type": "mcq",
+  "difficulty": "easy",
+  "statement": "Arun is the son of Kavya. Kavya is the sister of Aman. How is Arun related to Aman?",
+  "options": [
+   "Brother",
+   "Niece",
+   "Nephew",
+   "Father-in-law"
+  ],
+  "answer": "C",
+  "explanation": "Follow the chain one link at a time:\n\n- Arun is the son of Kavya.\n- Kavya is the sister of Aman.\n\nSo Arun is Aman's **nephew**."
+ },
+ {
+  "slug": "br-chain-two-13",
+  "title": "Sneha → Rakesh → Karan",
+  "type": "mcq",
+  "difficulty": "easy",
+  "statement": "Sneha is the sister of Rakesh. Rakesh is the father of Karan. How is Sneha related to Karan?",
+  "options": [
+   "Daughter",
+   "Uncle",
+   "Aunt",
+   "Sister-in-law"
+  ],
+  "answer": "C",
+  "explanation": "Follow the chain one link at a time:\n\n- Sneha is the sister of Rakesh.\n- Rakesh is the father of Karan.\n\nSo Sneha is Karan's **aunt**."
+ },
+ {
+  "slug": "br-chain-two-14",
+  "title": "Meena → Suresh → Divya",
+  "type": "mcq",
+  "difficulty": "easy",
+  "statement": "Meena is the mother of Suresh. Suresh is the husband of Divya. How is Meena related to Divya?",
+  "options": [
+   "Mother-in-law",
+   "Granddaughter",
+   "Father-in-law",
+   "Daughter-in-law"
+  ],
+  "answer": "A",
+  "explanation": "Follow the chain one link at a time:\n\n- Meena is the mother of Suresh.\n- Suresh is the husband of Divya.\n\nSo Meena is Divya's **mother-in-law**."
+ },
+ {
+  "slug": "br-chain-two-15",
+  "title": "Harish → Rakesh → Sneha",
+  "type": "mcq",
+  "difficulty": "easy",
+  "statement": "Harish is the father of Rakesh. Rakesh is the husband of Sneha. How is Harish related to Sneha?",
+  "options": [
+   "Father-in-law",
+   "Husband",
+   "Cousin",
+   "Mother-in-law"
+  ],
+  "answer": "A",
+  "explanation": "Follow the chain one link at a time:\n\n- Harish is the father of Rakesh.\n- Rakesh is the husband of Sneha.\n\nSo Harish is Sneha's **father-in-law**."
+ },
+ {
+  "slug": "br-chain-two-16",
+  "title": "Deepak → Uma → Karan",
+  "type": "mcq",
+  "difficulty": "easy",
+  "statement": "Deepak is the brother of Uma. Uma is the wife of Karan. How is Deepak related to Karan?",
+  "options": [
+   "Sister-in-law",
+   "Brother-in-law",
+   "Uncle",
+   "Brother"
+  ],
+  "answer": "B",
+  "explanation": "Follow the chain one link at a time:\n\n- Deepak is the brother of Uma.\n- Uma is the wife of Karan.\n\nSo Deepak is Karan's **brother-in-law**."
+ },
+ {
+  "slug": "br-chain-two-17",
+  "title": "Vijay → Asha → Tarun",
+  "type": "mcq",
+  "difficulty": "easy",
+  "statement": "Vijay is the brother of Asha. Asha is the mother of Tarun. How is Vijay related to Tarun?",
+  "options": [
+   "Uncle",
+   "Brother-in-law",
+   "Aunt",
+   "Husband"
+  ],
+  "answer": "A",
+  "explanation": "Follow the chain one link at a time:\n\n- Vijay is the brother of Asha.\n- Asha is the mother of Tarun.\n\nSo Vijay is Tarun's **uncle**."
+ },
+ {
+  "slug": "br-chain-two-18",
+  "title": "Gita → Lata → Rekha",
+  "type": "mcq",
+  "difficulty": "easy",
+  "statement": "Gita is the daughter of Lata. Lata is the sister of Rekha. How is Gita related to Rekha?",
+  "options": [
+   "Nephew",
+   "Niece",
+   "Mother-in-law",
+   "Sister"
+  ],
+  "answer": "B",
+  "explanation": "Follow the chain one link at a time:\n\n- Gita is the daughter of Lata.\n- Lata is the sister of Rekha.\n\nSo Gita is Rekha's **niece**."
+ },
+ {
+  "slug": "br-chain-two-19",
+  "title": "Sneha → Mohan → Manoj",
+  "type": "mcq",
+  "difficulty": "easy",
+  "statement": "Sneha is the wife of Mohan. Mohan is the son of Manoj. How is Sneha related to Manoj?",
+  "options": [
+   "Son-in-law",
+   "Daughter-in-law",
+   "Niece",
+   "Sister"
+  ],
+  "answer": "B",
+  "explanation": "Follow the chain one link at a time:\n\n- Sneha is the wife of Mohan.\n- Mohan is the son of Manoj.\n\nSo Sneha is Manoj's **daughter-in-law**."
+ },
+ {
+  "slug": "br-chain-three-1",
+  "title": "Ritu → Pooja → Asha → Jaya",
+  "type": "mcq",
+  "difficulty": "medium",
+  "statement": "Ritu is the daughter of Pooja. Pooja is the sister of Asha. Asha is the mother of Jaya. How is Ritu related to Jaya?",
+  "options": [
+   "Granddaughter",
+   "Mother-in-law",
+   "Niece",
+   "Cousin"
+  ],
+  "answer": "D",
+  "explanation": "Follow the chain one link at a time:\n\n- Ritu is the daughter of Pooja.\n- Pooja is the sister of Asha.\n- Asha is the mother of Jaya.\n\nSo Ritu is Jaya's **cousin**."
+ },
+ {
+  "slug": "br-photo-1",
+  "title": "Pointing to a photo: the husband of my father's sister",
+  "type": "mcq",
+  "difficulty": "medium",
+  "statement": "Pointing to a photograph, Divya says: \"He is the husband of my father's sister.\" How is the person in the photograph related to Divya?",
+  "options": [
+   "Brother",
+   "Aunt",
+   "Father",
+   "Uncle"
+  ],
+  "answer": "D",
+  "explanation": "Work outward from Divya: Divya's father (Deepak) → Divya's father's sister (Ritu) → Divya's father's sister's husband (Arun). That person is Divya's **uncle**."
+ },
+ {
+  "slug": "br-chain-three-2",
+  "title": "Meena → Arun → Rakesh → Deepak",
+  "type": "mcq",
+  "difficulty": "medium",
+  "statement": "Meena is the wife of Arun. Arun is the brother of Rakesh. Rakesh is the father of Deepak. How is Meena related to Deepak?",
+  "options": [
+   "Daughter-in-law",
+   "Mother-in-law",
+   "Uncle",
+   "Aunt"
+  ],
+  "answer": "D",
+  "explanation": "Follow the chain one link at a time:\n\n- Meena is the wife of Arun.\n- Arun is the brother of Rakesh.\n- Rakesh is the father of Deepak.\n\nSo Meena is Deepak's **aunt**."
+ },
+ {
+  "slug": "br-photo-2",
+  "title": "Pointing to a photo: the son of my husband's brother",
+  "type": "mcq",
+  "difficulty": "medium",
+  "statement": "Pointing to a photograph, Asha says: \"He is the son of my husband's brother.\" How is the person in the photograph related to Asha?",
+  "options": [
+   "Father",
+   "Grandson",
+   "Niece",
+   "Nephew"
+  ],
+  "answer": "D",
+  "explanation": "Work outward from Asha: Asha's husband (Aman) → Asha's husband's brother (Gopal) → Asha's husband's brother's son (Arun). That person is Asha's **nephew**."
+ },
+ {
+  "slug": "br-chain-three-3",
+  "title": "Anita → Harish → Karan → Sneha",
+  "type": "mcq",
+  "difficulty": "medium",
+  "statement": "Anita is the daughter of Harish. Harish is the brother of Karan. Karan is the father of Sneha. How is Anita related to Sneha?",
+  "options": [
+   "Grandmother",
+   "Sister",
+   "Cousin",
+   "Mother-in-law"
+  ],
+  "answer": "C",
+  "explanation": "Follow the chain one link at a time:\n\n- Anita is the daughter of Harish.\n- Harish is the brother of Karan.\n- Karan is the father of Sneha.\n\nSo Anita is Sneha's **cousin**."
+ },
+ {
+  "slug": "br-photo-3",
+  "title": "Pointing to a photo: the daughter of my father's brother",
+  "type": "mcq",
+  "difficulty": "medium",
+  "statement": "Pointing to a photograph, Uma says: \"She is the daughter of my father's brother.\" How is the person in the photograph related to Uma?",
+  "options": [
+   "Cousin",
+   "Mother",
+   "Sister-in-law",
+   "Wife"
+  ],
+  "answer": "A",
+  "explanation": "Work outward from Uma: Uma's father (Deepak) → Uma's father's brother (Manoj) → Uma's father's brother's daughter (Rekha). That person is Uma's **cousin**."
+ },
+ {
+  "slug": "br-chain-three-4",
+  "title": "Rekha → Karan → Gita → Sameer",
+  "type": "mcq",
+  "difficulty": "medium",
+  "statement": "Rekha is the wife of Karan. Karan is the brother of Gita. Gita is the mother of Sameer. How is Rekha related to Sameer?",
+  "options": [
+   "Uncle",
+   "Grandmother",
+   "Aunt",
+   "Granddaughter"
+  ],
+  "answer": "C",
+  "explanation": "Follow the chain one link at a time:\n\n- Rekha is the wife of Karan.\n- Karan is the brother of Gita.\n- Gita is the mother of Sameer.\n\nSo Rekha is Sameer's **aunt**."
+ },
+ {
+  "slug": "br-photo-4",
+  "title": "Pointing to a photo: the son of my mother's sister",
+  "type": "mcq",
+  "difficulty": "medium",
+  "statement": "Pointing to a photograph, Pooja says: \"He is the son of my mother's sister.\" How is the person in the photograph related to Pooja?",
+  "options": [
+   "Cousin",
+   "Son",
+   "Father",
+   "Nephew"
+  ],
+  "answer": "A",
+  "explanation": "Work outward from Pooja: Pooja's mother (Sunita) → Pooja's mother's sister (Anita) → Pooja's mother's sister's son (Aman). That person is Pooja's **cousin**."
+ },
+ {
+  "slug": "br-chain-three-5",
+  "title": "Rekha → Mohan → Pooja → Karan",
+  "type": "mcq",
+  "difficulty": "medium",
+  "statement": "Rekha is the daughter of Mohan. Mohan is the brother of Pooja. Pooja is the mother of Karan. How is Rekha related to Karan?",
+  "options": [
+   "Grandmother",
+   "Daughter",
+   "Cousin",
+   "Sister"
+  ],
+  "answer": "C",
+  "explanation": "Follow the chain one link at a time:\n\n- Rekha is the daughter of Mohan.\n- Mohan is the brother of Pooja.\n- Pooja is the mother of Karan.\n\nSo Rekha is Karan's **cousin**."
+ },
+ {
+  "slug": "br-photo-5",
+  "title": "Pointing to a photo: the wife of my mother's brother",
+  "type": "mcq",
+  "difficulty": "medium",
+  "statement": "Pointing to a photograph, Aman says: \"She is the wife of my mother's brother.\" How is the person in the photograph related to Aman?",
+  "options": [
+   "Sister-in-law",
+   "Uncle",
+   "Wife",
+   "Aunt"
+  ],
+  "answer": "D",
+  "explanation": "Work outward from Aman: Aman's mother (Sneha) → Aman's mother's brother (Manoj) → Aman's mother's brother's wife (Jaya). That person is Aman's **aunt**."
+ },
+ {
+  "slug": "br-chain-three-6",
+  "title": "Meena → Ritu → Sameer → Anita",
+  "type": "mcq",
+  "difficulty": "medium",
+  "statement": "Meena is the daughter of Ritu. Ritu is the sister of Sameer. Sameer is the husband of Anita. How is Meena related to Anita?",
+  "options": [
+   "Niece",
+   "Wife",
+   "Daughter",
+   "Nephew"
+  ],
+  "answer": "A",
+  "explanation": "Follow the chain one link at a time:\n\n- Meena is the daughter of Ritu.\n- Ritu is the sister of Sameer.\n- Sameer is the husband of Anita.\n\nSo Meena is Anita's **niece**."
+ },
+ {
+  "slug": "br-photo-6",
+  "title": "Pointing to a photo: the son of my sister",
+  "type": "mcq",
+  "difficulty": "medium",
+  "statement": "Pointing to a photograph, Deepak says: \"He is the son of my sister.\" How is the person in the photograph related to Deepak?",
+  "options": [
+   "Nephew",
+   "Niece",
+   "Brother",
+   "Grandson"
+  ],
+  "answer": "A",
+  "explanation": "Work outward from Deepak: Deepak's sister (Meena) → Deepak's sister's son (Manoj). That person is Deepak's **nephew**."
+ },
+ {
+  "slug": "br-chain-three-7",
+  "title": "Karan → Sneha → Sunita → Nikhil",
+  "type": "mcq",
+  "difficulty": "medium",
+  "statement": "Karan is the son of Sneha. Sneha is the sister of Sunita. Sunita is the wife of Nikhil. How is Karan related to Nikhil?",
+  "options": [
+   "Brother",
+   "Niece",
+   "Nephew",
+   "Brother-in-law"
+  ],
+  "answer": "C",
+  "explanation": "Follow the chain one link at a time:\n\n- Karan is the son of Sneha.\n- Sneha is the sister of Sunita.\n- Sunita is the wife of Nikhil.\n\nSo Karan is Nikhil's **nephew**."
+ },
+ {
+  "slug": "br-photo-7",
+  "title": "Pointing to a photo: the sister of my father",
+  "type": "mcq",
+  "difficulty": "medium",
+  "statement": "Pointing to a photograph, Gopal says: \"She is the sister of my father.\" How is the person in the photograph related to Gopal?",
+  "options": [
+   "Aunt",
+   "Cousin",
+   "Daughter",
+   "Uncle"
+  ],
+  "answer": "A",
+  "explanation": "Work outward from Gopal: Gopal's father (Nikhil) → Gopal's father's sister (Kavya). That person is Gopal's **aunt**."
+ },
+ {
+  "slug": "br-chain-three-8",
+  "title": "Divya → Neha → Mohan → Deepak",
+  "type": "mcq",
+  "difficulty": "medium",
+  "statement": "Divya is the daughter of Neha. Neha is the sister of Mohan. Mohan is the father of Deepak. How is Divya related to Deepak?",
+  "options": [
+   "Mother",
+   "Sister",
+   "Cousin",
+   "Daughter"
+  ],
+  "answer": "C",
+  "explanation": "Follow the chain one link at a time:\n\n- Divya is the daughter of Neha.\n- Neha is the sister of Mohan.\n- Mohan is the father of Deepak.\n\nSo Divya is Deepak's **cousin**."
+ },
+ {
+  "slug": "br-photo-8",
+  "title": "Pointing to a photo: the son of my mother's brother",
+  "type": "mcq",
+  "difficulty": "medium",
+  "statement": "Pointing to a photograph, Sunita says: \"He is the son of my mother's brother.\" How is the person in the photograph related to Sunita?",
+  "options": [
+   "Son",
+   "Cousin",
+   "Nephew",
+   "Father-in-law"
+  ],
+  "answer": "B",
+  "explanation": "Work outward from Sunita: Sunita's mother (Neha) → Sunita's mother's brother (Deepak) → Sunita's mother's brother's son (Mohan). That person is Sunita's **cousin**."
+ },
+ {
+  "slug": "br-coded-1",
+  "title": "Coded relations: Harish % Kavya × Mohan + Gita",
+  "type": "mcq",
+  "difficulty": "hard",
+  "statement": "**P + Q** means P is the husband of Q; **P × Q** means P is the sister of Q; **P % Q** means P is the son of Q. If **Harish % Kavya × Mohan + Gita**, how is Harish related to Gita?",
+  "options": [
+   "Nephew",
+   "Father-in-law",
+   "Father",
+   "Niece"
+  ],
+  "answer": "A",
+  "explanation": "Decode each symbol: Harish is the son of Kavya; Kavya is the sister of Mohan; Mohan is the husband of Gita. So Harish is Gita's **nephew**."
+ },
+ {
+  "slug": "br-coded-2",
+  "title": "Coded relations: Vijay − Asha × Aman $ Meena",
+  "type": "mcq",
+  "difficulty": "hard",
+  "statement": "**P $ Q** means P is the husband of Q; **P × Q** means P is the sister of Q; **P − Q** means P is the son of Q. If **Vijay − Asha × Aman $ Meena**, how is Vijay related to Meena?",
+  "options": [
+   "Nephew",
+   "Brother-in-law",
+   "Niece",
+   "Grandson"
+  ],
+  "answer": "A",
+  "explanation": "Decode each symbol: Vijay is the son of Asha; Asha is the sister of Aman; Aman is the husband of Meena. So Vijay is Meena's **nephew**."
+ },
+ {
+  "slug": "br-coded-3",
+  "title": "Coded relations: Aman ÷ Uma # Jaya + Gita",
+  "type": "mcq",
+  "difficulty": "hard",
+  "statement": "**P ÷ Q** means P is the husband of Q; **P + Q** means P is the mother of Q; **P # Q** means P is the sister of Q. If **Aman ÷ Uma # Jaya + Gita**, how is Aman related to Gita?",
+  "options": [
+   "Grandfather",
+   "Aunt",
+   "Grandson",
+   "Uncle"
+  ],
+  "answer": "D",
+  "explanation": "Decode each symbol: Aman is the husband of Uma; Uma is the sister of Jaya; Jaya is the mother of Gita. So Aman is Gita's **uncle**."
+ },
+ {
+  "slug": "br-coded-4",
+  "title": "Coded relations: Nikhil ÷ Kavya % Sneha × Sameer",
+  "type": "mcq",
+  "difficulty": "hard",
+  "statement": "**P × Q** means P is the mother of Q; **P % Q** means P is the sister of Q; **P ÷ Q** means P is the son of Q. If **Nikhil ÷ Kavya % Sneha × Sameer**, how is Nikhil related to Sameer?",
+  "options": [
+   "Grandfather",
+   "Grandson",
+   "Cousin",
+   "Son-in-law"
+  ],
+  "answer": "C",
+  "explanation": "Decode each symbol: Nikhil is the son of Kavya; Kavya is the sister of Sneha; Sneha is the mother of Sameer. So Nikhil is Sameer's **cousin**."
+ },
+ {
+  "slug": "br-coded-5",
+  "title": "Coded relations: Neha $ Gopal − Deepak ÷ Lata",
+  "type": "mcq",
+  "difficulty": "hard",
+  "statement": "**P − Q** means P is the brother of Q; **P ÷ Q** means P is the father of Q; **P $ Q** means P is the wife of Q. If **Neha $ Gopal − Deepak ÷ Lata**, how is Neha related to Lata?",
+  "options": [
+   "Daughter-in-law",
+   "Aunt",
+   "Sister-in-law",
+   "Uncle"
+  ],
+  "answer": "B",
+  "explanation": "Decode each symbol: Neha is the wife of Gopal; Gopal is the brother of Deepak; Deepak is the father of Lata. So Neha is Lata's **aunt**."
+ },
+ {
+  "slug": "br-coded-6",
+  "title": "Coded relations: Meena % Vijay $ Karan + Divya",
+  "type": "mcq",
+  "difficulty": "hard",
+  "statement": "**P $ Q** means P is the brother of Q; **P % Q** means P is the daughter of Q; **P + Q** means P is the husband of Q. If **Meena % Vijay $ Karan + Divya**, how is Meena related to Divya?",
+  "options": [
+   "Aunt",
+   "Nephew",
+   "Niece",
+   "Cousin"
+  ],
+  "answer": "C",
+  "explanation": "Decode each symbol: Meena is the daughter of Vijay; Vijay is the brother of Karan; Karan is the husband of Divya. So Meena is Divya's **niece**."
+ },
+ {
+  "slug": "br-coded-7",
+  "title": "Coded relations: Jaya + Tarun # Vijay @ Karan",
+  "type": "mcq",
+  "difficulty": "hard",
+  "statement": "**P # Q** means P is the brother of Q; **P + Q** means P is the daughter of Q; **P @ Q** means P is the father of Q. If **Jaya + Tarun # Vijay @ Karan**, how is Jaya related to Karan?",
+  "options": [
+   "Daughter-in-law",
+   "Grandmother",
+   "Wife",
+   "Cousin"
+  ],
+  "answer": "D",
+  "explanation": "Decode each symbol: Jaya is the daughter of Tarun; Tarun is the brother of Vijay; Vijay is the father of Karan. So Jaya is Karan's **cousin**."
+ },
+ {
+  "slug": "br-coded-8",
+  "title": "Coded relations: Neha % Rakesh # Uma × Gita",
+  "type": "mcq",
+  "difficulty": "hard",
+  "statement": "**P # Q** means P is the brother of Q; **P × Q** means P is the mother of Q; **P % Q** means P is the wife of Q. If **Neha % Rakesh # Uma × Gita**, how is Neha related to Gita?",
+  "options": [
+   "Uncle",
+   "Sister",
+   "Mother",
+   "Aunt"
+  ],
+  "answer": "D",
+  "explanation": "Decode each symbol: Neha is the wife of Rakesh; Rakesh is the brother of Uma; Uma is the mother of Gita. So Neha is Gita's **aunt**."
+ },
+ {
+  "slug": "br-coded-9",
+  "title": "Coded relations: Sunita @ Jaya # Karan % Sameer",
+  "type": "mcq",
+  "difficulty": "hard",
+  "statement": "**P @ Q** means P is the daughter of Q; **P % Q** means P is the father of Q; **P # Q** means P is the sister of Q. If **Sunita @ Jaya # Karan % Sameer**, how is Sunita related to Sameer?",
+  "options": [
+   "Cousin",
+   "Aunt",
+   "Daughter-in-law",
+   "Mother-in-law"
+  ],
+  "answer": "A",
+  "explanation": "Decode each symbol: Sunita is the daughter of Jaya; Jaya is the sister of Karan; Karan is the father of Sameer. So Sunita is Sameer's **cousin**."
+ },
+ {
+  "slug": "br-coded-10",
+  "title": "Coded relations: Ritu ÷ Manoj @ Uma × Tarun",
+  "type": "mcq",
+  "difficulty": "hard",
+  "statement": "**P @ Q** means P is the brother of Q; **P × Q** means P is the mother of Q; **P ÷ Q** means P is the wife of Q. If **Ritu ÷ Manoj @ Uma × Tarun**, how is Ritu related to Tarun?",
+  "options": [
+   "Sister",
+   "Uncle",
+   "Aunt",
+   "Grandmother"
+  ],
+  "answer": "C",
+  "explanation": "Decode each symbol: Ritu is the wife of Manoj; Manoj is the brother of Uma; Uma is the mother of Tarun. So Ritu is Tarun's **aunt**."
+ }
+]
