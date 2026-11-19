@@ -1,93 +1,177 @@
+<div align="center">
+
 KAFKA 🚀
 
-Your AI-Powered Interview Preparation Companion
+Your Personal AI-Powered Interview Preparation Platform
 
-<p align="center">
-  <strong>Prepare Smarter. Practice Better. Get Interview Ready.</strong>
-</p>
-<p align="center">
-  An intelligent interview preparation platform designed to help students strengthen their technical knowledge, practice problem-solving, and prepare confidently for placement interviews.
-</p>
+Prepare Smarter. Practice Better. Crack Interviews.
+
+A centralized platform designed to help students prepare for technical interviews through structured learning, AI-powered assistance, and intelligent progress tracking.
+
+<br/>
+<br/>
+
+Features • Preview • Architecture • Installation
+
+</div>
 
 ⸻
 
-🌟 Overview
+💡 About KAFKA
 
-KAFKA is an AI-powered interview preparation platform that brings structured learning, technical practice, progress tracking, and intelligent assistance together in one place.
+Preparing for placements often means switching between multiple platforms, coding websites, learning resources, and preparation materials.
 
-Built with a modern frontend and a robust backend, KAFKA aims to make interview preparation more organized, interactive, and accessible.
+KAFKA brings the interview preparation experience together in one place.
 
-Whether you’re revising Data Structures and Algorithms, practising SQL, strengthening Python fundamentals, or preparing for aptitude assessments, KAFKA provides a centralized environment to support your placement journey.
+KAFKA is an AI-powered interview preparation platform built to help students strengthen their technical fundamentals, practice interview questions, clarify doubts, and track their preparation journey.
 
-✨ Key Features
+It combines structured learning, an integrated AI assistant, user authentication, and progress tracking into a unified learning environment.
+
+The goal is simple: make interview preparation more organized, interactive, and effective.
+
+⸻
+
+✨ Features
 
 📚 Structured Interview Preparation
 
-* Topic-wise learning and practice.
-* Organized question bank.
+* Topic-wise interview preparation.
+* Organized technical question bank.
 * Dedicated preparation categories.
-* Technical and aptitude-based practice.
+* Programming, databases, data structures, and aptitude practice.
 
-🤖 Ask KAFKA – AI Assistant
+🤖 Ask KAFKA — AI Assistant
 
-* AI-powered conversational assistance.
-* Get explanations for technical concepts.
-* Ask questions and clarify doubts.
-* Powered by Large Language Models through Groq.
+An integrated AI assistant designed to make learning more interactive.
+
+* Ask technical questions.
+* Understand complex programming concepts.
+* Get explanations and clarify doubts.
+* Powered by Groq and GPT-OSS 120B.
 
 📊 Progress Tracking
 
-* Track your preparation progress.
+* Track preparation progress.
 * Monitor completed questions.
 * Maintain a structured learning journey.
+* Keep track of preparation activities.
 
 🔐 Authentication & User Management
 
-* Secure user registration and login.
+* User registration and login.
 * Token-based authentication.
-* Refresh token management.
+* Refresh token rotation.
 * User profile management.
 * Password management.
 
-🎯 Personalized Preparation
+🎯 Personalized Experience
 
-* User profiles with individual learning goals.
-* Configurable preferences.
+* Individual user profiles.
+* Learning goals and preferences.
 * Organized preparation experience.
 
-🛠️ Tech Stack
+⸻
 
-Layer	Technologies
-Frontend	Vue.js, Vite, Tailwind CSS
-Backend	Python, Django
-Database	PostgreSQL
-AI Integration	Groq API, GPT-OSS
-Authentication	Token-based authentication
-Version Control	Git & GitHub
+🖥️ Application Preview
 
-🏗️ Architecture
+Dashboard
 
-KAFKA follows a frontend-backend architecture.
+The central workspace for managing your interview preparation journey.
 
-             USER
-               |
-               v
-       Vue.js Frontend
-               |
-               v
-          API Layer
-               |
-               v
-        Django Backend
-          /        \
-         /          \
-        v            v
-   PostgreSQL     Groq API
-    Database      AI Assistant
+Interview Preparation
 
-The frontend communicates with the Django backend through APIs.
+Practice interview questions through an organized preparation interface.
 
-The backend manages authentication, questions, user profiles, and progress tracking while integrating with the AI provider for conversational assistance.
+Practice Interface
+
+An interactive environment for practising technical questions.
+
+Progress Tracking
+
+Monitor your preparation progress and completed activities.
+
+Authentication
+
+A dedicated sign-in experience for KAFKA users.
+
+⸻
+
+🛠️ Technology Stack
+
+KAFKA uses a modern full-stack architecture.
+
+Layer	Technology	Purpose
+Frontend	Vue.js	User interface
+Build Tool	Vite	Frontend development
+Styling	Tailwind CSS	UI styling
+Backend	Django	Backend logic and APIs
+Database	PostgreSQL	Data persistence
+AI Integration	Groq API	AI-powered assistance
+AI Model	GPT-OSS 120B	Conversational intelligence
+Version Control	Git & GitHub	Source code management
+
+⸻
+
+🏗️ System Architecture
+
+KAFKA follows a frontend-backend architecture with external AI integration.
+
+flowchart TD
+    A[User] --> B[Vue.js Frontend]
+    B --> C[Django Backend / API Layer]
+    C --> D[Authentication]
+    C --> E[Question Bank]
+    C --> F[Progress Tracking]
+    C --> G[User Profiles]
+    D --> H[(PostgreSQL)]
+    E --> H
+    F --> H
+    G --> H
+    C --> I[Groq API]
+    I --> J[GPT-OSS 120B]
+    J --> C
+    C --> B
+
+Application Workflow
+
+1. Users interact with the Vue.js frontend.
+2. API requests are sent to the Django backend.
+3. Django handles authentication and application logic.
+4. PostgreSQL stores application data.
+5. Ask KAFKA integrates with the AI model through Groq.
+6. Responses are delivered back to the frontend.
+
+⸻
+
+📁 Project Structure
+
+KAFKA/
+│
+├── frontend/
+│   ├── public/
+│   ├── src/
+│   ├── package.json
+│   └── vite.config.js
+│
+├── backend/
+│   ├── accounts/
+│   ├── questions/
+│   ├── progress/
+│   ├── manage.py
+│   └── requirements.txt
+│
+├── docs/
+│   └── screenshots/
+│       ├── dashboard.png
+│       ├── practice.png
+│       ├── prepare.png
+│       ├── progress.png
+│       └── sign_in.png
+│
+├── .gitignore
+└── README.md
+
+⸻
 
 🚀 Getting Started
 
@@ -107,18 +191,18 @@ Make sure you have installed:
 git clone https://github.com/YOUR_USERNAME/KAFKA.git
 cd KAFKA
 
-2. Setup the Backend
+2. Backend Setup
 
 cd backend
 python3 -m venv .venv
 source .venv/bin/activate
 pip install -r requirements.txt
 
-Create your environment configuration using the provided .env.example file.
+Configure your backend environment variables using your environment configuration template.
 
-Configure your database credentials and required API keys.
+Set up PostgreSQL and provide the appropriate database credentials.
 
-Run migrations:
+Run database migrations:
 
 python manage.py migrate
 
@@ -126,7 +210,7 @@ Start the backend server:
 
 python manage.py runserver
 
-3. Setup the Frontend
+3. Frontend Setup
 
 Open another terminal:
 
@@ -134,41 +218,50 @@ cd frontend
 npm install
 npm run dev
 
-The frontend will be available at the local development URL displayed by Vite.
-
-📁 Project Structure
-
-KAFKA/
-│
-├── frontend/          # Vue.js application
-│
-├── backend/           # Django application
-│
-├── docs/              # Project documentation
-│
-├── .gitignore
-│
-└── README.md
-
-🔮 Future Improvements
-
-* Advanced AI-powered mock interviews.
-* Personalized learning recommendations.
-* Detailed performance analytics.
-* More technical interview categories.
-* Enhanced question difficulty progression.
-* Additional AI-powered learning features.
-
-🎯 Project Goal
-
-The goal of KAFKA is simple:
-
-Make interview preparation more structured, interactive, and intelligent.
-
-Instead of switching between multiple resources, students can use one platform to learn, practise, track their progress, and get AI-powered assistance.
+Open the local development URL displayed in your terminal.
 
 ⸻
 
-<p align="center">
-  <strong>Built with ❤️ to make interview preparation smarter.</strong>
-</p>
+🔐 Environment Configuration
+
+Create your backend .env file using the provided environment configuration template, if available.
+
+Configure the necessary values:
+
+* Django secret key.
+* Database credentials.
+* Debug settings.
+* Groq API key.
+
+Security reminder: Never commit .env files, API keys, database passwords, or authentication secrets to GitHub.
+
+⸻
+
+🗺️ Future Roadmap
+
+KAFKA is an evolving project. Some planned improvements include:
+
+* AI-powered mock interviews.
+* Personalized preparation recommendations.
+* Advanced performance analytics.
+* Adaptive question difficulty.
+* Additional technical interview categories.
+* Enhanced AI learning assistance.
+
+⸻
+
+🎯 Vision
+
+KAFKA aims to simplify the interview preparation journey by bringing structured learning, intelligent assistance, and progress tracking into a single platform.
+
+Instead of switching between multiple resources, students can use one platform to learn, practise, track progress, and get AI-powered assistance.
+
+<div align="center">
+
+One Platform. Smarter Preparation. Better Opportunities.
+
+Built with ❤️ for the next generation of developers.
+
+KAFKA 🚀
+
+</div>
