@@ -1,143 +1,174 @@
-# KAFKA
+KAFKA 🚀
 
-AI-powered interview preparation for engineering students: coding patterns, aptitude,
-core CS, and an AI mentor (ASK KAFKA).
+Your AI-Powered Interview Preparation Companion
 
-**Stack:** Vue 3 · Vite · Tailwind CSS v4 · Vue Router · Pinia · Axios — Django · Django REST Framework ·
-SimpleJWT — PostgreSQL 16.
+<p align="center">
+  <strong>Prepare Smarter. Practice Better. Get Interview Ready.</strong>
+</p>
+<p align="center">
+  An intelligent interview preparation platform designed to help students strengthen their technical knowledge, practice problem-solving, and prepare confidently for placement interviews.
+</p>
 
-Docs: [Architecture](docs/ARCHITECTURE.md) · [Design](docs/DESIGN.md) · [Progress](docs/PROGRESS.md) · [Deployment](docs/DEPLOYMENT.md)
+⸻
 
-```
-backend/    Django project (config/ = settings & urls, apps/ = domain apps)
-frontend/   Vue SPA (src/views, components, stores, services, router, composables)
-docs/       architecture, design system, progress log
-```
+🌟 Overview
 
-## Prerequisites
+KAFKA is an AI-powered interview preparation platform that brings structured learning, technical practice, progress tracking, and intelligent assistance together in one place.
 
-Python 3.12+, Node 20+, PostgreSQL 16 running locally.
+Built with a modern frontend and a robust backend, KAFKA aims to make interview preparation more organized, interactive, and accessible.
 
-## First-time setup
+Whether you’re revising Data Structures and Algorithms, practising SQL, strengthening Python fundamentals, or preparing for aptitude assessments, KAFKA provides a centralized environment to support your placement journey.
 
-### 1. Database
+✨ Key Features
 
-```bash
-psql -d postgres -c "CREATE ROLE kafka_app LOGIN CREATEDB PASSWORD 'choose-a-password';"
-```
+📚 Structured Interview Preparation
 
-```bash
-psql -d postgres -c "CREATE DATABASE kafka_app OWNER kafka_app;"
-```
+* Topic-wise learning and practice.
+* Organized question bank.
+* Dedicated preparation categories.
+* Technical and aptitude-based practice.
 
-`CREATEDB` is needed so Django's test runner can create its throwaway test database.
+🤖 Ask KAFKA – AI Assistant
 
-### 2. Backend
+* AI-powered conversational assistance.
+* Get explanations for technical concepts.
+* Ask questions and clarify doubts.
+* Powered by Large Language Models through Groq.
 
-```bash
-cd backend && python3 -m venv .venv && .venv/bin/pip install -r requirements.txt
-```
+📊 Progress Tracking
 
-```bash
-cp backend/.env.example backend/.env
-```
+* Track your preparation progress.
+* Monitor completed questions.
+* Maintain a structured learning journey.
 
-Edit `backend/.env`: set `DJANGO_SECRET_KEY` (generate with
-`backend/.venv/bin/python -c "from django.core.management.utils import get_random_secret_key as g; print(g())"`)
-and the password in `DATABASE_URL`. Then:
+🔐 Authentication & User Management
 
-```bash
-cd backend && .venv/bin/python manage.py migrate
-```
+* Secure user registration and login.
+* Token-based authentication.
+* Refresh token management.
+* User profile management.
+* Password management.
 
-Load the question bank (safe to re-run after editing `apps/catalog/content/*.py`):
+🎯 Personalized Preparation
 
-```bash
-cd backend && .venv/bin/python manage.py seed_content
-```
+* User profiles with individual learning goals.
+* Configurable preferences.
+* Organized preparation experience.
 
-Optional — an admin account for http://localhost:8000/admin/ (manage questions, users, progress):
+🛠️ Tech Stack
 
-```bash
-cd backend && .venv/bin/python manage.py createsuperuser
-```
+Layer	Technologies
+Frontend	Vue.js, Vite, Tailwind CSS
+Backend	Python, Django
+Database	PostgreSQL
+AI Integration	Groq API, GPT-OSS
+Authentication	Token-based authentication
+Version Control	Git & GitHub
 
-### 3. Frontend
+🏗️ Architecture
 
-```bash
-cd frontend && npm install && cp .env.example .env
-```
+KAFKA follows a frontend-backend architecture.
 
-## Running
+             USER
+               |
+               v
+       Vue.js Frontend
+               |
+               v
+          API Layer
+               |
+               v
+        Django Backend
+          /        \
+         /          \
+        v            v
+   PostgreSQL     Groq API
+    Database      AI Assistant
 
-Two terminals:
+The frontend communicates with the Django backend through APIs.
 
-```bash
-cd backend && .venv/bin/python manage.py runserver 127.0.0.1:8000
-```
+The backend manages authentication, questions, user profiles, and progress tracking while integrating with the AI provider for conversational assistance.
 
-```bash
-cd frontend && npm run dev
-```
+🚀 Getting Started
 
-Open http://localhost:5174 — the status page should show Frontend / API / Database all **OK**.
-Vite proxies every `/api/*` request to Django, so the browser only ever talks to one origin.
+Follow these instructions to run KAFKA locally.
 
-> **After editing `backend/.env`, stop the Django server (Ctrl+C) and start it again.** Auto-reload only watches
-> `.py` files, and a reloaded worker inherits the old environment — a key added to `.env` while the server is
-> running (e.g. `GROQ_API_KEY`) won't be seen until a full restart. Also make sure only one server is running on
-> port 8000: Vite always proxies there (`VITE_DEV_API_TARGET`), whatever other port you start Django on.
+Prerequisites
 
-## Tests & checks
+Make sure you have installed:
 
-```bash
-cd backend && .venv/bin/python manage.py test --settings=config.settings.test
-```
+* Python 3.10+
+* Node.js
+* PostgreSQL
+* Git
 
-```bash
-cd frontend && npm run build
-```
+1. Clone the Repository
 
-## Notes
+git clone https://github.com/YOUR_USERNAME/KAFKA.git
+cd KAFKA
 
-- The project folder name ends in `]`, so quote paths in the shell: `cd ~/Desktop/"website]"`.
-- Secrets live only in `backend/.env` (git-ignored). The frontend never holds API keys.
-- `LLM_PROVIDER=fake` runs ASK KAFKA offline (clearly labelled demo replies).
+2. Setup the Backend
 
-## Turning on ASK KAFKA (Groq · GPT-OSS 120B · free tier)
+cd backend
+python3 -m venv .venv
+source .venv/bin/activate
+pip install -r requirements.txt
 
-ASK KAFKA uses [Groq](https://groq.com/) with the open-weight model **`openai/gpt-oss-120b`**. Groq's free tier
-costs nothing; you only need an account and an API key (no card required to start, as far as Groq's billing docs
-indicate).
+Create your environment configuration using the provided .env.example file.
 
-1. Sign up at [console.groq.com](https://console.groq.com/) and create a key under **API Keys**.
-2. Put it in `backend/.env` (never in the frontend, never in git):
+Configure your database credentials and required API keys.
 
-   ```
-   LLM_PROVIDER=groq
-   GROQ_API_KEY=<your key>
-   ```
+Run migrations:
 
-3. Restart the Django server. Until a key is set, ASK KAFKA shows "isn't set up yet" instead of answering.
+python manage.py migrate
 
-**Free-tier limits are per Groq account, shared by everyone using your KAFKA deployment.** At the time of writing
-Groq lists roughly 30 requests/minute, 1,000 requests/day, 8,000 tokens/minute and 200,000 tokens/day for this
-model — check the **Limits** page in the Groq console for the current numbers. That's plenty for development and
-demos (very roughly 40–60 ASK KAFKA messages a day at typical sizes), not for thousands of students. When a limit is
-hit, students see "ASK KAFKA is busy right now (free-tier limit reached). Try again in a minute."
+Start the backend server:
 
-To stay inside the limits, replies are capped at 3,000 tokens and only the last ~3,000 tokens of conversation
-history are sent. Tunables in `backend/.env`: `LLM_EFFORT` (`low`/`medium`/`high` reasoning), `LLM_MAX_TOKENS`
-(0 = provider default), `LLM_MODEL` (e.g. `openai/gpt-oss-20b` for a smaller, faster model), `LLM_HISTORY_CHARS`,
-and `ASSISTANT_RATE` (per-student limit, default `40/hour`).
+python manage.py runserver
 
-**Study plans from a job description.** In ASK KAFKA, *New study plan* takes a role, an optional company and
-background, the pasted job description and (optionally) days left × hours per day. One Groq call (≈10 s,
-≈5k tokens) turns it into a phased roadmap — every requirement quotes the line of the JD it came from, items
-link to real KAFKA topics/patterns, and hours are scaled to the time you have. On the free tier one plan uses most
-of a minute's token budget, so generating several plans back-to-back may hit "busy, try again in a minute".
-Tunables: `PREP_PLAN_RATE` (per student, default `10/hour`), `PREP_LLM_EFFORT`, `PREP_PLAN_MAX_TOKENS`,
-`PREP_JD_PROMPT_CHARS`.
+3. Setup the Frontend
 
-**Other providers.** The provider layer also includes a Claude adapter (`LLM_PROVIDER=anthropic` +
-`ANTHROPIC_API_KEY`, paid per token) and the offline `fake` provider. Switching never requires code changes.
+Open another terminal:
+
+cd frontend
+npm install
+npm run dev
+
+The frontend will be available at the local development URL displayed by Vite.
+
+📁 Project Structure
+
+KAFKA/
+│
+├── frontend/          # Vue.js application
+│
+├── backend/           # Django application
+│
+├── docs/              # Project documentation
+│
+├── .gitignore
+│
+└── README.md
+
+🔮 Future Improvements
+
+* Advanced AI-powered mock interviews.
+* Personalized learning recommendations.
+* Detailed performance analytics.
+* More technical interview categories.
+* Enhanced question difficulty progression.
+* Additional AI-powered learning features.
+
+🎯 Project Goal
+
+The goal of KAFKA is simple:
+
+Make interview preparation more structured, interactive, and intelligent.
+
+Instead of switching between multiple resources, students can use one platform to learn, practise, track their progress, and get AI-powered assistance.
+
+⸻
+
+<p align="center">
+  <strong>Built with ❤️ to make interview preparation smarter.</strong>
+</p>
