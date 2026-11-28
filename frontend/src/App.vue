@@ -18,11 +18,12 @@ const surface = computed(() => {
   return wanted === 'user' ? auth.theme : wanted
 })
 
-// Remember the signed-in user's theme so the next full page load starts on it.
+// Remember the signed-in user's theme so the next full page load starts on it,
+// and forget it when nobody is signed in (so the next person doesn't inherit it).
 watchEffect(() => {
-  if (!auth.user) return
   try {
-    localStorage.setItem('kafka:theme', auth.theme)
+    if (auth.user) localStorage.setItem('kafka:theme', auth.theme)
+    else localStorage.removeItem('kafka:theme')
   } catch {
     /* storage unavailable: index.html falls back to Ink */
   }

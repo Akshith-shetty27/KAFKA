@@ -38,6 +38,22 @@
       ],
       "port": 5175,
       "autoPort": false
+    },
+    {
+      "name": "frontend-preview",
+      "runtimeExecutable": "npm",
+      "runtimeArgs": [
+        "--prefix",
+        "frontend",
+        "run",
+        "preview",
+        "--",
+        "--port",
+        "4173",
+        "--strictPort"
+      ],
+      "port": 4173,
+      "autoPort": false
     }
   ]
 }

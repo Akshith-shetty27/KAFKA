@@ -1,6 +1,6 @@
 # KAFKA — UI/UX & Interaction Transformation Plan
 
-Status: **Stages 1–7 done** — see §7. Remaining: Stage 8 (QA). GSAP and Three.js approved; Three.js is added in Stage 6.
+Status: **All 8 stages done** — see §7 (stage log) and §8 (QA report). GSAP and Three.js approved; Three.js was added in Stage 6.
 Scope: frontend only. No backend, model, API-contract or environment changes are needed for anything below.
 
 ---
@@ -274,3 +274,39 @@ Frontend only.
   scrolled to, tabs keyboard behaviour, heatmap ← readout, unsaved → saved + toast, keyboard theme switching both
   ways with focus kept and the theme remembered across reloads, phone widths without sideways scroll.
 - **Bundle:** Progress 3.6 KB gzip, Settings 3.2 KB; app shell 73.5 KB (unchanged).
+
+### Stage 8 — QA (done)
+
+Fixes made during QA:
+- `vite.config.js`: `build.chunkSizeWarningLimit: 560` — the only chunk over 500 KB is the lazy landing three.js scene;
+  anything else that large still warns. Build is now warning-free.
+- `App.vue`: the remembered theme (`kafka:theme`) is cleared when nobody is signed in, so the next person on the
+  same browser doesn't briefly load in the previous person's theme.
+
+## 8. QA report (2026-11-28)
+
+| Area | Check | Result |
+|---|---|---|
+| Backend | 154 tests · `makemigrations --check` · `check --deploy` (prod settings) | Pass · in sync · 1 warning: `SECURE_HSTS_PRELOAD` (deliberately off — preload is hard to undo) |
+| Dependencies | `npm audit --omit=dev` | 0 vulnerabilities (GSAP 3.15.1 standard licence, three 0.187 MIT) |
+| Build | `vite build` | Warning-free; app shell 73.5 KB gzip (42.3 before the UI work) |
+| Routes (signed in) | 14 routes: console errors, Vue warnings, failed requests, one `h1`, unlabelled controls, duplicate IDs, overflow | All clean |
+| Auth | Protected route → `/login?redirect=…`; wrong password message; correct login honours redirect; register via form → new-user dashboard; sign-out; expired access token → one shared refresh → all requests retried | All pass |
+| Responsive | 12 routes at 375 px, 10 at 768 px: sideways overflow, elements escaping containers, tap targets < 24×24 | All clean |
+| Accessibility | Labels on every field, no `img` without alt, decorative SVGs hidden, landmarks, skip link, `lang` | Pass on 6 key routes; keyboard patterns verified in their stages (heatmap, tabs, radio group, reveal panels, toasts) |
+| Reduced motion | JS paths with `prefers-reduced-motion` forced on | Count-ups show final values, nothing held hidden by reveals, hero not animated; CSS animations are disabled by the global rule |
+| Production build | `vite preview`: landing (lazy ScrollTrigger + three chunks, scene drawn), `/status` (API + DB OK), deep link to a question | Pass, no console errors |
+
+**Not covered / known limitations**
+- Motion itself was mostly verified by end states: the browser pane used for testing pauses animation frames when
+  hidden. Behaviour, final values and timings were checked; the feel should get a human look in a normal browser.
+- The landing three.js chunk is 131 KB gzip (lazy, landing only).
+- No automated frontend tests (unit/E2E) exist; the QA above was scripted in the browser, not added to CI.
+- Screen-reader testing with real assistive technology (VoiceOver/NVDA) hasn't been done; checks were structural.
+
+### Post-QA changes (2026-11-28)
+- Landing hero: the whole section is now a full-width night sky (`.k-cosmos`: near-black gradient, CSS starfield,
+  teal glow). The globe floats in it without a panel, now a ringed planet with one orbiting satellite per track;
+  the code card, panel labels, question legend and streak badge were removed, leaving only "Make room for more."
+  under the globe. The public header turns dark while it's over the hero (`useHeaderSurface`).
+- Ask KAFKA: removed the sidebar's "New conversation" button. The header's Ask Kafka link already opens a blank chat.
