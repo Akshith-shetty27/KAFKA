@@ -14,9 +14,10 @@ export default defineConfig(({ mode }) => {
       alias: { '@': fileURLToPath(new URL('./src', import.meta.url)) },
     },
     build: {
-      // The only chunk over Vite's 500 KB default is the landing page's three.js
-      // scene (~530 KB, 131 KB gzip), which is lazy-loaded after first paint and
-      // never inside the app. Any other chunk growing this large still warns.
+      // The only chunk over Vite's 500 KB default is three.js itself (~543 KB,
+      // 134 KB gzip), shared by the landing planet and the sign-in robot and
+      // lazy-loaded after first paint — never inside the app. Any other chunk
+      // growing this large still warns.
       chunkSizeWarningLimit: 560,
     },
     server: {

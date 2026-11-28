@@ -305,8 +305,17 @@ Fixes made during QA:
 - Screen-reader testing with real assistive technology (VoiceOver/NVDA) hasn't been done; checks were structural.
 
 ### Post-QA changes (2026-11-28)
-- Landing hero: the whole section is now a full-width night sky (`.k-cosmos`: near-black gradient, CSS starfield,
-  teal glow). The globe floats in it without a panel, now a ringed planet with one orbiting satellite per track;
-  the code card, panel labels, question legend and streak badge were removed, leaving only "Make room for more."
-  under the globe. The public header turns dark while it's over the hero (`useHeaderSurface`).
+- Landing page: the whole page is now deep space (Ink surface for `/`, `.k-space` with two star layers: tiny far
+  stars fixed to the viewport, a sparser near layer that scrolls and slowly twinkles). The globe is a ringed planet
+  with one orbiting satellite per track, centred above a closing line ("A better kind of busy.", with the real question
+  count). Section 002 is now "How it works" (three steps on an orbit line), replacing
+  the Kafka method checklist; the Ask KAFKA (004) section was removed and the public nav updated to match.
 - Ask KAFKA: removed the sidebar's "New conversation" button. The header's Ask Kafka link already opens a blank chat.
+- Sign-in / register panel: the code card is replaced by KAFKA's robot — a 3D hover-bot built from three.js
+  primitives (`RobotScene`, lazy, shares the three.js chunk with the landing planet) that waves, blinks, floats and
+  turns its head toward the pointer. Its speech bubble is switched off (`:bubble="false"` in AuthLayout); the
+  greeting text still restarts the wave when switching between sign-in and register. The panel's top labels
+  (K / 01, Build your edge, question count) are replaced by an italic greeting (`GreetingCascade`): letters fly in
+  from blurred to sharp one after another, then a teal brush-stroke underline draws itself — "Welcome back!" on
+  sign-in, "Hey there!" on register.
+  Without WebGL a flat SVG robot (CSS-animated) stands in; with reduced motion both show one still, mid-wave pose.
