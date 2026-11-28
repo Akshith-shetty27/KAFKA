@@ -27,7 +27,7 @@ const describedBy = computed(() => [errorText.value && `${id}-error`, props.hint
         {{ label }}<span v-if="required" class="text-accent-text" aria-hidden="true"> *</span>
       </label>
       <span v-if="showCount" class="font-mono text-xs text-muted" aria-live="polite">
-        {{ model.length.toLocaleString() }}<template v-if="maxlength"> / {{ maxlength.toLocaleString() }}</template>
+        {{ model.length.toLocaleString() }}<template v-if="maxlength"> of {{ maxlength.toLocaleString() }}</template>
       </span>
     </div>
     <textarea

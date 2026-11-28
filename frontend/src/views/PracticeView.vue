@@ -172,7 +172,7 @@ const patternOptions = computed(() => [
       <!-- Heading -->
       <header class="mt-10 flex items-end justify-between gap-8 lg:mt-14">
         <div>
-          <KEyebrow tone="muted">Practice / {{ current?.name ?? '…' }}</KEyebrow>
+          <KEyebrow tone="muted">Practice · {{ current?.name ?? '…' }}</KEyebrow>
           <h1 class="k-display mt-5 text-[clamp(2.5rem,6vw,4.75rem)]">
             {{ activeTopic ? activeTopic.name : current?.name ?? '' }}<span class="text-accent">.</span>
           </h1>

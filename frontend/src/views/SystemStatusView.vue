@@ -18,7 +18,7 @@ onMounted(run)
 <template>
   <main data-surface="ink" class="min-h-screen bg-[var(--k-bg)] px-4 py-16 text-[var(--k-text)] sm:px-12">
     <div class="mx-auto max-w-3xl">
-      <p class="font-mono text-xs tracking-[0.3em] text-[var(--k-text-muted)] uppercase">System status / 000</p>
+      <p class="font-mono text-xs tracking-[0.3em] text-[var(--k-text-muted)] uppercase">System status</p>
 
       <h1 class="font-display mt-8 text-5xl leading-[0.9] font-semibold tracking-[-0.04em] uppercase sm:text-7xl">
         Kafka&nbsp;<span class="font-serif font-normal tracking-normal normal-case italic">is</span>&nbsp;<span :class="error ? 'text-signal-red' : 'text-teal-400'">{{ error ? 'offline.' : 'online.' }}</span>

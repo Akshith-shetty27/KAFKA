@@ -27,7 +27,6 @@ import { catalogApi } from '@/services/catalog.api'
 import { progressApi } from '@/services/progress.api'
 import { useToast } from '@/composables/useToast'
 import { toApiError } from '@/services/http'
-import { pad2 } from '@/utils/format'
 
 const route = useRoute()
 const slug = computed(() => route.params.slug)
@@ -157,7 +156,7 @@ watch(slug, () => (askOpen.value = false))
         <RouterLink :to="{ name: 'practice', params: { category: question.category.slug } }" class="hover:text-fg">
           {{ question.category.name }}
         </RouterLink>
-        <span aria-hidden="true">/</span>
+        <span aria-hidden="true">·</span>
         <RouterLink
           :to="{ name: 'practice', params: { category: question.category.slug }, query: { topic: question.topic.slug } }"
           class="hover:text-fg"
@@ -166,7 +165,7 @@ watch(slug, () => (askOpen.value = false))
         </RouterLink>
       </nav>
 
-      <!-- Position in the topic: "07 / 50" with previous/next -->
+      <!-- Position in the topic: "7 of 50" with previous/next -->
       <nav v-if="question.navigation.total" class="flex items-center gap-4" aria-label="Question navigation">
         <RouterLink
           v-if="question.navigation.previous"
@@ -179,7 +178,7 @@ watch(slug, () => (askOpen.value = false))
         <span v-else class="size-8" aria-hidden="true" />
         <div class="flex flex-col items-center gap-1.5">
           <span class="font-mono text-xs">
-            <span class="sr-only">Question </span>{{ pad2(question.navigation.position) }}<span class="text-muted"> / {{ pad2(question.navigation.total) }}</span>
+            <span class="sr-only">Question </span>{{ question.navigation.position }}<span class="text-muted"> of {{ question.navigation.total }}</span>
           </span>
           <span class="block h-[2px] w-20 bg-rule-soft" aria-hidden="true">
             <span
@@ -226,7 +225,6 @@ watch(slug, () => (askOpen.value = false))
             <div class="mt-14 flex flex-col gap-10">
               <RevealPanel
                 v-model:open="reveal.approach"
-                index="01"
                 title="Approach"
                 prompt="Give it a real try first. Open the approach when you're stuck — it explains the idea, not the code."
                 action-label="Show approach"
@@ -236,7 +234,6 @@ watch(slug, () => (askOpen.value = false))
 
               <RevealPanel
                 v-model:open="reveal.solution"
-                index="02"
                 title="Solution"
                 prompt="Full code and the reasoning behind it."
                 action-label="Show solution"
@@ -299,7 +296,6 @@ watch(slug, () => (askOpen.value = false))
             <div class="mt-14">
               <RevealPanel
                 v-model:open="reveal.solution"
-                index="01"
                 title="Model answer"
                 prompt="Say your answer out loud (or write it down) first — that's what the interview will ask of you."
                 action-label="Reveal answer"

@@ -73,7 +73,7 @@ function focusReason(area) {
 
 <template>
   <div class="k-container py-12 lg:py-16">
-    <KEyebrow tone="muted" index="01">Progress</KEyebrow>
+    <KEyebrow tone="muted">Progress</KEyebrow>
     <h1 class="k-display mt-6 text-[clamp(2.75rem,7vw,5.5rem)]">
       Your<br /><span class="k-serif text-[1.05em]">trajectory.</span>
     </h1>
@@ -98,7 +98,6 @@ function focusReason(area) {
       v-reveal
       class="mt-20"
       title="Last 12 months"
-      index="02"
       :loading="!activity.data.value && !activity.error.value"
       :error="activity.error.value"
       @retry="activity.run"
@@ -138,7 +137,6 @@ function focusReason(area) {
         v-reveal
         class="lg:col-span-7"
         title="By track"
-        index="03"
         :loading="!summary.data.value && !summary.error.value"
         :error="summary.error.value"
         @retry="summary.run"
@@ -167,7 +165,6 @@ function focusReason(area) {
         v-reveal="{ delay: 0.08 }"
         class="lg:col-span-5"
         title="By difficulty"
-        index="04"
         :loading="!insights.data.value && !insights.error.value"
         :error="insights.error.value"
         @retry="insights.run"
@@ -198,7 +195,6 @@ function focusReason(area) {
       v-reveal
       class="mt-20"
       title="Focus areas"
-      index="05"
       :loading="!insights.data.value && !insights.error.value"
       :error="insights.error.value"
       @retry="insights.run"
@@ -230,7 +226,6 @@ function focusReason(area) {
       v-reveal
       class="mt-20"
       title="Every topic"
-      index="06"
       :loading="!insights.data.value && !insights.error.value"
       :error="insights.error.value"
       @retry="insights.run"

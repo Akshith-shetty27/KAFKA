@@ -9,7 +9,6 @@ import KIcon from '@/components/ui/KIcon.vue'
 
 const open = defineModel('open', { type: Boolean, default: false })
 defineProps({
-  index: { type: String, required: true },
   title: { type: String, required: true },
   prompt: { type: String, required: true }, // e.g. "Try for 10 minutes first."
   actionLabel: { type: String, required: true },
@@ -20,7 +19,7 @@ const id = useId()
 <template>
   <section class="border-t border-rule pt-6">
     <div class="flex flex-wrap items-baseline justify-between gap-4">
-      <h2 class="k-eyebrow">{{ title }} / {{ index }}</h2>
+      <h2 class="k-eyebrow">{{ title }}</h2>
       <button
         type="button"
         class="k-label inline-flex items-center gap-2 text-xs transition-colors hover:text-accent-text"

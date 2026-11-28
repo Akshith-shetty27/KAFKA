@@ -25,7 +25,7 @@ async function onSubmit() {
 </script>
 
 <template>
-  <KEyebrow index="00" tone="muted">Create account</KEyebrow>
+  <KEyebrow tone="muted">Create account</KEyebrow>
   <h1 class="k-display mt-6 text-6xl sm:text-7xl">
     Start<br /><span class="k-serif text-[1.05em]">today.</span>
   </h1>

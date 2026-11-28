@@ -51,7 +51,7 @@ const tracks = computed(() => {
 
 <template>
   <div class="k-container py-12 lg:py-16">
-    <KEyebrow tone="muted" index="01">Prepare</KEyebrow>
+    <KEyebrow tone="muted">Prepare</KEyebrow>
     <h1 class="k-display mt-6 text-[clamp(2.75rem,7vw,5.5rem)]">
       Choose your<br /><span class="k-serif text-[1.05em]">track.</span>
     </h1>
@@ -86,7 +86,7 @@ const tracks = computed(() => {
       <!-- Topics per track -->
       <section v-for="({ category, groups }, i) in tracks" :key="category.slug" v-reveal class="mt-24" :aria-labelledby="`topics-${category.slug}`">
         <header class="flex items-baseline justify-between gap-6 border-b border-rule pb-4">
-          <KEyebrow :id="`topics-${category.slug}`" as="h2" :index="String(i + 2).padStart(2, '0')">{{ category.name }} topics</KEyebrow>
+          <KEyebrow :id="`topics-${category.slug}`" as="h2">{{ category.name }} topics</KEyebrow>
           <RouterLink :to="{ name: 'practice', params: { category: category.slug } }" class="k-eyebrow text-muted hover:text-accent-text">
             All questions →
           </RouterLink>

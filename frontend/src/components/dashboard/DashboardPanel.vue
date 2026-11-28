@@ -9,7 +9,6 @@ import KSkeleton from '@/components/ui/KSkeleton.vue'
 
 defineProps({
   title: { type: String, required: true },
-  index: { type: String, default: '' },
   loading: { type: Boolean, default: false },
   error: { type: Object, default: null },
   skeletonLines: { type: Number, default: 4 },
@@ -20,7 +19,7 @@ defineEmits(['retry'])
 <template>
   <section class="flex flex-col">
     <header class="mb-6 flex items-baseline justify-between gap-4 border-b border-rule pb-4">
-      <KEyebrow :index="index" as="h2">{{ title }}</KEyebrow>
+      <KEyebrow as="h2">{{ title }}</KEyebrow>
       <slot name="aside" />
     </header>
     <KErrorState v-if="error" :message="error.message" @retry="$emit('retry')" />

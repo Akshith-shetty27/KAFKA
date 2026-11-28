@@ -28,7 +28,7 @@ const to = computed(() => Math.min(props.count, props.page * props.pageSize))
       >
         <KIcon name="arrow-left" :size="16" />
       </button>
-      <span class="font-mono text-sm tabular-nums">{{ page }} / {{ pages }}</span>
+      <span class="font-mono text-sm tabular-nums">Page {{ page }} of {{ pages }}</span>
       <button
         type="button"
         class="flex size-10 items-center justify-center border border-rule-soft hover:border-fg disabled:opacity-30 disabled:hover:border-rule-soft"

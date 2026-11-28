@@ -25,7 +25,7 @@ async function onSubmit() {
 </script>
 
 <template>
-  <KEyebrow index="01" tone="muted">Sign in</KEyebrow>
+  <KEyebrow tone="muted">Sign in</KEyebrow>
   <h1 class="k-display mt-6 text-6xl sm:text-7xl">
     Welcome<br /><span class="k-serif text-[1.05em]">back.</span>
   </h1>

@@ -196,7 +196,7 @@ function useSuggestion(text) {
           </RouterLink>
           <p class="flex items-center gap-3">
             <KAssistantMark :active="chat.streaming.value" :size="16" />
-            <KEyebrow tone="muted" as="span">Ask Kafka<template v-if="question"> / {{ question.category.name }}</template></KEyebrow>
+            <KEyebrow tone="muted" as="span">Ask Kafka<template v-if="question"> · {{ question.category.name }}</template></KEyebrow>
           </p>
           <h1 class="k-display mt-3 truncate text-3xl tracking-[-0.04em] normal-case sm:text-4xl">
             {{ chat.conversation.value?.title || 'New conversation' }}
