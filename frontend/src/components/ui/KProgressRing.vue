@@ -4,7 +4,9 @@
  * (CSS transition on stroke-dashoffset — no animation loop). Anything in the
  * default slot is centred inside the ring.
  */
-import { computed, onMounted, ref, watch } from 'vue'
+import { computed, onBeforeUnmount, onMounted, ref, watch } from 'vue'
+
+import { whenVisible } from '@/motion/whenVisible'
 
 const props = defineProps({
   value: { type: Number, required: true },
@@ -20,14 +22,26 @@ const radius = computed(() => (props.size - props.stroke) / 2)
 const circumference = computed(() => 2 * Math.PI * radius.value)
 const ratio = computed(() => (props.max > 0 ? Math.min(1, Math.max(0, props.value / props.max)) : 0))
 
-// Start empty and sweep in after the first paint.
+// Start empty and sweep in the first time the ring is on screen.
+const root = ref(null)
 const shown = ref(0)
-onMounted(() => requestAnimationFrame(() => (shown.value = ratio.value)))
-watch(ratio, (r) => (shown.value = r))
+let seen = false
+let cancel = () => {}
+onMounted(() => {
+  cancel = whenVisible(root.value, () => {
+    seen = true
+    shown.value = ratio.value // already painted empty by now, so the CSS transition runs
+  })
+})
+onBeforeUnmount(() => cancel())
+watch(ratio, (r) => {
+  if (seen) shown.value = r
+})
 </script>
 
 <template>
   <div
+    ref="root"
     class="relative inline-flex shrink-0 items-center justify-center"
     :style="{ width: `${size}px`, height: `${size}px` }"
     :role="decorative ? undefined : 'progressbar'"

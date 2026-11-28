@@ -3,7 +3,7 @@
  * Profile & settings: personal details, preparation preferences (daily
  * goal drives today's plan, timezone drives streaks), theme, password.
  */
-import { computed, reactive, ref } from 'vue'
+import { computed, nextTick, reactive, ref } from 'vue'
 
 import KButton from '@/components/ui/KButton.vue'
 import KErrorState from '@/components/ui/KErrorState.vue'
@@ -11,6 +11,8 @@ import KEyebrow from '@/components/ui/KEyebrow.vue'
 import KInput from '@/components/ui/KInput.vue'
 import KSelect from '@/components/ui/KSelect.vue'
 import { useForm } from '@/composables/useForm'
+import { useToast } from '@/composables/useToast'
+import { prefersReducedMotion } from '@/motion'
 import { useAuthStore } from '@/stores/auth'
 
 const auth = useAuthStore()
@@ -52,6 +54,11 @@ const timezones = (() => {
   }
 })()
 
+const toast = useToast()
+
+// Edited but not saved yet (compared with what the server last returned).
+const dirty = computed(() => JSON.stringify(form) !== JSON.stringify(snapshot()))
+
 async function saveProfile() {
   saved.value = false
   const payload = {
@@ -65,13 +72,46 @@ async function saveProfile() {
   if (await profileForm.submit(() => auth.updateMe(payload))) {
     Object.assign(form, snapshot())
     saved.value = true
+    toast.success('Settings saved.')
   }
 }
 
 // --- theme (saved immediately) ------------------------------------------------------
 const themeForm = useForm()
+const THEMES = [
+  { value: 'ink', label: 'Ink', note: 'Dark' },
+  { value: 'paper', label: 'Paper', note: 'Light' },
+]
+const themeRefs = ref([])
+
+/**
+ * Cross-fade the whole page between themes with the View Transitions API
+ * where supported (a snapshot crossfade, so text never disappears mid-way);
+ * an instant switch otherwise or with reduced motion.
+ */
+function withViewTransition(update) {
+  if (!document.startViewTransition || prefersReducedMotion()) return update()
+  const transition = document.startViewTransition(async () => {
+    await update()
+    await nextTick()
+  })
+  return transition.updateCallbackDone
+}
+
 async function setTheme(theme) {
-  if (theme !== auth.theme) await themeForm.submit(() => auth.updateMe({ profile: { theme } }))
+  // Guard in code rather than disabling the buttons: disabling the focused
+  // radio would drop keyboard focus to the page mid-switch.
+  if (themeForm.submitting.value) return
+  if (theme !== auth.theme) await themeForm.submit(() => withViewTransition(() => auth.updateMe({ profile: { theme } })))
+}
+
+// Radio-group keyboard pattern: one tab stop; arrow keys select and move focus.
+function onThemeKey(event, index) {
+  if (!['ArrowLeft', 'ArrowRight', 'ArrowUp', 'ArrowDown'].includes(event.key)) return
+  event.preventDefault()
+  const next = (index + (event.key === 'ArrowLeft' || event.key === 'ArrowUp' ? -1 : 1) + THEMES.length) % THEMES.length
+  themeRefs.value[next]?.focus()
+  setTheme(THEMES[next].value)
 }
 
 // --- password ------------------------------------------------------------------------
@@ -85,6 +125,7 @@ async function changePassword() {
     passwords.current_password = ''
     passwords.new_password = ''
     passwordChanged.value = true
+    toast.success('Password changed. Other devices have been signed out.')
   }
 }
 </script>
@@ -142,13 +183,16 @@ async function changePassword() {
         </div>
         <div class="flex items-center gap-6">
           <KButton type="submit" :loading="profileForm.submitting.value">Save changes</KButton>
-          <p v-if="saved" class="k-eyebrow text-accent-text" role="status">Saved</p>
+          <p v-if="dirty" class="k-eyebrow inline-flex items-center gap-2 text-warning" role="status">
+            <span class="size-1.5 rounded-full bg-warning" aria-hidden="true" /> Unsaved changes
+          </p>
+          <p v-else-if="saved" class="k-eyebrow text-accent-text" role="status">Saved</p>
         </div>
       </div>
     </form>
 
     <!-- Appearance -->
-    <section class="mt-16 grid grid-cols-1 gap-12 border-t border-rule pt-10 lg:grid-cols-12">
+    <section v-reveal class="mt-16 grid grid-cols-1 gap-12 border-t border-rule pt-10 lg:grid-cols-12">
       <div class="lg:col-span-4">
         <KEyebrow as="h2" index="02">Appearance</KEyebrow>
         <p class="mt-4 max-w-xs text-muted">Ink is easier on the eyes for long sessions. Paper matches the printed page.</p>
@@ -156,15 +200,15 @@ async function changePassword() {
       <div class="lg:col-span-7 lg:col-start-6">
         <div class="grid max-w-md grid-cols-2 gap-4" role="radiogroup" aria-label="Theme">
           <button
-            v-for="option in [
-              { value: 'ink', label: 'Ink', note: 'Dark' },
-              { value: 'paper', label: 'Paper', note: 'Light' },
-            ]"
+            v-for="(option, i) in THEMES"
             :key="option.value"
+            :ref="(el) => (themeRefs[i] = el)"
             type="button"
             role="radio"
             :aria-checked="auth.theme === option.value"
-            :disabled="themeForm.submitting.value"
+            :tabindex="auth.theme === option.value ? 0 : -1"
+            @keydown="onThemeKey($event, i)"
+            :aria-busy="themeForm.submitting.value || undefined"
             class="group flex flex-col border p-4 text-left transition-colors"
             :class="auth.theme === option.value ? 'border-accent' : 'border-rule-soft hover:border-muted'"
             @click="setTheme(option.value)"
@@ -187,7 +231,7 @@ async function changePassword() {
     </section>
 
     <!-- Password -->
-    <form class="mt-16 grid grid-cols-1 gap-12 border-t border-rule pt-10 lg:grid-cols-12" novalidate @submit.prevent="changePassword">
+    <form v-reveal class="mt-16 grid grid-cols-1 gap-12 border-t border-rule pt-10 lg:grid-cols-12" novalidate @submit.prevent="changePassword">
       <div class="lg:col-span-4">
         <KEyebrow as="h2" index="03">Password</KEyebrow>
         <p class="mt-4 max-w-xs text-muted">Changing it signs you out on every other device.</p>
@@ -218,7 +262,7 @@ async function changePassword() {
     </form>
 
     <!-- Account -->
-    <section class="mt-16 grid grid-cols-1 gap-12 border-t border-rule pt-10 lg:grid-cols-12">
+    <section v-reveal class="mt-16 grid grid-cols-1 gap-12 border-t border-rule pt-10 lg:grid-cols-12">
       <div class="lg:col-span-4">
         <KEyebrow as="h2" index="04">Account</KEyebrow>
       </div>

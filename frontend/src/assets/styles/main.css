@@ -482,3 +482,12 @@
   opacity: 0;
   transform: translateY(8px);
 }
+
+/* ---------------------------------------------------------------- theme switch */
+
+/* Settings → Appearance cross-fades the page (View Transitions API). */
+::view-transition-old(root),
+::view-transition-new(root) {
+  animation-duration: 380ms;
+  animation-timing-function: var(--ease-out-soft);
+}

@@ -1,6 +1,6 @@
 # KAFKA — UI/UX & Interaction Transformation Plan
 
-Status: **Stages 1–6 done** — see §7. GSAP and Three.js approved; Three.js is added in Stage 6.
+Status: **Stages 1–7 done** — see §7. Remaining: Stage 8 (QA). GSAP and Three.js approved; Three.js is added in Stage 6.
 Scope: frontend only. No backend, model, API-contract or environment changes are needed for anything below.
 
 ---
@@ -251,3 +251,26 @@ Frontend only; existing AI service, streaming and APIs unchanged.
   without sideways scroll (375 px), auth stats and transition. Not observed: the full scrubbed drift and the
   reduced-motion still frame at runtime (the hidden pane stops frames; the code paths are in place).
 - **Bundle:** app shell 73.5 KB gzip (+0.1); landing view 4.7 KB; three/scene and ScrollTrigger never load inside the app.
+
+### Stage 7 — Progress & Settings (done)
+
+Frontend only.
+
+- **`whenVisible`** (`src/motion/whenVisible.js`): one shared IntersectionObserver. `KProgressBar`, `KProgressRing` and
+  `KBarChart` now sweep/grow **the first time they're on screen** (app-wide), instead of before the panel is even
+  visible; later value changes animate too. ARIA values are always the real numbers. The target is set directly in
+  the observer callback (the element has already painted at 0), so the effect doesn't depend on an extra
+  animation frame.
+- **Progress page:** activity numbers count up; the 12-month heatmap is explorable (as on the dashboard); panels
+  reveal on scroll; focus-area cards lift; the "Every topic" track switcher follows the ARIA tabs pattern (one tab
+  stop, ←/→/Home/End with wrap-around, `aria-controls` / `role=tabpanel` / `aria-labelledby`) and rows re-stagger on
+  switch.
+- **Settings:** theme switch cross-fades the page with the View Transitions API (instant without support or with
+  reduced motion); the theme picker follows the radio-group keyboard pattern; "Unsaved changes" appears while the
+  profile form differs from the saved profile; toasts confirm saved settings and password changes; sections reveal.
+- **Fixed during verification:** the theme radios were disabled while saving, which dropped keyboard focus to the
+  page after every switch — now guarded in code instead.
+- **Verified:** all 21 progress bars end at their exact values (e.g. Arrays 26.67 %), below-the-fold bars wait until
+  scrolled to, tabs keyboard behaviour, heatmap ← readout, unsaved → saved + toast, keyboard theme switching both
+  ways with focus kept and the theme remembered across reloads, phone widths without sideways scroll.
+- **Bundle:** Progress 3.6 KB gzip, Settings 3.2 KB; app shell 73.5 KB (unchanged).

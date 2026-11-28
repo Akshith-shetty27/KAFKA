@@ -11,6 +11,7 @@ import { computed, onMounted, ref } from 'vue'
 import DashboardPanel from '@/components/dashboard/DashboardPanel.vue'
 import StatsRow from '@/components/dashboard/StatsRow.vue'
 import KArrowLink from '@/components/ui/KArrowLink.vue'
+import KCountUp from '@/components/ui/KCountUp.vue'
 import KEmptyState from '@/components/ui/KEmptyState.vue'
 import KErrorState from '@/components/ui/KErrorState.vue'
 import KEyebrow from '@/components/ui/KEyebrow.vue'
@@ -49,6 +50,18 @@ const track = ref('coding')
 const tracks = computed(() => summary.data.value?.categories ?? [])
 const trackTopics = computed(() => (insights.data.value?.topics ?? []).filter((t) => t.category.slug === track.value))
 
+// Tabs follow the ARIA tabs pattern: one tab stop, arrow keys / Home / End move between tracks.
+const tabRefs = ref([])
+function onTabKey(event, index) {
+  const n = tracks.value.length
+  const next = { ArrowRight: index + 1, ArrowLeft: index - 1, Home: 0, End: n - 1 }[event.key]
+  if (next === undefined) return
+  event.preventDefault()
+  const i = (next + n) % n
+  track.value = tracks.value[i].slug
+  tabRefs.value[i]?.focus()
+}
+
 function focusReason(area) {
   const t = area.topic
   if (area.reason === 'low_accuracy') {
@@ -82,6 +95,7 @@ function focusReason(area) {
 
     <!-- Activity -->
     <DashboardPanel
+      v-reveal
       class="mt-20"
       title="Last 12 months"
       index="02"
@@ -90,19 +104,19 @@ function focusReason(area) {
       @retry="activity.run"
     >
       <template v-if="activity.data.value">
-        <KHeatmap :series="activity.data.value.series" />
+        <KHeatmap :series="activity.data.value.series" interactive label="Questions practised per day, last 12 months" />
         <dl class="mt-8 grid grid-cols-2 gap-6 border-t border-rule-soft pt-6 sm:grid-cols-4">
           <div>
             <dt class="k-eyebrow text-muted">Active days</dt>
-            <dd class="k-serif mt-2 text-4xl">{{ activityStats.activeDays }}</dd>
+            <dd class="k-serif mt-2 text-4xl"><KCountUp :value="activityStats.activeDays" /></dd>
           </div>
           <div>
             <dt class="k-eyebrow text-muted">Questions</dt>
-            <dd class="k-serif mt-2 text-4xl">{{ activityStats.questions }}</dd>
+            <dd class="k-serif mt-2 text-4xl"><KCountUp :value="activityStats.questions" /></dd>
           </div>
           <div>
             <dt class="k-eyebrow text-muted">Ask Kafka messages</dt>
-            <dd class="k-serif mt-2 text-4xl">{{ activityStats.aiMessages }}</dd>
+            <dd class="k-serif mt-2 text-4xl"><KCountUp :value="activityStats.aiMessages" /></dd>
           </div>
           <div>
             <dt class="k-eyebrow text-muted">Busiest day</dt>
@@ -121,6 +135,7 @@ function focusReason(area) {
     <!-- Tracks + difficulty -->
     <div class="mt-20 grid grid-cols-1 gap-16 lg:grid-cols-12 lg:gap-12">
       <DashboardPanel
+        v-reveal
         class="lg:col-span-7"
         title="By track"
         index="03"
@@ -149,6 +164,7 @@ function focusReason(area) {
       </DashboardPanel>
 
       <DashboardPanel
+        v-reveal="{ delay: 0.08 }"
         class="lg:col-span-5"
         title="By difficulty"
         index="04"
@@ -179,6 +195,7 @@ function focusReason(area) {
 
     <!-- Focus areas -->
     <DashboardPanel
+      v-reveal
       class="mt-20"
       title="Focus areas"
       index="05"
@@ -188,7 +205,7 @@ function focusReason(area) {
     >
       <template v-if="insights.data.value">
         <ul v-if="insights.data.value.focus_areas.length" class="grid grid-cols-1 gap-4 md:grid-cols-3">
-          <li v-for="area in insights.data.value.focus_areas" :key="area.topic.slug" class="flex flex-col bg-surface p-5">
+          <li v-for="area in insights.data.value.focus_areas" :key="area.topic.slug" class="k-lift flex flex-col border border-rule-soft bg-surface p-5 hover:border-rule">
             <p class="k-eyebrow" :class="area.reason === 'low_accuracy' ? 'text-danger' : 'text-warning'">
               {{ area.reason === 'low_accuracy' ? 'Accuracy' : 'Unfinished' }} · {{ area.topic.category.name }}
             </p>
@@ -210,6 +227,7 @@ function focusReason(area) {
 
     <!-- Topics -->
     <DashboardPanel
+      v-reveal
       class="mt-20"
       title="Every topic"
       index="06"
@@ -220,20 +238,31 @@ function focusReason(area) {
       <template #aside>
         <div class="flex gap-5" role="tablist" aria-label="Track">
           <button
-            v-for="c in tracks"
+            v-for="(c, i) in tracks"
+            :id="`topics-tab-${c.slug}`"
             :key="c.slug"
+            :ref="(el) => (tabRefs[i] = el)"
             type="button"
             role="tab"
             :aria-selected="track === c.slug"
-            class="k-eyebrow transition-colors"
-            :class="track === c.slug ? 'text-fg' : 'text-muted hover:text-fg'"
+            aria-controls="topics-panel"
+            :tabindex="track === c.slug ? 0 : -1"
+            class="k-eyebrow -mb-px border-b pb-1 transition-colors"
+            :class="track === c.slug ? 'border-accent text-fg' : 'border-transparent text-muted hover:text-fg'"
             @click="track = c.slug"
+            @keydown="onTabKey($event, i)"
           >
             {{ c.name }}
           </button>
         </div>
       </template>
-      <div v-if="insights.data.value" class="overflow-x-auto">
+      <div
+        v-if="insights.data.value"
+        id="topics-panel"
+        class="overflow-x-auto"
+        role="tabpanel"
+        :aria-labelledby="`topics-tab-${track}`"
+      >
         <table class="w-full min-w-[34rem] text-sm">
           <thead>
             <tr class="k-eyebrow text-left text-muted">
@@ -243,8 +272,9 @@ function focusReason(area) {
               <th scope="col" class="pb-3 text-right font-normal">First-try</th>
             </tr>
           </thead>
-          <tbody>
-            <tr v-for="t in trackTopics" :key="t.slug" class="border-t border-rule-soft">
+          <!-- Keyed by track, so rows rise in again when switching tabs. -->
+          <tbody :key="track">
+            <tr v-for="(t, i) in trackTopics" :key="t.slug" class="k-rise-quick border-t border-rule-soft" :style="{ '--i': Math.min(i, 12) }">
               <td class="py-3.5 pr-4">
                 <RouterLink
                   :to="{ name: 'practice', params: { category: t.category.slug }, query: { topic: t.slug } }"
