@@ -37,10 +37,13 @@ const loading = ref(false)
 const loadError = ref(null)
 const composer = ref(null)
 
+// Title for the next new conversation (set when a study plan starts a mock interview).
+let pendingTitle
 const chat = useChat({
   async ensureConversation() {
     if (chat.conversation.value) return chat.conversation.value
-    const created = await assistantApi.create()
+    const created = await assistantApi.create(undefined, { title: pendingTitle })
+    pendingTitle = undefined
     // Load it first, so the route change below sees it's already open and
     // doesn't reload it while the reply is streaming in.
     chat.load(created)
@@ -69,6 +72,16 @@ async function open(id) {
 }
 watch(routeId, open, { immediate: true })
 onMounted(store.loadConversations)
+
+// A mock interview started from a study plan arrives as /ask?prompt=… — send it
+// once (that starts the interview) and drop it from the URL so a refresh doesn't resend.
+onMounted(() => {
+  const prompt = typeof route.query.prompt === 'string' ? route.query.prompt.trim() : ''
+  if (!prompt || routeId.value) return
+  pendingTitle = typeof route.query.title === 'string' ? route.query.title.slice(0, 60) : undefined
+  router.replace({ name: 'ask', query: {} })
+  chat.send({ content: prompt })
+})
 
 // Study plans (newest first). A failure here only hides the list — chat still works.
 const plans = ref([])

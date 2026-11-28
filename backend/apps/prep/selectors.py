@@ -27,7 +27,7 @@ def plan_detail(user, pk) -> PreparationPlan | None:
 
 def my_item(user, plan_pk, item_pk) -> PlanItem | None:
     return (
-        PlanItem.objects.select_related("phase")
+        PlanItem.objects.select_related("phase__plan")
         .filter(pk=item_pk, phase__plan_id=plan_pk, phase__plan__user=user)
         .first()
     )

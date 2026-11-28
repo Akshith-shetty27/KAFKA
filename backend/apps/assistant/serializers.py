@@ -57,6 +57,8 @@ class ConversationDetailSerializer(ConversationSerializer):
 
 class ConversationCreateSerializer(serializers.Serializer):
     question_slug = serializers.SlugField(required=False, allow_blank=True)
+    # e.g. "Mock interview · HR round" when a study plan starts a mock interview.
+    title = serializers.CharField(required=False, allow_blank=True, max_length=60)
 
 
 class ConversationFilterSerializer(serializers.Serializer):

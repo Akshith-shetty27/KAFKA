@@ -8,7 +8,7 @@ import re
 import time
 from collections.abc import Iterator
 
-from .base import ChatTurn, Finished, LLMResult, StreamEvent, TextDelta
+from .base import ChatTurn, Finished, LLMResult, ResearchResult, StreamEvent, TextDelta
 
 
 class FakeProvider:
@@ -43,8 +43,20 @@ class FakeProvider:
             yield TextDelta(word)
         yield Finished(LLMResult(stop_reason="end_turn", model=self.model, input_tokens=0, output_tokens=len(reply.split())))
 
+    supports_research = True
+
+    def research(self, *, system: str, prompt: str, max_tokens: int) -> ResearchResult:
+        """Offline demo research (no network): a fixed, clearly labelled report."""
+        text = (
+            "Offline demo research — no web search was run.\n"
+            "Company found: none (offline demo). Basis: none.\n"
+            "Rounds: Online assessment (aptitude + coding); Technical interview (DSA, core CS); HR interview."
+        )
+        return ResearchResult(text=text, sources=["Offline demo"], result=LLMResult(stop_reason="end_turn", model=self.model))
+
     def complete_json(
-        self, *, system: str, prompt: str, schema: dict, name: str, max_tokens: int, effort: str | None = None
+        self, *, system: str, prompt: str, schema: dict, name: str, max_tokens: int, effort: str | None = None,
+        patient: bool = False,
     ) -> tuple[dict, LLMResult]:
         """A schema-shaped demo object built offline (no network, deterministic).
 

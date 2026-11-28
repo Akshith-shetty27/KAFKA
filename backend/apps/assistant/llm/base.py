@@ -25,6 +25,15 @@ class LLMResult:
 
 
 @dataclass(frozen=True)
+class ResearchResult:
+    """What a web-research call found: a plain-text report and the sites it came from."""
+
+    text: str
+    sources: list[str]  # friendly site names taken from the real result URLs (e.g. "GeeksforGeeks")
+    result: LLMResult
+
+
+@dataclass(frozen=True)
 class TextDelta:
     text: str
 
@@ -59,18 +68,25 @@ class LLMProvider(Protocol):
         ...
 
     def complete_json(
-        self, *, system: str, prompt: str, schema: dict, name: str, max_tokens: int, effort: str | None = None
+        self, *, system: str, prompt: str, schema: dict, name: str, max_tokens: int, effort: str | None = None,
+        patient: bool = False,
     ) -> tuple[dict, LLMResult]:
         """One non-streaming request whose reply must match `schema` (JSON Schema).
 
         Used for structured features (e.g. study plans), where the result is
         validated and stored rather than shown as it arrives. Returns the
         parsed object. `effort` overrides the provider's reasoning effort for
-        this call. Raises LLMError on provider failures, on a reply cut
-        off by `max_tokens`, or on output that isn't valid JSON — callers
-        must still validate the content itself.
+        this call. `patient` lets the call wait out a short rate limit (used
+        right after a research call has spent part of the minute's budget).
+        Raises LLMError on provider failures, on a reply cut off by
+        `max_tokens`, or on output that isn't valid JSON — callers must still
+        validate the content itself.
         """
         ...
+
+    # Optional capability: providers that can search the web set this to True
+    # and implement `research(system, prompt, max_tokens) -> ResearchResult`.
+    supports_research: bool
 
 
 def parse_json_reply(text: str, stop_reason: str) -> dict:

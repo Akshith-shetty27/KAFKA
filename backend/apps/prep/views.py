@@ -32,7 +32,8 @@ class PlanListView(ListAPIView):
     """
     GET  /prep/plans/  — my study plans, newest first (with progress)
     POST /prep/plans/  {role, job_description, company?, candidate_info?, days_available?, hours_per_day?}
-                       — analyse the pasted JD and generate a plan (one AI call, ~10–30 s)
+                       — research the company's past interviews on the web, then analyse the pasted JD
+                         and generate a sectioned plan (two AI calls, ~20–60 s on the free tier)
     """
 
     serializer_class = PlanListSerializer
@@ -86,3 +87,30 @@ class PlanItemView(APIView):
         payload.is_valid(raise_exception=True)
         item = services.set_item_completed(item, payload.validated_data["completed"])
         return Response({"id": item.id, "completed": item.completed, "completed_at": item.completed_at})
+
+
+class PlanItemLessonView(APIView):
+    """
+    POST /prep/plans/{id}/items/{item_id}/lesson/ — notes + quiz for a lesson item.
+    Generated on first request (one AI call), then stored; later requests return it unchanged.
+    """
+
+    throttle_scope = "prep_lesson"
+
+    def get_throttles(self):
+        # Only generation costs anything; returning a stored lesson isn't throttled.
+        item = selectors.my_item(self.request.user, self.kwargs["pk"], self.kwargs["item_pk"])
+        self._item = item
+        return [] if item is not None and item.lesson else super().get_throttles()
+
+    def post(self, request, pk, item_pk):
+        item = getattr(self, "_item", None) or selectors.my_item(request.user, pk, item_pk)
+        if item is None or item.mode != item.Mode.LESSON:
+            raise Http404
+        try:
+            lesson = services.generate_lesson(item)
+        except LLMError as exc:
+            raise PlanGenerationFailed(
+                exc.user_message, retryable=exc.retryable, status_code=503 if exc.retryable else 502
+            ) from exc
+        return Response({"id": item.id, "lesson": lesson})

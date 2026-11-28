@@ -69,6 +69,12 @@ class ConversationApiTests(APITestCase):
         self.assertEqual(about["title"], "Two Sum")
         self.assertTrue(about["capabilities"]["hint"])
 
+    def test_conversation_can_start_with_a_title(self):
+        mock = self.client.post(reverse("conversation-list"), {"title": "Mock interview · HR round"}, format="json").json()
+        self.assertEqual(mock["title"], "Mock interview · HR round")
+        too_long = self.client.post(reverse("conversation-list"), {"title": "x" * 61}, format="json")
+        self.assertEqual(too_long.status_code, 400)
+
     def test_unknown_or_unpublished_question_is_404(self):
         self.assertEqual(self.client.post(reverse("conversation-list"), {"question_slug": "draft-q"}, format="json").status_code, 404)
 

@@ -35,19 +35,36 @@ class PlanListSerializer(serializers.ModelSerializer):
         return _progress(plan)
 
 
+def mock_prompt(item, plan) -> str:
+    """The opening message for an Ask KAFKA mock interview of this round."""
+    where = f" at {plan.company}" if plan.company else ""
+    focus = f" Focus on: {', '.join(item.subtopics)}." if item.subtopics else ""
+    return (
+        f"Run a mock interview for the \"{item.title}\" round, for a {plan.role} role{where}.{focus} "
+        "Ask me one question at a time, wait for my answer, then give short feedback and a better answer "
+        "before the next question. Start with the first question."
+    )
+
+
 class PlanItemSerializer(serializers.ModelSerializer):
     category_label = serializers.CharField(source="get_category_display")
+    mode_label = serializers.CharField(source="get_mode_display")
     completed = serializers.BooleanField()
     est_hours = serializers.FloatField()
     topics = serializers.SerializerMethodField()
     patterns = serializers.SerializerMethodField()
+    mock_prompt = serializers.SerializerMethodField()
 
     class Meta:
         model = PlanItem
         fields = [
-            "id", "title", "category", "category_label", "importance", "reason", "subtopics", "activities",
-            "est_hours", "completed", "completed_at", "topics", "patterns",
+            "id", "title", "mode", "mode_label", "category", "category_label", "importance", "reason", "subtopics",
+            "activities", "est_hours", "completed", "completed_at", "topics", "patterns", "lesson", "mock_prompt",
         ]
+
+    def get_mock_prompt(self, item):
+        plan = self.context.get("plan")
+        return mock_prompt(item, plan) if plan is not None and item.mode == PlanItem.Mode.MOCK else None
 
     def get_topics(self, item):
         progress = self.context.get("topic_progress", {})
@@ -93,12 +110,13 @@ class PlanDetailSerializer(serializers.ModelSerializer):
         model = PreparationPlan
         fields = [
             "id", "role", "company", "job_description", "jd_truncated", "candidate_info", "days_available",
-            "hours_per_day", "summary", "requirements", "model", "created_at", "updated_at", "progress", "phases",
+            "hours_per_day", "summary", "requirements", "research", "model", "created_at", "updated_at", "progress",
+            "phases",
         ]
 
     def get_progress(self, plan):
         return _progress(plan)
 
     def get_phases(self, plan):
-        context = {"topic_progress": getattr(plan, "topic_progress", {})}
+        context = {"topic_progress": getattr(plan, "topic_progress", {}), "plan": plan}
         return PlanPhaseSerializer(plan.phases.all(), many=True, context=context).data

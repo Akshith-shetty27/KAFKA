@@ -1,10 +1,11 @@
 <script setup>
 /**
- * ASK KAFKA → new study plan. The student pastes a job description, names the
- * role (and optionally company, background and time left); the server turns
- * it into a prioritised, JD-specific roadmap and we open it.
+ * ASK KAFKA → new study plan. The student names the role and company, pastes
+ * the job description (and optionally the time left); the server researches
+ * the company's past interview experiences on the web, turns both into a plan
+ * split into Coding · Aptitude · Core CS · Interview prep, and we open it.
  */
-import { onBeforeUnmount, reactive, ref, watch } from 'vue'
+import { computed, onBeforeUnmount, reactive, ref, watch } from 'vue'
 import { useRouter } from 'vue-router'
 
 import KAssistantMark from '@/components/assistant/KAssistantMark.vue'
@@ -29,19 +30,25 @@ const form = reactive({
   role: auth.user?.profile?.target_role ?? '',
   company: '',
   job_description: '',
-  candidate_info: '',
   days_available: '',
   hours_per_day: '',
 })
 
-// What the server is doing during the ~10 s generation, so the wait reads as progress.
-const stages = ['Reading the job description…', 'Picking out the requirements…', 'Prioritising for your time…', 'Building your roadmap…']
+// What the server is doing during the ~30–60 s generation (web research, then the
+// plan), so the wait reads as progress.
+const stages = computed(() => [
+  form.company.trim() ? `Searching the web for ${form.company.trim()} interview experiences…` : 'Searching the web for interview experiences…',
+  'Reading past interview rounds…',
+  'Reading the job description…',
+  "Matching it to KAFKA's topics…",
+  'Building your plan…',
+])
 const stage = ref(0)
 let timer = null
 watch(submitting, (busy) => {
   clearInterval(timer)
   stage.value = 0
-  if (busy) timer = setInterval(() => (stage.value = Math.min(stage.value + 1, stages.length - 1)), 3500)
+  if (busy) timer = setInterval(() => (stage.value = Math.min(stage.value + 1, stages.value.length - 1)), 8000)
 })
 onBeforeUnmount(() => clearInterval(timer))
 
@@ -56,7 +63,6 @@ async function generate() {
       role: form.role.trim(),
       company: form.company.trim(),
       job_description: form.job_description,
-      candidate_info: form.candidate_info.trim(),
       days_available: numberOrNull(form.days_available),
       hours_per_day: numberOrNull(form.hours_per_day),
     })
@@ -65,10 +71,10 @@ async function generate() {
 }
 
 const steps = [
-  ['Paste', 'the full job description — responsibilities, required skills, interview process.'],
-  ['Analyse', 'KAFKA pulls out every requirement and quotes the line it came from.'],
-  ['Plan', 'a phased roadmap — fundamentals to mock interviews — sized to your time.'],
-  ['Practise', 'each item links straight to KAFKA topics and patterns, and tracks your progress.'],
+  ['Paste', 'the role, the company and the full job description.'],
+  ['Research', "KAFKA searches the web for the company's past interview experiences — the rounds and what they ask."],
+  ['Plan', 'split into Coding, Aptitude, Core CS and Interview prep, sized to your time.'],
+  ['Prepare', 'everything inside KAFKA: practice topics, lessons for anything new, and mock interviews.'],
 ]
 </script>
 
@@ -101,16 +107,6 @@ const steps = [
           placeholder="Paste the whole posting here: about the role, responsibilities, requirements, nice-to-haves, interview process…"
           :error="fieldErrors.job_description"
           :hint="`At least ${MIN_JD} characters. Text inside the description is treated as data, never as instructions.`"
-        />
-
-        <KTextarea
-          v-model="form.candidate_info"
-          label="About you"
-          :rows="3"
-          :maxlength="2000"
-          placeholder="Optional — e.g. final-year CSE, comfortable in Python, weak at graphs and DP, no system design yet."
-          :error="fieldErrors.candidate_info"
-          hint="Helps KAFKA spend more time on your weak areas."
         />
 
         <div class="grid grid-cols-1 gap-6 sm:grid-cols-2">
@@ -154,7 +150,7 @@ const steps = [
                   :class="i < stage ? 'bg-accent' : i === stage ? 'bg-accent/50' : 'bg-rule-soft'"
                 />
               </p>
-              <p class="mt-2 text-xs text-muted">This usually takes about 10 seconds.</p>
+              <p class="mt-2 text-xs text-muted">This usually takes 30–60 seconds.</p>
             </div>
           </div>
         </div>

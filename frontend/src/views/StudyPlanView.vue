@@ -1,12 +1,18 @@
 <script setup>
 /**
- * One study plan: what the job asks for (with the quoted evidence), then the
- * phased roadmap. Items are ticked off here; linked topics show the student's
- * real progress and open Practice filtered to that topic or pattern.
+ * One study plan: how the company interviews (web research), what the job asks
+ * for (with the quoted evidence), then the plan in sections — Coding, Aptitude,
+ * Core CS, Interview prep. Every item is done inside KAFKA:
+ *   practice — linked topics/patterns with the student's real progress
+ *   lesson   — notes + quiz written on first open (PlanLesson)
+ *   mock     — opens Ask KAFKA with a mock interview for that round
+ * Plans made before sections existed still show their phases and activities.
  */
 import { computed, ref, watch } from 'vue'
 import { useRoute, useRouter } from 'vue-router'
 
+import PlanLesson from '@/components/prep/PlanLesson.vue'
+import ResearchPanel from '@/components/prep/ResearchPanel.vue'
 import KEmptyState from '@/components/ui/KEmptyState.vue'
 import KErrorState from '@/components/ui/KErrorState.vue'
 import KEyebrow from '@/components/ui/KEyebrow.vue'
@@ -80,6 +86,15 @@ async function remove() {
 }
 
 const importanceTone = { high: 'bg-danger', medium: 'bg-warning', low: 'bg-accent' }
+// Sections of current plans (older plans have phases like "fundamentals").
+const SECTION_KINDS = ['coding', 'aptitude', 'core_cs', 'interview']
+const SECTION_GLYPH = { coding: '{ }', aptitude: 'Σ', core_cs: '◎', interview: '✦' }
+const sectioned = computed(() => plan.value?.phases.every((p) => SECTION_KINDS.includes(p.kind)) ?? false)
+const MODE_TAG = { practice: 'Practise in KAFKA', lesson: 'Learn in KAFKA', mock: 'Mock interview' }
+
+function startMock(item) {
+  router.push({ name: 'ask', query: { prompt: item.mock_prompt, title: `Mock interview · ${item.title}`.slice(0, 60) } })
+}
 function createdOn(iso) {
   return new Date(iso).toLocaleDateString('en', { day: 'numeric', month: 'long', year: 'numeric' })
 }
@@ -136,6 +151,10 @@ function patternLink(p) {
         </div>
       </header>
 
+      <ResearchPanel :research="plan.research" :company="plan.company" />
+      <p v-if="sectioned && !plan.research?.rounds?.length && !plan.research?.summary" class="mt-8 text-sm text-muted">
+        KAFKA couldn't find past interview experiences for this one, so the plan is based on the job description alone.
+      </p>
 
       <div class="mt-12 grid grid-cols-1 gap-14 lg:grid-cols-12">
         <!-- What the job asks for -->
@@ -160,14 +179,15 @@ function patternLink(p) {
 
         <!-- Roadmap -->
         <section class="order-1 min-w-0 lg:order-none lg:col-span-8" aria-labelledby="roadmap-title">
-          <KEyebrow id="roadmap-title" as="h2">Your roadmap</KEyebrow>
+          <KEyebrow id="roadmap-title" as="h2">{{ sectioned ? 'Your plan' : 'Your roadmap' }}</KEyebrow>
           <ol class="mt-6 flex flex-col gap-12">
             <li v-for="(phase, p) in plan.phases" :key="phase.id" v-reveal>
               <header class="flex flex-wrap items-baseline justify-between gap-x-6 gap-y-1 border-t border-rule pt-5">
-                <h3 class="text-2xl font-medium tracking-tight">
-                  <span class="mr-3 font-mono text-base text-muted">{{ String(p + 1).padStart(2, '0') }}</span>{{ phase.title }}
+                <h3 class="flex items-baseline gap-3 text-2xl font-medium tracking-tight">
+                  <span v-if="sectioned" class="k-serif w-8 shrink-0 text-xl text-accent-text not-italic" aria-hidden="true">{{ SECTION_GLYPH[phase.kind] }}</span>
+                  <span v-else class="font-mono text-base text-muted">{{ String(p + 1).padStart(2, '0') }}</span>{{ phase.title }}
                 </h3>
-                <span class="font-mono text-sm text-muted">{{ phase.kind_label }} · {{ hours(phase.est_hours) }}</span>
+                <span class="font-mono text-sm text-muted"><template v-if="!sectioned">{{ phase.kind_label }} · </template>{{ hours(phase.est_hours) }}</span>
               </header>
               <p v-if="phase.goal" class="mt-2 text-muted">{{ phase.goal }}</p>
 
@@ -197,6 +217,7 @@ function patternLink(p) {
                         <span class="inline-flex items-center gap-2">
                           <span class="size-1.5 rounded-full" :class="importanceTone[item.importance]" aria-hidden="true" />{{ item.importance }}
                         </span>
+                        <span v-if="sectioned" class="text-accent-text">{{ MODE_TAG[item.mode] }}</span>
                         <span>{{ item.category_label }}</span>
                       </p>
                       <p class="mt-3 text-sm leading-relaxed">{{ item.reason }}</p>
@@ -228,6 +249,24 @@ function patternLink(p) {
                         >
                           Pattern · {{ pt.name }} <KIcon name="arrow-up-right" :size="12" />
                         </RouterLink>
+                      </div>
+
+                      <PlanLesson
+                        v-if="item.mode === 'lesson' && sectioned"
+                        :plan-id="plan.id"
+                        :item="item"
+                        @loaded="(lesson) => (item.lesson = lesson)"
+                      />
+
+                      <div v-if="item.mode === 'mock' && item.mock_prompt" class="mt-5 border-t border-rule-soft pt-4">
+                        <button
+                          type="button"
+                          class="k-label inline-flex items-center gap-2 bg-accent px-4 py-2.5 text-[11px] text-on-accent transition-[filter] hover:brightness-95"
+                          @click="startMock(item)"
+                        >
+                          Start mock interview <KIcon name="arrow-right" :size="12" />
+                        </button>
+                        <p class="mt-2 text-xs text-muted">Ask KAFKA plays the interviewer: one question at a time, with feedback on each answer.</p>
                       </div>
                     </div>
                   </div>

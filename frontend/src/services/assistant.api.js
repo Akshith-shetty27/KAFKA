@@ -13,8 +13,10 @@ export const assistantApi = {
     return data
   },
   /** → conversation detail with messages + capabilities */
-  async create(questionSlug) {
-    const { data } = await http.post('/assistant/conversations/', questionSlug ? { question_slug: questionSlug } : {})
+  /** Start a conversation, optionally about a question, or with a title (e.g. a mock interview). */
+  async create(questionSlug, { title } = {}) {
+    const body = questionSlug ? { question_slug: questionSlug } : title ? { title } : {}
+    const { data } = await http.post('/assistant/conversations/', body)
     return data
   },
   async get(id) {

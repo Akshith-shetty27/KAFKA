@@ -8,11 +8,12 @@ export const prepApi = {
     return data
   },
   /**
-   * payload: { role, job_description, company?, candidate_info?, days_available?, hours_per_day? }
-   * One AI call on the server (typically ~10 s), so this gets a longer timeout than other requests.
+   * payload: { role, job_description, company?, days_available?, hours_per_day? }
+   * Web research + one AI call on the server (typically 30–60 s on the free tier),
+   * so this gets a much longer timeout than other requests.
    */
   async create(payload) {
-    const { data } = await http.post('/prep/plans/', payload, { timeout: 90000 })
+    const { data } = await http.post('/prep/plans/', payload, { timeout: 150000 })
     return data
   },
   async get(id) {
@@ -21,6 +22,14 @@ export const prepApi = {
   },
   async remove(id) {
     await http.delete(`/prep/plans/${id}/`)
+  },
+  /**
+   * Notes + quiz for a "lesson" item — generated on first request (a few seconds), then stored.
+   * → { id, lesson: { sections[{heading, body}], key_points[], quiz[{question, options, answer, explanation}], model } }
+   */
+  async lesson(planId, itemId) {
+    const { data } = await http.post(`/prep/plans/${planId}/items/${itemId}/lesson/`, {}, { timeout: 60000 })
+    return data
   },
   /** → { id, completed, completed_at } */
   async setItemCompleted(planId, itemId, completed) {

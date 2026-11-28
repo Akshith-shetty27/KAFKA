@@ -52,7 +52,7 @@ class AssistantStatusView(APIView):
 class ConversationListView(ListAPIView):
     """
     GET  /assistant/conversations/?question=<slug>  — my conversations, newest first
-    POST /assistant/conversations/ {question_slug?}  — start one (optionally about a question)
+    POST /assistant/conversations/ {question_slug?, title?}  — start one (optionally about a question)
     """
 
     serializer_class = ConversationSerializer
@@ -86,7 +86,7 @@ class ConversationListView(ListAPIView):
             question = published_questions().filter(slug=slug).first()
             if question is None:
                 raise Http404
-        conv = services.create_conversation(request.user, question=question)
+        conv = services.create_conversation(request.user, question=question, title=payload.validated_data.get("title", ""))
         return Response(_detail(request.user, conv), status=status.HTTP_201_CREATED)
 
 

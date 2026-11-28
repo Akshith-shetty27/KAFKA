@@ -144,6 +144,10 @@ class JsonStubClient:
             raise outcome
         return outcome
 
+    def with_options(self, **options):
+        self.options = options
+        return self
+
 
 def json_response(content, finish="stop"):
     message = SimpleNamespace(content=content)
@@ -224,7 +228,38 @@ class FakeJsonTests(SimpleTestCase):
 
         prompt = "<job_description>\nShort\nWe need strong SQL and REST API skills for this role.\n</job_description>"
         data, result = FakeProvider().complete_json(system="", prompt=prompt, schema=plan_schema(), name="plan", max_tokens=10)
-        self.assertEqual(set(data), {"is_job_description", "rejection_reason", "summary", "requirements", "phases"})
+        self.assertEqual(set(data), {"is_job_description", "rejection_reason", "summary", "research", "requirements", "sections"})
         self.assertEqual(data["requirements"][0]["evidence"], "We need strong SQL and REST API skills for this role.")
-        self.assertIn(data["phases"][0]["kind"], ("fundamentals", "technical", "advanced", "company", "mock_interview"))
+        self.assertIn(data["sections"][0]["kind"], ("coding", "aptitude", "core_cs", "interview"))
         self.assertEqual(result.model, "kafka-offline-demo")
+
+
+class GroqResearchTests(SimpleTestCase):
+    def provider(self, client):
+        return GroqProvider(model="openai/gpt-oss-120b", effort="medium", client=client)
+
+    def test_research_uses_browser_search_and_returns_clean_text_and_real_sources(self):
+        message = SimpleNamespace(
+            content="Rounds: OA 【0†L1-L4】, technical. More at https://example.com/x",
+            executed_tools=[{"type": "browser.open", "search_results": {"results": [{"url": "https://www.geeksforgeeks.org/a"}]}}],
+        )
+        response = SimpleNamespace(model="openai/gpt-oss-120b", choices=[SimpleNamespace(message=message, finish_reason="stop")],
+                                   usage=usage(prompt=4000, completion=300, cached=0))
+        client = JsonStubClient(response)
+        found = self.provider(client).research(system="sys", prompt="find", max_tokens=1500)
+        self.assertEqual(client.calls[0]["tools"], [{"type": "browser_search"}])
+        self.assertEqual(client.calls[0]["reasoning_effort"], "low")
+        self.assertEqual(found.text, "Rounds: OA , technical. More at")
+        self.assertEqual(found.sources, ["GeeksforGeeks"])
+        self.assertEqual(found.result.input_tokens, 4000)
+
+    def test_research_failures_become_llm_errors(self):
+        client = JsonStubClient(status_error(groq.APIStatusError, 503))
+        with self.assertRaises(LLMError):
+            self.provider(client).research(system="sys", prompt="find", max_tokens=1500)
+
+    def test_patient_json_calls_allow_more_retries_for_the_rate_limit(self):
+        client = JsonStubClient(json_response('{"ok": true}'))
+        self.provider(client).complete_json(system="s", prompt="p", schema=GroqJsonTests.SCHEMA, name="t",
+                                            max_tokens=100, patient=True)
+        self.assertEqual(client.options, {"max_retries": 3})

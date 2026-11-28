@@ -30,6 +30,7 @@ FALLBACK_BETA = "server-side-fallback-2026-07-01"
 
 class AnthropicProvider:
     name = "anthropic"
+    supports_research = False  # study plans are generated without web research on this provider
     configured = True  # the SDK resolves credentials itself (env var or `ant` profile)
 
     def __init__(self, *, model: str, effort: str, timeout: float = 120.0, client=None):
@@ -81,7 +82,8 @@ class AnthropicProvider:
         )
 
     def complete_json(
-        self, *, system: str, prompt: str, schema: dict, name: str, max_tokens: int, effort: str | None = None
+        self, *, system: str, prompt: str, schema: dict, name: str, max_tokens: int, effort: str | None = None,
+        patient: bool = False,
     ) -> tuple[dict, LLMResult]:
         # Structured outputs via output_config.format; streamed internally so
         # long generations don't hit HTTP timeouts, but returned as one object.

@@ -1,14 +1,23 @@
 """
-Personalised study plans generated from a job description.
+Personalised study plans generated from a job description and web research
+into the company's past interview experiences.
 
     PreparationPlan (one per generation; the pasted JD is kept as text)
-      └─ PlanPhase (fundamentals → technical → advanced → company → mock interviews)
-           └─ PlanItem (what to study, why, how, how long; links to catalog topics/patterns)
+      └─ PlanPhase — a section: Coding · Aptitude · Core CS · Interview prep
+           └─ PlanItem — one thing to prepare, done entirely inside KAFKA:
+                practice  linked KAFKA topics/patterns (the question bank)
+                lesson    a topic KAFKA's bank doesn't cover: an AI-written note
+                          and quiz, generated on demand and stored on the item
+                mock      an Ask KAFKA mock interview for that round
 
 Requirements extracted from the JD are stored on the plan as validated JSON
-(each one carries an evidence quote from the JD). Item links point at real
+(each one carries an evidence quote from the JD), as is the interview research
+(rounds, most-asked topics, source site names). Item links point at real
 catalog rows, so a plan never sends a student to content that doesn't exist.
 Progress on a plan is the items the student ticks off.
+
+Plans made before sections existed keep their phases (fundamentals → … →
+mock interviews) and free-text activities; they still display as they were.
 """
 
 from django.conf import settings
@@ -51,6 +60,11 @@ class PreparationPlan(TimeStampedModel):
 
     summary = models.TextField()
     requirements = models.JSONField(default=list, help_text="[{skill, category, importance, evidence}] — validated.")
+    research = models.JSONField(
+        default=dict, blank=True,
+        help_text="{company_found, basis, summary, rounds[{name, details}], frequently_asked[], sources[]} — "
+        "past interview experiences found on the web; empty if research wasn't possible.",
+    )
 
     provider = models.CharField(max_length=32)
     model = models.CharField(max_length=100)
@@ -67,6 +81,12 @@ class PreparationPlan(TimeStampedModel):
 
 class PlanPhase(models.Model):
     class Kind(models.TextChoices):
+        # Sections (current plans), in display order.
+        CODING = "coding", "Coding"
+        APTITUDE = "aptitude", "Aptitude"
+        CORE_CS = "core_cs", "Core CS"
+        INTERVIEW = "interview", "Interview prep"
+        # Phases of plans made before sections existed.
         FUNDAMENTALS = "fundamentals", "Fundamentals"
         TECHNICAL = "technical", "Core technical skills"
         ADVANCED = "advanced", "Advanced topics"
@@ -88,6 +108,11 @@ class PlanPhase(models.Model):
 
 
 class PlanItem(models.Model):
+    class Mode(models.TextChoices):
+        PRACTICE = "practice", "Practise in KAFKA"
+        LESSON = "lesson", "Learn it in KAFKA"
+        MOCK = "mock", "Mock interview"
+
     phase = models.ForeignKey(PlanPhase, on_delete=models.CASCADE, related_name="items")
     order = models.PositiveSmallIntegerField()
     title = models.CharField(max_length=200)
@@ -95,7 +120,13 @@ class PlanItem(models.Model):
     importance = models.CharField(max_length=10, choices=Importance.choices)
     reason = models.TextField(help_text="Why this matters for this job description.")
     subtopics = models.JSONField(default=list)
-    activities = models.JSONField(default=list)
+    activities = models.JSONField(default=list, help_text="Free-text activities (plans made before sections only).")
+    mode = models.CharField(max_length=10, choices=Mode.choices, default=Mode.PRACTICE)
+    lesson = models.JSONField(
+        null=True, blank=True,
+        help_text="For lesson items, once generated: {sections[{heading, body}], key_points[], quiz[{question, "
+        "options[4], answer, explanation}], model}.",
+    )
     est_hours = models.DecimalField(max_digits=4, decimal_places=1)
     topics = models.ManyToManyField(Topic, blank=True, related_name="plan_items")
     patterns = models.ManyToManyField(Pattern, blank=True, related_name="plan_items")

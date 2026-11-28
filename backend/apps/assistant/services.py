@@ -36,8 +36,9 @@ STOP_NOTES = {
 }
 
 
-def create_conversation(user, *, question=None) -> Conversation:
-    return Conversation.objects.create(user=user, question=question, title=question.title if question else "")
+def create_conversation(user, *, question=None, title: str = "") -> Conversation:
+    """A new conversation, titled by its question, by `title`, or (later) by its first message."""
+    return Conversation.objects.create(user=user, question=question, title=question.title if question else title.strip())
 
 
 def build_history(conversation: Conversation, limit: int, max_chars: int | None = None) -> list[ChatTurn]:

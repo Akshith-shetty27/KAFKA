@@ -22,11 +22,13 @@ Notes:
 
 import logging
 import os
+import re
 from collections.abc import Iterator
+from urllib.parse import urlparse
 
 import groq
 
-from .base import ChatTurn, Finished, LLMError, LLMResult, StreamEvent, TextDelta, parse_json_reply
+from .base import ChatTurn, Finished, LLMError, LLMResult, ResearchResult, StreamEvent, TextDelta, parse_json_reply
 
 logger = logging.getLogger(__name__)
 
@@ -35,6 +37,53 @@ logger = logging.getLogger(__name__)
 EFFORT_MAP = {"low": "low", "medium": "medium", "high": "high", "xhigh": "high", "max": "high"}
 # Our stop vocabulary is provider-neutral (see services.STOP_NOTES).
 FINISH_MAP = {"stop": "end_turn", "length": "max_tokens", "content_filter": "refusal"}
+
+
+# Friendly names for sites that interview experiences usually come from.
+SITE_NAMES = {
+    "geeksforgeeks": "GeeksforGeeks", "glassdoor": "Glassdoor", "leetcode": "LeetCode", "ambitionbox": "AmbitionBox",
+    "reddit": "Reddit", "indeed": "Indeed", "interviewbit": "InterviewBit", "prepinsta": "PrepInsta",
+    "naukri": "Naukri", "medium": "Medium", "linkedin": "LinkedIn", "youtube": "YouTube", "quora": "Quora",
+    "teamblind": "Blind", "levels": "Levels.fyi", "codingninjas": "Coding Ninjas", "takeuforward": "takeUforward",
+}
+# Search engines and the like: the tool's own plumbing, not sources.
+NOT_SOURCES = {"exa", "bing", "google", "duckduckgo", "search", "brave"}
+_CITATION = re.compile(r"【[^】]*】")
+_URL = re.compile(r"https?://\S+")
+
+
+def site_name(url: str) -> str | None:
+    """'https://www.geeksforgeeks.org/x' → 'GeeksforGeeks'; unknown sites → their capitalised name."""
+    host = (urlparse(url).hostname or "").lower().removeprefix("www.")
+    if not host:
+        return None
+    parts = host.split(".")
+    # Skip second-level suffixes like .co.in / .com.au / .ac.uk to reach the site's own name.
+    if len(parts) >= 3 and parts[-2] in {"co", "com", "org", "net", "ac", "gov", "edu"}:
+        parts = parts[:-1]
+    key = parts[-2] if len(parts) >= 2 else parts[0]
+    if key in NOT_SOURCES:
+        return None
+    return SITE_NAMES.get(key, key.capitalize())
+
+
+def sources_from(executed_tools) -> list[str]:
+    """Site names of the pages the model opened first, then of the top search hits (max 5)."""
+    opened, searched = [], []
+    for tool in executed_tools or []:
+        data = tool.model_dump() if hasattr(tool, "model_dump") else dict(tool)
+        results = (data.get("search_results") or {}).get("results") or []
+        target = opened if "open" in str(data.get("type", "")) else searched
+        target += [r.get("url", "") for r in results[: (1 if target is opened else 4)]]
+    names = [site_name(u) for u in opened + searched]
+    return list(dict.fromkeys(n for n in names if n))[:5]
+
+
+def clean_research_text(text: str) -> str:
+    """Drop the model's citation markers and any raw URLs — students never get sent off-site."""
+    text = _URL.sub("", _CITATION.sub("", text or ""))
+    text = re.sub(r"[ \t]{2,}", " ", text)
+    return re.sub(r"[ \t]+\n", "\n", text).strip()
 
 
 def _usage_from(chunk):
@@ -82,6 +131,7 @@ def _to_llm_error(exc: Exception) -> LLMError:
 
 class GroqProvider:
     name = "groq"
+    supports_research = True  # Groq's built-in browser_search tool (gpt-oss models)
 
     def __init__(self, *, model: str, effort: str, timeout: float = 60.0, client=None):
         self.model = model
@@ -144,7 +194,8 @@ class GroqProvider:
         )
 
     def complete_json(
-        self, *, system: str, prompt: str, schema: dict, name: str, max_tokens: int, effort: str | None = None
+        self, *, system: str, prompt: str, schema: dict, name: str, max_tokens: int, effort: str | None = None,
+        patient: bool = False,
     ) -> tuple[dict, LLMResult]:
         # Strict structured outputs: Groq constrains decoding to the schema
         # (supported on gpt-oss models; not available with streaming).
@@ -152,6 +203,10 @@ class GroqProvider:
         # json_validate_failed when it doesn't match; that is a sampling fluke,
         # so it is retried once before giving up.
         client = self._get_client()
+        if patient:
+            # Right after a research call the minute's token budget may be spent;
+            # the SDK then waits out Groq's retry-after (≤ 60 s) and tries again.
+            client = client.with_options(max_retries=3)
         for attempt in (1, 2):
             try:
                 response = client.chat.completions.create(
@@ -182,3 +237,34 @@ class GroqProvider:
             cache_read_tokens=getattr(details, "cached_tokens", None) if details else None,
         )
         return parse_json_reply(choice.message.content, result.stop_reason), result
+
+    def research(self, *, system: str, prompt: str, max_tokens: int) -> ResearchResult:
+        """Search the web with Groq's built-in browser_search tool and report back in plain text.
+
+        Search results are added to the prompt by Groq, so one call costs a few
+        thousand input tokens — this is the expensive step of plan generation.
+        """
+        client = self._get_client()
+        try:
+            response = client.chat.completions.create(
+                model=self.model,
+                messages=[{"role": "system", "content": system}, {"role": "user", "content": prompt}],
+                tools=[{"type": "browser_search"}],
+                max_completion_tokens=max_tokens,
+                reasoning_effort="low",
+                include_reasoning=False,
+            )
+        except groq.GroqError as exc:
+            raise _to_llm_error(exc) from exc
+        message = response.choices[0].message
+        usage = response.usage
+        return ResearchResult(
+            text=clean_research_text(message.content),
+            sources=sources_from(getattr(message, "executed_tools", None)),
+            result=LLMResult(
+                stop_reason=FINISH_MAP.get(response.choices[0].finish_reason, "end_turn"),
+                model=getattr(response, "model", None) or self.model,
+                input_tokens=getattr(usage, "prompt_tokens", None),
+                output_tokens=getattr(usage, "completion_tokens", None),
+            ),
+        )

@@ -137,7 +137,8 @@ REST_FRAMEWORK = {
         "auth": env("AUTH_RATE", default="20/min"),  # login / register (brute-force guard)
         "auth_refresh": env("AUTH_REFRESH_RATE", default="60/min"),
         "assistant": env("ASSISTANT_RATE", default="40/hour"),
-        "prep_plan": env("PREP_PLAN_RATE", default="10/hour"),  # study-plan generation (one LLM call each)
+        "prep_plan": env("PREP_PLAN_RATE", default="10/hour"),  # study-plan generation (research + plan call)
+        "prep_lesson": env("PREP_LESSON_RATE", default="30/hour"),  # a plan item's notes + quiz, on first open
     },
 }
 
@@ -192,6 +193,12 @@ PREP_JD_PROMPT_CHARS = env.int("PREP_JD_PROMPT_CHARS", default=5000)  # ≈1.3k 
 # so plans use low reasoning effort (≈3k-token replies, measured) under a 4,500-token cap.
 PREP_PLAN_MAX_TOKENS = env.int("PREP_PLAN_MAX_TOKENS", default=4500)
 PREP_LLM_EFFORT = env("PREP_LLM_EFFORT", default="low")
+# Web research into the company's past interview experiences before planning
+# (Groq's built-in browser_search; one search costs ≈4–6k input tokens).
+PREP_RESEARCH = env.bool("PREP_RESEARCH", default=True)
+PREP_RESEARCH_MAX_TOKENS = env.int("PREP_RESEARCH_MAX_TOKENS", default=1500)
+# A lesson (notes + 5-question quiz) for a plan item KAFKA's question bank doesn't cover.
+PREP_LESSON_MAX_TOKENS = env.int("PREP_LESSON_MAX_TOKENS", default=3500)
 
 # ---------------------------------------------------------------------------
 # Logging

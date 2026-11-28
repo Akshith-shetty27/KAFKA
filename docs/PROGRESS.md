@@ -41,6 +41,7 @@ Workspace notes:
 | v2·A | Study plans: paste JD + role → AI analysis → phased roadmap linked to topics, progress tracking | **Done** |
 | v2·B | Question banks: aptitude 650 (13 topics × 20/20/10), coding 210 (14 topics × 15, incl. Hashing, Sorting, Recursion & Backtracking, Greedy) | **Done** (generators: `manage.py generate_aptitude`; bank in `content/bank/`; 153 tests) |
 | v2·C | Plan-aware ASK KAFKA chat (teach, generate questions, adapt plan, mock interview) | Planned |
+| v2·D | Researched study plans: web search of the company's past interview experiences (Groq browser_search; similar companies when none found), plans in sections (Coding · Aptitude · Core CS · Interview prep), every item inside KAFKA — practice (linked topics), lesson (AI notes + quiz on first open), mock (Ask KAFKA mock interview). "About you" removed from the form | **Done** (185 tests) |
 | UI | UI/UX transformation (motion system, dashboard, practice/questions, Ask KAFKA, landing 3D, progress/settings, QA) — docs/UI-PLAN.md | **Done** |
 
 ### Phase 1 — what exists

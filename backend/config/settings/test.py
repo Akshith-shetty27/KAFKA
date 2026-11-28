@@ -18,5 +18,6 @@ LOGGING["loggers"] = {"django.request": {"level": "ERROR"}}  # noqa: F405
 # Keep throttles out of the way of ordinary tests (throttling has its own test).
 REST_FRAMEWORK = {
     **REST_FRAMEWORK,  # noqa: F405
-    "DEFAULT_THROTTLE_RATES": {"auth": "1000/min", "auth_refresh": "1000/min", "assistant": "1000/min", "prep_plan": "1000/min"},
+    "DEFAULT_THROTTLE_RATES": {"auth": "1000/min", "auth_refresh": "1000/min", "assistant": "1000/min", "prep_plan": "1000/min",
+                               "prep_lesson": "1000/min"},
 }

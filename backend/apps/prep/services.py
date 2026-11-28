@@ -1,10 +1,14 @@
 """
-Study-plan generation: pasted job description → validated, stored plan.
+Study-plan generation: pasted job description → web research → validated, stored plan.
 
     clean_jd_text()     normalise the pasted text and trim it to the model budget
-    generate_plan()     one structured LLM call → validate_plan() → save
+    research_interviews()  web search for the company's past interview experiences
+                        (best effort: a plan is still made without it)
+    generate_plan()     research → one structured LLM call → validate_plan() → save
     validate_plan()     enforce what the schema can't: evidence really comes from
-                        the JD, links name real catalog rows, sane sizes and hours
+                        the JD, links name real catalog rows from the right track,
+                        every item is doable inside KAFKA, sane sizes and hours
+    generate_lesson()   notes + quiz for a lesson item, made on first open and stored
     set_item_completed()  progress on a plan
 
 The model's output is never trusted as-is: anything that fails validation is
@@ -28,15 +32,21 @@ from apps.catalog.models import Pattern, Topic
 
 from . import prompts
 from .models import PlanItem, PlanPhase, PreparationPlan
-from .schema import CATEGORY_VALUES, IMPORTANCE_VALUES, PHASE_KINDS, plan_schema
+from .schema import BASIS_VALUES, CATEGORY_VALUES, IMPORTANCE_VALUES, SECTION_KINDS, lesson_schema, plan_schema
 
 logger = logging.getLogger(__name__)
 
 MAX_REQUIREMENTS = 15
-MAX_PHASES = 6
 MAX_ITEMS_PER_PHASE = 6
 MAX_LIST_ENTRIES = 8
 MIN_REQUIREMENTS = 2
+MAX_ROUNDS = 6
+RESEARCH_CHARS = 2000  # research report kept for the plan prompt (≈500 tokens)
+
+# Which catalog track each section practises on (interview prep has none).
+SECTION_TRACK = {"coding": "coding", "aptitude": "aptitude", "core_cs": "core-cs"}
+# Item category when the model gives none we recognise.
+SECTION_CATEGORY = {"coding": "dsa", "aptitude": "aptitude", "core_cs": "cs_fundamentals", "interview": "communication"}
 
 
 class PlanRejected(Exception):
@@ -62,7 +72,7 @@ def clean_jd_text(text: str) -> tuple[str, bool]:
 
 
 def catalog_for_prompt() -> tuple[list[dict], list[dict]]:
-    """Topics that have published questions, and all patterns — the only valid link targets."""
+    """Topics that have published questions (with their track), and all patterns — the only valid link targets."""
     topics = (
         Topic.objects.select_related("category")
         .annotate(n=Count("questions", filter=Q(questions__is_published=True)))
@@ -71,7 +81,7 @@ def catalog_for_prompt() -> tuple[list[dict], list[dict]]:
     )
     patterns = Pattern.objects.order_by("order", "name")
     return (
-        [{"slug": t.slug, "name": t.name, "category": t.category.name} for t in topics],
+        [{"slug": t.slug, "name": t.name, "track": t.category.slug} for t in topics],
         [{"slug": p.slug, "name": p.name} for p in patterns],
     )
 
@@ -131,13 +141,114 @@ def _hours(value) -> Decimal:
     return Decimal(str(round(hours * 2) / 2))  # nearest half hour
 
 
+def _norm_company(name: str) -> str:
+    return re.sub(r"[^a-z0-9]", "", (name or "").lower().replace("technologies", "").replace("limited", ""))
+
+
+def validate_research(data, *, company: str, sources: list[str]) -> dict:
+    """Clean the model's summary of the web research; {} when there's nothing usable."""
+    if not isinstance(data, dict):
+        return {}
+    basis = _choice(data.get("basis"), BASIS_VALUES, "none")
+    found = _text(data.get("company_found"), 120)
+    if found.lower() in ("none", "n/a", "unknown"):
+        found = ""
+    # Reports about a differently named company are "similar", whatever the model says
+    # (e.g. a search for "Wifli" that came back with "Wipfli").
+    if basis == "company" and company and found:
+        target, about = _norm_company(company), _norm_company(found)
+        if target and about and target not in about and about not in target:
+            basis = "similar"
+    rounds = []
+    for r in data.get("rounds") or []:
+        if isinstance(r, dict) and _text(r.get("name"), 80):
+            rounds.append({"name": _text(r.get("name"), 80), "details": _text(r.get("details"), 300)})
+    research = {
+        "company_found": found,
+        "basis": basis,
+        "summary": _text(data.get("summary"), 600),
+        "rounds": rounds[:MAX_ROUNDS],
+        "frequently_asked": _str_list(data.get("frequently_asked"), 80),
+        "sources": sources,
+    }
+    if basis == "none" and not (research["rounds"] or research["frequently_asked"]):
+        return {}
+    return research
+
+
+_COMMON_WORDS = {"and", "of", "the", "in", "for", "to", "a", "an", "with", "basics", "concepts", "fundamentals"}
+
+
+def _topic_keys(name: str) -> tuple[str, str]:
+    """('object oriented programming', 'oop') — a topic's normalised name and its acronym."""
+    words = [w for w in _norm(name.replace("-", " ")).split() if w not in _COMMON_WORDS]
+    return " ".join(words), "".join(w[0] for w in words) if len(words) >= 2 else ""
+
+
+# The usual short names students and job posts use for core CS subjects.
+TOPIC_ALIASES = {
+    "database management systems": ["dbms", "rdbms", "databases"],
+    "object oriented programming": ["oop", "oops"],
+    "operating systems": ["os"],
+    "computer networks": ["cn", "networking", "networks"],
+    "software engineering": ["sdlc"],
+}
+
+
+def match_topics(text: str, candidates: dict[str, str]) -> list[str]:
+    """Topics (slug → name) that the text names outright or by a short name — e.g. 'OOP concepts in Java'."""
+    norm = f" {_norm(text)} "
+    found = []
+    for slug, name in candidates.items():
+        full, acronym = _topic_keys(name)
+        keys = [full, *TOPIC_ALIASES.get(full, [])] + ([acronym] if len(acronym) >= 2 else [])
+        if any(key and f" {key} " in norm for key in keys):
+            found.append(slug)
+    return found
+
+
+def _clean_item(item: dict, kind: str, topic_tracks: dict[str, str], pattern_slugs: set[str],
+                topic_names: dict[str, str] | None = None) -> dict:
+    track = SECTION_TRACK.get(kind)
+    # Links must be real catalog rows from this section's track (interview prep links nothing).
+    topics = [t for t in _known(item.get("topics"), set(topic_tracks)) if track and topic_tracks[t] == track]
+    if track and not topics and topic_names:
+        # Safety net: the model sometimes misses a KAFKA topic that the item names outright.
+        in_track = {slug: name for slug, name in topic_names.items() if topic_tracks.get(slug) == track}
+        topics = match_topics(" ".join([_text(item.get("title"), 200), *_str_list(item.get("subtopics"))]), in_track)
+    patterns = _known(item.get("patterns"), pattern_slugs) if kind == "coding" else []
+    mode = _choice(item.get("mode"), [m.value for m in PlanItem.Mode], "")
+    if kind == "interview":
+        mode = "lesson" if mode == "lesson" else "mock"
+        topics = patterns = []
+    else:
+        # Everything happens inside KAFKA: with links it's practice, without them KAFKA teaches it.
+        mode = "practice" if (topics or patterns) else "lesson"
+    return {
+        "title": _text(item.get("title"), 200),
+        "mode": mode,
+        "category": _choice(item.get("category"), CATEGORY_VALUES, SECTION_CATEGORY[kind]),
+        "importance": _choice(item.get("importance"), IMPORTANCE_VALUES, "medium"),
+        "reason": _text(item.get("reason"), 600),
+        "subtopics": _str_list(item.get("subtopics")),
+        "activities": [],
+        "est_hours": _hours(item.get("est_hours")),
+        "topics": topics,
+        "patterns": patterns,
+    }
+
+
 def validate_plan(
-    data: dict, *, jd_text: str, topic_slugs: set[str], pattern_slugs: set[str], hours_budget: int | None = None
+    data: dict, *, jd_text: str, topic_tracks: dict[str, str], pattern_slugs: set[str],
+    hours_budget: int | None = None, company: str = "", sources: list[str] | None = None,
+    topic_names: dict[str, str] | None = None,
 ) -> dict:
     """Turn a model reply into a clean plan dict, or raise PlanRejected.
 
-    With `hours_budget`, item hours are scaled so the plan fits the student's
-    time (models estimate totals loosely; measured drift was up to ±40%).
+    `topic_tracks` maps each linkable topic slug to its track (coding /
+    aptitude / core-cs). With `hours_budget`, item hours are scaled so the plan
+    fits the student's time (models estimate totals loosely; measured drift
+    was up to ±40%). `sources` are the site names the research came from.
     """
     if data.get("is_job_description") is False:
         reason = _text(data.get("rejection_reason"), 300) or "It doesn't describe a role's responsibilities and requirements."
@@ -170,49 +281,30 @@ def validate_plan(
     rank = {"high": 0, "medium": 1, "low": 2}
     requirements.sort(key=lambda r: rank[r["importance"]])  # stable: keeps the model's order within a level
 
-    phases = []
-    for phase in data.get("phases") or []:
-        if not isinstance(phase, dict):
+    # Sections: each kind once (a repeated kind is merged into the first), in track order.
+    by_kind: dict[str, dict] = {}
+    for section in data.get("sections") or []:
+        if not isinstance(section, dict):
             continue
-        kind = _choice(phase.get("kind"), PHASE_KINDS, "technical")
-        items = []
-        for item in phase.get("items") or []:
-            if not isinstance(item, dict) or not _text(item.get("title"), 200):
-                continue
-            items.append(
-                {
-                    "title": _text(item.get("title"), 200),
-                    "category": _choice(item.get("category"), CATEGORY_VALUES, "domain"),
-                    "importance": _choice(item.get("importance"), IMPORTANCE_VALUES, "medium"),
-                    "reason": _text(item.get("reason"), 600),
-                    "subtopics": _str_list(item.get("subtopics")),
-                    "activities": _str_list(item.get("activities"), 240),
-                    "est_hours": _hours(item.get("est_hours")),
-                    "topics": _known(item.get("topics"), topic_slugs),
-                    "patterns": _known(item.get("patterns"), pattern_slugs),
-                }
-            )
-            if len(items) == MAX_ITEMS_PER_PHASE:
-                break
-        if items:
-            phases.append(
-                {
-                    "kind": kind,
-                    "title": _text(phase.get("title"), 160) or PlanPhase.Kind(kind).label,
-                    "goal": _text(phase.get("goal"), 400),
-                    "items": items,
-                }
-            )
-    phases.sort(key=lambda p: PHASE_KINDS.index(p["kind"]))  # stable
-    phases = phases[:MAX_PHASES]
+        kind = _choice(section.get("kind"), SECTION_KINDS, "")
+        if not kind:
+            continue
+        target = by_kind.setdefault(kind, {"kind": kind, "title": PlanPhase.Kind(kind).label,
+                                           "goal": _text(section.get("goal"), 400), "items": []})
+        for item in section.get("items") or []:
+            if isinstance(item, dict) and _text(item.get("title"), 200) and len(target["items"]) < MAX_ITEMS_PER_PHASE:
+                target["items"].append(_clean_item(item, kind, topic_tracks, pattern_slugs, topic_names))
+    phases = [by_kind[k] for k in SECTION_KINDS if k in by_kind and by_kind[k]["items"]]
     if not phases:
-        raise PlanRejected("KAFKA couldn't build a roadmap from that description. Please try again with the full text.")
+        raise PlanRejected("KAFKA couldn't build a plan from that description. Please try again with the full text.")
     if hours_budget:
         _fit_to_budget(phases, Decimal(hours_budget))
 
     return {
         "summary": _text(data.get("summary"), 1200),
         "requirements": requirements[:MAX_REQUIREMENTS],
+        "research": validate_research(data.get("research"), company=company, sources=sources or [])
+        if sources is not None else {},
         "phases": phases,
     }
 
@@ -229,11 +321,51 @@ def _fit_to_budget(phases: list[dict], budget: Decimal) -> None:
 # --- generation ------------------------------------------------------------------------
 
 
+_BASIS_LINE = re.compile(r"basis:\s*\**\s*(company|similar|none)", re.I)
+
+
+def research_basis(text: str) -> str:
+    """The 'Basis:' line of a research report: company | similar | none (none if missing)."""
+    match = _BASIS_LINE.search(text or "")
+    return match.group(1).lower() if match else "none"
+
+
+def _search(provider, prompt: str):
+    try:
+        found = provider.research(system=prompts.RESEARCH_SYSTEM, prompt=prompt, max_tokens=settings.PREP_RESEARCH_MAX_TOKENS)
+    except LLMError as exc:
+        logger.warning("Interview research failed: %s", exc)
+        return None
+    logger.info("Interview research done (in=%s, out=%s tokens, sources=%s, basis=%s)",
+                found.result.input_tokens, found.result.output_tokens, found.sources, research_basis(found.text))
+    return found if found.text else None
+
+
+def research_interviews(provider, *, role: str, company: str, jd_text: str = ""):
+    """Web research into past interview experiences; None if the provider can't search or nothing useful turned up.
+
+    First the company itself; if nothing is found for it, similar companies for
+    the same role. Best effort by design: a plan built from the job description
+    alone is better than no plan, so research problems are logged, not raised.
+    """
+    if not settings.PREP_RESEARCH or not getattr(provider, "supports_research", False):
+        return None
+    found = _search(provider, prompts.research_prompt(role=role, company=company))
+    if company and (found is None or research_basis(found.text) == "none"):
+        excerpt = jd_text[:500].strip()
+        similar = _search(provider, prompts.similar_research_prompt(role=role, company=company, jd_excerpt=excerpt))
+        if similar is not None and research_basis(similar.text) != "none":
+            return similar
+    if found is None or research_basis(found.text) == "none":
+        return None
+    return found
+
+
 def generate_plan(
     user, *, role: str, job_description: str, company: str = "", candidate_info: str = "",
     days_available: int | None = None, hours_per_day: int | None = None,
 ) -> PreparationPlan:
-    """Generate, validate and store a plan. Raises PlanRejected or LLMError."""
+    """Research, generate, validate and store a plan. Raises PlanRejected or LLMError."""
     provider = get_provider()
     if not provider.configured:
         raise LLMError("ASK KAFKA isn't configured yet (no API key on the server).", retryable=False)
@@ -243,9 +375,11 @@ def generate_plan(
     if days_available and not hours_per_day:
         hours_per_day = 2
 
+    research = research_interviews(provider, role=role, company=company, jd_text=jd_text)
     prompt = prompts.user_prompt(
         role=role, company=company, candidate_info=candidate_info, days_available=days_available,
         hours_per_day=hours_per_day, jd_text=jd_text, topics=topics, patterns=patterns,
+        research_text=research.text[:RESEARCH_CHARS] if research else None,
     )
     data, result = provider.complete_json(
         system=prompts.SYSTEM,
@@ -254,14 +388,17 @@ def generate_plan(
         name="study_plan",
         max_tokens=settings.PREP_PLAN_MAX_TOKENS,
         effort=settings.PREP_LLM_EFFORT,
+        patient=research is not None,  # the research call may have used most of this minute's tokens
     )
     logger.info(
         "Study plan generated (model=%s, in=%s, out=%s tokens)", result.model, result.input_tokens, result.output_tokens
     )
     clean = validate_plan(
         data, jd_text=jd_text,
-        topic_slugs={t["slug"] for t in topics}, pattern_slugs={p["slug"] for p in patterns},
+        topic_tracks={t["slug"]: t["track"] for t in topics}, pattern_slugs={p["slug"] for p in patterns},
         hours_budget=days_available * hours_per_day if days_available else None,
+        company=company, sources=research.sources if research else None,
+        topic_names={t["slug"]: t["name"] for t in topics},
     )
     return _save(
         user, clean, role=role, company=company, job_description=job_description, truncated=truncated,
@@ -276,7 +413,7 @@ def _save(user, clean, *, role, company, job_description, truncated, candidate_i
     plan = PreparationPlan.objects.create(
         user=user, role=role, company=company, job_description=job_description, jd_truncated=truncated,
         candidate_info=candidate_info, days_available=days_available, hours_per_day=hours_per_day,
-        summary=clean["summary"], requirements=clean["requirements"],
+        summary=clean["summary"], requirements=clean["requirements"], research=clean["research"],
         provider=provider, model=result.model, input_tokens=result.input_tokens, output_tokens=result.output_tokens,
     )
     topic_ids = dict(Topic.objects.values_list("slug", "id"))
@@ -287,11 +424,61 @@ def _save(user, clean, *, role, company, job_description, truncated, candidate_i
             plan_item = PlanItem.objects.create(
                 phase=row, order=i_order, title=item["title"], category=item["category"],
                 importance=item["importance"], reason=item["reason"], subtopics=item["subtopics"],
-                activities=item["activities"], est_hours=item["est_hours"],
+                activities=item["activities"], est_hours=item["est_hours"], mode=item["mode"],
             )
             plan_item.topics.set([topic_ids[s] for s in item["topics"]])
             plan_item.patterns.set([pattern_ids[s] for s in item["patterns"]])
     return plan
+
+
+# --- lessons -----------------------------------------------------------------------------
+
+
+def validate_lesson(data: dict) -> dict:
+    """Clean a generated lesson; raise LLMError (retryable) if it's unusable."""
+    sections = []
+    for sec in data.get("sections") or []:
+        if isinstance(sec, dict) and _text(sec.get("body"), 1500):
+            sections.append({"heading": _text(sec.get("heading"), 120), "body": _text(sec.get("body"), 1500)})
+    quiz = []
+    for q in data.get("quiz") or []:
+        if not isinstance(q, dict):
+            continue
+        options = [_text(o, 200) for o in (q.get("options") or []) if _text(o, 200)]
+        try:
+            answer = int(q.get("answer"))
+        except (TypeError, ValueError):
+            continue
+        if _text(q.get("question"), 400) and len(options) == 4 and 0 <= answer < 4 and len(set(options)) == 4:
+            quiz.append({"question": _text(q.get("question"), 400), "options": options, "answer": answer,
+                         "explanation": _text(q.get("explanation"), 400)})
+    if len(sections) < 2 or len(quiz) < 3:
+        raise LLMError("KAFKA couldn't write this lesson properly. Please try again.", retryable=True,
+                       detail=f"sections={len(sections)} quiz={len(quiz)}")
+    return {"sections": sections[:6], "key_points": _str_list(data.get("key_points"), 200)[:6], "quiz": quiz[:6]}
+
+
+def generate_lesson(item: PlanItem) -> dict:
+    """Notes + quiz for a lesson item: generated on first open, then stored and reused."""
+    if item.lesson:
+        return item.lesson
+    provider = get_provider()
+    if not provider.configured:
+        raise LLMError("ASK KAFKA isn't configured yet (no API key on the server).", retryable=False)
+    plan = item.phase.plan
+    data, result = provider.complete_json(
+        system=prompts.LESSON_SYSTEM,
+        prompt=prompts.lesson_prompt(role=plan.role, company=plan.company, title=item.title,
+                                     subtopics=item.subtopics, reason=item.reason),
+        schema=lesson_schema(),
+        name="lesson",
+        max_tokens=settings.PREP_LESSON_MAX_TOKENS,
+        effort=settings.PREP_LLM_EFFORT,
+    )
+    lesson = {**validate_lesson(data), "model": result.model}
+    item.lesson = lesson
+    item.save(update_fields=["lesson"])
+    return lesson
 
 
 # --- progress ----------------------------------------------------------------------------

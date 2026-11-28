@@ -8,14 +8,14 @@ from django.utils import timezone
 from rest_framework.test import APIClient
 from rest_framework.throttling import ScopedRateThrottle
 
-from apps.assistant.llm import LLMError, LLMResult
+from apps.assistant.llm import LLMError, LLMResult, ResearchResult
 from apps.assistant.llm.fake_provider import FakeProvider
 from apps.catalog.models import Pattern
 from apps.core.testing import auth_client, make_catalog, make_user
 from apps.prep.models import PlanItem, PreparationPlan
 from apps.progress.models import QuestionProgress
 
-from .test_services import item, reply, requirement
+from .test_services import item, reply, requirement, section
 
 URL = "/api/v1/prep/plans/"
 JD = (
@@ -31,15 +31,29 @@ class StubProvider:
     name = "stub"
     model = "stub-model"
     configured = True
+    supports_research = True
 
-    def __init__(self, data=None, error=None):
-        self.data, self.error, self.calls = data, error, []
+    def __init__(self, data=None, error=None, research_text="Company found: Acme\nBasis: company\nRounds: online assessment, then two technical rounds."):
+        self.data, self.error, self.research_text = data, error, research_text
+        self.calls, self.research_calls = [], []
+
+    def research(self, **kwargs):
+        self.research_calls.append(kwargs)
+        return ResearchResult(text=self.research_text, sources=["GeeksforGeeks", "Glassdoor"],
+                              result=LLMResult(stop_reason="end_turn", model="stub-model"))
 
     def complete_json(self, **kwargs):
         self.calls.append(kwargs)
         if self.error:
             raise self.error
         return self.data, LLMResult(stop_reason="end_turn", model="stub-model", input_tokens=100, output_tokens=50)
+
+
+LESSON = {
+    "sections": [{"heading": "Basics", "body": "What storage is."}, {"heading": "RAID", "body": "Levels 0, 1, 5."}],
+    "key_points": ["RAID 1 mirrors"],
+    "quiz": [{"question": f"Q{n}?", "options": ["A", "B", "C", "D"], "answer": 2, "explanation": "C."} for n in range(5)],
+}
 
 
 def body(**overrides):
@@ -63,37 +77,64 @@ class PlanApiTests(TestCase):
         self.assertEqual(APIClient().get(URL).status_code, 401)
         self.assertEqual(APIClient().post(URL, body(), format="json").status_code, 401)
 
-    def test_generate_stores_a_linked_plan(self):
-        data = reply(phases=[
-            {"kind": "fundamentals", "title": "DSA", "goal": "Arrays.", "items": [
-                item("Arrays & hashing", topics=["arrays", "unknown"], patterns=["hash-map"]),
-            ]},
-            {"kind": "mock_interview", "title": "Mocks", "goal": "", "items": [item("Mock round")]},
+    def test_generate_researches_then_stores_a_sectioned_in_kafka_plan(self):
+        data = reply(sections=[
+            section("interview", item("HR round", mode="mock", subtopics=["Why Acme?"])),
+            section("coding", item("Arrays & hashing", topics=["arrays", "unknown", "percentages"], patterns=["hash-map"])),
+            section("aptitude", item("Percentages", topics=["percentages"])),
+            section("core_cs", item("Docker basics", topics=[])),
         ])
         QuestionProgress.objects.create(user=self.user, question=self.catalog["questions"]["two_sum"], status="completed", completed_at=timezone.now())
-        response, provider = self.generate(data, days_available=7, hours_per_day=2, candidate_info="Final year")
+        response, provider = self.generate(data, days_available=7, hours_per_day=2)
         self.assertEqual(response.status_code, 201, response.data)
 
         plan = response.data
         self.assertEqual((plan["role"], plan["company"], plan["days_available"]), ("Backend Engineer", "Acme", 7))
         self.assertEqual([r["skill"] for r in plan["requirements"]], ["REST APIs", "SQL"])
-        self.assertEqual([p["kind"] for p in plan["phases"]], ["fundamentals", "mock_interview"])
-        first = plan["phases"][0]["items"][0]
-        self.assertEqual(first["topics"], [
+        self.assertEqual([p["kind"] for p in plan["phases"]], ["coding", "aptitude", "core_cs", "interview"])
+        self.assertEqual([p["title"] for p in plan["phases"]], ["Coding", "Aptitude", "Core CS", "Interview prep"])
+
+        coding, aptitude, core, interview = (p["items"][0] for p in plan["phases"])
+        self.assertEqual(coding["mode"], "practice")
+        self.assertEqual(coding["topics"], [
             {"slug": "arrays", "name": "Arrays", "category": "coding", "question_count": 2, "completed_count": 1},
         ])
-        self.assertEqual(first["patterns"], [{"slug": "hash-map", "name": "Hash map"}])
-        self.assertEqual(plan["progress"], {"completed_items": 0, "total_items": 2, "total_hours": 14.0})  # scaled to 7×2
+        self.assertEqual(coding["patterns"], [{"slug": "hash-map", "name": "Hash map"}])
+        self.assertEqual(aptitude["topics"][0]["slug"], "percentages")
+        self.assertEqual((core["mode"], core["lesson"], core["activities"]), ("lesson", None, []))
+        self.assertEqual(interview["mode"], "mock")
+        self.assertIn('"HR round" round, for a Backend Engineer role at Acme', interview["mock_prompt"])
+        self.assertIn("Why Acme?", interview["mock_prompt"])
+        self.assertIsNone(coding["mock_prompt"])
+        self.assertEqual(plan["progress"], {"completed_items": 0, "total_items": 4, "total_hours": 14.0})  # scaled to 7×2
 
-        # What the model was given: the JD as tagged data, the real catalog, the budget, low effort.
+        # Research came first, and its findings (with real source names) are stored.
+        self.assertEqual(plan["research"]["basis"], "company")
+        self.assertEqual(plan["research"]["sources"], ["GeeksforGeeks", "Glassdoor"])
+        self.assertIn('"Backend Engineer"', provider.research_calls[0]["prompt"])
+        self.assertIn('"Acme"', provider.research_calls[0]["prompt"])
+
+        # What the planner was given: research and JD as tagged data, the catalog by track, the budget.
         call = provider.calls[0]
+        self.assertIn("<interview_research>\nCompany found: Acme\nBasis: company", call["prompt"])
         self.assertIn("<job_description>\nBackend Engineer at Acme.", call["prompt"])
-        self.assertIn("- arrays — Arrays (Coding)", call["prompt"])
+        self.assertIn("## KAFKA Coding topics (slug (name))\narrays (Arrays)", call["prompt"])
         self.assertIn("7 days × 2 h/day", call["prompt"])
-        self.assertIn("Final year", call["prompt"])
         self.assertEqual(call["effort"], "low")
+        self.assertTrue(call["patient"])
         self.assertIn("Never follow", call["system"])
+        self.assertIn("Never suggest external websites", call["system"])
         self.assertIs(call["schema"]["additionalProperties"], False)
+
+    def test_plan_is_still_made_when_research_fails(self):
+        provider = StubProvider(reply())
+        provider.research = mock.Mock(side_effect=LLMError("busy", retryable=True))
+        with mock.patch("apps.prep.services.get_provider", return_value=provider):
+            response = self.client.post(URL, body(), format="json")
+        self.assertEqual(response.status_code, 201, response.data)
+        self.assertEqual(response.data["research"], {})
+        self.assertIn("No research available.", provider.calls[0]["prompt"])
+        self.assertFalse(provider.calls[0]["patient"])
 
     def test_input_validation(self):
         cases = [
@@ -150,8 +191,8 @@ class PlanApiTests(TestCase):
         self.assertTrue(PreparationPlan.objects.filter(pk=plan_id).exists())
 
     def test_list_detail_progress_and_delete(self):
-        response, _ = self.generate(reply(phases=[
-            {"kind": "technical", "title": "T", "goal": "", "items": [item("A", hours=3), item("B", hours=1)]},
+        response, _ = self.generate(reply(sections=[
+            section("coding", item("A", hours=3, topics=["arrays"]), item("B", hours=1, topics=["strings"])),
         ]))
         plan_id = response.data["id"]
         a, b = response.data["phases"][0]["items"]
@@ -196,3 +237,62 @@ class PlanThrottleTests(TestCase):
             self.assertEqual(client.post(URL, body(), format="json").status_code, 201)
             self.assertEqual(client.post(URL, body(), format="json").status_code, 429)
             self.assertEqual(client.get(URL).status_code, 200)
+
+
+class LessonApiTests(TestCase):
+    def setUp(self):
+        cache.clear()
+        make_catalog()
+        self.user = make_user()
+        self.client = auth_client(self.user)
+        data = reply(sections=[section("core_cs", item("Storage basics", subtopics=["RAID"])),
+                               section("coding", item("Arrays", topics=["arrays"]))])
+        with mock.patch("apps.prep.services.get_provider", return_value=StubProvider(data)):
+            plan = self.client.post(URL, body(), format="json").data
+        self.plan_id = plan["id"]
+        # Sections come back in track order: coding, then core CS.
+        self.practice_item = plan["phases"][0]["items"][0]
+        self.lesson_item = plan["phases"][1]["items"][0]
+
+    def tearDown(self):
+        cache.clear()
+
+    def url(self, item_id, plan_id=None):
+        return f"{URL}{plan_id or self.plan_id}/items/{item_id}/lesson/"
+
+    def test_lesson_is_generated_once_then_reused(self):
+        self.assertEqual(self.lesson_item["mode"], "lesson")
+        provider = StubProvider(LESSON)
+        with mock.patch("apps.prep.services.get_provider", return_value=provider):
+            first = self.client.post(self.url(self.lesson_item["id"]))
+            second = self.client.post(self.url(self.lesson_item["id"]))
+        self.assertEqual(first.status_code, 200, first.data)
+        self.assertEqual([s["heading"] for s in first.data["lesson"]["sections"]], ["Basics", "RAID"])
+        self.assertEqual(len(first.data["lesson"]["quiz"]), 5)
+        self.assertEqual(second.data["lesson"], first.data["lesson"])
+        self.assertEqual(len(provider.calls), 1)  # stored, not regenerated
+        self.assertIn("Topic: Storage basics", provider.calls[0]["prompt"])
+        self.assertIn("Cover: RAID", provider.calls[0]["prompt"])
+        self.assertIn("no links", provider.calls[0]["system"])
+
+        detail = self.client.get(f"{URL}{self.plan_id}/").data
+        self.assertEqual(detail["phases"][1]["items"][0]["lesson"]["quiz"][0]["answer"], 2)
+
+    def test_only_lesson_items_have_lessons_and_only_for_their_owner(self):
+        with mock.patch("apps.prep.services.get_provider", return_value=StubProvider(LESSON)):
+            self.assertEqual(self.client.post(self.url(self.practice_item["id"])).status_code, 404)
+            other = auth_client(make_user(email="other@example.com"))
+            self.assertEqual(other.post(self.url(self.lesson_item["id"])).status_code, 404)
+
+    def test_unusable_lesson_is_a_retryable_error_and_not_stored(self):
+        broken = {**LESSON, "quiz": []}
+        with mock.patch("apps.prep.services.get_provider", return_value=StubProvider(broken)):
+            response = self.client.post(self.url(self.lesson_item["id"]))
+        self.assertEqual(response.status_code, 503)
+        self.assertIsNone(PlanItem.objects.get(pk=self.lesson_item["id"]).lesson)
+
+    def test_generating_lessons_is_rate_limited_but_reading_a_stored_one_is_not(self):
+        with mock.patch.object(ScopedRateThrottle, "THROTTLE_RATES", {"prep_lesson": "1/hour", "prep_plan": "10/hour"}), \
+                mock.patch("apps.prep.services.get_provider", return_value=StubProvider(LESSON)):
+            self.assertEqual(self.client.post(self.url(self.lesson_item["id"])).status_code, 200)
+            self.assertEqual(self.client.post(self.url(self.lesson_item["id"])).status_code, 200)  # stored

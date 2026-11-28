@@ -37,7 +37,14 @@ function onKeydown(event) {
   }
 }
 
-defineExpose({ focus: () => box.value?.focus() })
+defineExpose({
+  focus: () => box.value?.focus(),
+  /** Put text in the box (e.g. a suggested prompt) and focus it. */
+  setText(value) {
+    text.value = value
+    box.value?.focus()
+  },
+})
 </script>
 
 <template>
