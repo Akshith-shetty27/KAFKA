@@ -550,3 +550,17 @@
   background: var(--color-accent);
   box-shadow: 0 0 0 4px rgb(34 220 200 / 0.12), 0 0 16px rgb(34 220 200 / 0.7);
 }
+
+/* Signed-in app: the same starfield as the landing page, dimmer so it never
+   competes with data, and only on the Ink theme (stars on Paper read as dust). */
+.k-app-stars {
+  display: none;
+  position: absolute;
+  inset: 0;
+  z-index: -1;
+  pointer-events: none;
+  opacity: 0.85;
+}
+:root[data-surface='ink'] .k-app-stars {
+  display: block;
+}

@@ -1,6 +1,6 @@
 <script setup>
 /**
- * Dashboard opener: greeting, date, and today's objective — the daily goal as
+ * Dashboard opener: greeting and today's objective — the daily goal as
  * a ring plus a direct link to the next question in today's plan. All values
  * come from /progress/plan and /progress/summary.
  */
@@ -9,9 +9,8 @@ import { computed, ref } from 'vue'
 import KIcon from '@/components/ui/KIcon.vue'
 import KProgressRing from '@/components/ui/KProgressRing.vue'
 import KSkeleton from '@/components/ui/KSkeleton.vue'
-import KStreakBadge from '@/components/ui/KStreakBadge.vue'
 import { useMotion } from '@/motion'
-import { greeting, longDate } from '@/utils/format'
+import { greeting } from '@/utils/format'
 
 const props = defineProps({
   name: { type: String, required: true },
@@ -38,8 +37,7 @@ useMotion(root, ({ q, gsap, reduced }) => {
 <template>
   <section ref="root" class="grid grid-cols-1 gap-10 lg:grid-cols-12 lg:items-end" aria-labelledby="dash-greeting">
     <div class="lg:col-span-7">
-      <p class="k-eyebrow k-hero-fade text-muted">Dashboard<template v-if="plan"> / {{ longDate(plan.date) }}</template></p>
-      <h1 id="dash-greeting" class="k-display mt-6 text-[clamp(2.75rem,7vw,5.5rem)]">
+      <h1 id="dash-greeting" class="k-display text-[clamp(2.75rem,7vw,5.5rem)]">
         <span class="block overflow-hidden pb-[0.06em]"><span class="k-hero-line block">{{ hello }},</span></span>
         <span class="block overflow-hidden pb-[0.12em]"><span class="k-hero-line k-serif block text-[1.05em]">{{ name }}.</span></span>
       </h1>
@@ -54,10 +52,7 @@ useMotion(root, ({ q, gsap, reduced }) => {
     <!-- Today's objective -->
     <div class="k-hero-fade lg:col-span-5">
       <div class="border border-rule-soft bg-surface p-6 shadow-elevated sm:p-7">
-        <div class="flex items-center justify-between gap-4">
-          <p class="k-eyebrow text-muted">Today's objective</p>
-          <KStreakBadge v-if="summary" :days="summary.streak.current" compact />
-        </div>
+        <p class="k-eyebrow text-muted">Today's objective</p>
         <KSkeleton v-if="!plan" class="mt-6" :lines="3" height="1.25rem" />
         <div v-else class="mt-6 flex items-center gap-6">
           <KProgressRing :value="done" :max="goal || 1" label="Today's goal progress" :size="112" :stroke="6">
