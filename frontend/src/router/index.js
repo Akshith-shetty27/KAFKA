@@ -14,7 +14,7 @@ const routes = [
   {
     path: '/',
     component: () => import('@/components/layout/PublicLayout.vue'),
-    meta: { surface: 'paper' },
+    meta: { surface: 'ink' }, // the landing page is a night sky
     children: [{ path: '', name: 'landing', component: () => import('@/views/LandingView.vue') }],
   },
   {

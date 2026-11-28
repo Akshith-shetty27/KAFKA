@@ -9,13 +9,13 @@
     <title>KAFKA — Interview Preparation</title>
     <script>
       // Paint the right surface before the app loads (no light→dark flash).
-      // Public pages are Paper; /status is Ink; app pages use the theme the
-      // user had last time (stored by App.vue), defaulting to Ink.
+      // The landing page and /status are Ink; sign-in pages are Paper; app pages
+      // use the theme the user had last time (stored by App.vue), defaulting to Ink.
       ;(function () {
         var path = location.pathname.replace(/\/+$/, '') || '/'
         var surface = 'ink'
-        if (path === '/' || path === '/login' || path === '/register') surface = 'paper'
-        else if (path !== '/status') {
+        if (path === '/login' || path === '/register') surface = 'paper'
+        else if (path !== '/' && path !== '/status') {
           try {
             var saved = localStorage.getItem('kafka:theme')
             if (saved === 'paper' || saved === 'ink') surface = saved

@@ -1,18 +1,16 @@
 <script setup>
 /**
- * Public landing page, built from the reference screenshots:
- *   001 hero · 002 the KAFKA method · 003 the three tracks ·
- *   004 ASK KAFKA · "show up" closing section.
- * Numbers here (07-day streak, weekly bars) are illustrative marketing
- * visuals, not user data — the dashboard shows the real thing.
+ * Public landing page, set in deep space (a two-layer starfield behind the
+ * whole page): 001 hero with the question planet · 002 how it works ·
+ * 003 the three tracks · "show up" closing section.
+ * The hero's question count is real (catalog stats). The closing section's
+ * numbers (07-day streak, weekly bars) are illustrative marketing visuals,
+ * not user data — the dashboard shows the real thing.
  */
-import { computed, defineAsyncComponent, onBeforeUnmount, onMounted, ref } from 'vue'
+import { computed, defineAsyncComponent, onMounted, ref } from 'vue'
 
 import KArrowLink from '@/components/ui/KArrowLink.vue'
 import KBarChart from '@/components/ui/KBarChart.vue'
-import KChecklist from '@/components/ui/KChecklist.vue'
-import KEyebrow from '@/components/ui/KEyebrow.vue'
-import { headerSurface } from '@/composables/useHeaderSurface'
 import { loadScrollTrigger, useMotion } from '@/motion'
 import { catalogApi } from '@/services/catalog.api'
 import { useAuthStore } from '@/stores/auth'
@@ -44,27 +42,6 @@ onMounted(async () => {
   else setTimeout(reveal, 200)
 })
 
-// --- dark hero: the header turns dark while it's over it -------------------------------
-const hero = ref(null)
-let heroFrame = 0
-function syncHeader() {
-  heroFrame = 0
-  // Switch once the hero's bottom edge passes the middle of the header (~48px).
-  headerSurface.value = hero.value && hero.value.getBoundingClientRect().bottom > 48 ? 'ink' : null
-}
-function onScroll() {
-  if (!heroFrame) heroFrame = requestAnimationFrame(syncHeader)
-}
-onMounted(() => {
-  syncHeader()
-  window.addEventListener('scroll', onScroll, { passive: true })
-})
-onBeforeUnmount(() => {
-  window.removeEventListener('scroll', onScroll)
-  cancelAnimationFrame(heroFrame)
-  headerSurface.value = null
-})
-
 // --- scroll storytelling (ScrollTrigger is loaded only on this page) ------------------
 const page = ref(null)
 const scrollTrigger = ref(null)
@@ -78,20 +55,19 @@ useMotion(
     for (const head of q('.k-story-head')) {
       gsap.from(head, { y: 48, opacity: 0, duration: 0.9, scrollTrigger: { trigger: head, start: 'top 85%' } })
     }
+    gsap.from(q('.k-story-step'), {
+      y: 32,
+      opacity: 0,
+      duration: 0.8,
+      stagger: 0.15,
+      scrollTrigger: { trigger: q('.k-story-steps')[0], start: 'top 80%' },
+    })
     gsap.from(q('.k-story-track'), {
       y: 40,
       opacity: 0,
       duration: 0.8,
       stagger: 0.12,
       scrollTrigger: { trigger: q('.k-story-tracks')[0], start: 'top 80%' },
-    })
-    // The example conversation plays out one message at a time.
-    gsap.from(q('.k-story-msg'), {
-      y: 16,
-      opacity: 0,
-      duration: 0.6,
-      stagger: 0.45,
-      scrollTrigger: { trigger: q('.k-story-chat')[0], start: 'top 75%' },
     })
     // Closing lines drift into alignment as the section scrolls into view.
     q('.k-story-line').forEach((line, i) => {
@@ -105,10 +81,22 @@ useMotion(
   { watch: () => scrollTrigger.value },
 )
 
-const samplePlan = [
-  { key: 'c', label: '2 coding problems', done: true },
-  { key: 'a', label: '15 aptitude questions', done: true },
-  { key: 'r', label: '3 core CS concepts', done: false, tag: 'Next' },
+const steps = [
+  {
+    n: '01',
+    title: 'Pick a track',
+    body: 'Coding, aptitude or core CS — questions organised by the patterns interviewers actually test.',
+  },
+  {
+    n: '02',
+    title: 'Get unstuck, not spoiled',
+    body: 'Ask KAFKA reads the question you’re on and nudges you with hints before it ever shows a solution.',
+  },
+  {
+    n: '03',
+    title: 'Plan for the real job',
+    body: 'Paste a job description and KAFKA builds a study plan for that exact role — then tracks it with you.',
+  },
 ]
 
 const tracks = [
@@ -144,13 +132,15 @@ const week = [
 </script>
 
 <template>
-  <div ref="page">
-  <!-- 001 · HERO: a full-width night sky; the globe floats in it --------- -->
-  <div ref="hero" data-surface="ink" class="k-cosmos -mt-20 pt-20 lg:-mt-24 lg:pt-24">
+  <div ref="page" class="k-space">
+  <div class="k-stars-far" aria-hidden="true" />
+  <div class="k-stars-near" aria-hidden="true" />
+
+  <!-- 001 · HERO: the question planet floats in the sky ------------------------ -->
+  <div class="k-cosmos">
   <section class="k-container relative grid grid-cols-1 gap-14 pt-10 pb-20 lg:grid-cols-12 lg:gap-10 lg:pt-16 lg:pb-28">
     <div class="lg:col-span-7">
-      <KEyebrow index="001" class="k-rise">Interview preparation</KEyebrow>
-      <h1 class="k-display mt-8 text-[clamp(3.4rem,10.5vw,8.25rem)] lg:mt-12">
+      <h1 class="k-display text-[clamp(3.4rem,10.5vw,8.25rem)]">
         <span class="k-rise block" style="--i: 1">Your next</span>
         <span class="k-serif k-rise block py-[0.04em] text-[1.06em] leading-[0.95]" style="--i: 2">big thing</span>
         <span class="k-rise block" style="--i: 3">starts</span>
@@ -166,42 +156,48 @@ const week = [
     </div>
 
     <div class="lg:col-span-5">
-      <div class="k-rise relative flex h-full min-h-[34rem] flex-col" style="--i: 3">
-        <!-- The globe gets its own area above the tagline, so the two never overlap. -->
+      <div class="k-rise relative flex h-full min-h-[36rem] flex-col" style="--i: 3">
+        <!-- The globe fills the space above the line, centred in it; the two never overlap. -->
         <div class="relative min-h-[20rem] flex-1">
           <div class="k-cosmos-halo" aria-hidden="true" />
           <HeroScene v-if="showScene && !sceneFailed && bands.length" :bands="bands" @unavailable="sceneFailed = true" />
         </div>
-        <p class="k-display relative mt-6 text-[2.75rem] leading-[0.92] lg:text-[2.5rem] xl:text-5xl">
-          Make<br /><span class="k-serif">room</span><br />for<br /><span class="text-accent">more.</span>
-        </p>
+        <figure class="relative mt-8">
+          <blockquote class="k-display text-[clamp(2.5rem,5vw,3.75rem)] leading-[0.95]">
+            A better<br /><span class="k-serif text-[1.05em]">kind of</span><br /><span class="text-accent">busy.</span>
+          </blockquote>
+        </figure>
       </div>
     </div>
   </section>
   </div>
 
-  <!-- 002 · THE KAFKA METHOD -------------------------------------------------- -->
-  <section id="method" class="k-container grid grid-cols-1 scroll-mt-24 gap-14 py-20 lg:grid-cols-12 lg:gap-10 lg:py-28">
-    <div class="lg:col-span-4">
-      <KEyebrow index="002">The Kafka method</KEyebrow>
-      <div class="mt-14">
-        <KChecklist :items="samplePlan" title="Today's plan" />
-      </div>
-    </div>
-    <div class="lg:col-span-7 lg:col-start-6">
-      <h2 class="k-story-head k-display text-[clamp(2.75rem,7.5vw,6.5rem)]">
-        Preparation,<br /><span class="k-serif text-[1.05em]">reimagined.</span>
-      </h2>
-      <p class="mt-10 max-w-2xl text-lg leading-relaxed sm:text-xl">
-        Progress is not a personality trait. It is a practice. KAFKA gives your preparation a place to become
-        visible, repeatable, and yours.
-      </p>
-    </div>
+  <!-- 002 · HOW IT WORKS ----------------------------------------------------------- -->
+  <section id="method" class="k-container scroll-mt-24 py-24 lg:py-32">
+    <h2 class="k-story-head k-display text-[clamp(2.75rem,7.5vw,6.5rem)]">
+      Preparation,<br /><span class="k-serif text-[1.05em]">reimagined.</span>
+    </h2>
+    <p class="mt-8 max-w-2xl text-lg leading-relaxed text-muted sm:text-xl">
+      Progress is not a personality trait. It is a practice. KAFKA gives your preparation a place to become
+      visible, repeatable, and yours.
+    </p>
+    <!-- Steps on one orbit line: horizontal from md up, vertical on phones. -->
+    <ol class="k-story-steps relative mt-16 grid grid-cols-1 gap-12 md:grid-cols-3 md:gap-10 lg:mt-24">
+      <span
+        class="absolute top-[5px] bottom-0 left-[4px] w-px bg-gradient-to-b from-accent/50 via-accent/20 to-transparent md:top-[5px] md:right-0 md:bottom-auto md:left-0 md:h-px md:w-auto md:bg-gradient-to-r"
+        aria-hidden="true"
+      />
+      <li v-for="step in steps" :key="step.n" class="k-story-step relative pl-8 md:pl-0">
+        <span class="k-orbit-node absolute top-0 left-0 md:static" aria-hidden="true" />
+        <p class="font-mono text-sm text-accent md:mt-8">{{ step.n }}</p>
+        <h3 class="mt-3 text-2xl font-medium tracking-tight">{{ step.title }}</h3>
+        <p class="mt-3 max-w-sm text-lg leading-relaxed text-muted">{{ step.body }}</p>
+      </li>
+    </ol>
   </section>
 
   <!-- 003 · TRACKS ------------------------------------------------------------------ -->
   <section id="prepare" class="k-container scroll-mt-24 pb-24 lg:pb-32">
-    <KEyebrow index="003" tone="muted" class="mb-10">Three tracks</KEyebrow>
     <div class="k-story-tracks grid grid-cols-1 gap-14 md:grid-cols-3 md:gap-10">
       <article v-for="track in tracks" :key="track.n" class="k-story-track border-t border-rule pt-8">
         <p class="font-mono text-sm">{{ track.n }}</p>
@@ -215,46 +211,11 @@ const week = [
     </div>
   </section>
 
-  <!-- 004 · ASK KAFKA ---------------------------------------------------------------- -->
-  <section id="ask-kafka" class="scroll-mt-20 border-t border-rule bg-surface">
-    <div class="k-container grid grid-cols-1 gap-14 py-20 lg:grid-cols-12 lg:gap-10 lg:py-28">
-      <div class="lg:col-span-5">
-        <KEyebrow index="004">Ask Kafka</KEyebrow>
-        <h2 class="k-story-head k-display mt-8 text-[clamp(2.75rem,6.5vw,5.5rem)]">
-          Hints,<br />not <span class="k-serif text-[1.05em]">spoilers.</span>
-        </h2>
-        <p class="mt-8 max-w-md text-lg leading-relaxed">
-          An AI mentor that reads the problem you're on. It nudges you toward the pattern first — and only walks
-          through the full solution when you ask.
-        </p>
-      </div>
-      <div class="lg:col-span-6 lg:col-start-7">
-        <div data-surface="ink" class="k-story-chat k-grid flex flex-col gap-5 p-6 sm:p-10" aria-label="Example conversation" role="img">
-          <p class="k-eyebrow text-muted">Longest substring without repeats</p>
-          <div class="k-story-msg ml-auto max-w-[85%] bg-ink-800 px-5 py-4 text-[15px] leading-relaxed">
-            I keep restarting my loop every time I see a repeat. It's too slow.
-          </div>
-          <div class="k-story-msg max-w-[90%] border-l-2 border-accent pl-5 text-[15px] leading-relaxed">
-            <p class="k-eyebrow mb-3 text-accent">Kafka · hint 1 of 3</p>
-            What if you never restarted? Keep a window of characters with no repeats, and only move its
-            <em class="k-serif text-lg">left</em> edge when a repeat forces you to.
-          </div>
-          <div class="k-story-msg ml-auto max-w-[85%] bg-ink-800 px-5 py-4 text-[15px] leading-relaxed">So it's a sliding window?</div>
-          <div class="k-story-msg max-w-[90%] border-l-2 border-accent pl-5 text-[15px] leading-relaxed">
-            <p class="k-eyebrow mb-3 text-accent">Kafka · hint 2 of 3</p>
-            Exactly. Now: how would you know, in O(1), where the last copy of a character was?
-          </div>
-        </div>
-      </div>
-    </div>
-  </section>
-
   <!-- SHOW UP ------------------------------------------------------------------------- -->
   <!-- overflow-x-clip: the closing lines start slightly off-centre while they drift into place -->
-  <section data-surface="ink" class="overflow-x-clip">
+  <section class="overflow-x-clip">
     <div class="k-container py-24 lg:py-32">
-      <KEyebrow>A better kind of busy</KEyebrow>
-      <div class="mt-14 grid grid-cols-1 items-start gap-14 xl:grid-cols-12 xl:items-end xl:gap-10">
+      <div class="grid grid-cols-1 items-start gap-14 xl:grid-cols-12 xl:items-end xl:gap-10">
         <h2 class="k-display min-w-0 text-[clamp(3.25rem,9vw,8.5rem)] xl:col-span-8">
           <span class="k-story-line block">Show up.</span>
           <span class="k-story-line k-serif block text-[1.02em] whitespace-nowrap text-accent not-italic">Get sharper.</span>

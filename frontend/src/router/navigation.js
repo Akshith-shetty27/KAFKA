@@ -15,7 +15,6 @@ export const appNav = [
 
 /** Anchor links on the public landing page. */
 export const publicNav = [
-  { label: 'Method', to: { name: 'landing', hash: '#method' } },
-  { label: 'Prepare', to: { name: 'landing', hash: '#prepare' } },
-  { label: 'Ask Kafka', to: { name: 'landing', hash: '#ask-kafka' } },
+  { label: 'How it works', to: { name: 'landing', hash: '#method' } },
+  { label: 'Tracks', to: { name: 'landing', hash: '#prepare' } },
 ]
