@@ -12,6 +12,8 @@ const props = defineProps({
   label: { type: String, required: true },
   size: { type: Number, default: 72 },
   stroke: { type: Number, default: 4 },
+  /** Purely visual (the same number is shown as text next to it). */
+  decorative: { type: Boolean, default: false },
 })
 
 const radius = computed(() => (props.size - props.stroke) / 2)
@@ -28,11 +30,12 @@ watch(ratio, (r) => (shown.value = r))
   <div
     class="relative inline-flex shrink-0 items-center justify-center"
     :style="{ width: `${size}px`, height: `${size}px` }"
-    role="progressbar"
-    :aria-label="label"
-    :aria-valuenow="value"
-    aria-valuemin="0"
-    :aria-valuemax="max"
+    :role="decorative ? undefined : 'progressbar'"
+    :aria-hidden="decorative ? 'true' : undefined"
+    :aria-label="decorative ? undefined : label"
+    :aria-valuenow="decorative ? undefined : value"
+    :aria-valuemin="decorative ? undefined : 0"
+    :aria-valuemax="decorative ? undefined : max"
   >
     <svg :width="size" :height="size" :viewBox="`0 0 ${size} ${size}`" class="-rotate-90" aria-hidden="true">
       <circle :cx="size / 2" :cy="size / 2" :r="radius" fill="none" class="stroke-rule-soft" :stroke-width="stroke" />

@@ -21,10 +21,13 @@ const emit = defineEmits(['submit'])
 
 const name = useId()
 const selected = ref(props.result?.selectedId ?? null)
+// True only right after this page graded an answer — drives the pop/shake once.
+const justAnswered = ref(false)
 watch(
   () => props.result,
-  (r) => {
+  (r, before) => {
     selected.value = r?.selectedId ?? null
+    justAnswered.value = Boolean(r && !before)
   },
 )
 
@@ -53,6 +56,8 @@ function stateOf(option) {
             'border-accent bg-accent/10': stateOf(option) === 'correct',
             'border-danger bg-danger/10': stateOf(option) === 'wrong',
             'cursor-default border-rule-soft opacity-60': stateOf(option) === 'dim',
+            'k-pop': justAnswered && stateOf(option) === 'correct',
+            'k-shake': justAnswered && stateOf(option) === 'wrong',
           }"
         >
           <input v-model="selected" type="radio" :name="name" :value="option.id" class="sr-only" />

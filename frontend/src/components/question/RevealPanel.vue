@@ -33,8 +33,16 @@ const id = useId()
       </button>
     </div>
     <p v-if="!open" class="mt-3 text-sm text-muted">{{ prompt }}</p>
-    <div v-show="open" :id="id" class="mt-6">
-      <slot />
+    <!-- Height animates from 0 to auto (grid rows 0fr → 1fr); closed content is inert, so it can't be focused or read. -->
+    <div
+      :id="id"
+      class="grid transition-[grid-template-rows,opacity] duration-300 ease-[var(--ease-out-soft)]"
+      :class="open ? 'grid-rows-[1fr] opacity-100' : 'grid-rows-[0fr] opacity-0'"
+      :inert="!open || undefined"
+    >
+      <div class="min-h-0 overflow-hidden">
+        <div class="pt-6"><slot /></div>
+      </div>
     </div>
   </section>
 </template>

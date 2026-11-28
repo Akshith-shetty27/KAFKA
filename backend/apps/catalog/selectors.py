@@ -91,7 +91,8 @@ def question_detail(slug: str):
 
 
 def question_navigation(question) -> dict:
-    """Previous / next published question in the same topic (by curriculum order)."""
+    """Previous / next published question in the same topic (by curriculum order),
+    plus this question's 1-based position and the topic's size ("7 of 50")."""
     slugs = list(
         published_questions().filter(topic_id=question.topic_id).order_by("order", "id").values_list("slug", flat=True)
     )
@@ -99,4 +100,6 @@ def question_navigation(question) -> dict:
     return {
         "previous": slugs[index - 1] if index > 0 else None,
         "next": slugs[index + 1] if index < len(slugs) - 1 else None,
+        "position": index + 1,
+        "total": len(slugs),
     }

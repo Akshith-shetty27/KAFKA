@@ -1,6 +1,6 @@
 # KAFKA — UI/UX & Interaction Transformation Plan
 
-Status: **Stages 1–3 done** — see §7. GSAP and Three.js approved; Three.js is added in Stage 6.
+Status: **Stages 1–4 done** — see §7. GSAP and Three.js approved; Three.js is added in Stage 6.
 Scope: frontend only. No backend, model, API-contract or environment changes are needed for anything below.
 
 ---
@@ -189,3 +189,23 @@ Same APIs as before plus `/topics/` (already public to the app); no backend chan
 - **Verified** with a brand-new account (all empty states) and a seeded active account (26/28/67 %/02 best 10,
   4/5 today, 60 days of history) at 1280 px and 375 px; heatmap keyboard navigation checked (←, ↑, Home, End).
 - **Bundle:** dashboard chunk 13.1 KB (4.7 KB gzip); app shell unchanged.
+
+### Stage 4 — Practice & question pages (done)
+
+- **One additive API change:** `GET /questions/{slug}/` → `navigation` now also returns `position` and `total`
+  (curriculum order within the topic). Existing fields unchanged; test updated.
+- **Practice:** each topic in the sidebar shows a 14 px progress ring (decorative — the count is text); result rows
+  rise in with a quick stagger (`k-rise-quick`, 28 ms steps, capped) and replay whenever filters change the list.
+- **Question page:** "Question 07 / 50" with a thin position bar and previous/next buttons beside the breadcrumb;
+  Approach / Solution / Model answer panels open and close smoothly (grid rows 0fr → 1fr) and are `inert` while
+  closed, so their 11 controls are out of the tab order.
+- **MCQ feedback:** at the moment of answering, the correct option pops and a wrong pick shakes; the verdict and
+  explanation rise in. Re-opening an answered question doesn't replay it.
+- **Completion:** when an action on the page completes the question (Mark as solved, or a correct MCQ), the status
+  square pops with a fading accent ring and a toast confirms it — never on simply opening a completed question.
+- **Core CS reading:** concept pages cap prose at 60ch.
+- **Verified** (functional; animations fast-forwarded because the pane was hidden): position/prev/next on a coding
+  question (05 / 15) and concept page (01 / 10), panel inert/expanded states, Mark as solved → toast + pop,
+  re-open → none, MCQ wrong → shake + "Not quite." + no toast, reset → classes cleared, correct → pop + toast,
+  keyboard tab order on a coding question, phone layout (no sideways scroll).
+- **Bundle:** question chunk 8.6 KB gzip, practice 4.8 KB; app shell +0.03 KB.

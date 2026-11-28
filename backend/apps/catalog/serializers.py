@@ -131,7 +131,7 @@ class ProgressStateSerializer(serializers.ModelSerializer):
 class QuestionDetailSerializer(serializers.ModelSerializer):
     """
     Full question. Context must provide `progress` (the user's
-    QuestionProgress or None) and `navigation` ({previous, next}).
+    QuestionProgress or None) and `navigation` ({previous, next, position, total}).
 
     For MCQs the correct option and the explanation are withheld until this
     user has answered at least once — the browser never receives the answer

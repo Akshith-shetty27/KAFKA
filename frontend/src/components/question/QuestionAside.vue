@@ -11,6 +11,8 @@ import KErrorState from '@/components/ui/KErrorState.vue'
 import KIcon from '@/components/ui/KIcon.vue'
 
 const props = defineProps({
+  /** Completed by an action on this page just now (plays a short confirmation). */
+  justCompleted: { type: Boolean, default: false },
   question: { type: Object, required: true },
   progress: { type: Object, default: null },
   busy: { type: Boolean, default: false },
@@ -45,7 +47,10 @@ const completeLabel = computed(() => (props.question.question_type === 'concept'
       <p class="mt-3 flex items-center gap-3 text-lg font-medium">
         <span
           class="size-3.5"
-          :class="status === 'completed' ? 'bg-accent' : status === 'attempted' ? 'border-[1.5px] border-accent' : 'border-[1.5px] border-rule'"
+          :class="[
+            status === 'completed' ? 'bg-accent' : status === 'attempted' ? 'border-[1.5px] border-accent' : 'border-[1.5px] border-rule',
+            justCompleted ? 'k-status-pop' : '',
+          ]"
           aria-hidden="true"
         />
         {{ status === 'completed' ? 'Completed' : status === 'attempted' ? (isMcq && progress?.answer_count ? 'Answered — not yet correct' : 'In progress') : 'Not started' }}

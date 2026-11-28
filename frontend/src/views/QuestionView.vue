@@ -19,12 +19,15 @@ import KCodeBlock from '@/components/ui/KCodeBlock.vue'
 import KEmptyState from '@/components/ui/KEmptyState.vue'
 import KErrorState from '@/components/ui/KErrorState.vue'
 import KEyebrow from '@/components/ui/KEyebrow.vue'
+import KIcon from '@/components/ui/KIcon.vue'
 import KMarkdown from '@/components/ui/KMarkdown.vue'
 import KSkeleton from '@/components/ui/KSkeleton.vue'
 import { useAsync } from '@/composables/useAsync'
 import { catalogApi } from '@/services/catalog.api'
 import { progressApi } from '@/services/progress.api'
+import { useToast } from '@/composables/useToast'
 import { toApiError } from '@/services/http'
+import { pad2 } from '@/utils/format'
 
 const route = useRoute()
 const slug = computed(() => route.params.slug)
@@ -36,12 +39,23 @@ const reveal = reactive({ approach: false, solution: false })
 
 // MCQ result once graded: { selectedId, correctId, explanation, isCorrect }
 const mcqResult = ref(null)
+// Set when an action on this page completes the question (not when opening a completed one).
+const justCompleted = ref(false)
+const toast = useToast()
+
+function celebrateIfCompleted(before, after) {
+  if (before !== 'completed' && after?.status === 'completed') {
+    justCompleted.value = true
+    toast.success(`“${question.value.title}” completed.`)
+  }
+}
 
 async function load(s) {
   reveal.approach = false
   reveal.solution = false
   mcqResult.value = null
   progress.value = null
+  justCompleted.value = false
   const data = await detail.run(s)
   if (!data) return
   progress.value = data.progress
@@ -82,14 +96,18 @@ async function act(fn) {
 
 const submitAnswer = (optionId) =>
   act(async () => {
+    const before = progress.value?.status
     const r = await progressApi.answer(slug.value, optionId)
     progress.value = r.progress
+    celebrateIfCompleted(before, r.progress)
     mcqResult.value = { selectedId: optionId, correctId: r.correct_option_id, explanation: r.explanation, isCorrect: r.is_correct }
   })
 
 const markComplete = () =>
   act(async () => {
+    const before = progress.value?.status
     progress.value = await progressApi.complete(slug.value)
+    celebrateIfCompleted(before, progress.value)
   })
 
 const resetProgress = () =>
@@ -97,6 +115,7 @@ const resetProgress = () =>
     await progressApi.reset(slug.value)
     progress.value = null
     mcqResult.value = null
+    justCompleted.value = false
   })
 
 // Already ordered by the API with my preferred language first.
@@ -133,6 +152,7 @@ watch(slug, () => (askOpen.value = false))
 
     <template v-else>
       <!-- Breadcrumb -->
+      <div class="flex flex-wrap items-center justify-between gap-x-6 gap-y-4">
       <nav class="k-eyebrow flex flex-wrap items-center gap-x-3 gap-y-2 text-muted" aria-label="Breadcrumb">
         <RouterLink :to="{ name: 'practice', params: { category: question.category.slug } }" class="hover:text-fg">
           {{ question.category.name }}
@@ -146,8 +166,42 @@ watch(slug, () => (askOpen.value = false))
         </RouterLink>
       </nav>
 
+      <!-- Position in the topic: "07 / 50" with previous/next -->
+      <nav v-if="question.navigation.total" class="flex items-center gap-4" aria-label="Question navigation">
+        <RouterLink
+          v-if="question.navigation.previous"
+          :to="{ name: 'question', params: { slug: question.navigation.previous } }"
+          class="flex size-8 items-center justify-center border border-rule-soft text-muted transition-colors hover:border-accent hover:text-fg"
+          aria-label="Previous question"
+        >
+          <KIcon name="arrow-left" :size="14" />
+        </RouterLink>
+        <span v-else class="size-8" aria-hidden="true" />
+        <div class="flex flex-col items-center gap-1.5">
+          <span class="font-mono text-xs">
+            <span class="sr-only">Question </span>{{ pad2(question.navigation.position) }}<span class="text-muted"> / {{ pad2(question.navigation.total) }}</span>
+          </span>
+          <span class="block h-[2px] w-20 bg-rule-soft" aria-hidden="true">
+            <span
+              class="block h-full bg-accent transition-[width] duration-500"
+              :style="{ width: `${(question.navigation.position / question.navigation.total) * 100}%` }"
+            />
+          </span>
+        </div>
+        <RouterLink
+          v-if="question.navigation.next"
+          :to="{ name: 'question', params: { slug: question.navigation.next } }"
+          class="flex size-8 items-center justify-center border border-rule-soft text-muted transition-colors hover:border-accent hover:text-fg"
+          aria-label="Next question"
+        >
+          <KIcon name="arrow-right" :size="14" />
+        </RouterLink>
+        <span v-else class="size-8" aria-hidden="true" />
+      </nav>
+      </div>
+
       <div class="mt-8 grid grid-cols-1 gap-14 lg:grid-cols-12 lg:gap-12">
-        <article class="min-w-0 lg:col-span-8">
+        <article class="min-w-0 lg:col-span-8" :class="question.question_type === 'concept' ? 'k-reading' : ''">
           <h1 class="k-display text-[clamp(2.25rem,5vw,3.75rem)] leading-[0.95] normal-case tracking-[-0.035em]">
             {{ question.title }}
           </h1>
@@ -207,6 +261,10 @@ watch(slug, () => (askOpen.value = false))
               />
             </section>
 
+            <Transition
+              enter-active-class="transition duration-500 ease-[var(--ease-out-soft)]"
+              enter-from-class="translate-y-3 opacity-0"
+            >
             <section v-if="mcqResult" class="mt-10 border-t border-rule pt-8" aria-live="polite">
               <p class="k-display text-4xl normal-case tracking-[-0.03em]" :class="mcqResult.isCorrect ? 'text-accent-text' : 'text-danger'">
                 {{ mcqResult.isCorrect ? 'Correct.' : 'Not quite.' }}
@@ -233,6 +291,7 @@ watch(slug, () => (askOpen.value = false))
                 </RouterLink>
               </div>
             </section>
+            </Transition>
           </template>
 
           <!-- ============================= CONCEPT ============================= -->
@@ -262,6 +321,7 @@ watch(slug, () => (askOpen.value = false))
               :progress="progress"
               :busy="busy"
               :error="actionError"
+              :just-completed="justCompleted"
               @complete="markComplete"
               @reset="resetProgress"
               @ask="askOpen = true"

@@ -60,7 +60,7 @@ class CatalogApiTests(APITestCase):
         body = self.client.get(reverse("question-detail", args=["two-sum"])).json()
         self.assertEqual(body["coding"]["approach"], "Hash it.")
         self.assertEqual([s["language"] for s in body["solutions"]], ["java", "python"])
-        self.assertEqual(body["navigation"], {"previous": None, "next": "max-subarray"})
+        self.assertEqual(body["navigation"], {"previous": None, "next": "max-subarray", "position": 1, "total": 2})
         self.assertIsNone(body["progress"])
 
     def test_mcq_answer_is_hidden_until_answered(self):

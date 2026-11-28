@@ -15,6 +15,7 @@ import KEyebrow from '@/components/ui/KEyebrow.vue'
 import KIcon from '@/components/ui/KIcon.vue'
 import KPagination from '@/components/ui/KPagination.vue'
 import KSelect from '@/components/ui/KSelect.vue'
+import KProgressRing from '@/components/ui/KProgressRing.vue'
 import KSkeleton from '@/components/ui/KSkeleton.vue'
 import { useAsync } from '@/composables/useAsync'
 import { catalogApi } from '@/services/catalog.api'
@@ -207,7 +208,10 @@ const patternOptions = computed(() => [
                     @click="setFilters({ topic: t.slug })"
                   >
                     <span>{{ t.name }}</span>
-                    <span class="shrink-0 font-mono text-xs">{{ t.completed_count }}/{{ t.question_count }}</span>
+                    <span class="flex shrink-0 items-center gap-2 font-mono text-xs">
+                      {{ t.completed_count }}/{{ t.question_count }}
+                      <KProgressRing :value="t.completed_count" :max="t.question_count" :label="`${t.name} progress`" :size="14" :stroke="2" decorative />
+                    </span>
                   </button>
                 </li>
               </ul>
@@ -289,7 +293,9 @@ const patternOptions = computed(() => [
                 <button type="button" class="underline underline-offset-4 hover:text-fg" @click="clearFilters">clear all filters</button>.
               </KEmptyState>
               <template v-else>
+                <!-- Keyed by the result set, so rows rise in again whenever filters change the list. -->
                 <QuestionTable
+                  :key="questions.data.value.results.map((q) => q.slug).join()"
                   :questions="questions.data.value.results"
                   :show-topic="!filters.topic"
                   :show-patterns="isCoding"

@@ -229,6 +229,61 @@
     animation: k-rise 700ms var(--ease-out-soft) both;
     animation-delay: calc(var(--i, 0) * 80ms);
   }
+  /* Lists that re-render on filter changes: shorter, tighter stagger. */
+  .k-rise-quick {
+    animation: k-rise 420ms var(--ease-out-soft) both;
+    animation-delay: calc(var(--i, 0) * 28ms);
+  }
+}
+
+/* Answer feedback: a gentle pop for correct, a short shake for wrong. */
+@keyframes k-pop {
+  0% {
+    transform: scale(1);
+  }
+  40% {
+    transform: scale(1.025);
+  }
+  100% {
+    transform: scale(1);
+  }
+}
+@keyframes k-shake {
+  0%,
+  100% {
+    transform: translateX(0);
+  }
+  20%,
+  60% {
+    transform: translateX(-5px);
+  }
+  40%,
+  80% {
+    transform: translateX(5px);
+  }
+}
+.k-pop {
+  animation: k-pop 420ms var(--ease-out-soft);
+}
+.k-shake {
+  animation: k-shake 380ms ease-in-out;
+}
+/* Status square when a question is completed: overshoot + a fading accent ring. */
+@keyframes k-status-pop {
+  0% {
+    transform: scale(0.4);
+    box-shadow: 0 0 0 0 var(--k-accent);
+  }
+  60% {
+    transform: scale(1.35);
+  }
+  100% {
+    transform: scale(1);
+    box-shadow: 0 0 0 10px transparent;
+  }
+}
+.k-status-pop {
+  animation: k-status-pop 600ms var(--ease-out-soft);
 }
 
 @keyframes k-rise {
@@ -251,6 +306,11 @@
     line-height: 1.75;
     color: var(--k-text);
     overflow-wrap: break-word;
+  }
+  /* Concept (theory) pages: a comfortable line length for longer reading
+     (~75 average characters; "ch" is the width of a "0", wider than most letters). */
+  .k-reading .k-prose {
+    max-width: 60ch;
   }
   .k-prose-lg {
     font-size: 1.125rem;

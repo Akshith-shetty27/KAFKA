@@ -14,7 +14,7 @@ const STATUS_LABEL = { completed: 'Completed', attempted: 'Attempted' }
 
 <template>
   <ul class="border-t border-rule">
-    <li v-for="q in questions" :key="q.slug" class="border-b border-rule-soft">
+    <li v-for="(q, i) in questions" :key="q.slug" class="k-rise-quick border-b border-rule-soft" :style="{ '--i': Math.min(i, 12) }">
       <RouterLink
         :to="{ name: 'question', params: { slug: q.slug } }"
         class="group grid grid-cols-[1.25rem_minmax(0,1fr)_auto] items-center gap-x-4 gap-y-1 py-4 transition-colors hover:bg-surface sm:grid-cols-[1.25rem_minmax(0,1fr)_7rem_6.5rem] sm:px-2"
