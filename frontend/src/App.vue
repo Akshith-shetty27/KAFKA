@@ -8,6 +8,9 @@ import { useAuthStore } from '@/stores/auth'
 const route = useRoute()
 const auth = useAuthStore()
 
+// Browser/OS chrome colour for each theme (kept in sync with index.html).
+const THEME_COLORS = { ink: '#050505', paper: '#fffcf2', news: '#f7f6f2', floral: '#1b1418', forest: '#0b0e0b', anime: '#121931' }
+
 // Which surface the whole page uses: fixed per route, or the user's theme
 // inside the app. Sections can still flip locally with data-surface.
 const surface = computed(() => {
@@ -32,7 +35,7 @@ watchEffect(() => {
 watchEffect(() => {
   if (!surface.value) return
   document.documentElement.dataset.surface = surface.value
-  document.querySelector('meta[name="theme-color"]')?.setAttribute('content', surface.value === 'ink' ? '#050505' : '#fffcf2')
+  document.querySelector('meta[name="theme-color"]')?.setAttribute('content', THEME_COLORS[surface.value] ?? '#050505')
 })
 </script>
 

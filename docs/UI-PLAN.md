@@ -319,3 +319,20 @@ Fixes made during QA:
   from blurred to sharp one after another, then a teal brush-stroke underline draws itself — "Welcome back!" on
   sign-in, "Hey there!" on register.
   Without WebGL a flat SVG robot (CSS-animated) stands in; with reduced motion both show one still, mid-wave pose.
+- Five themes (Settings → Appearance), signed-in app only — the landing page stays Space, sign-in pages stay
+  Paper. Each has its own animated backdrop, drawn in code (SVG + CSS), loaded only for users on that theme and
+  stilled by reduced motion:
+  **Space** (`ink`): a live canvas starfield — ~400 stars in three depth layers drifting with parallax and
+  pointer lean, each twinkling on its own rhythm, bright stars flaring with four-point sparkles, a shooting star
+  every few seconds, and breathing teal/violet nebulae.
+  **Newspaper** (`news`): near-white newsprint, black type and fills, editorial red emphasis, mixed-case serif
+  headlines, soft rounded cards, double-rule masthead, paper grain, tiny newsprint paper planes gliding behind content.
+  **Floral** (`floral`): plum and garden teal, blush text, pink accents, peonies at the edges, drifting petals.
+  **Forest** (`forest`, after the Aerion reference): dark sky with a breathing sunburst, snow-lit mountain range,
+  drifting mist, a meadow of swaying dandelions and daisies over a moss light pool, rising golden pollen; gold accents.
+  **Anime** (`anime`, after the Mr L reference): twilight sky into sakura pink and sunset orange, horizon sun,
+  snow-capped mountain over a drifting cloud sea, pink flower field, blowing sakura petals; headline emphasis in a
+  pink-to-sunset gradient.
+  Cream (`paper`) was retired as a user theme; migration 0003 moves its users to Space. Headline style is a
+  per-surface setting (`--k-display-*`); always-dark panels take each dark theme's own darks. All text/background
+  pairs pass WCAG AA.

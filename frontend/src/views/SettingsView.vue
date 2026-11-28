@@ -78,9 +78,13 @@ async function saveProfile() {
 
 // --- theme (saved immediately) ------------------------------------------------------
 const themeForm = useForm()
+// Space is stored as 'ink' (its original name). Cream ('paper') was retired.
 const THEMES = [
-  { value: 'ink', label: 'Ink', note: 'Dark' },
-  { value: 'paper', label: 'Paper', note: 'Light' },
+  { value: 'ink', label: 'Space', note: 'Dark · stars' },
+  { value: 'news', label: 'Newspaper', note: 'Light · editorial' },
+  { value: 'floral', label: 'Floral', note: 'Dark · pink' },
+  { value: 'forest', label: 'Forest', note: 'Dark · mountain meadow' },
+  { value: 'anime', label: 'Anime', note: 'Twilight · sakura' },
 ]
 const themeRefs = ref([])
 
@@ -140,7 +144,7 @@ async function changePassword() {
     <!-- Profile & preferences -->
     <form class="mt-16 grid grid-cols-1 gap-12 border-t border-rule pt-10 lg:grid-cols-12" novalidate @submit.prevent="saveProfile">
       <div class="lg:col-span-4">
-        <KEyebrow as="h2" index="01">Profile</KEyebrow>
+        <KEyebrow as="h2">Profile</KEyebrow>
         <p class="mt-4 max-w-xs text-muted">Your daily goal shapes today's plan. Your timezone decides when a day — and a streak — ends.</p>
       </div>
       <div class="flex flex-col gap-6 lg:col-span-7 lg:col-start-6">
@@ -194,11 +198,11 @@ async function changePassword() {
     <!-- Appearance -->
     <section v-reveal class="mt-16 grid grid-cols-1 gap-12 border-t border-rule pt-10 lg:grid-cols-12">
       <div class="lg:col-span-4">
-        <KEyebrow as="h2" index="02">Appearance</KEyebrow>
-        <p class="mt-4 max-w-xs text-muted">Ink is easier on the eyes for long sessions. Paper matches the printed page.</p>
+        <KEyebrow as="h2">Appearance</KEyebrow>
+        <p class="mt-4 max-w-xs text-muted">Pick the look you study best in. It's saved to your account, so it follows you to every device.</p>
       </div>
       <div class="lg:col-span-7 lg:col-start-6">
-        <div class="grid max-w-md grid-cols-2 gap-4" role="radiogroup" aria-label="Theme">
+        <div class="grid max-w-xl grid-cols-2 gap-4 sm:grid-cols-3" role="radiogroup" aria-label="Theme">
           <button
             v-for="(option, i) in THEMES"
             :key="option.value"
@@ -220,10 +224,8 @@ async function changePassword() {
               <span class="k-display text-lg tracking-[-0.06em]">K<span class="text-accent">.</span></span>
               <span class="h-6 w-10 bg-accent" />
             </span>
-            <span class="mt-4 flex items-baseline justify-between">
-              <span class="k-label">{{ option.label }}</span>
-              <span class="text-sm text-muted">{{ option.note }}</span>
-            </span>
+            <span class="mt-4 k-label">{{ option.label }}</span>
+            <span class="mt-1 text-sm text-muted">{{ option.note }}</span>
           </button>
         </div>
         <KErrorState v-if="themeForm.formError.value" class="mt-4 max-w-md" :message="themeForm.formError.value" :retryable="false" />
@@ -233,7 +235,7 @@ async function changePassword() {
     <!-- Password -->
     <form v-reveal class="mt-16 grid grid-cols-1 gap-12 border-t border-rule pt-10 lg:grid-cols-12" novalidate @submit.prevent="changePassword">
       <div class="lg:col-span-4">
-        <KEyebrow as="h2" index="03">Password</KEyebrow>
+        <KEyebrow as="h2">Password</KEyebrow>
         <p class="mt-4 max-w-xs text-muted">Changing it signs you out on every other device.</p>
       </div>
       <div class="flex flex-col gap-6 lg:col-span-7 lg:col-start-6">
@@ -264,7 +266,7 @@ async function changePassword() {
     <!-- Account -->
     <section v-reveal class="mt-16 grid grid-cols-1 gap-12 border-t border-rule pt-10 lg:grid-cols-12">
       <div class="lg:col-span-4">
-        <KEyebrow as="h2" index="04">Account</KEyebrow>
+        <KEyebrow as="h2">Account</KEyebrow>
       </div>
       <dl class="grid grid-cols-1 gap-6 sm:grid-cols-2 lg:col-span-7 lg:col-start-6">
         <div>

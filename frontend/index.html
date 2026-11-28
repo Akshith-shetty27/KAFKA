@@ -18,11 +18,12 @@
         else if (path !== '/' && path !== '/status') {
           try {
             var saved = localStorage.getItem('kafka:theme')
-            if (saved === 'paper' || saved === 'ink') surface = saved
+            if (/^(ink|news|floral|forest|anime)$/.test(saved || '')) surface = saved
           } catch (e) {}
         }
         document.documentElement.dataset.surface = surface
-        document.querySelector('meta[name="theme-color"]').setAttribute('content', surface === 'ink' ? '#050505' : '#fffcf2')
+        var colors = { ink: '#050505', paper: '#fffcf2', news: '#f7f6f2', floral: '#1b1418', forest: '#0b0e0b', anime: '#121931' }
+        document.querySelector('meta[name="theme-color"]').setAttribute('content', colors[surface])
       })()
     </script>
     <link rel="preconnect" href="https://fonts.googleapis.com" />

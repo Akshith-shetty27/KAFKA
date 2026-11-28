@@ -75,8 +75,13 @@ class UserProfile(TimeStampedModel):
         JAVASCRIPT = "javascript", "JavaScript"
 
     class Theme(models.TextChoices):
-        INK = "ink", "Ink (dark)"
-        PAPER = "paper", "Paper (light)"
+        # "ink" is kept as the stored value for Space so existing profiles don't change.
+        # Cream ("paper") was retired; migration 0003 moved its users to Space.
+        INK = "ink", "Space (dark, starfield)"
+        NEWS = "news", "Newspaper (light, editorial)"
+        FLORAL = "floral", "Floral (dark, pink)"
+        FOREST = "forest", "Forest (dark, mountain meadow)"
+        ANIME = "anime", "Anime (twilight, sakura)"
 
     user = models.OneToOneField(settings.AUTH_USER_MODEL, on_delete=models.CASCADE, related_name="profile")
     college = models.CharField(max_length=160, blank=True)

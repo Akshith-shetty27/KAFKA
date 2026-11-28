@@ -4,7 +4,7 @@
  * KAFKA design system — "Paper & Ink" (docs/DESIGN.md)
  *
  * 1. Raw palette + type families  → @theme       (bg-paper-50, font-display, …)
- * 2. Semantic tokens per surface  → --k-*        (switch with data-surface="paper|ink")
+ * 2. Semantic tokens per surface  → --k-*        (data-surface="paper|ink|news|floral|forest|anime")
  * 3. Semantic utilities           → @theme inline (bg-canvas, text-fg, border-rule, …)
  *
  * Components only use the semantic utilities, so the same markup renders
@@ -72,6 +72,11 @@
     --k-signal: var(--color-cyan-700); /* 6:1 on paper */
     --k-elevation: inset 0 1px 0 rgb(255 255 255 / 0.7), 0 1px 2px rgb(5 5 5 / 0.06), 0 10px 24px -16px rgb(5 5 5 / 0.25);
     --k-elevation-hover: inset 0 1px 0 rgb(255 255 255 / 0.7), 0 2px 4px rgb(5 5 5 / 0.08), 0 18px 32px -18px rgb(5 5 5 / 0.35);
+    --k-display-font: var(--font-display);
+    --k-display-weight: 600;
+    --k-display-case: uppercase;
+    --k-display-tracking: -0.045em;
+    --k-display-leading: 0.88;
     color-scheme: light;
   }
 
@@ -93,7 +98,150 @@
     /* Depth from a 1px top highlight + soft shadow — no glows, no glass. */
     --k-elevation: inset 0 1px 0 rgb(255 255 255 / 0.05), 0 1px 2px rgb(0 0 0 / 0.5), 0 12px 28px -16px rgb(0 0 0 / 0.7);
     --k-elevation-hover: inset 0 1px 0 rgb(255 255 255 / 0.08), 0 2px 4px rgb(0 0 0 / 0.5), 0 22px 40px -18px rgb(0 0 0 / 0.85);
+    --k-display-font: var(--font-display);
+    --k-display-weight: 600;
+    --k-display-case: uppercase;
+    --k-display-tracking: -0.045em;
+    --k-display-leading: 0.88;
     color-scheme: dark;
+  }
+
+  /* Newspaper: a bright editorial page — near-white newsprint, black type and
+     rules, black fills (like the reference's black buttons), red for emphasis. */
+  [data-surface='news'] {
+    --k-bg: #f7f6f2;
+    --k-surface: #ffffff;
+    --k-raised: #ffffff;
+    --k-text: #111111;
+    --k-text-muted: #5c5a55; /* 6.4:1 on the page */
+    --k-rule: #111111;
+    --k-rule-soft: rgb(17 17 17 / 0.12);
+    --k-accent: #111111;
+    --k-accent-text: #a8231b; /* editorial red, 6.6:1 */
+    --k-on-accent: #f7f6f2;
+    --k-danger: #a8231b;
+    --k-warning: #8a5a00;
+    --k-grid-line: rgb(17 17 17 / 0.05);
+    --k-signal: #3d5a80;
+    /* Soft, floating cards rather than hard print edges. */
+    --k-elevation: 0 1px 2px rgb(17 17 17 / 0.05), 0 18px 40px -22px rgb(17 17 17 / 0.22);
+    --k-elevation-hover: 0 2px 4px rgb(17 17 17 / 0.06), 0 26px 50px -22px rgb(17 17 17 / 0.3);
+    --k-display-font: var(--font-serif);
+    --k-display-weight: 400;
+    --k-display-case: none;
+    --k-display-tracking: -0.025em;
+    --k-display-leading: 0.95;
+    color-scheme: light;
+  }
+
+  /* Floral: deep plum and garden teal, blush text, peony-pink accents. */
+  [data-surface='floral'] {
+    --k-bg: #1b1418;
+    --k-surface: #251b21;
+    --k-raised: #2e2229;
+    --k-text: #f6e7eb;
+    --k-text-muted: #bfa1ab; /* 7.7:1 on plum */
+    --k-rule: #4d3843;
+    --k-rule-soft: #34262e;
+    --k-accent: #eaa6bc;
+    --k-accent-text: #f2b8ca;
+    --k-on-accent: #2a1520;
+    --k-danger: #ff8a7a;
+    --k-warning: #f2c46d;
+    --k-grid-line: rgb(255 228 238 / 0.04);
+    --k-signal: #8fc1b3; /* sage teal from the garden */
+    --k-elevation: inset 0 1px 0 rgb(255 220 232 / 0.06), 0 1px 2px rgb(0 0 0 / 0.45), 0 16px 32px -18px rgb(0 0 0 / 0.75);
+    --k-elevation-hover: inset 0 1px 0 rgb(255 220 232 / 0.09), 0 2px 4px rgb(0 0 0 / 0.45), 0 24px 44px -18px rgb(0 0 0 / 0.85);
+    --k-display-font: var(--font-serif);
+    --k-display-weight: 400;
+    --k-display-case: none;
+    --k-display-tracking: -0.025em;
+    --k-display-leading: 0.95;
+    color-scheme: dark;
+  }
+  /* Panels that are always dark (code, the assistant drawer) turn plum on Floral. */
+  [data-surface='floral'] [data-surface='ink'] {
+    --k-bg: #20171c;
+    --k-surface: #2a1f25;
+    --k-raised: #33262d;
+    --k-rule: #4d3843;
+    --k-rule-soft: #3a2b33;
+    --k-accent: #eaa6bc;
+    --k-accent-text: #f2b8ca;
+    --k-on-accent: #2a1520;
+  }
+
+  /* Forest: night meadow under a mountain — near-black moss, warm sunlit gold. */
+  [data-surface='forest'] {
+    --k-bg: #0b0e0b;
+    --k-surface: #121712;
+    --k-raised: #182018;
+    --k-text: #f1efe4;
+    --k-text-muted: #a9ab9b;
+    --k-rule: #2e352b;
+    --k-rule-soft: #1d241c;
+    --k-accent: #e3c47c;
+    --k-accent-text: #ecd193;
+    --k-on-accent: #17150b;
+    --k-danger: #f27c64;
+    --k-warning: #f2c46d;
+    --k-grid-line: rgb(241 239 228 / 0.04);
+    --k-signal: #9fc47c; /* moss green */
+    --k-elevation: inset 0 1px 0 rgb(241 239 228 / 0.05), 0 1px 2px rgb(0 0 0 / 0.5), 0 16px 32px -18px rgb(0 0 0 / 0.8);
+    --k-elevation-hover: inset 0 1px 0 rgb(241 239 228 / 0.08), 0 2px 4px rgb(0 0 0 / 0.5), 0 24px 44px -18px rgb(0 0 0 / 0.9);
+    --k-display-font: var(--font-serif);
+    --k-display-weight: 400;
+    --k-display-case: none;
+    --k-display-tracking: -0.025em;
+    --k-display-leading: 0.95;
+    color-scheme: dark;
+  }
+
+  /* Anime: twilight navy sky, sakura pink, a touch of sunset orange. */
+  [data-surface='anime'] {
+    --k-bg: #121931;
+    --k-surface: #19223f;
+    --k-raised: #202a4c;
+    --k-text: #fdf3f4;
+    --k-text-muted: #b6bad6;
+    --k-rule: #36416b;
+    --k-rule-soft: #243052;
+    --k-accent: #ff86ad;
+    --k-accent-text: #ffa3c2;
+    --k-on-accent: #2a0d1d;
+    --k-danger: #ff8a7a;
+    --k-warning: #ffc46d;
+    --k-grid-line: rgb(253 243 244 / 0.04);
+    --k-signal: #ffb26b; /* sunset orange */
+    --k-elevation: inset 0 1px 0 rgb(255 220 235 / 0.06), 0 1px 2px rgb(5 8 25 / 0.5), 0 16px 32px -18px rgb(5 8 25 / 0.8);
+    --k-elevation-hover: inset 0 1px 0 rgb(255 220 235 / 0.09), 0 2px 4px rgb(5 8 25 / 0.5), 0 24px 44px -18px rgb(5 8 25 / 0.9);
+    --k-display-font: var(--font-serif);
+    --k-display-weight: 400;
+    --k-display-case: none;
+    --k-display-tracking: -0.025em;
+    --k-display-leading: 0.95;
+    color-scheme: dark;
+  }
+  /* Always-dark panels follow the scene's own darks on Forest and Anime. */
+  [data-surface='forest'] [data-surface='ink'] {
+    --k-bg: #0f130f;
+    --k-surface: #151b15;
+    --k-raised: #1b231b;
+    --k-rule: #2e352b;
+    --k-rule-soft: #222a21;
+    --k-accent: #e3c47c;
+    --k-accent-text: #ecd193;
+    --k-on-accent: #17150b;
+  }
+  [data-surface='anime'] [data-surface='ink'] {
+    --k-bg: #151c36;
+    --k-surface: #1b2444;
+    --k-raised: #222c4f;
+    --k-rule: #36416b;
+    --k-rule-soft: #2a3559;
+    --k-accent: #ff86ad;
+    --k-accent-text: #ffa3c2;
+    --k-on-accent: #2a0d1d;
   }
 
   /* Elements that set data-surface also paint their own background/text. */
@@ -154,13 +302,15 @@
   text-transform: uppercase;
 }
 
-/* Tight uppercase grotesk for headlines */
+/* Headlines: tight uppercase grotesk on Space/Cream, mixed-case serif on
+   Newspaper/Floral. Each surface sets these, so a section always shows the
+   style of the surface it's painted in. */
 @utility k-display {
-  font-family: var(--font-display);
-  font-weight: 600;
-  text-transform: uppercase;
-  letter-spacing: -0.045em;
-  line-height: 0.88;
+  font-family: var(--k-display-font);
+  font-weight: var(--k-display-weight);
+  text-transform: var(--k-display-case);
+  letter-spacing: var(--k-display-tracking);
+  line-height: var(--k-display-leading);
 }
 
 /* Italic serif for the one emphasised phrase per heading, and big numerals.
@@ -551,16 +701,41 @@
   box-shadow: 0 0 0 4px rgb(34 220 200 / 0.12), 0 0 16px rgb(34 220 200 / 0.7);
 }
 
-/* Signed-in app: the same starfield as the landing page, dimmer so it never
-   competes with data, and only on the Ink theme (stars on Paper read as dust). */
-.k-app-stars {
+/* Newspaper: soft rounded cards (Mindly) and a double rule under the masthead. */
+[data-surface='news'] .shadow-elevated {
+  border-radius: 14px;
+}
+:root[data-surface='news'] .k-app-header {
+  border-bottom: 3px double var(--k-rule);
+}
+:root[data-surface='floral'] .k-app-header {
+  background-color: rgb(27 20 24 / 0.75);
+}
+
+/* Newspaper backdrop: fine paper grain over the whole app. */
+.k-app-news {
   display: none;
-  position: absolute;
+  position: fixed;
   inset: 0;
   z-index: -1;
   pointer-events: none;
-  opacity: 0.85;
+  opacity: 0.55;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='180' height='180'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='2' stitchTiles='stitch'/%3E%3CfeColorMatrix values='0 0 0 0 0.07 0 0 0 0 0.07 0 0 0 0 0.07 0 0 0 0.09 0'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
 }
-:root[data-surface='ink'] .k-app-stars {
+:root[data-surface='news'] .k-app-news {
   display: block;
+}
+
+/* Anime: the emphasised word in a headline glows sakura-to-sunset, like the reference. */
+[data-surface='anime'] .k-display .k-serif {
+  background: linear-gradient(90deg, #ff86ad, #ffb89a);
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+}
+:root[data-surface='forest'] .k-app-header {
+  background-color: rgb(11 14 11 / 0.72);
+}
+:root[data-surface='anime'] .k-app-header {
+  background-color: rgb(18 25 49 / 0.72);
 }

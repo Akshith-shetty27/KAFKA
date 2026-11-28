@@ -24,7 +24,7 @@ async function signOut() {
 </script>
 
 <template>
-  <header class="sticky top-0 z-40 border-b border-rule-soft bg-canvas/90 backdrop-blur-md">
+  <header class="k-app-header sticky top-0 z-40 border-b border-rule-soft bg-canvas/90 backdrop-blur-md">
     <!-- Tighter gaps from lg (1024px) up to xl, so six links + name + sign out fit on one line. -->
     <div class="k-container flex h-20 items-center justify-between gap-6 xl:gap-8">
       <KLogo :to="{ name: 'dashboard' }" />

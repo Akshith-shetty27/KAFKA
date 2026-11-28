@@ -163,7 +163,7 @@ class MeTests(APITestCase):
     def test_patch_me_updates_user_and_profile(self):
         response = self.client.patch(
             reverse("auth-me"),
-            {"last_name": "Rao", "profile": {"college": "NITK", "daily_goal": 8, "theme": "paper"}},
+            {"last_name": "Rao", "profile": {"college": "NITK", "daily_goal": 8, "theme": "news"}},
             format="json",
         )
         self.assertEqual(response.status_code, 200)
@@ -180,6 +180,21 @@ class MeTests(APITestCase):
     def test_profile_validation(self):
         response = self.client.patch(reverse("auth-me"), {"profile": {"daily_goal": 0}}, format="json")
         self.assertEqual(response.status_code, 400)
+
+    def test_all_five_themes_can_be_chosen(self):
+        for theme in ("ink", "news", "floral", "forest", "anime"):
+            with self.subTest(theme=theme):
+                response = self.client.patch(reverse("auth-me"), {"profile": {"theme": theme}}, format="json")
+                self.assertEqual(response.status_code, 200)
+                self.assertEqual(response.json()["profile"]["theme"], theme)
+
+    def test_unknown_or_retired_theme_is_rejected(self):
+        for theme in ("neon", "paper"):  # "paper" was the retired Cream theme
+            with self.subTest(theme=theme):
+                response = self.client.patch(reverse("auth-me"), {"profile": {"theme": theme}}, format="json")
+                self.assertEqual(response.status_code, 400)
+        self.user.refresh_from_db()
+        self.assertEqual(self.user.profile.theme, "ink")
 
 
 class ChangePasswordTests(APITestCase):

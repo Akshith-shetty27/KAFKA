@@ -6,7 +6,8 @@ import { useAuthStore } from '@/stores/auth'
  * Route meta:
  *   requiresAuth  – signed-in users only (redirects to /login?redirect=…)
  *   guestOnly     – signed-out users only (login/register)
- *   surface       – 'paper' | 'ink' | 'user' (user = the profile's theme)
+ *   surface       – 'paper' | 'ink' | 'user' (user = the profile's theme:
+ *                   ink | news | floral | forest | anime)
  *   title         – document title
  * Child routes inherit their parent's meta.
  */
