@@ -2,6 +2,11 @@ import { http } from './http'
 
 export const catalogApi = {
   /** [{ slug, name, description, glyph, question_count, attempted_count, completed_count }] */
+  /** Public: published question counts per track — { total, tracks: [{ slug, name, count }] }. */
+  async stats() {
+    const { data } = await http.get('/catalog/stats/')
+    return data
+  },
   async categories() {
     const { data } = await http.get('/categories/')
     return data

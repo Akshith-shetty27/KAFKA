@@ -6,7 +6,7 @@
  * Numbers here (07-day streak, weekly bars) are illustrative marketing
  * visuals, not user data — the dashboard shows the real thing.
  */
-import { computed } from 'vue'
+import { computed, defineAsyncComponent, onMounted, ref } from 'vue'
 
 import KArrowLink from '@/components/ui/KArrowLink.vue'
 import KBarChart from '@/components/ui/KBarChart.vue'
@@ -14,10 +14,76 @@ import KChecklist from '@/components/ui/KChecklist.vue'
 import KCodeWindow from '@/components/ui/KCodeWindow.vue'
 import KEyebrow from '@/components/ui/KEyebrow.vue'
 import KStreakBadge from '@/components/ui/KStreakBadge.vue'
+import { loadScrollTrigger, useMotion } from '@/motion'
+import { catalogApi } from '@/services/catalog.api'
 import { useAuthStore } from '@/stores/auth'
+
+// three.js + the scene live in their own chunk, requested only after first paint.
+const HeroScene = defineAsyncComponent(() => import('@/components/landing/HeroScene.vue'))
 
 const auth = useAuthStore()
 const startTo = computed(() => (auth.isAuthenticated ? { name: 'dashboard' } : { name: 'register' }))
+
+// --- hero scene: one point per real question, coloured by track ------------------------
+const TRACK_COLORS = { coding: '#22dcc8', aptitude: '#7fd3e6', 'core-cs': '#9c988c' }
+const stats = ref(null)
+const showScene = ref(false)
+const sceneFailed = ref(false)
+const bands = computed(() =>
+  (stats.value?.tracks ?? []).map((t) => ({ ...t, color: TRACK_COLORS[t.slug] ?? '#fffcf2' })),
+)
+onMounted(async () => {
+  try {
+    stats.value = await catalogApi.stats()
+  } catch {
+    return // no numbers → no scene; the panel's grid texture stays as designed
+  }
+  // After first paint, when the browser is idle — but at most 1.5 s later, since a
+  // busy or throttled page might never report being idle.
+  const reveal = () => (showScene.value = true)
+  if (window.requestIdleCallback) window.requestIdleCallback(reveal, { timeout: 1500 })
+  else setTimeout(reveal, 200)
+})
+
+// --- scroll storytelling (ScrollTrigger is loaded only on this page) ------------------
+const page = ref(null)
+const scrollTrigger = ref(null)
+onMounted(async () => {
+  scrollTrigger.value = await loadScrollTrigger()
+})
+useMotion(
+  page,
+  ({ q, gsap, reduced }) => {
+    if (reduced) return
+    for (const head of q('.k-story-head')) {
+      gsap.from(head, { y: 48, opacity: 0, duration: 0.9, scrollTrigger: { trigger: head, start: 'top 85%' } })
+    }
+    gsap.from(q('.k-story-track'), {
+      y: 40,
+      opacity: 0,
+      duration: 0.8,
+      stagger: 0.12,
+      scrollTrigger: { trigger: q('.k-story-tracks')[0], start: 'top 80%' },
+    })
+    // The example conversation plays out one message at a time.
+    gsap.from(q('.k-story-msg'), {
+      y: 16,
+      opacity: 0,
+      duration: 0.6,
+      stagger: 0.45,
+      scrollTrigger: { trigger: q('.k-story-chat')[0], start: 'top 75%' },
+    })
+    // Closing lines drift into alignment as the section scrolls into view.
+    q('.k-story-line').forEach((line, i) => {
+      gsap.fromTo(
+        line,
+        { xPercent: [-8, 8, -4][i] ?? 0 },
+        { xPercent: 0, ease: 'none', scrollTrigger: { trigger: line, start: 'top bottom', end: 'center 55%', scrub: 0.6 } },
+      )
+    })
+  },
+  { watch: () => scrollTrigger.value },
+)
 
 const heroCode = [
   [{ t: 'function', k: 'kw' }, { t: ' solve', k: 'fn' }, { t: '(input) {' }],
@@ -65,6 +131,7 @@ const week = [
 </script>
 
 <template>
+  <div ref="page">
   <!-- 001 · HERO ---------------------------------------------------------- -->
   <section class="k-container grid grid-cols-1 gap-14 pt-10 pb-20 lg:grid-cols-12 lg:gap-10 lg:pt-16 lg:pb-28">
     <div class="lg:col-span-7">
@@ -85,15 +152,24 @@ const week = [
     </div>
 
     <div class="lg:col-span-5">
-      <div data-surface="ink" class="k-grid k-rise relative flex h-full min-h-[34rem] flex-col p-7 sm:p-10 lg:p-8 xl:p-10" style="--i: 3">
-        <p class="font-mono text-lg text-accent">K / 01</p>
-        <p class="k-label mt-4 leading-[2.2]">Build your<br />edge</p>
+      <div data-surface="ink" class="k-grid k-rise relative flex h-full min-h-[34rem] flex-col overflow-hidden p-7 sm:p-10 lg:p-8 xl:p-10" style="--i: 3">
+        <HeroScene v-if="showScene && !sceneFailed && bands.length" :bands="bands" @unavailable="sceneFailed = true" />
+        <p class="relative font-mono text-lg text-accent">K / 01</p>
+        <p class="k-label relative mt-4 leading-[2.2]">Build your<br />edge</p>
+        <p v-if="showScene && !sceneFailed && stats" class="absolute top-7 right-7 text-right font-mono text-[10px] leading-relaxed text-muted sm:top-10 sm:right-10 lg:top-8 lg:right-8">
+          {{ stats.total }} questions · one point each
+          <span class="mt-1 flex justify-end gap-3">
+            <span v-for="b in bands" :key="b.slug" class="inline-flex items-center gap-1.5">
+              <span class="size-1.5 rounded-full" :style="{ background: b.color }" aria-hidden="true" />{{ b.name }}
+            </span>
+          </span>
+        </p>
 
-        <div class="my-10 sm:mx-4">
+        <div class="relative my-10 sm:mx-4">
           <KCodeWindow :lines="heroCode" status="12 tests passed" meta="98ms" />
         </div>
 
-        <div class="mt-auto flex flex-wrap items-end justify-between gap-4 sm:flex-nowrap">
+        <div class="relative mt-auto flex flex-wrap items-end justify-between gap-4 sm:flex-nowrap">
           <p class="k-display text-[2.75rem] leading-[0.92] lg:text-[2.5rem] xl:text-5xl">
             Make<br /><span class="k-serif">room</span><br />for<br /><span class="text-accent">more.</span>
           </p>
@@ -112,7 +188,7 @@ const week = [
       </div>
     </div>
     <div class="lg:col-span-7 lg:col-start-6">
-      <h2 class="k-display text-[clamp(2.75rem,7.5vw,6.5rem)]">
+      <h2 class="k-story-head k-display text-[clamp(2.75rem,7.5vw,6.5rem)]">
         Preparation,<br /><span class="k-serif text-[1.05em]">reimagined.</span>
       </h2>
       <p class="mt-10 max-w-2xl text-lg leading-relaxed sm:text-xl">
@@ -125,8 +201,8 @@ const week = [
   <!-- 003 · TRACKS ------------------------------------------------------------------ -->
   <section id="prepare" class="k-container scroll-mt-24 pb-24 lg:pb-32">
     <KEyebrow index="003" tone="muted" class="mb-10">Three tracks</KEyebrow>
-    <div class="grid grid-cols-1 gap-14 md:grid-cols-3 md:gap-10">
-      <article v-for="track in tracks" :key="track.n" class="border-t border-rule pt-8">
+    <div class="k-story-tracks grid grid-cols-1 gap-14 md:grid-cols-3 md:gap-10">
+      <article v-for="track in tracks" :key="track.n" class="k-story-track border-t border-rule pt-8">
         <p class="font-mono text-sm">{{ track.n }}</p>
         <p class="k-serif my-10 text-center text-[7.5rem] leading-none not-italic" aria-hidden="true">{{ track.glyph }}</p>
         <h3 class="text-2xl font-medium tracking-tight uppercase">{{ track.title }}</h3>
@@ -143,7 +219,7 @@ const week = [
     <div class="k-container grid grid-cols-1 gap-14 py-20 lg:grid-cols-12 lg:gap-10 lg:py-28">
       <div class="lg:col-span-5">
         <KEyebrow index="004">Ask Kafka</KEyebrow>
-        <h2 class="k-display mt-8 text-[clamp(2.75rem,6.5vw,5.5rem)]">
+        <h2 class="k-story-head k-display mt-8 text-[clamp(2.75rem,6.5vw,5.5rem)]">
           Hints,<br />not <span class="k-serif text-[1.05em]">spoilers.</span>
         </h2>
         <p class="mt-8 max-w-md text-lg leading-relaxed">
@@ -152,18 +228,18 @@ const week = [
         </p>
       </div>
       <div class="lg:col-span-6 lg:col-start-7">
-        <div data-surface="ink" class="k-grid flex flex-col gap-5 p-6 sm:p-10" aria-label="Example conversation" role="img">
+        <div data-surface="ink" class="k-story-chat k-grid flex flex-col gap-5 p-6 sm:p-10" aria-label="Example conversation" role="img">
           <p class="k-eyebrow text-muted">Longest substring without repeats</p>
-          <div class="ml-auto max-w-[85%] bg-ink-800 px-5 py-4 text-[15px] leading-relaxed">
+          <div class="k-story-msg ml-auto max-w-[85%] bg-ink-800 px-5 py-4 text-[15px] leading-relaxed">
             I keep restarting my loop every time I see a repeat. It's too slow.
           </div>
-          <div class="max-w-[90%] border-l-2 border-accent pl-5 text-[15px] leading-relaxed">
+          <div class="k-story-msg max-w-[90%] border-l-2 border-accent pl-5 text-[15px] leading-relaxed">
             <p class="k-eyebrow mb-3 text-accent">Kafka · hint 1 of 3</p>
             What if you never restarted? Keep a window of characters with no repeats, and only move its
             <em class="k-serif text-lg">left</em> edge when a repeat forces you to.
           </div>
-          <div class="ml-auto max-w-[85%] bg-ink-800 px-5 py-4 text-[15px] leading-relaxed">So it's a sliding window?</div>
-          <div class="max-w-[90%] border-l-2 border-accent pl-5 text-[15px] leading-relaxed">
+          <div class="k-story-msg ml-auto max-w-[85%] bg-ink-800 px-5 py-4 text-[15px] leading-relaxed">So it's a sliding window?</div>
+          <div class="k-story-msg max-w-[90%] border-l-2 border-accent pl-5 text-[15px] leading-relaxed">
             <p class="k-eyebrow mb-3 text-accent">Kafka · hint 2 of 3</p>
             Exactly. Now: how would you know, in O(1), where the last copy of a character was?
           </div>
@@ -173,16 +249,17 @@ const week = [
   </section>
 
   <!-- SHOW UP ------------------------------------------------------------------------- -->
-  <section data-surface="ink">
+  <!-- overflow-x-clip: the closing lines start slightly off-centre while they drift into place -->
+  <section data-surface="ink" class="overflow-x-clip">
     <div class="k-container py-24 lg:py-32">
       <KEyebrow>A better kind of busy</KEyebrow>
-      <div class="mt-14 grid grid-cols-1 items-end gap-14 lg:grid-cols-12 lg:gap-10">
-        <h2 class="k-display text-[clamp(3.25rem,10vw,8.5rem)] lg:col-span-8">
-          Show up.<br />
-          <span class="k-serif text-[1.02em] whitespace-nowrap text-accent not-italic">Get sharper.</span><br />
-          Go further.
+      <div class="mt-14 grid grid-cols-1 items-start gap-14 xl:grid-cols-12 xl:items-end xl:gap-10">
+        <h2 class="k-display min-w-0 text-[clamp(3.25rem,9vw,8.5rem)] xl:col-span-8">
+          <span class="k-story-line block">Show up.</span>
+          <span class="k-story-line k-serif block text-[1.02em] whitespace-nowrap text-accent not-italic">Get sharper.</span>
+          <span class="k-story-line block">Go further.</span>
         </h2>
-        <div class="lg:col-span-4 lg:pb-6">
+        <div class="min-w-0 xl:col-span-4 xl:pb-6">
           <div class="border-t border-rule pt-6">
             <p class="k-eyebrow mb-6 text-muted">This week</p>
             <KBarChart :data="week" label="Example questions per day" />
@@ -202,4 +279,5 @@ const week = [
       <p class="k-eyebrow text-muted">Built for placement season</p>
     </div>
   </section>
+  </div>
 </template>

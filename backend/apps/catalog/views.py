@@ -1,12 +1,14 @@
+from django.db.models import Count, Q
 from django.http import Http404
 from rest_framework.generics import ListAPIView
+from rest_framework.permissions import AllowAny
 from rest_framework.response import Response
 from rest_framework.views import APIView
 
 from apps.progress.models import QuestionProgress
 
 from . import selectors
-from .models import Pattern
+from .models import Category, Pattern
 from .serializers import (
     CategorySerializer,
     PatternSerializer,
@@ -76,3 +78,21 @@ class QuestionDetailView(APIView):
             },
         )
         return Response(serializer.data)
+
+
+class CatalogStatsView(APIView):
+    """
+    GET /catalog/stats/ — public. How many published questions each track has
+    (the landing page draws one point per question). Aggregate counts only:
+    no user data, no question content.
+    """
+
+    permission_classes = [AllowAny]
+    authentication_classes = []
+
+    def get(self, request):
+        rows = Category.objects.annotate(
+            n=Count("topics__questions", filter=Q(topics__questions__is_published=True))
+        ).order_by("order", "name")
+        tracks = [{"slug": c.slug, "name": c.name, "count": c.n} for c in rows]
+        return Response({"total": sum(t["count"] for t in tracks), "tracks": tracks})

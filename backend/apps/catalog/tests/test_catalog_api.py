@@ -93,3 +93,20 @@ class CatalogApiTests(APITestCase):
         detail = self.client.get(reverse("question-detail", args=["pct-q"])).json()
         self.assertIsNone(detail["progress"])
         self.assertIsNone(detail["answer"])  # other user's answer doesn't unlock mine
+
+
+class CatalogStatsTests(APITestCase):
+    def test_public_counts_of_published_questions_per_track(self):
+        make_catalog()
+        response = APIClient().get("/api/v1/catalog/stats/")  # no credentials needed
+        self.assertEqual(response.status_code, 200)
+        self.assertEqual(
+            response.json(),
+            {
+                "total": 4,
+                "tracks": [
+                    {"slug": "coding", "name": "Coding", "count": 3},
+                    {"slug": "aptitude", "name": "Aptitude", "count": 1},  # the unpublished draft isn't counted
+                ],
+            },
+        )

@@ -1,6 +1,6 @@
 # KAFKA — UI/UX & Interaction Transformation Plan
 
-Status: **Stages 1–5 done** — see §7. GSAP and Three.js approved; Three.js is added in Stage 6.
+Status: **Stages 1–6 done** — see §7. GSAP and Three.js approved; Three.js is added in Stage 6.
 Scope: frontend only. No backend, model, API-contract or environment changes are needed for anything below.
 
 ---
@@ -229,3 +229,25 @@ Frontend only; existing AI service, streaming and APIs unchanged.
   shown), history reload without animation, plan item tick (1/4, pop), generating state (request intercepted to
   avoid spending Groq quota), phone layout. Offline (`fake`) mode wasn't re-run — it would need a server restart.
 - **Bundle:** Ask KAFKA chunk 4.5 KB gzip; chat chunk 75.4 KB (+0.5); app shell unchanged.
+
+### Stage 6 — Landing & auth (done)
+
+- **One additive, public API:** `GET /catalog/stats/` → `{total, tracks: [{slug, name, count}]}` — published
+  question counts only (no user data, no content). AllowAny, no auth. Tested.
+- **Three.js 0.187 (MIT)** added, used only by `components/landing/HeroScene.vue`: a sphere of points in the hero's
+  Ink panel, **one point per real question (920)**, banded and coloured by track, slowly turning and leaning toward
+  the pointer, with a legend. Loaded as its own chunk (three + scene 131 KB gzip) via `defineAsyncComponent`,
+  requested only after first paint (`requestIdleCallback`, 1.5 s timeout). DPR capped at 1.5, antialias off,
+  loop paused off-screen / tab hidden, still frame for reduced motion, disposed on unmount. No WebGL → no canvas and
+  no legend; the panel's grid texture remains.
+- **Scroll storytelling** (ScrollTrigger, 17.6 KB gzip, loaded on demand on this page only): section headings rise in,
+  track cards stagger, the example ASK KAFKA conversation plays out message by message, and the closing
+  "Show up / Get sharper / Go further" lines drift into alignment (scrubbed). Section clipped horizontally so the
+  offsets can't cause sideways scroll. Your earlier layout edit to that section is kept.
+- **Auth:** sign-in ↔ register use the page transition; the Ink panel's parts rise in and it shows the real bank size.
+- **Verified:** canvas created after first paint (chunks requested at ~1.5 s), DPR cap (705×1128 buffer for a
+  470×752 canvas on a 2× screen), composition tuned (camera pulled back so the sphere reads as one object), canvas
+  removed on leaving the page, simulated no-WebGL fallback, story tweens set up and firing on scroll, phone layout
+  without sideways scroll (375 px), auth stats and transition. Not observed: the full scrubbed drift and the
+  reduced-motion still frame at runtime (the hidden pane stops frames; the code paths are in place).
+- **Bundle:** app shell 73.5 KB gzip (+0.1); landing view 4.7 KB; three/scene and ScrollTrigger never load inside the app.
