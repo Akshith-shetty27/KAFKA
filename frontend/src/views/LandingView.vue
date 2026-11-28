@@ -6,14 +6,13 @@
  * Numbers here (07-day streak, weekly bars) are illustrative marketing
  * visuals, not user data — the dashboard shows the real thing.
  */
-import { computed, defineAsyncComponent, onMounted, ref } from 'vue'
+import { computed, defineAsyncComponent, onBeforeUnmount, onMounted, ref } from 'vue'
 
 import KArrowLink from '@/components/ui/KArrowLink.vue'
 import KBarChart from '@/components/ui/KBarChart.vue'
 import KChecklist from '@/components/ui/KChecklist.vue'
-import KCodeWindow from '@/components/ui/KCodeWindow.vue'
 import KEyebrow from '@/components/ui/KEyebrow.vue'
-import KStreakBadge from '@/components/ui/KStreakBadge.vue'
+import { headerSurface } from '@/composables/useHeaderSurface'
 import { loadScrollTrigger, useMotion } from '@/motion'
 import { catalogApi } from '@/services/catalog.api'
 import { useAuthStore } from '@/stores/auth'
@@ -43,6 +42,27 @@ onMounted(async () => {
   const reveal = () => (showScene.value = true)
   if (window.requestIdleCallback) window.requestIdleCallback(reveal, { timeout: 1500 })
   else setTimeout(reveal, 200)
+})
+
+// --- dark hero: the header turns dark while it's over it -------------------------------
+const hero = ref(null)
+let heroFrame = 0
+function syncHeader() {
+  heroFrame = 0
+  // Switch once the hero's bottom edge passes the middle of the header (~48px).
+  headerSurface.value = hero.value && hero.value.getBoundingClientRect().bottom > 48 ? 'ink' : null
+}
+function onScroll() {
+  if (!heroFrame) heroFrame = requestAnimationFrame(syncHeader)
+}
+onMounted(() => {
+  syncHeader()
+  window.addEventListener('scroll', onScroll, { passive: true })
+})
+onBeforeUnmount(() => {
+  window.removeEventListener('scroll', onScroll)
+  cancelAnimationFrame(heroFrame)
+  headerSurface.value = null
 })
 
 // --- scroll storytelling (ScrollTrigger is loaded only on this page) ------------------
@@ -85,13 +105,6 @@ useMotion(
   { watch: () => scrollTrigger.value },
 )
 
-const heroCode = [
-  [{ t: 'function', k: 'kw' }, { t: ' solve', k: 'fn' }, { t: '(input) {' }],
-  [{ t: '  const', k: 'kw' }, { t: ' focus ' }, { t: '=', k: 'op' }, { t: ' "consistency"', k: 'str' }, { t: ';' }],
-  [{ t: '  return', k: 'kw' }, { t: ' focus ' }, { t: '+', k: 'op' }, { t: ' input;' }],
-  [{ t: '}' }],
-]
-
 const samplePlan = [
   { key: 'c', label: '2 coding problems', done: true },
   { key: 'a', label: '15 aptitude questions', done: true },
@@ -132,8 +145,9 @@ const week = [
 
 <template>
   <div ref="page">
-  <!-- 001 · HERO ---------------------------------------------------------- -->
-  <section class="k-container grid grid-cols-1 gap-14 pt-10 pb-20 lg:grid-cols-12 lg:gap-10 lg:pt-16 lg:pb-28">
+  <!-- 001 · HERO: a full-width night sky; the globe floats in it --------- -->
+  <div ref="hero" data-surface="ink" class="k-cosmos -mt-20 pt-20 lg:-mt-24 lg:pt-24">
+  <section class="k-container relative grid grid-cols-1 gap-14 pt-10 pb-20 lg:grid-cols-12 lg:gap-10 lg:pt-16 lg:pb-28">
     <div class="lg:col-span-7">
       <KEyebrow index="001" class="k-rise">Interview preparation</KEyebrow>
       <h1 class="k-display mt-8 text-[clamp(3.4rem,10.5vw,8.25rem)] lg:mt-12">
@@ -152,32 +166,19 @@ const week = [
     </div>
 
     <div class="lg:col-span-5">
-      <div data-surface="ink" class="k-grid k-rise relative flex h-full min-h-[34rem] flex-col overflow-hidden p-7 sm:p-10 lg:p-8 xl:p-10" style="--i: 3">
-        <HeroScene v-if="showScene && !sceneFailed && bands.length" :bands="bands" @unavailable="sceneFailed = true" />
-        <p class="relative font-mono text-lg text-accent">K / 01</p>
-        <p class="k-label relative mt-4 leading-[2.2]">Build your<br />edge</p>
-        <p v-if="showScene && !sceneFailed && stats" class="absolute top-7 right-7 text-right font-mono text-[10px] leading-relaxed text-muted sm:top-10 sm:right-10 lg:top-8 lg:right-8">
-          {{ stats.total }} questions · one point each
-          <span class="mt-1 flex justify-end gap-3">
-            <span v-for="b in bands" :key="b.slug" class="inline-flex items-center gap-1.5">
-              <span class="size-1.5 rounded-full" :style="{ background: b.color }" aria-hidden="true" />{{ b.name }}
-            </span>
-          </span>
+      <div class="k-rise relative flex h-full min-h-[34rem] flex-col" style="--i: 3">
+        <!-- The globe gets its own area above the tagline, so the two never overlap. -->
+        <div class="relative min-h-[20rem] flex-1">
+          <div class="k-cosmos-halo" aria-hidden="true" />
+          <HeroScene v-if="showScene && !sceneFailed && bands.length" :bands="bands" @unavailable="sceneFailed = true" />
+        </div>
+        <p class="k-display relative mt-6 text-[2.75rem] leading-[0.92] lg:text-[2.5rem] xl:text-5xl">
+          Make<br /><span class="k-serif">room</span><br />for<br /><span class="text-accent">more.</span>
         </p>
-
-        <div class="relative my-10 sm:mx-4">
-          <KCodeWindow :lines="heroCode" status="12 tests passed" meta="98ms" />
-        </div>
-
-        <div class="relative mt-auto flex flex-wrap items-end justify-between gap-4 sm:flex-nowrap">
-          <p class="k-display text-[2.75rem] leading-[0.92] lg:text-[2.5rem] xl:text-5xl">
-            Make<br /><span class="k-serif">room</span><br />for<br /><span class="text-accent">more.</span>
-          </p>
-          <KStreakBadge :days="7" />
-        </div>
       </div>
     </div>
   </section>
+  </div>
 
   <!-- 002 · THE KAFKA METHOD -------------------------------------------------- -->
   <section id="method" class="k-container grid grid-cols-1 scroll-mt-24 gap-14 py-20 lg:grid-cols-12 lg:gap-10 lg:py-28">

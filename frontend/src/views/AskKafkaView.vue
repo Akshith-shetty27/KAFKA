@@ -130,14 +130,8 @@ function useSuggestion(text) {
     <!-- Conversation list -->
     <aside class="lg:col-span-3" :class="routeId ? 'hidden lg:block' : ''" aria-label="Conversations">
       <RouterLink
-        :to="{ name: 'ask' }"
-        class="k-label flex h-11 items-center justify-center gap-2 bg-accent text-xs text-on-accent hover:brightness-95"
-      >
-        <span aria-hidden="true">+</span> New conversation
-      </RouterLink>
-      <RouterLink
         :to="{ name: 'plan-new' }"
-        class="k-label mt-3 flex h-11 items-center justify-center gap-2 border border-rule text-xs hover:border-accent hover:text-accent-text"
+        class="k-label flex h-11 items-center justify-center gap-2 border border-rule text-xs hover:border-accent hover:text-accent-text"
       >
         <span aria-hidden="true">+</span> New study plan
       </RouterLink>
