@@ -9,6 +9,8 @@ import KIcon from './KIcon.vue'
 const props = defineProps({
   text: { type: String, required: true },
   label: { type: String, default: 'Copy' },
+  /** code: light text for dark code bars · inline: muted text for use on any surface */
+  variant: { type: String, default: 'code' },
 })
 
 const state = ref('idle') // idle | copied | failed
@@ -21,7 +23,12 @@ async function copy() {
 </script>
 
 <template>
-  <button type="button" class="flex items-center gap-2 py-3 text-xs tracking-wider text-paper-50/60 uppercase transition-colors hover:text-accent" @click="copy">
+  <button
+    type="button"
+    class="flex items-center gap-2 text-xs tracking-wider uppercase transition-colors"
+    :class="variant === 'inline' ? 'py-1 text-muted hover:text-accent-text' : 'py-3 text-paper-50/60 hover:text-accent'"
+    @click="copy"
+  >
     <KIcon :name="state === 'copied' ? 'check' : 'copy'" :size="14" />
     <span aria-live="polite">{{ state === 'copied' ? 'Copied' : state === 'failed' ? 'Copy failed' : label }}</span>
   </button>

@@ -12,6 +12,7 @@ import ChatComposer from '@/components/assistant/ChatComposer.vue'
 import ChatThread from '@/components/assistant/ChatThread.vue'
 import DemoModeNote from '@/components/assistant/DemoModeNote.vue'
 import KAssistantMark from '@/components/assistant/KAssistantMark.vue'
+import QuestionContextCard from '@/components/assistant/QuestionContextCard.vue'
 import QuickActions from '@/components/assistant/QuickActions.vue'
 import KEmptyState from '@/components/ui/KEmptyState.vue'
 import KErrorState from '@/components/ui/KErrorState.vue'
@@ -22,6 +23,7 @@ import { useChat } from '@/composables/useChat'
 import { assistantApi } from '@/services/assistant.api'
 import { useToast } from '@/composables/useToast'
 import { prepApi } from '@/services/prep.api'
+import { progressApi } from '@/services/progress.api'
 import { useAssistantStore } from '@/stores/assistant'
 import { timeAgo } from '@/utils/format'
 
@@ -94,12 +96,30 @@ async function deleteConversation(c) {
   if (routeId.value === c.id) router.push({ name: 'ask' })
 }
 
-const suggestions = [
-  'When should I use a sliding window instead of two pointers?',
-  'Give me 3 medium dynamic programming practice problems.',
-  'Explain database normalisation with a simple example.',
-  'How do I solve time-and-work problems faster?',
+// Suggestions: two built from the student's own recommended topics (real progress
+// data), topped up with general ones. Tags say what kind of help each is.
+const GENERAL = [
+  { tag: 'Compare', text: 'When should I use a sliding window instead of two pointers?' },
+  { tag: 'Practice', text: 'Give me 3 medium dynamic programming practice problems.' },
+  { tag: 'Explain', text: 'Explain database normalisation with a simple example.' },
+  { tag: 'Shortcut', text: 'How do I solve time-and-work problems faster?' },
 ]
+const recommended = ref([])
+onMounted(async () => {
+  try {
+    recommended.value = (await progressApi.plan()).recommended_topics.slice(0, 2)
+  } catch {
+    recommended.value = [] // suggestions still work without personal ones
+  }
+})
+const suggestions = computed(() => {
+  const personal = recommended.value.map((t, i) =>
+    i === 0
+      ? { tag: 'Your next topic', text: `Teach me ${t.name} from the basics, with one worked example.` }
+      : { tag: 'Your next topic', text: `Quiz me with 3 quick questions on ${t.name}.` },
+  )
+  return [...personal, ...GENERAL].slice(0, 4)
+})
 function useSuggestion(text) {
   chat.send({ content: text })
 }
@@ -204,7 +224,10 @@ function useSuggestion(text) {
       <div v-else-if="loading" class="mt-8"><KSkeleton :lines="6" height="1.25rem" /></div>
 
       <template v-else>
-        <ChatThread :messages="chat.messages.value">
+        <ChatThread :messages="chat.messages.value" :conversation-key="chat.conversation.value?.id ?? 'new'">
+          <template v-if="question" #before>
+            <QuestionContextCard :question="question" />
+          </template>
           <template #empty>
             <div class="flex flex-col gap-8 pt-8">
               <div>
@@ -226,15 +249,16 @@ function useSuggestion(text) {
                 </span>
                 <span class="k-label inline-flex shrink-0 items-center gap-2 text-xs">Build my plan <KIcon name="arrow-up-right" :size="14" /></span>
               </RouterLink>
-              <ul class="grid grid-cols-1 gap-3 sm:grid-cols-2">
-                <li v-for="s in suggestions" :key="s">
+              <ul class="grid grid-cols-1 gap-3 sm:grid-cols-2" aria-label="Suggested questions">
+                <li v-for="(s, i) in suggestions" :key="s.text" class="k-rise" :style="{ '--i': i }">
                   <button
                     type="button"
-                    class="h-full w-full bg-surface p-4 text-left text-sm transition-colors hover:bg-raised hover:text-accent-text disabled:opacity-50"
+                    class="k-lift group flex h-full w-full flex-col gap-2 border border-rule-soft bg-surface p-4 text-left hover:border-rule disabled:opacity-50"
                     :disabled="chat.streaming.value"
-                    @click="useSuggestion(s)"
+                    @click="useSuggestion(s.text)"
                   >
-                    {{ s }}
+                    <span class="k-eyebrow text-[10px]" :class="s.tag === 'Your next topic' ? 'text-accent-text' : 'text-muted'">{{ s.tag }}</span>
+                    <span class="text-sm leading-relaxed group-hover:text-accent-text">{{ s.text }}</span>
                   </button>
                 </li>
               </ul>

@@ -141,7 +141,7 @@ onBeforeUnmount(() => {
         <div class="flex min-h-0 flex-1 flex-col px-5 sm:px-7">
           <KErrorState v-if="loadError" class="mt-6" :message="loadError.message" @retry="loadForQuestion(question.slug)" />
           <div v-else-if="loading" class="flex flex-1 items-center justify-center text-sm text-muted">Loading…</div>
-          <ChatThread v-else :messages="chat.messages.value">
+          <ChatThread v-else :messages="chat.messages.value" :conversation-key="chat.conversation.value?.id ?? 'new'">
             <template #empty>
               <div class="flex flex-col gap-4 pt-6">
                 <p class="k-serif text-4xl leading-tight">Stuck? Start small.</p>

@@ -7,6 +7,7 @@
 import { onBeforeUnmount, reactive, ref, watch } from 'vue'
 import { useRouter } from 'vue-router'
 
+import KAssistantMark from '@/components/assistant/KAssistantMark.vue'
 import KButton from '@/components/ui/KButton.vue'
 import KErrorState from '@/components/ui/KErrorState.vue'
 import KEyebrow from '@/components/ui/KEyebrow.vue'
@@ -140,7 +141,22 @@ const steps = [
 
         <div class="flex flex-col gap-3 sm:flex-row sm:items-center sm:gap-6">
           <KButton type="submit" :loading="submitting" :disabled="submitting">Generate my preparation plan</KButton>
-          <p v-if="submitting" class="text-sm text-muted" aria-live="polite">{{ stages[stage] }} This takes about 10 seconds.</p>
+          <div v-if="submitting" class="flex items-start gap-3" aria-live="polite">
+            <KAssistantMark active :size="18" class="mt-0.5" />
+            <div>
+              <p class="text-sm">{{ stages[stage] }}</p>
+              <!-- Stage dots: done · current · upcoming (purely visual; the text above is announced) -->
+              <p class="mt-2 flex gap-1.5" aria-hidden="true">
+                <span
+                  v-for="(s, i) in stages"
+                  :key="s"
+                  class="h-[3px] w-6 transition-colors duration-500"
+                  :class="i < stage ? 'bg-accent' : i === stage ? 'bg-accent/50' : 'bg-rule-soft'"
+                />
+              </p>
+              <p class="mt-2 text-xs text-muted">This usually takes about 10 seconds.</p>
+            </div>
+          </div>
         </div>
       </form>
     </section>

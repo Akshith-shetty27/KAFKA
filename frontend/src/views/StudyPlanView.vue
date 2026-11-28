@@ -25,6 +25,8 @@ const loading = ref(false)
 const error = ref(null)
 const toast = useToast()
 const pending = ref(new Set())
+// The item ticked most recently on this page (plays a short confirmation).
+const justTicked = ref(null)
 
 async function load(id) {
   loading.value = true
@@ -54,6 +56,7 @@ async function toggle(item) {
   if (pending.value.has(item.id)) return
   const next = !item.completed
   item.completed = next // optimistic
+  justTicked.value = next ? item.id : null
   pending.value.add(item.id)
   try {
     await prepApi.setItemCompleted(plan.value.id, item.id, next)
@@ -159,7 +162,7 @@ function patternLink(p) {
         <section class="order-1 min-w-0 lg:order-none lg:col-span-8" aria-labelledby="roadmap-title">
           <KEyebrow id="roadmap-title" as="h2">Your roadmap</KEyebrow>
           <ol class="mt-6 flex flex-col gap-12">
-            <li v-for="(phase, p) in plan.phases" :key="phase.id">
+            <li v-for="(phase, p) in plan.phases" :key="phase.id" v-reveal>
               <header class="flex flex-wrap items-baseline justify-between gap-x-6 gap-y-1 border-t border-rule pt-5">
                 <h3 class="text-2xl font-medium tracking-tight">
                   <span class="mr-3 font-mono text-base text-muted">{{ String(p + 1).padStart(2, '0') }}</span>{{ phase.title }}
@@ -174,7 +177,10 @@ function patternLink(p) {
                     <button
                       type="button"
                       class="mt-0.5 flex size-6 shrink-0 items-center justify-center border transition-colors"
-                      :class="item.completed ? 'border-accent bg-accent text-on-accent' : 'border-muted hover:border-accent'"
+                      :class="[
+                        item.completed ? 'border-accent bg-accent text-on-accent' : 'border-muted hover:border-accent',
+                        justTicked === item.id ? 'k-status-pop' : '',
+                      ]"
                       :aria-pressed="item.completed"
                       :aria-label="`${item.completed ? 'Mark not done' : 'Mark done'}: ${item.title}`"
                       :disabled="pending.has(item.id)"

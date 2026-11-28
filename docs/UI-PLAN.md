@@ -1,6 +1,6 @@
 # KAFKA — UI/UX & Interaction Transformation Plan
 
-Status: **Stages 1–4 done** — see §7. GSAP and Three.js approved; Three.js is added in Stage 6.
+Status: **Stages 1–5 done** — see §7. GSAP and Three.js approved; Three.js is added in Stage 6.
 Scope: frontend only. No backend, model, API-contract or environment changes are needed for anything below.
 
 ---
@@ -209,3 +209,23 @@ Same APIs as before plus `/topics/` (already public to the app); no backend chan
   re-open → none, MCQ wrong → shake + "Not quite." + no toast, reset → classes cleared, correct → pop + toast,
   keyboard tab order on a coding question, phone layout (no sideways scroll).
 - **Bundle:** question chunk 8.6 KB gzip, practice 4.8 KB; app shell +0.03 KB.
+
+### Stage 5 — Ask KAFKA & study plans (done)
+
+Frontend only; existing AI service, streaming and APIs unchanged.
+
+- **Message entrance:** messages added during the session rise in (`TransitionGroup`); the list is keyed per
+  conversation, so loaded history appears at once (verified: 0 entrance animations on reload). Also in the
+  question drawer.
+- **Question context card:** a conversation about a question shows what KAFKA is looking at — title, type, topic,
+  difficulty and the student's status (from `GET /questions/{slug}/`, read-only) — linking back to the question.
+- **Suggestions:** chips with a kind tag; the first two are built from the student's real recommended topics
+  (`/progress/plan`), topped up with general ones; staggered entrance and `k-lift`.
+- **Copy reply** under each finished KAFKA message (`KCopyButton` gained an `inline` variant).
+- **Study plans:** generating state shows KAFKA's active mark, the current stage and four stage bars; plan phases
+  reveal on scroll; ticking an item pops its checkbox.
+- **Verified:** personal suggestions (Arrays, Percentages for the seeded account), context card (Merge Overlapping
+  Intervals · Arrays · Medium · In progress), a live Groq hint (streamed, escalated to "Hint 2 of 3", Copy reply
+  shown), history reload without animation, plan item tick (1/4, pop), generating state (request intercepted to
+  avoid spending Groq quota), phone layout. Offline (`fake`) mode wasn't re-run — it would need a server restart.
+- **Bundle:** Ask KAFKA chunk 4.5 KB gzip; chat chunk 75.4 KB (+0.5); app shell unchanged.

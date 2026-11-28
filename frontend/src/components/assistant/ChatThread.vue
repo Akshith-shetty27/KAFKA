@@ -9,6 +9,8 @@ import ChatMessage from './ChatMessage.vue'
 
 const props = defineProps({
   messages: { type: Array, required: true },
+  /** Re-mounts the list per conversation, so loaded history appears at once and only new messages animate. */
+  conversationKey: { type: [String, Number], default: 'new' },
 })
 
 const scroller = ref(null)
@@ -42,8 +44,17 @@ watch(
 <template>
   <div ref="scroller" class="min-h-0 flex-1 overflow-y-auto" role="log" aria-live="polite" aria-label="Conversation" @scroll="onScroll">
     <div class="flex flex-col gap-8 px-1 py-6">
+      <slot name="before" />
       <slot v-if="!messages.length" name="empty" />
-      <ChatMessage v-for="m in messages" :key="m.id" :message="m" />
+      <TransitionGroup
+        :key="conversationKey"
+        tag="div"
+        class="flex flex-col gap-8"
+        enter-active-class="transition duration-400 ease-[var(--ease-out-soft)]"
+        enter-from-class="translate-y-3 opacity-0"
+      >
+        <ChatMessage v-for="m in messages" :key="m.id" :message="m" />
+      </TransitionGroup>
     </div>
   </div>
 </template>

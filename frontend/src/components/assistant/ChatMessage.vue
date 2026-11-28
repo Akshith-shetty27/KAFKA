@@ -1,4 +1,5 @@
 <script setup>
+import KCopyButton from '@/components/ui/KCopyButton.vue'
 import KMarkdown from '@/components/ui/KMarkdown.vue'
 
 import KAssistantMark from './KAssistantMark.vue'
@@ -36,5 +37,8 @@ const STATUS_NOTE = {
     <KMarkdown v-else :source="message.content" />
     <span v-if="message.status === 'streaming' && message.content" class="ml-0.5 inline-block h-4 w-1.5 animate-pulse bg-accent align-middle" aria-hidden="true" />
     <p v-if="STATUS_NOTE[message.status]" class="k-eyebrow mt-3 text-[10px] text-muted">{{ STATUS_NOTE[message.status] }}</p>
+    <div v-if="message.status !== 'streaming' && message.content" class="mt-3 flex">
+      <KCopyButton :text="message.content" label="Copy reply" variant="inline" />
+    </div>
   </div>
 </template>
